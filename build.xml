@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="about" name="Open Language Tools">
+   
+    <target name="about">
+     <echo>This is the Open Language Tools build file. Valid targets are :</echo>
+     <echo>about [no others yet]</echo>
+    </target>
+      
+</project>
