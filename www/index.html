@@ -1,53 +1,57 @@
-<h3>Project Description</h3>
+<!-- Appears under a banner called "Description" -->
 
 <p>The Open Language Tools are a set of translation tools that aim to make the
-task of translating software and documentation a lot easier. Initially,
-they comprise of a full-featured XLIFF Translation Editor and a set of XLIFF
-file-filters for a number of documentation and software file formats.
+    task of translating software and documentation a lot easier. Initially,
+    they comprise of a full-featured XLIFF Translation Editor and a set of XLIFF
+    file-filters for a number of documentation and software file formats.
 </p>
 
 <p>Our intended audience is translators of software and documentation - both
 professional translators and those just doing it for kicks !</p>
 <p>
-The current list of supported file formats is :
+    The current list of supported file formats is :
 </p>
 
 <p><strong>Documentation file types</strong>
 </p><ul>
-<li>HTML</li>
-<li>Docbook SGML</li>
-<li>XML (generic - needs a configuration file for each XML type)</li>
-<li>OpenOffice.org : sxw, sxc, sxi</li>
-<li>plain text</li>
+    <li>HTML</li>
+    <li>Docbook SGML</li>
+    <li>XML (generic - needs a configuration file for each XML type)</li>
+    <li>OpenOffice.org : sxw, sxc, sxi</li>
+    <li>plain text</li>
 </ul>
 
 <strong>Software file types</strong>
 <ul>
-<li>PO (gettext)</li>
-<li>msg/tmsg (catgets)</li>
-<li>Java .properties</li>
-<li>Java ResourceBundle</li>
-<li>Mozilla .DTD resource files</li>
+    <li>PO (gettext)</li>
+    <li>msg/tmsg (catgets)</li>
+    <li>Java .properties</li>
+    <li>Java ResourceBundle</li>
+    <li>Mozilla .DTD resource files</li>
 </ul>
 
 <p>Some more information on translation tools in general, and these tools 
-in particular, can be seen over on <a href="http://blogs.sun.com/timf/">
-Tim's Web Log</a> - <strong>check out the
-<a href="http://blog.sun.com/roller/resources/timf/editor-demo.html">
-XLIFF Editor demo</a> !</strong>
+    in particular, can be seen over on <a href="http://blogs.sun.com/timf/">
+    Tim's Web Log</a> - <strong>check out the
+    <a href="http://blog.sun.com/roller/resources/timf/editor-demo.html">
+    XLIFF Editor demo</a> !</strong>
 </p>
 
-<h3>Philosophy</h3>
+<br/>
+<h4>Philosophy</h4>
+<blockquote>
+    <p>We believe that computers are tools that should help people - in our case,
+    we want computers to help translators. Anything that can be done to help them   
+    improve the quality of their work, or reduce the amount of time it takes to 
+    do translation is definitely within the scope of this project. We strongly 
+    believe in the value of shared open standards - everything we do should be 
+    based on open standards, and should interoperate via those standards. 
+    Finally, taking a leaf from the OpenSolaris developers, we strive for 
+    <em>FCS Quality All The Time!</em></p>
+</blockquote>
 
-<p>We believe that computers are tools that should help people - in our case, we
-want computers to help translators. Anything that can be done to help them improve 
-the quality of their work, or reduce the amount of time it takes to do translation
-is definitely within the scope of this project. We strongly believe in the value
-of shared open standards - everything we do should be based on open standards, 
-and should interoperate via those standards. Finally, taking a leaf from the OpenSolaris
-developers, we strive for <em>FCS Quality All The Time!</em></p>
-
-
+<br/>
+<br/>
 <h3>Releases</h3>
 
 <p>As there's no code available in the Open Language Tools project <strong>yet</strong>,
@@ -57,6 +61,8 @@ open source it) All development of the editor will now take place within the
 Open Language Tools project.</p>
 
 
+<br/>
+<br/>
 <h3>Call for help !</h3>
 
 <p>We're interested in people working with us at <strong>all</strong> levels, 
@@ -69,42 +75,45 @@ you work in any (or all, if you're super talented!) of these categories :</p>
 
 <ul>
 
-<li><strong>Users</strong> - Do you use translation tools ? We'd love to hear your 
-<a href="mailto:users@open-language-tools.dev.java.net">feedback !</a></li>
+    <li><strong>Users</strong> - Do you use translation tools ? We'd love to hear your 
+    <a href="mailto:users@open-language-tools.dev.java.net">feedback !</a></li>
 
-<li><strong>Testers</strong> - Do you think we've got bugs in our tools ? 
-<a href="mailto:users@open-language-tools.dev.java.net">let us know</a> 
-(and <a href="https://open-language-tools.dev.java.net/servlets/ProjectIssues">
-file an issue</a> at the same time !) <small>I'm still working on configuring the
-issue tracker</small></li>
+    <li><strong>Testers</strong> - Do you think we've got bugs in our tools ? 
+    <a href="mailto:users@open-language-tools.dev.java.net">let us know</a> 
+    (and <a href="https://open-language-tools.dev.java.net/servlets/ProjectIssues">
+    file an issue</a> at the same time !) <small>I'm still working on configuring the
+    issue tracker</small></li>
 
-<li><strong>GUI Developers</strong> - are you proficient in Swing, if so the Translation Editor <a href="mailto:dev@open-language-tools.dev.java.net">could use your help</a>.</li>
+    <li><strong>GUI Developers</strong> - are you proficient in Swing, if so the 
+    Translation Editor <a href="mailto:dev@open-language-tools.dev.java.net">could 
+    use your help</a>.</li>
 
-<li><strong>Filter Developers</strong> - maybe you're a command-line junkie (like me) or you're
-an expert in file formats we don't yet cover, you might be interested in looking
-at the XLIFF Filters : <a href="mailto:dev@open-language-tools.dev.java.net">drop
-us a mail</a></li>
+    <li><strong>Filter Developers</strong> - maybe you're a command-line junkie 
+    (like me) or you're an expert in file formats we don't yet cover, you might 
+    be interested in looking at the XLIFF Filters : 
+    <a href="mailto:dev@open-language-tools.dev.java.net">drop us a mail</a></li>
 
-<li><strong>i18n Developers</strong> - while everything we do in the Open Language
-Tools is based around Unicode, we haven't yet written proper messaging-handling
-support into our code, so are in the embarassing situation of writing translation
-tools that can't actually be translated ! We 
-<a href="mailto:dev@open-language-tools.dev.java.net">need your help !</a></li>
+    <li><strong>i18n Developers</strong> - while everything we do in the Open Language
+    Tools is based around Unicode, we haven't yet written proper messaging-handling
+    support into our code, so are in the embarassing situation of writing translation
+    tools that can't actually be translated ! We 
+    <a href="mailto:dev@open-language-tools.dev.java.net">need your help !</a></li>
 
-<li><strong>Technical writers</strong> - think you can do a better job documenting
-our software ? (probably not too hard!)
-Please, let us know ! We don't have much
-<a href="https://open-language-tools.dev.java.net/servlets/ProjectDocumentList">
-documentation</a> at the moment.</li>
+    <li><strong>Technical writers</strong> - think you can do a better job documenting
+    our software ? (probably not too hard!)
+    Please, let us know ! We don't have much
+    <a href="https://open-language-tools.dev.java.net/servlets/ProjectDocumentList">
+    documentation</a> at the moment.</li>
 
-<li><strong>Translators</strong> - apart from being the experts in translation
-tools, maybe you'd like to work translating our software or documentation into 
-other languages ? <a href="mailto:dev@open-language-tools.dev.java.net">Send us
-email</a></li>
+    <li><strong>Translators</strong> - apart from being the experts in translation
+    tools, maybe you'd like to work translating our software or documentation into 
+    other languages ? <a href="mailto:dev@open-language-tools.dev.java.net">Send us
+    email</a></li>
 </ul>
 
 <p>I'm sure there's other areas we need help in - in fact, maybe we need help in
-determining <em>where</em> we need help !</p> We'd really appreciate your input.
+determining <em>where</em> we need help !</p> 
+<p>We'd really appreciate your input.</p>
 
 
 <br/>
