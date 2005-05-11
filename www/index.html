@@ -1,45 +1,114 @@
-<html>
-<head>
-<title>Open Language Tools Project Home Page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-</head>
+<h3>Project Description</h3>
 
-<body bgcolor="#FFFFFF" text="#000000">
-<h1>Default project home page </h1>
-<p>Congratulations on your new java.net project! </p>
-<p>This page is the home page for your new project. This content is appearing 
-  because you have selected the option <b>Use project index.html</b>. To edit 
-  the information displayed on this page, just use CVS to check out your project's 
-  CVS repository and edit index.html in directory www. You can get more information 
-  on how to set-up your local CVS client, click on <b>Version Control</b> on the 
-  left nav bar. </p>
-<p>If you don't want to use CVS to manage your home page, click on the <b>Edit 
-  project</b> link on this page and unclick the option <b>Use project index.html</b>. 
-  Your project home page contents will be generated from the <b>Edit project</b> 
-  field <b>Description</b>. Edit the text on that field to change your home page 
-  contents. Click on <b>Submit changes</b> to save your edits. </p>
-<p>If you are looking for <a href="https://java-net.dev.java.net/ProjectPages.html#templates">sample 
-  home page templates</a>, check out the <a href="https://java-net.dev.java.net/ProjectPages.html">java.net 
-  Project Starter Kit</a>. Copy either of the templates into your project's html 
-  to get started on your project's home page. </p>
-<p>You can find lots of helpful information in the Starter Kit to get your project 
-  started. Some of the things you will find in there include:</p>
-<ul>
-  <li>Hints on how to <a href="https://java-net.dev.java.net/ProjectPages.html#pages">set-up 
-    your project's</a> home page</li>
-  <li>Ideas on how to <a href="https://java-net.dev.java.net/ProjectPages.html#publicity">publicize 
-    your project</a> including RSS feeds</li>
-  <li>Hints on <a href="https://java-net.dev.java.net/pagedesign.html">project 
-    page HTML</a></li>
-  <li>Setting up project <a href="https://java-net.dev.java.net/ProjectPages.html#wiki">wiki 
-    pages</a></li>
-  <li>And places to go if <a href="https://java-net.dev.java.net/ProjectPages.html#feedback">you 
-    have questions</a>.</li>
+<p>The Open Language Tools are a set of translation tools that aim to make the
+task of translating software and documentation a lot easier. Initially,
+they comprise of a full-featured XLIFF Translation Editor and a set of XLIFF
+file-filters for a number of documentation and software file formats.
+</p>
+
+<p>Our intended audience is translators of software and documentation - both
+professional translators and those just doing it for kicks !</p>
+<p>
+The current list of supported file formats is :
+</p>
+
+<p><strong>Documentation file types</strong>
+</p><ul>
+<li>HTML</li>
+<li>Docbook SGML</li>
+<li>XML (generic - needs a configuration file for each XML type)</li>
+<li>OpenOffice.org : sxw, sxc, sxi</li>
+<li>plain text</li>
 </ul>
-<p>Remember that you will attract more new members and your project team will 
-  work more effectively if you, as the project owner, supply sufficient information 
-  about your project for visitors to your project space. Good luck with your new 
-  project! </p>
-</body>
-</html>
 
+<strong>Software file types</strong>
+<ul>
+<li>PO (gettext)</li>
+<li>msg/tmsg (catgets)</li>
+<li>Java .properties</li>
+<li>Java ResourceBundle</li>
+<li>Mozilla .DTD resource files</li>
+</ul>
+
+<p>Some more information on translation tools in general, and these tools 
+in particular, can be seen over on <a href="http://blogs.sun.com/timf/">
+Tim's Web Log</a> - <strong>check out the
+<a href="http://blog.sun.com/roller/resources/timf/editor-demo.html">
+XLIFF Editor demo</a> !</strong>
+</p>
+
+<h3>Philosophy</h3>
+
+<p>We believe that computers are tools that should help people - in our case, we
+want computers to help translators. Anything that can be done to help them improve 
+the quality of their work, or reduce the amount of time it takes to do translation
+is definitely within the scope of this project. We strongly believe in the value
+of shared open standards - everything we do should be based on open standards, 
+and should interoperate via those standards. Finally, taking a leaf from the OpenSolaris
+developers, we strive for <em>FCS Quality All The Time!</em></p>
+
+
+<h3>Releases</h3>
+
+<p>As there's no code available in the Open Language Tools project <strong>yet</strong>,
+we don't have any releases. (For what it's worth, inside Sun, the XLIFF Editor
+was at release 4.5 and was still being actively developed before we decided to
+open source it) All development of the editor will now take place within the
+Open Language Tools project.</p>
+
+
+<h3>Call for help !</h3>
+
+<p>We're interested in people working with us at <strong>all</strong> levels, 
+there's mailing lists set up for developers and users and we've got an 
+issue-tracking system that it waiting to be filled with bug reports !</p>
+
+<p>Here's a few categories you as a member of the Open Language Tools project 
+might fall into - these are all areas that we need help in, so we'd love to have
+you work in any (or all, if you're super talented!) of these categories :</p>
+
+<ul>
+
+<li><strong>Users</strong> - Do you use translation tools ? We'd love to hear your 
+<a href="mailto:users@open-language-tools.dev.java.net">feedback !</a></li>
+
+<li><strong>Testers</strong> - Do you think we've got bugs in our tools ? 
+<a href="mailto:users@open-language-tools.dev.java.net">let us know</a> 
+(and <a href="https://open-language-tools.dev.java.net/servlets/ProjectIssues">
+file an issue</a> at the same time !) <small>I'm still working on configuring the
+issue tracker</small></li>
+
+<li><strong>GUI Developers</strong> - are you proficient in Swing, if so the Translation Editor <a href="mailto:dev@open-language-tools.dev.java.net">could use your help</a>.</li>
+
+<li><strong>Filter Developers</strong> - maybe you're a command-line junkie (like me) or you're
+an expert in file formats we don't yet cover, you might be interested in looking
+at the XLIFF Filters : <a href="mailto:dev@open-language-tools.dev.java.net">drop
+us a mail</a></li>
+
+<li><strong>i18n Developers</strong> - while everything we do in the Open Language
+Tools is based around Unicode, we haven't yet written proper messaging-handling
+support into our code, so are in the embarassing situation of writing translation
+tools that can't actually be translated ! We 
+<a href="mailto:dev@open-language-tools.dev.java.net">need your help !</a></li>
+
+<li><strong>Technical writers</strong> - think you can do a better job documenting
+our software ? (probably not too hard!)
+Please, let us know ! We don't have much
+<a href="https://open-language-tools.dev.java.net/servlets/ProjectDocumentList">
+documentation</a> at the moment.</li>
+
+<li><strong>Translators</strong> - apart from being the experts in translation
+tools, maybe you'd like to work translating our software or documentation into 
+other languages ? <a href="mailto:dev@open-language-tools.dev.java.net">Send us
+email</a></li>
+</ul>
+
+<p>I'm sure there's other areas we need help in - in fact, maybe we need help in
+determining <em>where</em> we need help !</p> We'd really appreciate your input.
+
+
+<br/>
+<br/>
+<br/>
+<p>These tools will be available under the terms of the Common Development and
+Distribution License (CDDL).</p>
