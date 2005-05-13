@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+    <head>
+        <title>Open Language Tools XLIFF Filters</title>
+    </head>
+    <body>
+        <h1>Open Language Tools XLIFF Filters</h1>
+  
+        <style type="text/css">
+            p.author {text-align: right}
+        </style>
+        <blockquote>
+            <p class="author">Tim Foster</p>
+        </blockquote>
+  
+        <h3>Introduction</h3>
+  
+        <p>This short article is being written to serve as a short introduction to the
+        XLIFF Filters, released as part of the Open Language Tools. It's not going to
+        get too technical, so everybody should be able to find it useful !
+  
+        <h3>Why XLIFF Filters ?</h3>
+  
+        <p>XLIFF is a standard file format that aims to hide the complexity of source
+        file formats from translators and tools providers, and allow information about
+        the various steps that are often done in localisation processes be carried
+        along with the file being translated.</p>
+  
+        <p>For example, rather than needing to maintain a separate log file with information 
+        about the wordcount of a file, or notes from translators, or information about the
+        original context of the source file, in XLIFF, all of this information is carried
+        inside the file itself. This has a number of advantages, but in particular, it
+        means that people processing these files are always going to have the most up
+        to date information about the file, whatever stage it's at in the localisation
+        process.</p>
+  
+        <p>Another advantage is, that once we have a standard file format, translation
+        tools can be written that only need to process XLIFF files - as soon as your
+        source file has been converted to XLIFF, other tools further down the localisation
+        process-chain do not need to be aware of any details about the source file format.</p>
+  
+        <p>The problem is, that so far, there aren't many freely available XLIFF filters
+        around, so translators have not had the choice of using many different translation tools.</p>
+  
+        <p>The <strong>Open Language Tools</strong> project aims to provide a set of XLIFF 
+        filters for a number of common source file formats, so that others can work on
+        translation tools to further enhance translator productivity which work with XLIFF
+        files.</p>
+  
+        <h3>What is an XLIFF filter ?</h3>
+ 
+        <p>There are a few things that an XLIFF filter does :</p>
+        <ul>
+            <li>Parsing input file</li>
+            <li>Breaking file into "blocks"</li>
+            <li>Sentence-segmenting each "block"</li>
+            <li>Writing XLIFF file</li>
+        </ul>
+        
+        <p>Here's a quick diagram which shows you these steps :</p>
+        <p><img src="xliff-filter-process.png" alt="A diagram showing what an XLIFF filter does"/>
+        </p>
+        
+        <p>I'll explain each of these steps one by one in the following sections.</p>
+        
+        <h4>Parsing input file</h4>
+        <p>todo</p>
+        
+        <h4>Breaking file into "blocks"</h4>
+        <p>todo</p>
+        
+        <h4>Sentence-segmenting each "block"</h4>
+        <p>todo</p>
+        
+        <h4>Writing XLIFF file</h4>
+        
+        <h3>Conclusion</h3>
+  
+    </body>
+</html>
