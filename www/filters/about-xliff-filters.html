@@ -4,16 +4,30 @@
     <head>
         <title>Open Language Tools XLIFF Filters</title>
     </head>
+    <style type="text/css">
+            p.author {text-align: right}
+        </style>
     <body>
         <h1>Open Language Tools XLIFF Filters</h1>
   
-        <style type="text/css">
-            p.author {text-align: right}
-        </style>
+        
         <blockquote>
             <p class="author">Tim Foster</p>
         </blockquote>
+        
+        <!-- table of contents -->
+        <h3>Contents</h3>
+        <p>
+            <dl>
+                <dt><a href="#introduction">Introduction</a></dt>
+                <dt><a href="#why_xliff">Why XLIFF Filters ?</a></dt>
+                <dt><a href="#what_xliff">What is an XLIFF filter ?</a></dt>
+                <dt><a href="#conclusion">Conclusion</a></dt>
+                <dt><a href="#resources">Resources</a></dt>
+            </dl>
+        </p>
   
+        <a name="introduction"></a>
         <h3>Introduction</h3>
   
         <p>This article is being written to serve as a short introduction to the
@@ -21,6 +35,7 @@
         what the filters are, why they're needed and describes a little of what
         they do behind the scenes.
   
+        <a name="why_xliff"></a>
         <h3>Why XLIFF Filters ?</h3>
   
         <p>XLIFF is a standard file format that aims to hide the complexity of source
@@ -44,11 +59,12 @@
         <p>The problem is, that so far, there aren't many freely available XLIFF filters
         around, so translators have not had the choice of using many different translation tools.</p>
   
-        <p>The <strong>Open Language Tools</strong> project aims to provide a set of XLIFF 
+        <p>The Open Language Tools project aims to provide a set of XLIFF 
         filters for a number of common source file formats, so that others can work on
         translation tools to further enhance translator productivity which work with XLIFF
         files.</p>
   
+        <a name="what_xliff"></a>
         <h3>What is an XLIFF filter ?</h3>
  
         <p>Simply put, an XLIFF filter needs to read the source file, separate the
@@ -67,7 +83,7 @@
             <li>Write Skeleton file</li>
         </ul>
         
-        <p>Here's a quick diagram which shows you these steps and explains a little more what
+        <p>Here's a diagram which shows you these steps and explains a little more what
         they're intended to do:</p>
         <p><img src="xliff-filter-process.png" alt="A diagram showing what an XLIFF filter does"/>
         </p>
@@ -121,7 +137,7 @@
             <em>gettext .PO</em> file comments, or <em>JavaScript</em> comments found in the input file.
             Generally, we would also be interested in computing a word-count of each segment, so that
             translators can keep track of how much of the file has been translated at any one time. The
-            <strong>Open Language Tools</strong> XLIFF filters store the XLIFF file in a file with the 
+            Open Language Tools XLIFF filters store the XLIFF file in a file with the 
             <code>xlf</code> extension. However, see the next section for more details on this.
         </p>
         
@@ -141,6 +157,7 @@
             OpenOffice.org file formats are processed.
         </p>
         
+        <a name="conclusion"></a>
         <h3>Conclusion</h3>
         <p>This article has given a brief introduction to the XLIFF file filters. While it doesn't cover
         either the details of the technical implementations of the filters, nor does it cover the usage
@@ -150,10 +167,29 @@
         article, we'd love to hear your feedback on the <a href="mailto:dev@open-language-tools.dev.java.net">
         dev@open-language-tools.dev.java.net</a> mail alias.</p>
         
+        <a name="resources"></a>
         <h3>Resources</h3>
-        <p>todo: `<em>Need to link to Tim's weblog posts on translation tools, the XLIFF specification
-        and other freely avaiable XLIFF filter implementations (freedesktop.org xliff-tools project
-        and any others I can find)</em></p>
+        <p>These are some more articles and links about XLIFF :</p>
+        <p>
+            <ul>        
+                <li><a href="http://www.oasis-open.org/committees/xliff/documents/xliff-specification.htm">
+                XLIFF Specification</a></li>
+        
+                <li><a href="http://blogs.sun.com/roller/page/timf/20040813#how_to_write_a_tm4">
+                A series of articles on How To Write a TM System</a> on
+                <a href="http://blogs.sun.com/timf">Tim's Web Log</a></li>
+        
+                <li><a href="http://xliff-tools.freedesktop.org/">The XLIFF-Tools Project</a>
+                on Freedesktop.org</li>
+        
+                <li><a href="http://developers.sun.com/dev/gadc/technicalpublications/articles/xliff.html">
+                What is XLIFF ?</a> an article on <a href="http://developers.sun.com">
+                http://developers.sun.com</a></li>
+        
+                <li><a href="http://developers.sun.com/dev/gadc/technicalpublications/whitepapers/translation_technology_sun.html">
+                Translation Technology at Sun Microsystems</a></li>
+            </ul>
+        </p>
   
     </body>
 </html>
