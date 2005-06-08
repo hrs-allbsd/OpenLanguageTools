@@ -33,24 +33,29 @@
             <ul>
                 <li><strong>XLIFF 1.1 Support</strong><br/>
                     <small>(<a href="#xliff11">description</a>)</small>
-                    <small>([issue no. link here])</small></li>
+                    <small>(<a href="https://open-language-tools.dev.java.net/issues/show_bug.cgi?id=2">Issue 2</a>)</small></li>
                     
                 <li><strong>Support for OASIS OpenDocument format, including multiple 
                     &lt;file&gt; elements</strong><br/>
                     <small>(<a href="#opendoc">description</a>)</small>
-                    <small>([issue no. link here])</small></li>
+                    <small>(<ahref="https://open-language-tools.dev.java.net/issues/show_bug.cgi?id=3">Issue 3</a>)</small></li>
                     
                 <li><strong>XLIFF Recommendation compliance</strong><br/>
                     <small>(<a href="#compliance">description</a>)</small>
-                    <small>([issue no. link here])</small></li>
+                    <small>(<a href="https://open-language-tools.dev.java.net/issues/show_bug.cgi?id=5">Issue 5</a>)</small></li>
                     
                 <li><strong>Internationalisation</strong><br/>
                     <small>(<a href="#i18n">description</a></small>
-                    <small>([issue no. link here])</small></li>
+                    <small>(<a href="https://open-language-tools.dev.java.net/issues/show_bug.cgi?id=4">Issue 4</a>)</small></li>
                     
                 <li><strong>Improve the segmenter</strong><br/>
                     <small>(<a href="#segmenter">description</a>)</small>
-                    <small>([issue no. link here])</small></li>
+                    <small>(<a href="https://open-language-tools.dev.java.net/issues/show_bug.cgi?id=6">Issue 6</a>)</small></li>
+
+               <li><strong>Implement SRX support in the segmenter</strong><br/>
+                    <small>(<a href="#srx">description</a>)</small>
+                    <small>(<a href="https://open-language-tools.dev.java.net/issues/show_bug.cgi?id=7">Issue 7</a)</small></li>
+                    
             </ul>
         </p>
   
@@ -111,6 +116,20 @@
             but not perfect. Particularly, it has problems dealing with abbreviations
             at the end of sentences. It would be good to improve the segmenter so
             that it's more robust.
+        </p>
+        
+        <a name="SRX"></a>
+        <h3>Implement SRX support in the segmenter </h3>
+        <p>Related to the previous item, and possibly superceding it, depending on
+        resources, we would like to implement a segmenter that includes support
+        the <a href="http://www.lisa.org/oscar/seg/">SRX file format</a>. SRX
+        stands for Segmentation Rules Exchange, and is an XML-based file format
+        that would allow users to tune the behaviour of the segmenter. This would
+        potentially make the segmenter easier to extend/alter by end users - which
+        would be quite useful. We'd also have to be careful here, since as soon as
+        people start using different segmentation behaviours, a possible outcome
+        is that their translation memories become incompatible. If we implement
+        this, we should also recommend a standard segmentation rule set.
         </p>
         
   
