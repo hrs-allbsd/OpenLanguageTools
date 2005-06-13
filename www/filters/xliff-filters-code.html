@@ -56,13 +56,13 @@
         <!-- Introduction -->
         <a name="introduction"></a>
         <h3>Introduction</h3>
-        <p>This document lists some of the notable directories in the
-            Open Language Tools XLIFF Filters, explains what they contain and notes
-            some details about them. It's purpose is to act as a guide to developers
-            looking at the source tree for the first time. While the code itself is
-            already quite well documented, there's been no documentation so far
-            that explains the entire source code at a high level. This document aims
-            to do that.
+        <p>This document lists some of the notable sections of the source code in the
+            Open Language Tools XLIFF Filters CVS repository, explains what they
+            contain and notes some details about them. It's purpose is to act as
+            a guide to developers looking at the source tree for the first time.
+            While the code itself is already quite well documented, there's been
+            no documentation so far that explains the entire source code at a
+            high level. This document aims to do that.
         </p>
         
         <p>It's arguable that the contents of this document should also be
@@ -72,7 +72,7 @@
         
         <a name="toplevel"></a>
         <h3>Top Level build directory</h3>
-        <p>The top level build directory contains the main ant build artifacts.
+        <p>The top level build directory contains the main ant build files.
             The <code>build.xml</code> file contains the main targets that initiate
             the building of the XLIFF Filters. The <code>common.xml</code> file
             is used by <em>all</em> build files in the workspace. It defines common
@@ -82,7 +82,7 @@
             in this common build file, and then all of the other scripts can
             reference this one. <code>build.ant.properties</code> and
             <code>common.properties</code> contains some variables that
-            developers may want to change before compilation.`
+            developers may want to change before compilation.
         </p>
         
         <!-- Utilities directory -->
@@ -112,7 +112,7 @@
     
         <a name="messageformat_parser"></a>
         <h4>messageformat_parser/</h4>
-        <p>The MessageFormatParser is a JavaCC/JJTree parser that can read text
+        <p>The MessageFormatParser is a JavaCC/JJTree parser that reads text
             that has been marked up for use by the methods provided by the
             <code>java.text.MessageFormat</code> class. Using this parser, and some
             code we'll mention later, we are
@@ -124,7 +124,7 @@
         <h4>non-conformant_sgml_doc_fragment/</h4>
         <p>The NonConformantSgmlDocFragmentParser is a JavaCC/JJTree parser that
             recognise sections of sgml-like text. It's called "non-conformant" since it
-            is not too strict about what it accepts as sgml-like text : quite often
+            is not strict about what it accepts as sgml-like text : quite often
             HTML files, for example, do not contain correct tagging. This class
             provides the file-parsing functionality of the HTML to XLIFF converter,
             and is also used elsewhere in the XLIFF filters and XLIFF Translation
@@ -136,7 +136,7 @@
         <p>The PrintfParser, like the MessageFormatParser, is a JavaCC/JJTree
             parser can recognise printf/gettext markup. Using this parser, and some
             code we'll mention later, we can wrap strings containing printf
-            statements with XLIFF  <code>&lt;mrk&gt;</code> elements.
+            statements with XLIFF <code>&lt;mrk&gt;</code> elements.
         </p>
     
         <a name="sgml_doc_fragment"></a>
@@ -160,10 +160,10 @@
         <a name="tagged_markup"></a>
         <h4>tagged_markup/</h4>
         <p>This directory contains abstractions that are used in the XLIFF filters
-            for all tagged-markup file types. The SGML, XML and HTML filters behave
+            for all tagged-markup file types. The SGML, XML, JSP and HTML filters behave
             the same way, so it made sense to build them on a common infrastructure.
             After the input file type has been parsed, the resulting parse tree is
-            seen as a set of TaggedMarkupNodes, rather than SGML, HTML or XML
+            viewed as a set of TaggedMarkupNodes, rather than SGML, JSP, HTML or XML
             contents.
         </p>
     
@@ -198,12 +198,12 @@
         <h4>format_handling/</h4>
         <p>An important part of the filters, this code contains a set of classes
             for converting strings in a source format into XLIFF and TMX equivalents.
-            It uses the parsers in the <code>utilities</code> directory in order to
-            recognise the different format types. As well as format-wrapping functions
+            It uses the parsers in the <code>utilities</code> directory to
+            recognise the different format types. As well as format-wrapping functions,
             the format_handling directory also contains format extracting functions
-            : these can be used in TM systems to determine what percentage a
-            a string is comprised of formatting (helpful when determining how close
-            a match a source string is to a target string)
+            : these can be used in TM systems to determine what percentage of a
+            a string is comprised of formatting (helpful when determining how similar
+            a source string is to a target string)
         </p>
     
         <a name="book_filter"></a>
@@ -219,7 +219,8 @@
         <h4>gui/</h4>
         <p>This contains the swing GUI code for the XLIFF filters. At the
             moment, it also contains a class that acts as a facade for the other
-            filters, providing a single point of entry for the rest of the filters.
+            filters, providing a single point of entry to the functionality of
+            the rest of the filters.
             This is code that would be a good candidate for refactoring, or moving
             into another subdirectory in the build tree.
         </p>
@@ -259,22 +260,22 @@
         <h4>segmenter_formatters/</h4>
         <p>The segmenter formatters contain a set of interfaces and
             implementations to allow the various filters to write different output.
-            For example, we have code there that can write plain XLIFF output,
+            For example, we have code that can write plain XLIFF output,
             a "reversed" XLIFF file, containing source, and a dummy translation,
-            as well as some test code, and code to output a mono-lingual TMX file.
+            as well as some debug output, and code to output a mono-lingual TMX file.
             (changing the filters to output XLIFF 1.1 should be just a case of
-            fixing this code, and also updating the <code>format_handling</code> code)
+            changing code here, and updating the <code>format_handling</code> code)
         </p>
         
         <a name="segmenters/"></a>
         <h4>segmenters/</h4>
-        <p>The heart of the documentation XLIFF filters, the segmenters take
+        <p>At the heart of the documentation XLIFF filters, the segmenters take
             in a block of text, and break them into sentences. We have segmenters
             for a number of languages, but they differ only in the abbreviations
-            they recognise. The segmenters are implemented as a JavaCC/JJTree
-            parser, which breaks the input text into sentences and formatting.
+            they recognise. The segmenters are implemented as JavaCC/JJTree
+            parsers, which breaks the input text into sentences and formatting.
             The segmenters also act as the underlying wordcounting mechanism for
-            wordcount statistics which are output to the XLIFF file : each word
+            the statistics which are output to the XLIFF file : each <code>word()</code>
             production in the parser contributes to the total wordcount.
         </p>
         
@@ -283,7 +284,7 @@
         <p>The sgml filter contains (arguably) the most complex piece of code
             in the XLIFF Filters - this is perhaps not a good thing. It's responsible
             for the SGML, HTML, JSP and XML filters - and attempts to intelligently
-            segment tagged-markup parse trees into sentences and produce XLIFF output
+            segment <code>tagged-markup</code> parse trees into sentences and produces XLIFF output
             via the <code>segmenter_formatters</code>. The SgmlSegmenterVisitor
             contains most of the functionality, with assistance from the
             SgmlSegmenterVisitorHelper class. This code would be a good candidate
@@ -294,9 +295,9 @@
         <a name="software_filters/"></a>
         <h4>software_filters/</h4>
         <p>The software filters contain JavaCC/JJTree parsers for all of the
-            supported software message filetypes. They also contain conversion to
-            XLIFF for these filetypes and a simple TMX producing class, which can
-            take a software message file and it's translated equivalent and output
+            supported software message filetypes. They also contain code that performs
+            conversion to XLIFF for these filetypes and a simple TMX producing class,
+            which can take a software message file and it's translated equivalent and output
             a TMX file. Finally, it contains a useful pretty-printer for software
             message files, which is used to output a cleanly formatted version of
             any software message file.
@@ -324,7 +325,8 @@
         <h4>xliff_validator/</h4>
         <p>This contains some <em>very</em> simple code which just passes an
             XLIFF file through a validating XML parser to make sure the contents
-            are both well-formed and conform to the XLIFF dtd.
+            are both well-formed and conform to the XLIFF dtd. This is useful
+            during debugging.
         </p>
         
         <a name="xml_config_parser/"></a>
@@ -332,7 +334,11 @@
         <p>The XML Configuration Manager manages the configuration files used
             by the XML filter. Files added to the manager are saved in a
             flat-file repository, and indexed so that they can be selected at
-            runtime when an XML file is presented for conversion to XLIFF.
+            runtime when an XML file is presented for conversion to XLIFF. Each
+            XML Filter configuration file lists which tags in the input XML document
+            are translatable, which are inline, which should have their contents
+            protected from segmentation, etc. The configuration file is in XML
+            format, and a DTD for this format is included.
         </p>
         
         <a name="xml_filter/"></a>
@@ -341,24 +347,28 @@
             functionality and also uses the XML Configuration Manager to select
             the correct filter configuration file (done by searching for either the
             namespace of the input XML document or the DOCTYPE declaration if one
-            was declared) and creates an object which implements the tagged_markup 
-            interfaces (SegmenterTable and TagTable).
+            was declared : each config file must specify one of these). The
+            configuration file manager then creates an object which implements the tagged_markup 
+            interfaces (SegmenterTable and TagTable) which can then be used by
+            the <code>sgml_filter</code> code.
         </p>
        
         <a name="backconverters"></a>
         <h3>Backconverters</h3>
         <p>This directory contains two components. The first is a generic backconverter
-            to walk down <code>skeleton.skl</code> files, printing each formatting
+            to walk down <code>skeleton.skl</code> files, outputting each formatting
             element. As it does this, it also references the <code>content.xlf</code>
             file, inserting translations whenever it encounters a placeholder for
-            translations. To do this, it assumes that the input is an <code>XLZ
-            </code> archive - that is a zip file containing both content and
-            skeleton files. It's conceivable that we could also write additional
-            code here that converts an XLIFF file into another file format, such
-            as a PO file, or other software message container, howver in essence,
-            it's function is to convert an XLIFF file
+            trans-unit elements from the content.xlf. To do this, it assumes that
+            the input is an <code>XLZ</code> archive - that is a zip file 
+            containing both content and skeleton files. It's conceivable that we
+            could also write additional code here that converts an XLIFF file into other
+            file formats, such as PO files, or other software message containers,
+            however in essence, it's function is to convert an XLIFF file
             back to it's original source format. The generic backconverter also contains
             some format-specific classes which further process the backconverter.
+        </p>
+        <p>
             The second component is an XLIFF to TMX converter, based around XSLT,
             this takes a fully translated XLIFF file, and converts it to TMX for
             future use with a translation memory application.
@@ -369,7 +379,7 @@
         <a name="conclusion"></a>
         <h3>Conclusion</h3>
         <p>This document has provided a lightning tour around the various
-            directories containing code for the Open Language Tools XLIFF Filters.
+            directories containing source code for the Open Language Tools XLIFF Filters.
             While it's not an exhaustive look at the functionality of the filters,
             it at least should provide some guidance to developers looking at the
             code for the first time. If you have any thoughts or comments on this
