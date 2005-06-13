@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+    <head>
+        <title>Open Language Tools XLIFF Filters Quickstart &amp; User's Guide</title>
+    </head>
+    <body>
+        <h1>Open Language Tools XLIFF Filters Quickstart &amp; User's Guide</title>  
+ 
+        <h2>Introduction</h2>
+        <p>This document serves as a quickstart guide and user manual for the
+            Open Language Tools XLIFF Filters. The filters are very simple to use
+            - just drag &amp; drop, so this will be a short document.
+        </p>
+  
+        <h2>Installation</h2>
+  
+        <p>To install the XLIFF Filters, first download the latest release of 
+        Java. The filters require at least release 1.4.2 <small><a href="#note">
+        (see note)</a></small>.
+        These can be obtained at
+        <a href="http://java.com">http://java.com</a> - follow the link on the
+        main page to obtain Java for your platform.
+
+        <p>Next you should download the appropriate binary of the filters which
+            is available on <a href="https://open-language-tools.dev.java.net/servlets/ProjectDocumentList?folderID=3440&expandFolder=3440&folderID=0">
+            the Releases section of our web site</a>, (or you could even 
+            <a href="xliff-filters-build.html">build them yourself</a>!).
+        </p>
+        <p>We have two possible builds available - the contents are the same for
+            each platform, but the installation actions are slightly different
+            to account for platform differences.
+        </p>
+        <ul>
+            <li>Windows : xliff_filters_v1_0_win.zip
+            <li>UNIX (including MacOSX) : xliff_filters_v1_0_unix.tar.gz
+        </ul>
+        
+        <p>Download the file for your platform and extract it from it's archive.
+            Having done that, then either double-click the <code>.jar</code> file
+            or issue the command <code>java -jar xliff_filters_v1_0_unix.jar</code>
+            or <code>java -jar xliff_filters_v1_0_win.jar</code> which will then
+            launch the installer program.
+        </p>
+        <p>The installer program will ask you to accept a
+            license and then ask you to enter a location to install the software.
+        </p>
+        
+        <h2>Running the XLIFF Filters</h2>
+        
+        <p>Launch the filters either by double-clicking the desktop launcher,
+            going to the <em>"Start"</em> menu in windows and selecting the launcher for the
+            filters, or by running the <code>filters.sh</code> or <code>filters.bat</code>
+            scripts from the command line. You should see the following application
+            appear :
+        </p>
+        
+        <p><img src="screenshot.png" alt="XLIFF Filters Screenshot"/></p>
+        
+        <p>To operate the filters, drag &amp; drop a source file on the application, and the
+            file will be converted to a <code>xlz file</code> in the same directory
+            as the source file. When the conversion is completed, a dialog box will
+            be shown. If you drop multiple files on the application, they will all
+            be converted to XLIFF sequentially.
+        </p>
+        
+        <p>For more detailed log messages produced during the conversion process,
+        click the "Show log" button.</p>
+        
+        <h2>Configuring the XLIFF Filters</h2>
+        
+        <p>The filters don't have a user-friendly configuration mechanism yet.
+            Right now, the preferences are stored as values written using the
+            java.util.prefs API. These preferences can be changed directly by users
+            and include ways to change the source language for input files, the
+            source-file encoding, and the directory containing the XML configuration
+            files. (on UNIX-like platforms, these are stored in
+            <code>~/.java/.userPrefs/org/jvnet/olt/filters/gui/prefs.xml</code>
+            on windows, they're stored somewhere in the registry).
+        </p>
+        
+        <p>For the XML to XLIFF filter, the XML configuration file database it
+            uses is rebuilt by the application automatically on startup when 
+            finding that the <code>configured.xml.config</code> preference is set
+            to <code>false</code>. It rebuilds the config store (saved in a 
+            private location) by parsing the files in the <code>xml-config</code>
+            directory.
+        </p>
+        
+        <p>If you have any changes or questions that we should add this guide,
+            please get in touch with us. Likewise, if you encounter any problems
+            running the filters, please send mail to one our our mailing lists.
+        </p>
+        
+        <br/>
+        <br/>
+        <br/>
+        
+        
+        <p><a name="note"></a>
+        <small>The Open Language Tools XLIFF Filters have been written and tested
+            with the Sun implementation of Java 2 Standard Edition 1.4.2 and they are
+            known to work with the Sun Java 5 implementation. Other Java implementation
+            may also work, but we haven't tested them. If you run the filters on
+            different Java implementations, let us know and we'll update this page !
+        </small></p>
+        <p><small><em>This product includes software developed by the Apache Software 
+            Foundation (<a href="http://www.apache.org/">http://www.apache.org/
+            </a>).</em></small>
+        </p>
+        
+    </body>
+</html>
