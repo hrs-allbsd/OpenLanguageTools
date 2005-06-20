@@ -1,0 +1,1969 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+    <head>
+        <title>Building the Open Language Tools XLIFF Translation Editor</title>
+    </head>
+    <body>
+        <h1>Building the Open Language Tools XLIFF Translation Editor</h1>
+        <!-- table of contents -->
+        
+        <h3>Contents</h3>
+        <p>
+            <dl>
+                <dt><a href="#introduction">Introduction</a></dt>
+                <dt><a href="#build_reqs">Build requirements</a></dt>
+                <dt><a href="#build_output">Build command and output</a></dt>
+            </dl>
+        </p>
+
+        <a name="introduction"></a>
+        <h3>Introduction</h3>
+        <p>This document aims to tell folks what they need to do to build the
+            Open Language Tools XLIFF Translation Editor. It covers the build requirements
+            and includes the output of a
+            successful build so developers won't be put off by seeing occasional
+            warning message produced during the build. We also have a similar
+            document available explaining <a href="https://open-language-tools.dev.java.net/filters/xliff-filters-build.html">
+            how to build the XLIFF Filters</a> (which this document was based on).
+        </p>
+        
+        <p>As well as being interested in building the editor, readers may also
+            be interested in reading the document <a href="about-xliff-editor.html" alt="About the
+            Open Language Tools XLIFF Translation Editor">About the Open Language Tools XLIFF
+            Translation Editor</a>, which provides a good introduction to the editor.
+        </p>
+        
+        <a name="build_reqs"></a>
+        <h3>Build requirements</h3>
+        <p>
+            The Open Language Tools XLIFF Translation Editor doesn't have many build requirements.
+            In order to build the editor, you need at least  the Java 2 
+            Standard Edition version 1.4.2 SDK. This can be downloaded
+            <a href="http://java.sun.com/j2se/1.4.2/download.html">here</a>. The build
+            also works using the Java 5 SDK - we haven't tested with other
+            Java implementations : if you do build with other Java implementations
+            please let us know, and we'll update this document.
+        </p>
+        <p>
+            We use 
+            <a href="http://ant.apache.org/">Apache Ant</a> to manage our build 
+            system, and require at least release version 1.6.2 - this and later versions
+            of Ant can be downloaded <a href="http://ant.apache.org/">here</a>.
+        </p>
+        <p>Other third party libraries
+            and applications which are required during the build are bundled as part
+            of the workspace and don't need to be downloaded separately. You can 
+            view these libraries, and the licences terms governing their use in the
+            <code>utilities/jars</code> directory.
+        </p>
+        
+        <p>The source code can be checked out of the workspace by following the
+            <a href="https://open-language-tools.dev.java.net/source/browse/open-language-tools/">
+            CVS setup guidelines</a> - we strongly recommend developers use ssh
+            to securetheir CVS communication with our repository : more 
+            information on this can be found in the document 
+            <a href="https://www.dev.java.net/scdocs/ddSSHGuide">
+            Tunneling with SSH</a>
+        </p>
+        
+        <a name="build_output"></a>
+        <h3>Build command and output</h3>
+        
+        <p> To build the Open Language Tools XLIFF Translation Editor, simply issue the
+        command :</p>
+        
+        <p>
+            <pre>% ant transeditor</pre>
+        </p>
+        
+        <p>Note that some of the JavaCC Parsers can cause the Java compiler's
+        virtual machine to exceed the boundary of it's stack - if you encounter
+        an error message :</p>
+        
+        <p><pre>
+            The system is out of resources.
+            Consult the following stack trace for details.
+            java.lang.StackOverflowError
+        </pre></p>
+        
+        <p>
+            then you should set an environment variable <code>ANT_OPTS</code> to the
+            value <code>-Xss8192000</code> before running the ant command. Depending
+            on which operating system or command shell you use, the way to set
+            this variable will vary. On UNIX, running ksh, this setting is :
+        </p>
+        <p>       
+            <pre>
+                % ANT_OPTS=-Xss8192000
+                % export ANT_OPTS
+            </pre>
+        </p>
+        <p>This problem has been fixed in later versions of the Java SDK, so
+            setting this environment variable may not be required for all users.
+        </p>
+        
+        
+        <p>Here is the output of a complete build of the Open Language Tools
+            XLIFF Translation Editor:
+        </p>
+        <pre>
+Buildfile: build.xml
+
+init:
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build
+
+transeditor40:
+
+banner:
+     [echo] *******************************************
+     [echo] Building translation editor 4 in
+     [echo] /home/timf/workspace/olt-stage/src/transeditor_v4.0/build.xml
+     [echo] *******************************************
+
+common.init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build
+
+init:
+     [echo] Using build directory /home/timf/workspace/olt-stage/build
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/transeditor4
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/transeditor4/installer
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+     [echo] Setting editor version to: 1.0
+     [echo] I copy the original Constants.java  file to Constants.java_ file then
+    change the version and write back to Constants.java
+     [copy] Copying 1 file to /home/timf/workspace/olt-stage/src/transeditor_v4.0/
+    src/org/jvnet/olt/editor/translation
+     [copy] Copying 1 file to /home/timf/workspace/olt-stage/src/transeditor_v4.0/
+    src/org/jvnet/olt/editor/translation
+
+deps:
+
+dist.editor:
+
+banner:
+     [echo] *******************************************
+     [echo] Building general-utilities in
+     [echo] /home/timf/workspace/olt-stage/utilities/general/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/
+    utilities
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/utilities
+
+pre-compile:
+     [echo] pre-compile
+
+compile:
+     [echo] compile
+    [javac] Compiling 25 source files to /home/timf/workspace/olt-stage/build/
+    utilities
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building tagged-markup in
+     [echo] /home/timf/workspace/olt-stage/utilities/tagged_markup/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+pre-compile:
+     [echo] pre-compile
+
+compile:
+     [echo] compile
+    [javac] Compiling 12 source files to /home/timf/workspace/olt-stage/build/utilities
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building printf-parser in
+     [echo] /home/timf/workspace/olt-stage/utilities/printf_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/printf_parser/
+    src/org/jvnet/olt/parsers/PrintfParser/PrintfParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/printf_parser/src/org/jvnet/olt/parsers/PrintfParser/PrintfParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/printf_parser/
+    src/org/jvnet/olt/parsers/PrintfParser/PrintfParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 181, column 70 and line 181, column 81 respectively.
+   [javacc]          A common prefix is: "\\"
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 1 warnings.
+
+compile:
+     [echo] compile
+    [javac] Compiling 14 source files to /home/timf/workspace/olt-stage/build/
+    utilities
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building message-format-parser in
+     [echo] /home/timf/workspace/olt-stage/utilities/messageformat_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    messageformat_parser/src/org/jvnet/olt/parsers/MessageFormatParser/
+    MessageFormatParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/messageformat_parser/src/org/jvnet/olt/parsers/
+    MessageFormatParser/MessageFormatParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    messageformat_parser/src/org/jvnet/olt/parsers/MessageFormatParser/
+    MessageFormatParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 97, column 4 and line 97, column 20 respectively.
+   [javacc]          A common prefix is: "\\\""
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 107, column 6.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: ","
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 110, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\\\""
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 3 warnings.
+
+compile:
+     [echo] compile
+    [javac] Compiling 14 source files to /home/timf/workspace/olt-stage/build/utilities
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building xliff-tools in
+     [echo] /home/timf/workspace/olt-stage/utilities/xliff_tools/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+pre-compile:
+     [echo] pre-compile
+
+local-deps:
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 13 source files to /home/timf/workspace/olt-stage/build/utilities
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building lax-sgml-parser in
+     [echo] /home/timf/workspace/olt-stage/utilities/lax_sgml_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    lax_sgml_parser/src/org/jvnet/olt/laxparsers/sgml/LaxSgmlDocFragmentParser.jjt . . .
+   [jjtree] File "/home/timf/workspace/olt-stage/utilities/lax_sgml_parser/
+    src/org/jvnet/olt/laxparsers/sgml/Node.java" does not exist.  Will create one.
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/lax_sgml_parser/src/org/jvnet/olt/laxparsers/sgml/
+    LaxSgmlDocFragmentParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    lax_sgml_parser/src/org/jvnet/olt/laxparsers/sgml/LaxSgmlDocFragmentParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in [...] construct at line 172, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WHITESPACE>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 175, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 176, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: ">"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 193, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WHITESPACE>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 196, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 197, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: ">"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 213, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 226, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: ">"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 227, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 240, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 241, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: ">"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 253, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 266, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 321, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 338, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 355, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: ">"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 373, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 395, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WHITESPACE>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 396, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <NAMEWORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 400, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WHITESPACE>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 402, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "["
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 443, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <PCDATA>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 460, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <PCDATA>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 23 warnings.
+
+compile:
+     [echo] compile
+    [javac] Compiling 12 source files to /home/timf/workspace/olt-stage/build/
+    utilities
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building lax-swmsg-parser in
+     [echo] /home/timf/workspace/olt-stage/utilities/lax_swmsg_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    lax_swmsg_parser/src/org/jvnet/olt/laxparsers/software/
+    LaxSoftwareMessageParser.jjt . . .
+   [jjtree] File "/home/timf/workspace/olt-stage/utilities/
+    lax_swmsg_parser/src/org/jvnet/olt/laxparsers/software/Node.java" does
+    not exist.  Will create one.
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/lax_swmsg_parser/src/org/jvnet/olt/laxparsers/software/
+    LaxSoftwareMessageParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    lax_swmsg_parser/src/org/jvnet/olt/laxparsers/software/
+    LaxSoftwareMessageParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 191, column 5 and line 192, column 5 respectively.
+   [javacc]          A common prefix is: "\\"
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 209, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WHITESPACE>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 212, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <DATA>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 213, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: ">"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 230, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WHITESPACE>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 233, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <DATA>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 234, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: ">"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 266, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <DATA>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 289, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <DATA>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 305, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <DATA>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 10 warnings.
+
+compile:
+     [echo] compile
+    [javac] Compiling 14 source files to /home/timf/workspace/olt-stage/build/utilities
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building sgml-doc-fragment in
+     [echo] /home/timf/workspace/olt-stage/utilities/sgml_doc_fragment/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/
+    utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    sgml_doc_fragment/src/org/jvnet/olt/parsers/SgmlDocFragmentParser/
+    SgmlDocFragmentParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/sgml_doc_fragment/src/org/jvnet/olt/parsers/
+    SgmlDocFragmentParser/SgmlDocFragmentParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    sgml_doc_fragment/src/org/jvnet/olt/parsers/SgmlDocFragmentParser/
+    SgmlDocFragmentParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)* construct at line 287, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <COMMENT>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 1 warnings.
+
+local-deps:
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 22 source files to /home/timf/workspace/olt-stage/build/
+    utilities
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building sgml-tag-parser in
+     [echo] /home/timf/workspace/olt-stage/utilities/sgml_tag_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/
+    utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    sgml_tag_parser/src/org/jvnet/olt/parsers/SgmlTagParser/SgmlTagParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/sgml_tag_parser/src/org/jvnet/olt/parsers/
+    SgmlTagParser/SgmlTagParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    sgml_tag_parser/src/org/jvnet/olt/parsers/SgmlTagParser/SgmlTagParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 141, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 1 warnings.
+
+compile:
+     [echo] compile
+    [javac] Compiling 13 source files to /home/timf/workspace/olt-stage/build/
+    utilities
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building non-conformant-sgml-frag in
+     [echo] /home/timf/workspace/olt-stage/utilities/
+    non-conformant_sgml_doc_fragment/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/
+    utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    non-conformant_sgml_doc_fragment/src/org/jvnet/olt/filters/
+    NonConformantSgmlDocFragmentParser/NonConformantSgmlDocFragmentParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/non-conformant_sgml_doc_fragment/src/
+    org/jvnet/olt/filters/NonConformantSgmlDocFragmentParser/
+    NonConformantSgmlDocFragmentParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    non-conformant_sgml_doc_fragment/src/org/jvnet/olt/filters/
+    NonConformantSgmlDocFragmentParser/NonConformantSgmlDocFragmentParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)* construct at line 374, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <COMMENT>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 517, column 10 and line 518, column 10 respectively.
+   [javacc]          A common prefix is: <NONSTANDARD_WEIRD_ENT>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 629, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <PCDATA>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 698, column 2.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <COMMENT>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 699, column 2.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "]]>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 783, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "%>"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 6 warnings.
+
+local-deps:
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 15 source files to /home/timf/workspace/olt-stage/build/utilities
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building xml-doc-fragment in
+     [echo] /home/timf/workspace/olt-stage/utilities/xml_doc_fragment/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    xml_doc_fragment/src/org/jvnet/olt/parsers/XmlDocFragmentParser/
+    XmlDocFragmentParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/xml_doc_fragment/src/org/jvnet/olt/parsers/
+    XmlDocFragmentParser/XmlDocFragmentParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    xml_doc_fragment/src/org/jvnet/olt/parsers/XmlDocFragmentParser/
+    XmlDocFragmentParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)* construct at line 299, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "-->"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 1 warnings.
+
+local-deps-tags:
+
+local-deps-xml:
+
+banner:
+     [echo] *******************************************
+     [echo] Building xml-tag-parser in
+     [echo] /home/timf/workspace/olt-stage/utilities/xml_tag_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    xml_tag_parser/src/org/jvnet/olt/parsers/XmlTagParser/XmlTagParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/xml_tag_parser/src/org/jvnet/olt/parsers/XmlTagParser/
+    XmlTagParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    xml_tag_parser/src/org/jvnet/olt/parsers/XmlTagParser/XmlTagParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in [...] construct at line 99, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 141, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 2 warnings.
+
+compile:
+     [echo] compile
+    [javac] Compiling 16 source files to /home/timf/workspace/olt-stage/build/utilities
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 18 source files to /home/timf/workspace/olt-stage/build/utilities
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building xml-tag-parser in
+     [echo] /home/timf/workspace/olt-stage/utilities/xml_tag_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+
+compile:
+     [echo] compile
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building dtd_doc_fragment in
+     [echo] /home/timf/workspace/olt-stage/utilities/dtd_doc_fragment/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/utilities
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    dtd_doc_fragment/src/org/jvnet/olt/parsers/DTDDocFragmentParser/
+    DTDDocFragmentParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/
+    workspace/olt-stage/utilities/dtd_doc_fragment/src/org/jvnet/olt/
+    parsers/DTDDocFragmentParser/DTDDocFragmentParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    dtd_doc_fragment/src/org/jvnet/olt/parsers/DTDDocFragmentParser/
+    DTDDocFragmentParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 298, column 6.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 314, column 6.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "-->"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 343, column 7 and line 344, column 7 respectively.
+   [javacc]          A common prefix is: <ENTITY_DECL_NAME> <ENT_WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 344, column 7 and line 345, column 7 respectively.
+   [javacc]          A common prefix is: <ENTITY_DECL_NAME> <ENT_WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 4 warnings.
+
+local-deps:
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 14 source files to /home/timf/workspace/olt-stage/build/utilities
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+      [jar] Building jar: /home/timf/workspace/olt-stage/build/utilities-editor.jar
+
+banner:
+     [echo] *******************************************
+     [echo] Building fuzzy-tm in
+     [echo] /home/timf/workspace/olt-stage/utilities/fuzzy_mini_tm/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/
+    utilities_fuzzytm
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/utilities_fuzzytm
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/utilities/
+    fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/SimpleSGMLTokenizer.jjt . . .
+   [jjtree] File "/home/timf/workspace/olt-stage/utilities/fuzzy_mini_tm/
+    src/org/jvnet/olt/parsers/sgmltokens/Node.java" does not exist.  Will create one.
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/utilities/fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/
+    SimpleSGMLTokenizer.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/utilities/
+    fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/SimpleSGMLTokenizer.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated successfully.
+
+compile:
+     [echo] compile
+    [javac] Compiling 44 source files to /home/timf/workspace/olt-stage/build/utilities_fuzzytm
+
+common.dist:
+     [echo] dist
+
+dist:
+      [jar] Building jar: /home/timf/workspace/olt-stage/build/utilities_fuzzytm/fuzzytm.jar
+
+all:
+     [echo] all
+      [jar] Building jar: /home/timf/workspace/olt-stage/build/utilities-fuzzytm.jar
+
+dist.st2:
+
+dist:
+
+all:
+
+banner:
+     [echo] *******************************************
+     [echo] Building xliff-filters in
+     [echo] /home/timf/workspace/olt-stage/src/filters/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build
+
+dist.st2:
+
+dist.editor:
+
+banner:
+     [echo] *******************************************
+     [echo] Building sgml_filter in
+     [echo] /home/timf/workspace/olt-stage/src/filters/sgml_filter/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/filters
+
+pre-compile:
+     [echo] pre-compile
+
+local-deps:
+
+banner:
+     [echo] *******************************************
+     [echo] Building alignment_ineterface in
+     [echo] /home/timf/workspace/olt-stage/src/filters/alignment_interface/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+pre-compile:
+     [echo] pre-compile
+
+compile:
+     [echo] compile
+    [javac] Compiling 7 source files to /home/timf/workspace/olt-stage/build/filters
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+build-phase1:
+Overriding previous definition of reference to src.pattern
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 2 source files to /home/timf/workspace/olt-stage/build/filters
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building html_parser in
+     [echo] /home/timf/workspace/olt-stage/src/filters/html_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+pre-compile:
+     [echo] pre-compile
+
+local-deps:
+
+build-phase1:
+Overriding previous definition of reference to src.pattern
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 3 source files to /home/timf/workspace/olt-stage/build/filters
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building format_handling in
+     [echo] /home/timf/workspace/olt-stage/src/filters/format_handling/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+pre-compile:
+     [echo] pre-compile
+
+local-deps:
+
+banner:
+     [echo] *******************************************
+     [echo] Building jsp_filter in
+     [echo] /home/timf/workspace/olt-stage/src/filters/jsp_filter/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+pre-compile:
+     [echo] pre-compile
+
+local-deps:
+
+build-phase1:
+Overriding previous definition of reference to src.pattern
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 2 source files to /home/timf/workspace/olt-stage/build/filters
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building sgml_filter in
+     [echo] /home/timf/workspace/olt-stage/src/filters/sgml_filter/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+pre-compile:
+     [echo] pre-compile
+
+local-deps:
+
+build-phase1:
+Overriding previous definition of reference to src.pattern
+
+common.compile:
+     [echo] compile
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 37 source files to /home/timf/workspace/olt-stage/build/filters
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building segmenter_formatters in
+     [echo] /home/timf/workspace/olt-stage/src/filters/segmenter_formatters/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+     [echo] true
+
+local-deps:
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 6 source files to /home/timf/workspace/olt-stage/build/filters
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building xml_filter in
+     [echo] /home/timf/workspace/olt-stage/src/filters/xml_filter/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+pre-compile:
+     [echo] pre-compile
+
+build-phase1:
+Overriding previous definition of reference to src.pattern
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 1 source file to /home/timf/workspace/olt-stage/build/filters
+
+compile:
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+banner:
+     [echo] *******************************************
+     [echo] Building non-conformant-sgml-tag-parser in
+     [echo] /home/timf/workspace/olt-stage/src/filters/non-conformant_sgml_tag_parser/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    non-conformant_sgml_tag_parser/src/org/jvnet/olt/filters/
+    NonConformantSgmlTagParser/NonConformantSgmlTagParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/src/filters/non-conformant_sgml_tag_parser/src/org/jvnet/olt/
+    filters/NonConformantSgmlTagParser/NonConformantSgmlTagParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    non-conformant_sgml_tag_parser/src/org/jvnet/olt/filters/
+    NonConformantSgmlTagParser/NonConformantSgmlTagParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in [...] construct at line 105, column 2.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 107, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 149, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 149, column 29.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 4 warnings.
+
+compile:
+     [echo] compile
+    [javac] Compiling 15 source files to /home/timf/workspace/olt-stage/build/filters
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+Overriding previous definition of reference to src.dirs
+Overriding previous definition of reference to src.pattern
+Overriding previous definition of reference to build.classpath
+
+banner:
+     [echo] *******************************************
+     [echo] Building software-filters in
+     [echo] /home/timf/workspace/olt-stage/src/filters/software_filters/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/filters
+
+common.pre-compile:
+     [echo] pre-compile
+
+pre-compile:
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/java_props_file/org/jvnet/olt/parsers/PropsFileParser/
+    PropsFileParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/src/filters/software_filters/java_props_file/org/jvnet/olt/parsers/
+    PropsFileParser/PropsFileParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/java_props_file/org/jvnet/olt/parsers/PropsFileParser/
+    PropsFileParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 187, column 5 and line 188, column 5 respectively.
+   [javacc]          A common prefix is: <WS>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 188, column 5 and line 189, column 5 respectively.
+   [javacc]          A common prefix is: <WS>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 189, column 5 and line 190, column 5 respectively.
+   [javacc]          A common prefix is: <WS>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 190, column 5 and line 191, column 5 respectively.
+   [javacc]          A common prefix is: <WS>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 204, column 28.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 204, column 69.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 229, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 247, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 265, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 276, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 406, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 419, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 420, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 421, column 36.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 422, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 434, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 447, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 448, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 450, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 462, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 475, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 476, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 478, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 23 warnings.
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/java_res_file/org/jvnet/olt/parsers/JavaParser/ResBundleParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/src/filters/software_filters/java_res_file/org/jvnet/olt/parsers/
+    JavaParser/ResBundleParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/java_res_file/org/jvnet/olt/parsers/JavaParser/ResBundleParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)* construct at line 378, column 9.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 385, column 9.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 532, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 534, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 570, column 4 and line 571, column 5 respectively.
+   [javacc]          A common prefix is: <SINGLE_LINE_COMMENT> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 571, column 5 and line 572, column 5 respectively.
+   [javacc]          A common prefix is: <OTHER_CHARS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 572, column 5 and line 573, column 5 respectively.
+   [javacc]          A common prefix is: <OTHER_CHARS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 580, column 42.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 594, column 4 and line 602, column 4 respectively.
+   [javacc]          A common prefix is: <OTHER_CHARS>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 599, column 4 and line 603, column 4 respectively.
+   [javacc]          A common prefix is: <OBJECT>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 616, column 4 and line 628, column 4 respectively.
+   [javacc]          A common prefix is: <OTHER_CHARS>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 621, column 4 and line 629, column 4 respectively.
+   [javacc]          A common prefix is: <OBJECT>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 643, column 43 and line 643, column 69 respectively.
+   [javacc]          A common prefix is: <OTHER_CHARS>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 664, column 3 and line 667, column 3 respectively.
+   [javacc]          A common prefix is: <OTHER_CHARS>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 739, column 15.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 739, column 54.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 744, column 30.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 744, column 97.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 780, column 6 and line 780, column 23 respectively.
+   [javacc]          A common prefix is: <STRING_LITERAL> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 798, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 830, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <SINGLE_LINE_COMMENT>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 886, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 22 warnings.
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/msg_file/org/jvnet/olt/parsers/MsgFileParser/MsgFileParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/src/filters/software_filters/msg_file/org/jvnet/olt/parsers/
+    MsgFileParser/MsgFileParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/msg_file/org/jvnet/olt/parsers/MsgFileParser/MsgFileParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)* construct at line 206, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 207, column 5 and line 211, column 5 respectively.
+   [javacc]          A common prefix is: <NEWLINE>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 208, column 5 and line 211, column 5 respectively.
+   [javacc]          A common prefix is: <WS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 216, column 5 and line 217, column 5 respectively.
+   [javacc]          A common prefix is: <NEWLINE>
+   [javacc]          Consider using a lookahead of 2 for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 217, column 5 and line 218, column 5 respectively.
+   [javacc]          A common prefix is: <WS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 218, column 5 and line 221, column 5 respectively.
+   [javacc]          A common prefix is: <WS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 229, column 3 and line 229, column 11 respectively.
+   [javacc]          A common prefix is: <WS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 237, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 238, column 5 and line 239, column 5 respectively.
+   [javacc]          A common prefix is: <WS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 239, column 5 and line 242, column 5 respectively.
+   [javacc]          A common prefix is: <WS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 264, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 265, column 5 and line 266, column 5 respectively.
+   [javacc]          A common prefix is: <WS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict involving two expansions at
+   [javacc]          line 266, column 5 and line 269, column 5 respectively.
+   [javacc]          A common prefix is: <WS> <WS>
+   [javacc]          Consider using a lookahead of 3 or more for earlier expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 359, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "$"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 397, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 399, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "$"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 412, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 425, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "$"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 436, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "$ @LC@"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 449, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "$"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 461, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "$ @TMC@"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 493, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 494, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 494, column 30.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "$"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 509, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 510, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "$"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 541, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 612, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <CHAR>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 622, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 29 warnings.
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/po_file/org/jvnet/olt/parsers/POFileParser/POFileParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/src/filters/software_filters/po_file/org/jvnet/olt/parsers/
+    POFileParser/POFileParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/po_file/org/jvnet/olt/parsers/POFileParser/POFileParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 223, column 9.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <LC_COMMENT>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 231, column 9.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <TMC_COMMENT>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 239, column 9.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <SINGLE_LINE_COMMENT>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 308, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 351, column 7.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <MSGSTRS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 404, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 6 warnings.
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/rep_file/org/jvnet/olt/parsers/RepFileParser/RepFileParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/src/filters/software_filters/rep_file/org/jvnet/olt/parsers/
+    RepFileParser/RepFileParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/rep_file/org/jvnet/olt/parsers/RepFileParser/RepFileParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you 
+    create the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated successfully.
+   [jjtree] Java Compiler Compiler Version 3.2 (Tree Builder)
+   [jjtree] (type "jjtree" with no arguments for help)
+   [jjtree] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/xres_file/org/jvnet/olt/parsers/XResFileParser/XResFileParser.jjt . . .
+   [jjtree] Annotated grammar generated successfully in /home/timf/workspace/
+    olt-stage/src/filters/software_filters/xres_file/org/jvnet/olt/parsers/
+    XResFileParser/XResFileParser.jj
+   [javacc] Java Compiler Compiler Version 3.2 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /home/timf/workspace/olt-stage/src/filters/
+    software_filters/xres_file/org/jvnet/olt/parsers/XResFileParser/XResFileParser.jj . . .
+   [javacc] Note: UNICODE_INPUT option is specified. Please make sure you create
+    the parser/lexer usig a Reader with the correct character encoding.
+   [javacc] Warning: Choice conflict in (...)* construct at line 146, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WORD>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 155, column 20.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\\\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in [...] construct at line 161, column 20.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\\\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 198, column 58.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: <WS>
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 225, column 3.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\\\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 241, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "!"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 253, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "!"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 253, column 35.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\\\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 264, column 4.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "#include"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)* construct at line 264, column 35.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "\\\n"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] Warning: Choice conflict in (...)+ construct at line 275, column 5.
+   [javacc]          Expansion nested within construct and expansion following construct
+   [javacc]          have common prefixes, one of which is: "!"
+   [javacc]          Consider using a lookahead of 2 or more for nested expansion.
+   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated with 0 errors and 11 warnings.
+
+build-phase1:
+Overriding previous definition of reference to src.dirs
+Overriding previous definition of reference to src.pattern
+    [javac] Compiling 166 source files to /home/timf/workspace/olt-stage/build/filters
+    [javac] Compiling 1 source file to /home/timf/workspace/olt-stage/build/filters
+      [jar] Building jar: /home/timf/workspace/olt-stage/build/formatting-editor.jar
+      [jar] Building jar: /home/timf/workspace/olt-stage/build/filters-editor.jar
+
+dist:
+
+all:
+     [echo] Built all XLIFF filters into /home/timf/workspace/olt-stage/build
+
+dist:
+
+banner:
+     [echo] *******************************************
+     [echo] Building xliff-tmx-converter in
+     [echo] /home/timf/workspace/olt-stage/src/backconverters/xliff_tmx_converter/build.xml
+     [echo] *******************************************
+
+init:
+     [echo] Creating destination directory: /home/timf/workspace/olt-stage/build/backconv
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/backconv
+
+pre-compile:
+     [echo] pre-compile
+
+compile:
+     [echo] compile
+    [javac] Compiling 8 source files to /home/timf/workspace/olt-stage/build/backconv
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+
+pre-compile:
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/backconv/resources
+     [copy] Copying 2 files to /home/timf/workspace/olt-stage/build/backconv/resources
+
+compile:
+     [echo] compile
+    [javac] Compiling 46 source files to /home/timf/workspace/olt-stage/build/backconv
+
+dist:
+     [echo] dist
+
+all:
+     [echo] all
+      [jar] Building jar: /home/timf/workspace/olt-stage/build/backconv.jar
+
+all:
+     [echo] Built all backconverters into /home/timf/workspace/olt-stage/build
+
+common.compile:
+     [echo] compile
+    [javac] Compiling 221 source files to /home/timf/workspace/olt-stage/build
+    [javac] Note: Some input files use or override a deprecated API.
+    [javac] Note: Recompile with -deprecation for details.
+
+compile:
+     [echo] restoring Constants.java
+     [copy] Copying 1 file to /home/timf/workspace/olt-stage/src/transeditor_v4.0/
+    src/org/jvnet/olt/editor/translation
+   [delete] Deleting: /home/timf/workspace/olt-stage/src/transeditor_v4.0/
+    src/org/jvnet/olt/editor/translation/Constants.java_
+     [copy] Copying 80 files to /home/timf/workspace/olt-stage/build
+     [copy] Copying 4 files to /home/timf/workspace/olt-stage/build/resources
+
+common.dist:
+     [echo] dist
+
+dist:
+      [jar] Building MANIFEST-only jar: /home/timf/workspace/olt-stage/build/
+    transeditor4/installer/EditorSetup.jar
+      [jar] Building jar: /home/timf/workspace/olt-stage/build/transeditor4/
+    installer/EditorSetup.jar
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/transeditor4/
+    installer/mini-tm
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/transeditor4/
+    installer/downloads
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/transeditor4/
+    installer/classes
+     [copy] Copying 1 file to /home/timf/workspace/olt-stage/build/transeditor4/
+    installer/classes
+     [copy] Copying /home/timf/workspace/olt-stage/build/backconv.jar to 
+    /home/timf/workspace/olt-stage/build/transeditor4/installer/classes/XliffBackConverter.jar
+     [copy] Copying 1 file to 
+    /home/timf/workspace/olt-stage/build/transeditor4/installer/classes
+     [copy] Copying /home/timf/workspace/olt-stage/build/utilities-fuzzytm.jar to
+    /home/timf/workspace/olt-stage/build/transeditor4/installer/classes/fuzzytm.jar
+     [copy] Copying 1 file to 
+    /home/timf/workspace/olt-stage/build/transeditor4/installer/classes
+     [copy] Copying /home/timf/workspace/olt-stage/utilities/jars/xerces2.jar to
+    /home/timf/workspace/olt-stage/build/transeditor4/installer/classes/xerces2.jar
+     [copy] Copying 13 files to /home/timf/workspace/olt-stage/build/transeditor4/installer
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/editor.ico
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/editor.ico
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/install.sh
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/install.sh
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/translation.sh
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/translation.sh
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/install_solaris.xml
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/install_solaris.xml
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/translation.bat
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/translation.bat
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/install_windows.xml
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/install_windows.xml
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/trash.ico
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/trash.ico
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/shortcuts_windows.xml
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/shortcuts_windows.xml
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/Editor.desktop
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/Editor.desktop
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/setup.sh
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/setup.sh
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/shortcuts_unix.xml
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/shortcuts_unix.xml
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/logging.properties
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/logging.properties
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/installer/install.bat
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/install.bat
+     [copy] Copying 1 file to /home/timf/workspace/olt-stage/build/transeditor4/installer
+     [copy] Copying /home/timf/workspace/olt-stage/src/transeditor_v4.0/static/resources/LICENSE.txt
+    to /home/timf/workspace/olt-stage/build/transeditor4/installer/LICENSE.txt
+    [unzip] Expanding: /home/timf/workspace/olt-stage/build/filters-editor.jar
+    into /home/timf/workspace/olt-stage/build
+    [unzip] Expanding: /home/timf/workspace/olt-stage/build/utilities-editor.jar
+    into /home/timf/workspace/olt-stage/build
+      [jar] Building jar: 
+    /home/timf/workspace/olt-stage/build/transeditor4/installer/TransEditor.jar
+    [mkdir] Created dir: /home/timf/workspace/olt-stage/build/transeditor4/
+    installer/spellchecker-win
+    [unzip] Expanding: /home/timf/workspace/olt-stage/src/transeditor_v4.0/
+    spellchecker_bin/solaris-spellcheck.zip into /home/timf/workspace/olt-stage/
+    build/transeditor4/installer
+    [unzip] Expanding: /home/timf/workspace/olt-stage/src/transeditor_v4.0/
+    spellchecker_bin/windows-spellchecker.zip into /home/timf/workspace/olt-stage/
+    build/transeditor4/installer/spellchecker-win
+     [copy] Copying 1 file to /home/timf/workspace/olt-stage/build/transeditor4/installer
+     [echo] Building installer for Windows
+   [izpack] Adding resource : IzPack.uninstaller ...
+   [izpack] Setting the installer informations ...
+   [izpack] Setting the GUI preferences ...
+   [izpack] Adding langpack : eng ...
+   [izpack] Adding resource : flag.eng ...
+   [izpack] Adding resource : LicencePanel.licence ...
+   [izpack] Adding resource : shortcutSpec.xml ...
+   [izpack] Adding native library : ShellLink.dll ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/HelloPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/LicencePanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/TargetPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/PacksPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/InstallPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/ShortcutPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/SimpleFinishPanel.jar ...
+   [izpack] Building installer jar: /home/timf/workspace/olt-stage/build/
+    transeditor_v1_0_win.jar
+   [izpack] Copying the skeleton installer ...
+   [izpack] Copying 6 files into installer ...
+   [izpack] Copying contents of 7 jars into installer ...
+   [izpack] Writing Packs ...
+   [izpack] Writing Pack #0 : Open Language Tools XLIFF Translation Editor
+   [izpack] Writing Pack #1 : Spellchecker
+   [izpack] Writing Pack #2 : French dictionary
+   [izpack] Writing Pack #3 : German dictionary
+   [izpack] Writing Pack #4 : Italian dictionary
+   [izpack] Writing Pack #5 : Spanish dictionary
+   [izpack] Writing Pack #6 : Swedish dictionary
+     [echo] Building installer for Solaris
+   [izpack] Adding resource : IzPack.uninstaller ...
+   [izpack] Setting the installer informations ...
+   [izpack] Setting the GUI preferences ...
+   [izpack] Adding langpack : eng ...
+   [izpack] Adding resource : flag.eng ...
+   [izpack] Adding resource : LicencePanel.licence ...
+   [izpack] Adding resource : shortcutSpec.xml ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/HelloPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/LicencePanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/TargetPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/PacksPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/InstallPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/ShortcutPanel.jar ...
+   [izpack] Adding content of jar : /home/timf/workspace/olt-stage/utilities/
+    jars/IzPack-3.7.0/bin/panels/SimpleFinishPanel.jar ...
+   [izpack] Building installer jar: /home/timf/workspace/olt-stage/build/
+    transeditor_v1_0_sol.jar
+   [izpack] Copying the skeleton installer ...
+   [izpack] Copying 5 files into installer ...
+   [izpack] Copying contents of 7 jars into installer ...
+   [izpack] Writing Packs ...
+   [izpack] Writing Pack #0 : Open Language Tools XLIFF Translation Editor
+   [izpack] Writing Pack #1 : Spellchecker
+      [zip] Building zip: /home/timf/workspace/olt-stage/build/transeditor_v1_0_win.zip
+      [tar] Building tar: /home/timf/workspace/olt-stage/build/transeditor_v1_0_sol.tar.gz
+
+all:
+     [echo] all
+
+BUILD SUCCESSFUL
+Total time: 10 minutes 26 seconds
+        </pre>
+
+    </body>
+</html>
