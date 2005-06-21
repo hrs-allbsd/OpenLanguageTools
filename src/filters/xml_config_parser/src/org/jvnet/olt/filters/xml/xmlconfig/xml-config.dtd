@@ -1,0 +1,90 @@
+<!-- =================================================================== -->
+<!-- DTD:      XML Configuration DTD                                        -->
+<!-- PURPOSE:  To define the elements and attributes for the SunTrans 2  -->
+<!--           XML file filter.                                          -->
+<!-- SYSTEM:   Part of the SunTrans 2 System, XML File Filter            -->
+<!-- WRITTEN:  2003/01/27 Brian Kidney, Translation Technology,          -->
+<!--           Sun Microsystems Inc.                                     -->
+<!-- =================================================================== -->
+
+<!-- =================================================================== -->
+<!--                           CHANGE HISTORY                            -->
+<!-- Developed by: 2003/01/27 Brian Kidney, Translation Technoloy 
+        - First Draft                                                    -->
+<!-- =================================================================== -->
+
+<!-- =================================================================== -->
+<!--                    ROOT ELEMENT (ROOT = xml-config)                 -->
+<!-- =================================================================== -->
+
+<!ELEMENT config (head, body) >
+
+<!-- Represents meta data about the XML file type being configured       -->
+<!ELEMENT head (identifier, namespace?, file-type, file-type-description?, author?, generated-by?, generated-date?, last-modified-date?) >
+
+<!-- Indicates how a XML file of this particular type is linked to either a          
+     dtd or schema.                                                      -->
+<!ELEMENT identifier (dtd | schema)>
+
+<!-- If this XML file type uses a DTD, what is its system or public 
+     identifier.                                                         -->
+<!ELEMENT dtd (system, public?)>
+
+<!-- The value of the system identifier                                  -->
+<!ELEMENT system (#PCDATA)>
+
+<!-- The value of the public identifier                                  -->
+<!ELEMENT public (#PCDATA)>
+
+<!-- If this XML file type uses a schema, what is its location.          -->
+<!ELEMENT schema (noNamespaceSchemaLocation | schemaLocation)>
+
+<!-- The value of the noNamespaceSchemaLocation attribute.               -->
+<!ELEMENT noNamespaceSchemaLocation (#PCDATA)>
+
+<!-- The value of the SchemaLocation attribute.                          -->
+<!ELEMENT schemaLocation (#PCDATA)>
+
+<!-- The optional ID of the namesapce of this file                       -->
+<!ELEMENT namespace (#PCDATA)>
+
+<!-- The type of XML file (e.g. XHTML, MathML, etc.)                     -->
+<!ELEMENT file-type (#PCDATA)>
+
+<!-- A description of the XML file tpye we are dealing with              -->
+<!ELEMENT file-type-description (#PCDATA)>
+
+<!-- The person who modified the XML configuration file to make it suitable 
+     for use with the XML file type in question.                         -->
+<!ELEMENT author (#PCDATA)>
+
+<!-- The tool that auto-generated the XML configuration file.            -->
+<!ELEMENT generated-by (#PCDATA)>
+
+<!-- The date on which the XML configuration file was generated.         -->
+<!ELEMENT generated-date (#PCDATA)>
+
+<!-- The last date on which the XML configuration file was generated.    -->
+<!ELEMENT last-modified-date (#PCDATA)>
+
+<!-- The body of the XML configuration file contains the actual details   
+     about the XML file being configured for.                            -->
+<!ELEMENT body (config-element*, config-attribute*)>
+
+<!-- A XML elememt of XML file being configured for.                     -->
+<!ELEMENT config-element (#PCDATA)>
+<!ATTLIST config-element
+    root-element        (yes|no)   "no"
+    default             (yes|no)   "yes"
+    parent              CDATA      #IMPLIED
+    translatable        (yes|no)   "yes"
+    empty               (yes|no)   "no"
+    preserve-whitespace (yes|no)   "no"
+    hardness      (inline|softflow|soft|hard|hardsubsection|hardsection)  "inline">
+
+<!-- A XML attribute of XML file being configured for.                   -->    
+<!ELEMENT config-attribute (#PCDATA)>
+<!ATTLIST config-attribute
+    default               (yes|no)   "yes"
+    parent-element        CDATA      #IMPLIED
+    translatable          (yes|no)   "no">

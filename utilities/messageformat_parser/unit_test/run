@@ -1,0 +1,4 @@
+#!/bin/sh
+CLASSPATH=../classes:/space/timf/transtech-build
+export CLASSPATH
+java com.sun.transtech.parsers.MessageFormatParser.ViewStrings $@

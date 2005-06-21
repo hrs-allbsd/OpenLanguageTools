@@ -1,0 +1,350 @@
+<?xml version="1.0" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN"
+ "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+ <file source-language="EN" datatype="plaintext" original="test_file.txt">
+  <header><skl>
+<external-file href="file://test_file-out.skl" /></skl></header>
+  <body>
+    <trans-unit id="0">    
+      <source>Video is the Java Media Player application used for viewing or saving video data in several formats.</source>
+    </trans-unit>
+    <trans-unit id="1">    
+      <source>The Java Media Player is automatically launched once you select the  Audio/Video menu option from the </source>
+    </trans-unit>
+    <trans-unit id="2">    
+      <source>Applications menu.</source>
+    </trans-unit>
+    <trans-unit id="3">    
+      <source>This is the default unless you select the Audio option to customize your environment.</source>
+    </trans-unit>
+    <trans-unit id="4">    
+      <source>Audio is a CDE Motif application for playing, recording, or saving audio data in AU (Sun), WAV (PC), or AIFF (Macintosh) format.</source>
+    </trans-unit>
+    <trans-unit id="5">    
+      <source>Use the Java Media Player for viewing multimedia files.</source>
+    </trans-unit>
+    <trans-unit id="6">    
+      <source>The Java Media Framework (JMF) is an application programming interface (API) for incorporating media data types into Java applications and applets.</source>
+    </trans-unit>
+    <trans-unit id="7">    
+      <source>It is specifically designed to take advantage of Java platform features.</source>
+    </trans-unit>
+    <trans-unit id="8">    
+      <source>You can open a video file by choosing Open file from the File menu.</source>
+    </trans-unit>
+    <trans-unit id="9">    
+      <source>Once you open a file, the main window alters to display the file and a control panel at the bottom of the screen.</source>
+    </trans-unit>
+    <trans-unit id="10">    
+      <source>The control panel consists of the following icons and their respective functions: All Audio functions start with the main window.</source>
+    </trans-unit>
+    <trans-unit id="11">    
+      <source>Open an audio file by choosing Open from the File menu; record by choosing New from the File menu and clicking the Record Audio button; set startup, recording, or playing options by choosing the appropriate item from the Options menu.</source>
+    </trans-unit>
+    <trans-unit id="12">    
+      <source>The Voice Note control is located on the Applications subpanel of the Front Panel.</source>
+    </trans-unit>
+    <trans-unit id="13">    
+      <source>When you click the Voice Note control it runs the Audio application, which immediately starts recording from your host's microphone.</source>
+    </trans-unit>
+    <trans-unit id="14">    
+      <source>To stop recording, you click the Stop button or exit the Audio application.</source>
+    </trans-unit>
+    <trans-unit id="15">    
+      <source>The sound file that is created is displayed on your desktop when you exit the Audio application.</source>
+    </trans-unit>
+    <trans-unit id="16">    
+      <source>You can remove it by choosing Remove From Workspace from the right-mouse button popup menu.</source>
+    </trans-unit>
+    <trans-unit id="17">    
+      <source>You can remove it from your file system by deleting it from your home directory.</source>
+    </trans-unit>
+    <trans-unit id="18">    
+      <source>I just started a dot.com.</source>
+    </trans-unit>
+    <trans-unit id="19">    
+      <source>I just ran java com.sun.tmc.segmenters.</source>
+    </trans-unit>
+    <trans-unit id="20">    
+      <source>Segmenter_en.</source>
+    </trans-unit>
+    <trans-unit id="21">    
+      <source>ViewCollections test.txt.</source>
+    </trans-unit>
+    <trans-unit id="22">    
+      <source>He can be reached at john.smith@sun.com.</source>
+    </trans-unit>
+    <trans-unit id="23">    
+      <source>He watched "E!" channel.</source>
+    </trans-unit>
+    <trans-unit id="24">    
+      <source>There is a Jos.</source>
+    </trans-unit>
+    <trans-unit id="25">    
+      <source>A. Banks clothes store on Newbury St.</source>
+    </trans-unit>
+    <trans-unit id="26">    
+      <source>He worked at Smith Corp. "U.S. News reports that he was a model employee," said the anchor.</source>
+    </trans-unit>
+    <trans-unit id="27">    
+      <source>She prefers the title MS. and don't forget it!</source>
+    </trans-unit>
+    <trans-unit id="28">    
+      <source>He saw a 600-lb. gorilla.</source>
+    </trans-unit>
+    <trans-unit id="29">    
+      <source>He flew at 500 m./h. and really high.</source>
+    </trans-unit>
+    <trans-unit id="30">    
+      <source>He had a Ph.D. from UCLA.</source>
+    </trans-unit>
+    <trans-unit id="31">    
+      <source>His name was R.</source>
+    </trans-unit>
+    <trans-unit id="32">    
+      <source>J.</source>
+    </trans-unit>
+    <trans-unit id="33">    
+      <source>Smith, Esq., and don't forget it.</source>
+    </trans-unit>
+    <trans-unit id="34">    
+      <source>I bought fish, fruits, etc. Do you want some?</source>
+    </trans-unit>
+    <trans-unit id="35">    
+      <source>Use a period ("\.") to indicate end of sentence.</source>
+    </trans-unit>
+    <trans-unit id="36">    
+      <source>With $15.7 billion in annual revenues, Sun can be found in more than 170 countries and on the World Wide Web at http://sun.com.</source>
+    </trans-unit>
+    <trans-unit id="37">    
+      <source>The company's next generation allows for digital video recording as well as voice, video and data services over Ethernet, 802.11b Wi-Fi wireless and HomePNA-over-Coax.</source>
+    </trans-unit>
+    <trans-unit id="38">    
+      <source>Add "Tech." to abbreviations.</source>
+    </trans-unit>
+    <trans-unit id="39">    
+      <source>-  Would handle "Centennial Tech. PM50003 (CT 14.4 Fax/Modem)."</source>
+    </trans-unit>
+    <trans-unit id="40">    
+      <source>Party's Name: (No. 1) Provide full company name, to include person(s) providing and receiving the information on behalf of the Party.</source>
+    </trans-unit>
+    <trans-unit id="41">    
+      <source>In the case of a multi-division or multi-location company, clearly indicate whether the CDA applies to the entire company or a specific division or location, e.g. XYZ Inc. or XYZ Inc., Division 1, Palo Alto, CA.</source>
+    </trans-unit>
+    <trans-unit id="42">    
+      <source>This is   the first sentence.</source>
+    </trans-unit>
+    <trans-unit id="43">    
+      <source>This is a test.</source>
+    </trans-unit>
+    <trans-unit id="44">    
+      <source>(Can the segmenter handle parens?)</source>
+    </trans-unit>
+    <trans-unit id="45">    
+      <source>This is a new sentence.</source>
+    </trans-unit>
+    <trans-unit id="46">    
+      <source>Effectively, the starting point could be an implementation priced a as little as $40,000.</source>
+    </trans-unit>
+    <trans-unit id="47">    
+      <source>Through a phased approach, these initial investments are usually scaled to connect several geographically distant facilities and data centers.</source>
+    </trans-unit>
+    <trans-unit id="48">    
+      <source>A: Companies already collaborate internally among business units and externally with suppliers and partners using face-to-face meetings, faxes, phone calls and email.</source>
+    </trans-unit>
+    <trans-unit id="49">    
+      <source>Service Listings describing the Product or Service to be delivered by Sun and Customer obligations relating to such Products or Services are set forth at: http://www.sun.com/service/servicelist/index.html.</source>
+    </trans-unit>
+    <trans-unit id="50">    
+      <source>Some 300 improvements, including new security tools, additional integrated applications and a wider range of system configuration tools, will be included in Solaris 9, which will be unveiled May 22.</source>
+    </trans-unit>
+    <trans-unit id="51">    
+      <source>Among the key upgrades are the tight integration of Sun ONE Directory Server 5.1, Solaris 9 Resource Manager and Solaris Volume Manager into the operating system core, adding new capabilities for systems administrators to have further control of applications and hardware for improved performance.</source>
+    </trans-unit>
+    <trans-unit id="52">    
+      <source>Sun announced general availability of StarOffice 6.0 software, the full- featured office productivity suite that runs across multiple platforms, including Linux, Solaris and Windows on May 21.</source>
+    </trans-unit>
+    <trans-unit id="53">    
+      <source>StarOffice 6.0 software provides customers with an economical alternative to proprietary office productivity suites that are expensive and have restrictive licensing policies.</source>
+    </trans-unit>
+    <trans-unit id="54">    
+      <source>The StarOffice 6.0 office productivity suite (branded StarSuite in Asian markets) retail offering has a U.S. Manufacturer's Suggested Retail Price of $75.95.</source>
+    </trans-unit>
+    <trans-unit id="55">    
+      <source>Education customers pay only for the cost of the media (CD-ROM) and shipping.</source>
+    </trans-unit>
+    <trans-unit id="56">    
+      <source>At the conference, Scott McNealy pledged to put a billion dollars into Linux at Sun.</source>
+    </trans-unit>
+    <trans-unit id="57">    
+      <source>With this announcement, Sun established three goals for the coming year: Sun will ship for the first time a full implementation of Linux on a new line of general-purpose servers (code named Big Bear) aimed at providing "edge" services to environments such as workgroups and remote offices.</source>
+    </trans-unit>
+    <trans-unit id="58">    
+      <source>This JumpStart! will help you get familiar with Sun's grid computing vision and industry coverage of grid computing, as well as direct you to some technical and community resources on grid computing structures, and Linux is gaining ground in the battle to win mindshare among IT managers.</source>
+    </trans-unit>
+    <trans-unit id="59">    
+      <source>He works at Sun.</source>
+    </trans-unit>
+    <trans-unit id="60">    
+      <source>So does she.</source>
+    </trans-unit>
+    <trans-unit id="61">    
+      <source>Since a trademark is not a noun, it must never be used in possessive form.</source>
+    </trans-unit>
+    <trans-unit id="62">    
+      <source>For example, one would not refer to "Java's features" but rather to "...the features of the Java[TM] technology" or "the Java[TM] technology's features."</source>
+    </trans-unit>
+    <trans-unit id="63">    
+      <source>Licensees under certain commercial license agreements with Sun, including those who have passed the certification testing for Sun's 100% Pure JavaTM program, may be granted express permission to name their products using the "XYZ for JavaTM" format.</source>
+    </trans-unit>
+    <trans-unit id="64">    
+      <source>If you are a commercial licensee and wish to use the "XYZ for Java" format, please contact Sun Microsystems Marketing (marketing@java.sun.com) for a license.</source>
+    </trans-unit>
+    <trans-unit id="65">    
+      <source>[Note: the "Java for XYZ" format is not permitted at all.]</source>
+    </trans-unit>
+    <trans-unit id="66">    
+      <source>C.The Java mark appears in many of the license agreements as all upper case (JAVA).</source>
+    </trans-unit>
+    <trans-unit id="67">    
+      <source>This capitalization is a result of conventions for writing legal documents and is not correct for general usage.</source>
+    </trans-unit>
+    <trans-unit id="68">    
+      <source>Correct capitalization is "Java[TM]" followed by an appropriate noun such as "technology" or "platform".</source>
+    </trans-unit>
+    <trans-unit id="69">    
+      <source>Communicates across public and private X.25 networks with other systems running X.25; can be used with both leased and dial-up lines.</source>
+    </trans-unit>
+    <trans-unit id="70">    
+      <source>Is is possible to skip a sentence (e.g., if the user does not agree with checker error message)?</source>
+    </trans-unit>
+    <trans-unit id="71">    
+      <source>Do you like fish (i.e., salmon)?</source>
+    </trans-unit>
+    <trans-unit id="72">    
+      <source>Do you like fish (viz., salmon)?</source>
+    </trans-unit>
+    <trans-unit id="73">    
+      <source>When a letter cannot be delivered, the file is also copied to a file in your home directory named dead.letter.</source>
+    </trans-unit>
+    <trans-unit id="74">    
+      <source>The Thread.stop, Thread.</source>
+    </trans-unit>
+    <trans-unit id="75">    
+      <source>suspend, and Thread.resume methods are deprecated as of JDK 1.1.</source>
+    </trans-unit>
+    <trans-unit id="76">    
+      <source>Applications that use the old com.sun.java.</source>
+    </trans-unit>
+    <trans-unit id="77">    
+      <source>swing* names for these packages from Swing 1.0 do not work in the Java 2 SDK for Solaris platform.</source>
+    </trans-unit>
+    <trans-unit id="78">    
+      <source>Update these applications to use the new java.</source>
+    </trans-unit>
+    <trans-unit id="79">    
+      <source>swing package names.</source>
+    </trans-unit>
+    <trans-unit id="80">    
+      <source>Default is r!</source>
+    </trans-unit>
+    <trans-unit id="81">    
+      <source>all.</source>
+    </trans-unit>
+    <trans-unit id="82">    
+      <source>An !</source>
+    </trans-unit>
+    <trans-unit id="83">    
+      <source>(exclamation point) prefacing an entry disallows access, while no preface allows access.</source>
+    </trans-unit>
+    <trans-unit id="84">    
+      <source>For the C shell, the PATH variable is specified in your .cshrc file (in your home directory) using the following syntax:</source>
+    </trans-unit>
+    <trans-unit id="85">    
+      <source>If you want to back up to an intermediate rlogin connection, use two tildes followed by a period ( ~~.)</source>
+    </trans-unit>
+    <trans-unit id="86">    
+      <source>as follows:</source>
+    </trans-unit>
+    <trans-unit id="87">    
+      <source>You can mount (or link from /net/.</source>
+    </trans-unit>
+    <trans-unit id="88">    
+      <source>.</source>
+    </trans-unit>
+    <trans-unit id="89">    
+      <source>.</source>
+    </trans-unit>
+    <trans-unit id="90">    
+      <source>) the AnswerBook package to /usr/dt/share/answerbooks/ language.</source>
+    </trans-unit>
+    <trans-unit id="91">    
+      <source>Use the comment begin marker ( &lt;!--) and end marker ( --&gt;) as shown:</source>
+    </trans-unit>
+    <trans-unit id="92">    
+      <source>Two frequently used wildcards are asterisk ( *) and question mark ( ?)</source>
+    </trans-unit>
+    <trans-unit id="93">    
+      <source>.</source>
+    </trans-unit>
+    <trans-unit id="94">    
+      <source>The * matches any string of characters (including no characters), and ?</source>
+    </trans-unit>
+    <trans-unit id="95">    
+      <source>matches any single character.</source>
+    </trans-unit>
+    <trans-unit id="96">    
+      <source>Other wildcards include: .</source>
+    </trans-unit>
+    <trans-unit id="97">    
+      <source>(period)-matches any character | (vertical bar)-specifies two search patterns and matches either pattern (logical OR) ( ) (parentheses)-encloses a pattern expression.</source>
+    </trans-unit>
+    <trans-unit id="98">    
+      <source>These are actually Group 3 Fax (T.4) format images.</source>
+    </trans-unit>
+    <trans-unit id="99">    
+      <source>LDAP_SYN_FAXBUTTON is used to provide a button (or equivalent interface element) that can be used to retrieve, decode, and display an attribute of photo syntax.</source>
+    </trans-unit>
+    <trans-unit id="100">    
+      <source>4800/2400bps leased line (V.27bis)</source>
+    </trans-unit>
+    <trans-unit id="101">    
+      <source>Incompatible Change Major release (X.0) BIOS Version GG.06.13 does not support LBA access.</source>
+    </trans-unit>
+    <trans-unit id="102">    
+      <source>standardized through X.400 Application Programming Interface</source>
+    </trans-unit>
+    <trans-unit id="103">    
+      <source>See the ISO ASN.1 (ISO 8824).</source>
+    </trans-unit>
+    <trans-unit id="104">    
+      <source>Refer to the /usr/share/man/man5/iconv_locale.5 manual page in the</source>
+    </trans-unit>
+    <trans-unit id="105">    
+      <source>ftp account required /usr/lib/security/pam_unix.so.1</source>
+    </trans-unit>
+    <trans-unit id="106">    
+      <source>DNS name or an X.500 name can appear after the</source>
+    </trans-unit>
+    <trans-unit id="107">    
+      <source>Minor x.</source>
+    </trans-unit>
+    <trans-unit id="108">    
+      <source>y Compared</source>
+    </trans-unit>
+    <trans-unit id="109">    
+      <source>My.</source>
+    </trans-unit>
+    <trans-unit id="110">    
+      <source>Sun</source>
+    </trans-unit>
+    <trans-unit id="111">    
+      <source>Sun.Net.</source>
+    </trans-unit>
+    <trans-unit id="112">    
+      <source>Access.Sun.Net.</source>
+    </trans-unit>
+</body>
+</file>
+</xliff>

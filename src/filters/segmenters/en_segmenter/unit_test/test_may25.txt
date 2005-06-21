@@ -1,0 +1,18 @@
+BIOS Version GG.06.13 does not support LBA access.
+
+standardized through X.400 Application Programming Interface
+
+See the ISO ASN.1 (ISO 8824).
+
+Refer to the /usr/share/man/man5/iconv_locale.5 manual page in the
+
+ftp account required /usr/lib/security/pam_unix.so.1
+
+DNS name or an X.500 name can appear after the
+
+Minor x.y Compared
+
+My.Sun
+
+Sun.Net.
+

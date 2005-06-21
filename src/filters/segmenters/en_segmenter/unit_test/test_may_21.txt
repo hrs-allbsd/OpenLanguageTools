@@ -1,0 +1,117 @@
+The Title
+
+This is   the first sentence.
+
+This is a test. (Can the
+segmenter handle parens?)
+This is a new sentence.
+
+
+Effectively, the starting
+point could be an
+implementation priced a as
+little as $40,000. Through a
+phased approach, these
+initial investments are
+usually scaled to connect
+several geographically
+distant facilities and data
+centers.
+
+A: Companies already
+collaborate internally among
+business units and externally
+with suppliers and partners
+using face-to-face meetings,
+faxes, phone calls and
+email.
+
+Service Listings describing
+the Product or Service to be
+delivered by Sun and Customer
+obligations relating to such
+Products or Services are set
+forth at:
+http://www.sun.com/service/servicelist/index.html.
+
+Some 300 improvements,
+including new security tools,
+additional integrated
+applications and a wider
+range of system configuration
+tools, will be included in
+Solaris 9, which will be
+unveiled May 22. Among the
+key upgrades are the tight
+integration of Sun ONE
+Directory Server 5.1, Solaris
+9 Resource Manager and
+Solaris Volume Manager into
+the operating system core,
+adding new capabilities for
+systems administrators to
+have further control of
+applications and hardware for
+improved performance.
+
+
+
+Sun announced general
+availability of StarOffice
+6.0 software, the full-
+featured office productivity
+suite that runs across
+multiple platforms, including
+Linux, Solaris and Windows on
+May 21. StarOffice 6.0
+software provides customers
+with an economical
+alternative to proprietary
+office productivity suites
+that are expensive and have
+restrictive licensing
+policies.
+
+
+The StarOffice 6.0 office
+productivity suite (branded
+StarSuite in Asian markets)
+retail offering has a U.S.
+Manufacturer's Suggested
+Retail Price of $75.95.
+Education customers pay only
+for the cost of the media
+(CD-ROM) and shipping.
+
+At the conference, Scott
+McNealy pledged to put a
+billion dollars into Linux at
+Sun. With this announcement,
+Sun established three goals
+for the coming year: Sun will
+ship for the first time a
+full implementation of Linux
+on a new line of
+general-purpose servers (code
+named Big Bear) aimed at
+providing "edge" services to
+environments such as
+workgroups and remote
+offices.
+
+
+This JumpStart! will help you
+get familiar with Sun's grid
+computing vision and industry
+coverage of grid computing,
+as well as direct you to some
+technical and community
+resources on grid computing
+structures, and Linux is
+gaining ground in the battle
+to win mindshare among IT
+managers.
+
+He works at Sun. So does
+she.
+

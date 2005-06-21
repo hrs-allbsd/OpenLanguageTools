@@ -1,0 +1,88 @@
+Add "Tech." to abbreviations. -  Would handle "Centennial Tech. PM50003 (CT 14.4 Fax/Modem)."
+
+###
+
+If test1.txt has one sentence, namely,
+
+If you specify an incorrect user address when you send a message, the system responds with the message "user@machine...User unknown".
+
+I get: 
+
+java -classpath plaintext-segmenter.jar com.sun.tmc.segmenters.Segmenter_en.ViewCollections test1.txt | more
+ISO8859-1
+ISO8859_1
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: -528032321
+        at java.lang.Throwable.fillInStackTrace(Native Method)
+        at java.lang.Throwable.fillInStackTrace(Compiled Code)
+        at java.lang.Throwable.<init>(Compiled Code)
+        at java.lang.Exception.<init>(Exception.java:42)
+        at java.lang.RuntimeException.<init>(RuntimeException.java:47)
+        at java.lang.IndexOutOfBoundsException.<init>(IndexOutOfBoundsException.java:44)
+        at java.lang.StringIndexOutOfBoundsException.<init>(StringIndexOutOfBoundsException.java:57)
+        at java.lang.String.<init>(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.SimpleCharStream.GetImage(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_enTokenManager.jjFillToken(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_enTokenManager.getNextToken(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_scan_token(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3R_13(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3_21(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3R_8(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3_11(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3_15(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_2_15(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.sentence(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.segment(Segmenter_en.java:127)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.file(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.parse(Segmenter_en.java:36)
+        at com.sun.tmc.segmenters.Segmenter_en.ViewCollections.main(Compiled Code)
+
+
+###
+
+Note that "Minor x.y" doesn't work, but "Micro x.y.z" does.
+
+####
+
+Another error:
+
+fmt test1.txt
+Party's Name: (No. 1) Provide full company name, to include person(s)
+providing and receiving the information on behalf of the Party. In the
+case of a multi-division or multi-location company, clearly indicate
+whether the CDA applies to the entire company or a specific division or
+location, e.g. XYZ Inc. or XYZ Inc., Division 1, Palo Alto, CA.
+ theta 451 =>!404
+java -classpath plaintext-segmenter.jar com.sun.tmc.segmenters.Segmenter_en.ViewCollections test1.txt | more
+ISO8859-1
+ISO8859_1
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: -38268796
+        at java.lang.Throwable.fillInStackTrace(Native Method)
+        at java.lang.Throwable.fillInStackTrace(Compiled Code)
+        at java.lang.Throwable.<init>(Compiled Code)
+        at java.lang.Exception.<init>(Exception.java:42)
+        at java.lang.RuntimeException.<init>(RuntimeException.java:47)
+        at java.lang.IndexOutOfBoundsException.<init>(IndexOutOfBoundsException.java:44)
+        at java.lang.StringIndexOutOfBoundsException.<init>(StringIndexOutOfBoundsException.java:57)
+        at java.lang.String.<init>(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.SimpleCharStream.GetImage(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_enTokenManager.jjFillToken(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_enTokenManager.getNextToken(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_scan_token(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3_282(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3R_9(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3_13(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3_15(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3R_7(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3_7(Segmenter_en.java:4378)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3R_5(Segmenter_en.java:4395)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_3_1(Segmenter_en.java:4404)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.jj_2_1(Segmenter_en.java:1310)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.file(Compiled Code)
+        at com.sun.tmc.segmenters.Segmenter_en.Segmenter_en.parse(Segmenter_en.java:36)
+        at com.sun.tmc.segmenters.Segmenter_en.ViewCollections.main(Compiled Code)
+
+###
+
+

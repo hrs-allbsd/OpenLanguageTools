@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." default="all" name="translation editor 4">
+    <import file="../../common.xml"/>
+
+	<buildnumber file="build.version.properties"/>
+	<property name="editor.dest.dir" value="${dest.dir}/transeditor4/"/>
+	<property name="installer.dir" value="${editor.dest.dir}/installer/"/>
+	
+    <path id="build.classpath">
+        <path refid="deps.common.util"/>
+        <path refid="deps.filters"/>
+        <path refid="deps.editor.libs"/>
+        <path refid="deps.backconv"/>
+        <path refid="deps.xerces"/>
+    </path>
+    <path id="test.classpath">
+        <path refid="deps.common.util"/>
+        <path refid="deps.filters"/>
+        <path refid="deps.editor.libs"/>
+        <path refid="deps.backconv"/>
+        <path location="${build.dir}" />
+        <path location="."/>
+        <path location="test-data"/>
+    </path>
+    <path id="run.classpath">
+        <path refid="build.classpath"/>
+        <path location="${build.dir}"/>
+    </path>
+
+	<!-- dependency tracking see init target-->
+    <!-- TODO: Separate tasks which are actually not dependent on
+    the complete build flow but have been made so to simply the build -->
+
+    <property name="dtd.dir" value="../..//dtd"/>
+	
+    <property name="build.staging.dir" value="${build.dir}/staging"/>
+    <property name="build.dir.setup" value="${build.dir}/transtech-build/setup"/>
+    <property name="tmx-conv.dir" value="../../src/backconverters/xliff_tmx_converter"/>
+    <property name="built.lib.dir" value="./jars"/>
+    <property name="webmod.app.dir" value="web_mod/app"/>
+
+	<!-- IzPack setup -->
+	<property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.7.0/"/>	
+	<taskdef name="izpack" classpath="${IZPACK_HOME}/lib/compiler.jar"
+         classname="com.izforge.izpack.ant.IzPackTask"/>
+
+
+    <target name="init" depends="common.init">
+        <echo message="Using build directory ${build.dir}"/>
+		<mkdir dir="${editor.dest.dir}"/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${installer.dir}"/>
+		
+		<!-- we're really really REALLY lazy here. We'll build utilities,filters
+			and backconv only if we can't find required stuff from backconverters.
+			see the deps.backconv target    	
+		-->
+		<available 
+			file="${dest.dir}/filters-editor.jar"
+			property="do.build.deps"/>
+    </target>
+
+
+    <target name="pre-compile" depends="common.pre-compile">
+		<echo>Setting editor version to: ${build.version}</echo>
+		<echo>I copy the original Constants.java  file to Constants.java_ file then change the version and write back to Constants.java</echo>
+		<copy file="src/org/jvnet/olt/editor/translation/Constants.java" 
+			tofile="src/org/jvnet/olt/editor/translation/Constants.java_"
+			overwrite="true"/>
+		
+		<copy file="src/org/jvnet/olt/editor/translation/Constants.java_" 
+			tofile="src/org/jvnet/olt/editor/translation/Constants.java"
+		   	overwrite="true">
+			<filterset>
+			  <filter token="VERSION" value="${build.version}"/>
+			</filterset>
+		</copy>
+    </target>
+
+    <target name="compile" depends="init,pre-compile,deps,common.compile">
+		<echo>restoring Constants.java</echo>
+		<copy file="src/org/jvnet/olt/editor/translation/Constants.java_" 
+			tofile="src/org/jvnet/olt/editor/translation/Constants.java"
+			overwrite="true"/>
+		<delete file="src/org/jvnet/olt/editor/translation/Constants.java_"/> 
+		
+        <copy todir="${build.dir}">
+            <fileset dir="./static"/>
+        </copy>
+        <copy todir="${build.dir}/resources">
+            <fileset dir="${dtd.dir}">
+                <include name="xliff.dtd"/>
+                <include name="tt-xliff-skl.dtd"/>
+            </fileset>
+            <fileset dir="${tmx-conv.dir}/src/resource/">
+                <include name="xliff-tmx.xsl"/>
+                <include name="xliff-tmx_MN.xsl"/>
+            </fileset>
+        </copy>
+    </target>
+
+	<!-- build dependencies -->
+	<target name="deps" unless="do.build.deps">
+		<ant dir="../../utilities">
+			<property name="do.build.editor" value="please"/>
+		</ant>
+		<ant dir="../filters">
+			<property name="do.build.editor" value="please"/>
+		</ant>
+		<ant dir="../backconverters" target="all">
+			<property name="do.build.editor" value="please"/>
+		</ant>
+	</target>
+
+    <target name="dist" depends="common.dist">
+        <!-- mksetup -->
+        <jar jarfile="${installer.dir}/EditorSetup.jar">
+            <fileset dir="${build.dir}" includes="org/jvnet/olt/editor/setup/"/>
+        </jar>
+
+        <mkdir dir="${installer.dir}/mini-tm"/>
+        <mkdir dir="${installer.dir}/downloads/"/>
+        <mkdir dir="${installer.dir}/classes"/>
+
+        <copy file="${dest.dir}/backconv.jar" verbose="true" tofile="${installer.dir}/classes/XliffBackConverter.jar"/>
+        <copy file="${dest.dir}/utilities-fuzzytm.jar" verbose="true" tofile="${installer.dir}/classes/fuzzytm.jar"/>
+        <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
+
+		<copy todir="${installer.dir}" verbose="true">
+			<fileset dir="installer">
+				<include name="*.properties"/>
+				<include name="*.ico"/>
+				<include name="*.bat"/>
+				<include name="*.sh"/>
+				<include name="shortcuts_*.xml"/>
+				<include name="install_*.xml"/>
+				<include name="*.desktop"/>
+			</fileset>
+		</copy>
+		
+		<copy todir="${installer.dir}" verbose="true" file="static/resources/LICENSE.txt"/>
+	
+        <chmod file="${installer.dir}/translation.sh" perm="ugo+rx"/>
+
+		<!-- first unzip filters.jar and then zip it with editor -->
+		<unzip src="${dest.dir}/filters-editor.jar" dest="${build.dir}"/>
+		<unzip src="${dest.dir}/utilities-editor.jar" dest="${build.dir}"/>
+        
+		<jar jarfile="${installer.dir}/TransEditor.jar">
+            <fileset dir="${build.dir}">
+                <include name="com/sun/gss/common/"/>
+                <include name="org/jvnet/olt/parsers/sgmltokens/"/>
+                <include name="org/jvnet/olt/util/"/>
+                <include name="org/jvnet/olt/io/"/>
+                <include name="org/jvnet/olt/parsers/SgmlDocFragmentParser/"/>
+                <include name="org/jvnet/olt/editor/commands/"/>
+                <include name="org/jvnet/olt/editor/filefilters/"/>
+                <include name="org/jvnet/olt/editor/filesplit/"/>
+                <include name="org/jvnet/olt/editor/minitm/"/>
+                <include name="org/jvnet/olt/editor/model/"/>
+                <include name="org/jvnet/olt/editor/online/"/>
+                <include name="org/jvnet/olt/editor/setup/"/>
+                <include name="org/jvnet/olt/editor/spellchecker/"/>
+                <include name="org/jvnet/olt/editor/translation/"/>
+                <include name="org/jvnet/olt/editor/util/"/>
+                <include name="org/jvnet/olt/alignment/"/>
+                <include name="org/jvnet/olt/backconv/"/>
+                <include name="org/jvnet/olt/editor/format/"/>
+                <include name="org/jvnet/olt/editor/format/sgml/"/>
+                <include name="org/jvnet/olt/editor/format/swmsg/"/>
+                <include name="org/jvnet/olt/filters/xml/"/>
+                <include name="org/jvnet/olt/format/"/>
+                <include name="org/jvnet/olt/format/brokensgml/"/>
+                <include name="org/jvnet/olt/format/messageformat/"/>
+                <include name="org/jvnet/olt/format/plaintext/"/>
+                <include name="org/jvnet/olt/format/printf/"/>
+                <include name="org/jvnet/olt/format/sgml/"/>
+                <include name="org/jvnet/olt/format/sgml/tmx/"/>
+                <include name="org/jvnet/olt/io/"/>
+                <include name="org/jvnet/olt/laxparsers/sgml/"/>
+                <include name="org/jvnet/olt/laxparsers/software/"/>
+                <include name="org/jvnet/olt/parsers/MessageFormatParser/"/>
+                <include name="org/jvnet/olt/parsers/PrintfParser/"/>
+				<include name="org/jvnet/olt/parsers/XmlDocFragmentParser/"/>
+                <include name="org/jvnet/olt/so_back_converter/"/>
+                <include name="org/jvnet/olt/util/"/>
+                <include name="org/jvnet/olt/xliff/"/>
+                <include name="org/jvnet/olt/xliff/mrk/"/>
+                <include name="org/jvnet/olt/filters/NonConformantSgmlDocFragmentParser/"/>
+                <include name="org/jvnet/olt/filters/html/"/>
+                <include name="org/jvnet/olt/filters/jsp/"/>
+                <include name="org/jvnet/olt/filters/sgml/docbook/"/>
+                <include name="org/jvnet/olt/filters/xmlmerge/"/>
+                <include name="org/jvnet/olt/parsers/tagged/"/>
+                <include name="org/jvnet/olt/utilities/"/>
+                <include name="org/jvnet/olt/xliff/"/>
+                <include name="org/jvnet/olt/xliffparser/"/>
+                <include name="org/jvnet/olt/xlifftools/"/>
+                <include name="resources/"/>
+                <include name="resources/flags/"/>
+                <include name="resources/gifs/"/>
+                <include name="resources/LICENSE.txt/"/>
+
+				<!-- include stuff from filters -->
+                <include name="org/jvnet/olt/tmci/"/>
+                <include name="org/jvnet/olt/filters/software/"/>
+                <include name="org/jvnet/olt/io/"/>
+                <include name="com/sun/tmc/parsers/"/>
+            </fileset>
+        </jar>
+
+        <!-- unzip spellchecker -->
+		
+		<!-- we unzip spellchecker for solaris into installer root so that we can test from that dir
+			the win spellchecker is in spellchecker-win 
+		-->
+		<mkdir dir="${installer.dir}/spellchecker-win"/>
+		<unzip src="spellchecker_bin/solaris-spellcheck.zip" dest="${installer.dir}" />
+		<unzip src="spellchecker_bin/windows-spellchecker.zip" dest="${installer.dir}/spellchecker-win" />
+
+		<!-- make aspell runnable/readable -->
+        <chmod file="${installer.dir}/spellchecker/bin/aspell" perm="ugo+x"/>
+        <chmod dir="${installer.dir}/spellchecker" includes="**" perm="ugo+rw" type="both"/>
+
+		<!-- documentation -->
+		<copy file="docs/OLT_XLIFF_Translation_Editor_Manual_1_0.pdf" tofile="${installer.dir}/OLT_XLIFF_Translation_Editor_Manual_${build.version.flat}.pdf"/>
+
+		<!-- set product version number in installer files -->
+		<replace dir="${installer.dir}" token="@VERSION@" value="${build.version}">
+			<include name="install_*.xml"/>
+			<include name="shortcuts_*.xml"/>
+		</replace>
+		<replace dir="${installer.dir}" token="@VERSION_FLAT@" value="${build.version.flat}">
+			<include name="install_*.xml"/>
+			<include name="shortcuts_*.xml"/>
+			<include name="install.*"/>
+		</replace>
+
+		<echo>Building installer for Windows</echo>
+ 		<izpack input="${installer.dir}/install_windows.xml"
+        output="${dest.dir}/transeditor_v${build.version.flat}_win.jar"
+        installerType="standard"
+        basedir="${installer.dir}"
+        izPackDir="${IZPACK_HOME}"/>
+		
+		<echo>Building installer for Solaris</echo>
+       <izpack input="${installer.dir}/install_solaris.xml"
+        output="${dest.dir}/transeditor_v${build.version.flat}_sol.jar"
+        installerType="standard"
+        basedir="${installer.dir}"
+        izPackDir="${IZPACK_HOME}"/>
+
+		<!-- ANY OTHER PLATFORMS -->
+		<!--
+		<echo>Building installer for Other</echo>
+       <izpack input="installer/install_other.xml"
+        output="${dest.dir}/transeditor_v4_5_other.jar"
+        installerType="standard"
+        basedir="${installer.dir}"
+        izPackDir="${IZPACK_HOME}"/>
+		-->
+		
+		<zip destfile="${dest.dir}/transeditor_v${build.version.flat}_win.zip">
+			<zipfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_win.jar"/>
+			<zipfileset dir="${installer.dir}" includes="install.bat" />
+		</zip>
+		<tar destfile="${dest.dir}/transeditor_v${build.version.flat}_sol.tar.gz" compression="gzip">
+			<tarfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_sol.jar" mode="555"/>
+			<tarfileset dir="${installer.dir}" includes="install.sh" mode="755"/>
+		</tar>
+	</target>
+
+    <target name="clean" depends="common.clean">
+        <delete dir="${editor.dest.dir}"/>
+        <delete dir="${build.dir}"/>
+    </target>
+
+	<target name="run" depends="compile">
+		<java 
+			classpathref="run.classpath" 
+			fork="yes"
+			classname="org.jvnet.olt.editor.translation.TransEditor">
+			<jvmarg value="-Xdebug"/>
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
+			<jvmarg value="-Xmx512M"/>
+            <sysproperty key="java.util.logging.config.file" value="logging.properties"/>
+		</java>
+		
+	</target>
+
+   <target name="pre-test">
+   	<mkdir dir="${build.dir}/junit-reports"/>
+        <mkdir dir="${build.dir}/test-results"/>
+    </target>
+        
+        	
+    <target name="test-single" depends="pre-test,compile">
+
+	<property file="single-test.properties"/>
+        <property name="junit.test.suspend" value="n"/>
+        <junit printsummary="yes" haltonfailure="no" dir=".">
+            <classpath>
+                <path location="${build.dir}" />
+                <path refid="build.classpath"/>
+                <path location="."/>
+                <path location="test-data"/>
+            </classpath>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=${junit.test.suspend},address=58000"/>
+            <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
+            
+            <formatter type="xml"/>
+
+            <test name="${junit.test.class}" fork="yes" todir="${build.dir}/junit-reports"/>
+        </junit>
+		<junitreport todir="${build.dir}/junit-reports">
+		  <fileset dir="${build.dir}/junit-reports">
+			<include name="TEST-*.xml"/>
+		  </fileset>
+		  <report format="frames" todir="${build.dir}/junit-reports/html"/>
+		</junitreport>
+    </target>
+
+    <!-- we need to setup working dir and different classpath -->
+	<!--
+    <target name="test" depends="pre-test,compile">
+        <junit printsummary="yes" haltonfailure="no" dir=".">
+            <classpath>
+                <path location="${build.dir}" />
+                <path refid="build.classpath"/>
+                <path location="."/>
+                <path location="test-data"/>
+            </classpath>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
+            <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
+            
+            <formatter type="xml"/>
+
+            
+            <batchtest fork="yes" todir="${build.dir}/junit-reports">
+                <fileset dir="src">
+                  <include name="**/*Test.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+		<junitreport todir="${build.dir}/junit-reports">
+		  <fileset dir="${build.dir}/junit-reports">
+			<include name="TEST-*.xml"/>
+		  </fileset>
+		  <report format="frames" todir="${build.dir}/junit-reports/html"/>
+		</junitreport>
+    
+    </target>
+    -->
+    
+
+	<target name="online">
+		<fail>Online version building does not with this build script</fail>
+	</target>
+	
+<!-- the targets below are not guaranteed to work -->
+    <!--
+          Online Editor Targets  
+          =====================
+          The following targets build the online JNLP deployed version
+          of the Editor. The approach is to build the editor classes as 
+          normal, and then to copy stuff to temporary directories, to finish 
+          off the creation of the signed jars, and the building of the war
+          file.
+      -->
+     <target name="online-x" depends="setup-jar,online-ed-jar" description="Jars up the compiled classes">
+        <!-- 
+            Build the 6 jar file components of the online editor into a 
+            single jar to ease handoff.
+         -->
+        <jar jarfile="${build.dir}/handoff.jar">
+            <fileset dir="${built.lib.dir}">
+                <include name="TransEditor.jar"/>
+                <include name="EditorSetup.jar"/>
+                <include name="xerces2.jar"/>
+                <include name="activation.jar"/>
+                <include name="jdom.jar"/>
+                <include name="mail.jar"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="online-ed-jar" depends="compile" description="Jars up the compiled classes">
+        <!-- make temporary dir -->
+        <mkdir dir="${build.staging.dir}"/>
+                                
+        <!-- unpack jar files -->
+        <unjar dest="${build.staging.dir}" src="${built.lib.dir}/backconv.jar"/>
+        <unjar dest="${build.staging.dir}" src="${built.lib.dir}/fuzzytm.jar"/>
+
+        <delete dir="${build.staging.dir}/META-INF"/>
+        <!-- copy class files from the build dir -->
+        <copy todir="${build.staging.dir}">
+            <fileset dir="${build.dir}">
+                <include name="com/sun/gss/common/"/>
+                <include name="org/jvnet/olt/fuzzy/basicsearch/"/>
+                <include name="org/jvnet/olt/index/"/>
+                <include name="org/jvnet/olt/minitm/"/>
+                <include name="org/jvnet/olt/parsers/sgmltokens/"/>
+                <include name="org/jvnet/olt/util/"/>
+                <include name="org/jvnet/olt/io/"/>
+                <include name="org/jvnet/olt/parsers/SgmlDocFragmentParser/"/>
+                <include name="org/jvnet/olt/editor/commands/"/>
+                <include name="org/jvnet/olt/editor/filefilters/"/>
+                <include name="org/jvnet/olt/editor/filesplit/"/>
+                <include name="org/jvnet/olt/editor/minitm/"/>
+                <include name="org/jvnet/olt/editor/model/"/>
+                <include name="org/jvnet/olt/editor/online/"/>
+                <include name="org/jvnet/olt/editor/setup/"/>
+                <include name="org/jvnet/olt/editor/spellchecker/"/>
+                <include name="org/jvnet/olt/editor/translation/"/>
+                <include name="org/jvnet/olt/editor/util/"/>
+                <include name="org/jvnet/olt/alignment/"/>
+                <include name="org/jvnet/olt/backconv/"/>
+                <include name="org/jvnet/olt/editor/format/"/>
+                <include name="org/jvnet/olt/editor/format/sgml/"/>
+                <include name="org/jvnet/olt/editor/format/swmsg/"/>
+                <include name="org/jvnet/olt/filters/xml/"/>
+                <include name="org/jvnet/olt/format/"/>
+                <include name="org/jvnet/olt/format/brokensgml/"/>
+                <include name="org/jvnet/olt/format/messageformat/"/>
+                <include name="org/jvnet/olt/format/plaintext/"/>
+                <include name="org/jvnet/olt/format/printf/"/>
+                <include name="org/jvnet/olt/format/sgml/"/>
+                <include name="org/jvnet/olt/format/sgml/tmx/"/>
+                <include name="org/jvnet/olt/io/"/>
+                <include name="org/jvnet/olt/laxparsers/sgml/"/>
+                <include name="org/jvnet/olt/laxparsers/software/"/>
+                <include name="org/jvnet/olt/parsers/MessageFormatParser/"/>
+                <include name="org/jvnet/olt/parsers/PrintfParser/"/>
+                <include name="org/jvnet/olt/so_back_converter/"/>
+                <include name="org/jvnet/olt/util/"/>
+                <include name="org/jvnet/olt/xliff/"/>
+                <include name="org/jvnet/olt/xliff/mrk/"/>
+                <include name="org/jvnet/olt/xliff_back_converter/"/>
+                <include name="org/jvnet/olt/xliff_back_converter/format/html/"/>
+                <include name="org/jvnet/olt/xliff_back_converter/format/plaintext/"/>
+                <include name="org/jvnet/olt/xliff_back_converter/format/sgml/"/>
+                <include name="org/jvnet/olt/xliff_back_converter/format/software/"/>
+                <include name="org/jvnet/olt/xliff_back_converter/format/xml/"/>
+                <include name="org/jvnet/olt/xliff_tmx_converter/"/>
+                <include name="org/jvnet/olt/filters/NonConformantSgmlDocFragmentParser/"/>
+                <include name="org/jvnet/olt/filters/html/"/>
+                <include name="org/jvnet/olt/filters/jsp/"/>
+                <include name="org/jvnet/olt/filters/sgml/docbook/"/>
+                <include name="org/jvnet/olt/filters/xmlmerge/"/>
+                <include name="org/jvnet/olt/parsers/tagged/"/>
+                <include name="org/jvnet/olt/utilities/"/>
+                <include name="org/jvnet/olt/xliff/"/>
+                <include name="org/jvnet/olt/xliffparser/"/>
+                <include name="org/jvnet/olt/xlifftools/"/>
+            </fileset>
+        </copy>
+        
+        <!-- copy the ancilliary files -->
+        <delete file="${build.jars.dir}/TransEditor.jar"/>
+        <copy todir="${build.staging.dir}">
+            <fileset dir="./static"/>
+        </copy>
+        <copy todir="${build.staging.dir}/resources">
+            <fileset dir="${dtd.dir}">
+                <include name="xliff.dtd"/>
+                <include name="tt-xliff-skl.dtd"/>
+            </fileset>
+            <fileset dir="${tmx-conv.dir}/src/resource/">
+                <include name="xliff-tmx.xsl"/>
+                <include name="xliff-tmx_MN.xsl"/>
+            </fileset>
+        </copy>
+        
+        <!-- make the signed jar file -->
+        <delete file="${built.lib.dir}/TransEditor.jar"/>
+        <exec executable="/home/jc73554/signtool/signtool13SunOS56/signtool">
+            <arg value="-k"/>
+            <arg value="iButton:SunTrans Translation Editor 4.1 Client&apos;s Sun Microsystems Inc ID"/>
+            <arg value="-Z"/>
+            <arg value="${built.lib.dir}/TransEditor.jar"/>
+            <arg value="${build.staging.dir}"/>
+        </exec>	 
+        <!--  
+        <jar basedir="${build.staging.dir}" jarfile="${built.lib.dir}/TransEditor.jar"/>
+        -->
+    </target>
+
+    <target name="setup-jar" depends="setup-compile" description="jars and signs the setup classes">
+        <delete file="${built.lib.dir}/EditorSetup.jar"/>
+        <exec executable="/home/jc73554/signtool/signtool13SunOS56/signtool">
+            <arg value="-k"/>
+            <arg value="iButton:SunTrans Translation Editor 4.1 Client&apos;s Sun Microsystems Inc ID"/>
+            <arg value="-Z"/>
+            <arg value="${built.lib.dir}/EditorSetup.jar"/>
+            <arg value="${build.dir.setup}"/>
+        </exec>	
+        <!--
+        <jar basedir="${build.dir.setup}" jarfile="${built.lib.dir}/EditorSetup.jar"/>
+        -->
+    </target>
+    <target name="setup-compile" depends="init" description="compiles the setup classes">
+        <mkdir dir="${build.dir.setup}"/>
+        <javac classpathref="javac.classpath" destdir="${build.dir.setup}" includes="org/jvnet/olt/editor/setup/**" srcdir="src"/>
+     </target>
+
+</project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <something>
+        something<other>other thing</other>
+    </something>
+    <file>
+        <unit>
+            <source xml:lang="en-US">Translated Foo</source>
+        </unit>
+        <unit>
+            <source xml:lang="de-DE" other="abc">Translated Bla </source>
+            <source>(Translated) This is<b>bold text</b>so there</source>
+        </unit>
+    </file>
+</root>

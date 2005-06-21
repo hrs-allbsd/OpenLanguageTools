@@ -1,0 +1,52 @@
+Is is possible to skip a sentence (e.g., if the user does not agree with checker error message)?
+
+Do you like fish (i.e., salmon)?
+
+Do you like fish (viz., salmon)?
+
+When a letter cannot be delivered, the file is also copied to a file in
+your home directory named dead.letter.
+
+
+The Thread.stop, Thread.suspend, and Thread.resume methods are deprecated as of JDK 1.1.
+
+Applications that use the old com.sun.java.swing* names for these
+packages from Swing 1.0 do not work in the Java 2 SDK for Solaris
+platform. Update these applications to use the new java.swing package
+names.
+
+Default is r!all.
+
+An ! (exclamation point) prefacing an entry disallows access, while no preface allows access.
+
+For the C shell, the PATH variable is specified in your .cshrc file (in your home directory) using the following syntax:
+
+
+If you want to back up to an intermediate rlogin connection, use two
+tildes followed by a period ( ~~.) as follows:
+
+
+You can mount (or link from /net/. . .) the AnswerBook package to
+/usr/dt/share/answerbooks/ language.
+
+Use the comment begin marker ( <!--) and end marker ( -->) as
+shown:
+
+
+            Two frequently used wildcards are asterisk ( *) and question mark ( ?). The * matches any string of
+characters (including no characters), and ? matches any single
+character. Other wildcards include:
+. (period)-matches any character
+| (vertical bar)-specifies two search patterns and matches either
+pattern (logical OR) ( ) (parentheses)-encloses a pattern
+expression.
+
+These are actually Group 3 Fax (T.4) format images.
+LDAP_SYN_FAXBUTTON is used to provide a button (or equivalent interface
+element) that can be used to retrieve, decode, and display an attribute
+of photo syntax. 
+
+
+4800/2400bps leased line (V.27bis)
+
+Incompatible Change Major release (X.0)

@@ -1,0 +1,15 @@
+<!-- Fragment document type declaration subset:
+ArborText, Inc., 1988-1997, v.4001
+<!DOCTYPE BOOK PUBLIC "-//Sun Microsystems//DTD DocBook V3.0-Based SolBook Subset V2.0//EN">
+-->
+<?Pub UDT registeredtm trademark>
+<?Pub UDT _bookmark _target>
+<?Pub CX book(title()bookinfo()preface(title()highlights()sect1()>
+<sect1 id="sundocs-1"><?Pub Caret1><title>Ordering Sun Documents</title>
+<para>Fatbrain.com, an Internet professional bookstore,  stocks select product documentation from Sun Microsystems, Inc. </para>
+<para>For a list of documents and how to order them, visit the Sun Documentation  Center on Fatbrain.com at <ulink url="http://www1.fatbrain.com/documentation/sun"><literal>http://www1.fatbrain.com/documentation/sun</literal></ulink>.</para>
+</sect1>
+<sect1 id="sundocs-2"><title>Accessing Sun Documentation Online</title>
+<para>The <trademark class="service">docs.sun.com</trademark> Web site enables you to access Sun technical documentation online. You can browse the docs.sun.com archive or search for a specific book title or subject. The URL is <ulink url="http://docs.sun.com"><literal>http://docs.sun.com</literal></ulink>.</para>
+</sect1>
+<?Pub *0000001182 73>

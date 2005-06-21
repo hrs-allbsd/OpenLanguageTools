@@ -1,0 +1,7 @@
+#!/bin/sh
+
+CLASSPATH=../cvs/utilities/jars/junit.jar:../transtech-build:../transtech-build-tests:.
+
+export CLASSPATH
+
+java -classpath ${CLASSPATH} junit.textui.TestRunner com.sun.transtech.xliff_tmx_converter.XliffToTmxConverterTestSuite

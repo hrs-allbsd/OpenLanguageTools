@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="back-convertors" basedir="." default="all">
+	<import file="../../../common.xml"/>
+	
+    <path id="build.classpath">
+		<path location="${build.dir}"/>
+		<path refid="deps.common.util"/>
+		<path refid="deps.filters"/>
+		<path refid="deps.formatters"/>
+	</path>
+   
+    <target name="pre-compile">
+	<mkdir dir="${build.dir}/resources"/>
+	<copy todir="${build.dir}/resources">
+		<fileset dir="resources"
+			includes="**/*.dtd" />
+        </copy>
+   </target>
+
+</project>

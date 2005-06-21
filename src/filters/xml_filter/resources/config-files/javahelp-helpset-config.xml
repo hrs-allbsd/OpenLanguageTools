@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE config SYSTEM "xml-config.dtd">
+<config>
+<head>
+<identifier>
+<dtd>
+<system>helpset_1_0.dtd</system>
+<public>-//Sun Microsystems Inc.//DTD JavaHelp HelpSet Version 1.0//EN</public>
+</dtd>
+</identifier>
+<file-type>JavaHelp HelpSet</file-type>
+<file-type-description>JavaHelp HelpSet</file-type-description>
+<author>Tim Foster</author>
+<generated-by>Tim Foster</generated-by>
+<generated-date>1st June 2005</generated-date>
+<last-modified-date>1st June 2005</last-modified-date>
+</head>
+
+<body>
+<config-element translatable="yes" hardness="hard">name</config-element>
+<config-element translatable="yes" hardness="hard">label</config-element>
+
+<config-element translatable="no" nonsegmentablenowordcount="yes" hardness="hard">type</config-element>
+<config-element translatable="no" nonsegmentablenowordcount="yes" hardness="hard">data</config-element>
+</body>
+</config>

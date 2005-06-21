@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE SAX-bindings PUBLIC "-//XML Module//DTD SAX Bindings 1.0//EN" "">
+<SAX-bindings version='1'>
+	<bind element='tt-xliff-skl' method='tt_xliff_skl' type='CONTAINER' ></bind>
+	<bind element='header' method='header' type='CONTAINER' ></bind>
+	<bind element='file' method='file' type='CONTAINER' ></bind>
+	<bind element='tu-placeholder' method='tu_placeholder' type='EMPTY' ></bind>
+	<bind element='formatting' method='formatting' type='DATA' ></bind>
+	<bind element='xliff-file' method='xliff_file' type='DATA' ></bind>
+	<bind element='body' method='body' type='CONTAINER' ></bind>
+</SAX-bindings>

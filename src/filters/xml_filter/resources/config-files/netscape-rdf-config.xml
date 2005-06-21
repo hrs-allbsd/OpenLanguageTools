@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE config SYSTEM "xml-config.dtd">
+<config>
+<head>
+<namespace>http://home.netscape.com/NC-rdf#</namespace>
+<file-type>Netscape RDF documents, as used by Mozilla</file-type>
+<file-type-description>This is a test xml config file for these types of document</file-type-description>
+<author>Tim Foster</author>
+<generated-by>Manually written xml config file</generated-by>
+<generated-date>06/Apr/2005</generated-date>
+<last-modified-date>06/Apr/2005</last-modified-date>
+</head>
+<body>
+<config-attribute translatable="yes">name</config-attribute>
+<config-attribute translatable="yes">emptysearchtext</config-attribute>
+</body>
+</config>

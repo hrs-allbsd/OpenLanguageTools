@@ -1,0 +1,703 @@
+Using Video and Audio
+
+Video is the Java Media Player application used for viewing or saving video data in several formats. The Java Media Player is automatically launched once you select the 
+Audio/Video menu option from the 
+
+Applications menu. This is the default unless you select the Audio option to customize your environment.
+
+
+Audio is a CDE Motif application for playing, recording, or saving audio data in AU (Sun), WAV (PC), or AIFF (Macintosh) format.
+
+Video Overview
+Starting and Quitting Audio
+Audio Main Window
+Voice Notes
+Displaying the Waveform Window
+Opening and Playing Audio Files
+Recording with Audio
+Audio Control
+Menus
+Using the Tabs
+Controlling Master Recordings
+Controlling Master and Application Output
+Recording Using the Master Application Input
+Using the Status Dialog
+
+Audio
+description
+
+Video
+
+Overview
+
+Use the Java Media Player for viewing multimedia files. The Java Media Framework (JMF) is an application programming interface (API) for incorporating media data types into Java applications and applets. It is specifically designed to take advantage of Java platform features.
+
+Java Media Player Main Window
+
+All video functions start with the main window. 
+
+
+You can open a video file by choosing Open file from the File menu. Once you open a file, the main window alters to display the file and a control panel at the bottom of the screen.
+
+
+The control panel consists of the following icons and their respective functions:
+
+
+Click this button to begin playing a file.
+
+
+Click this button to pause a file.
+
+
+This button indicates how far a file has played.
+
+
+Click this button to alternatively turn on or turn off the sound.
+
+
+Click this button to increase or decrease the volume.
+
+
+Click this button to view information on a file.
+
+Supported Media Formats
+
+The Java Media Player supports the following formats:
+
+Aiff (.aiff)
+
+ 8 bits mono/stereo linear
+ 16 bits mono/stereo linear
+ G.711 mono
+IMA4 ADPCM
+
+AVI (.avi)
+
+Audio: 
+
+ 8 bits mono/stereo linear
+ 16 bits mono/stereo linear
+ G.711 mono
+GSM mono
+
+Video
+
+Cinepak
+Indeo (iv31 and iv32)
+ JPEG (411, 422, 111)
+
+GSM (.gsm)
+
+GSM mono audio
+
+MIDI (.midi)
+
+Type 1 2 MIDI audio files
+
+MPEG-1 (.mpg)
+
+This format is not available on Solaris x86.
+
+ Video: MPEG-1
+ Audio: MPEG-1, Layer 1 and 2
+
+MPEG audio (.mp2)
+
+This format is not available on Solaris x86.
+
+MPEG layer 1 or 2 audio
+
+Quicktime (.mov)
+
+Audio:
+
+ 8 bits mono/stereo linear
+ 16 bits mono/stereo linear
+ G.711 mono
+ GSM mono
+ IMA4 ADPCM
+ u-law
+
+Video:
+
+ Cinepak
+ H.261
+ H.263
+ Indeo (iv31 and iv32)
+ JPEG (411, 422, 111)
+ Raw
+ RLE
+ SMC
+
+RMF (.rmf)
+
+Headspaces Rich Media Format audio files.
+
+RTP
+
+Audio:
+
+4 bits mono DVI 8 kHz
+4 bits mono DVI 11.05 kHz
+4 bits mono DVI 22.05 kHz
+4 bits mono DVI 44.1 kHz
+G.711 mono 
+GSM mono
+G.723 mono
+
+Video:
+
+JPEG (411, 422, 111)
+H.261
+H.263
+
+Sun Audio (.au)
+
+ 8 bits mono/stereo linear
+ 16 bits mono/stereo linear 
+ G.711 mono
+
+Vivo (.viv)
+
+Video: H.263
+
+Wave (.wav)
+
+ 8 bits mono/stereo linear
+ 16 bits mono/stereo linear
+ G.711 mono 
+ GSM mono 
+ DVI ADPCM (not MSADPCM) 
+
+Using the Java Media Player
+
+The following tasks can be performed on multimedia files using JMF.
+
+To Open a New Java Media Player
+
+From the File menu, select New player.
+
+To Exit the Java Media Player
+
+From the File menu, select Exit.
+
+The Java Media Player server shuts down 15 seconds after the last player exits.
+
+To Open a File
+
+From the File menu, select Open file.
+
+To Close a File
+
+From the File menu, select Close player.
+
+This will close the file but will not exit the Java Media Player.
+
+To Open a URL
+
+From the File menu, select Open URL.
+
+To Play a File
+
+From the File menu, select Open file.
+
+Enter the path or folder name in the text field.
+
+From the Files window, double click the file that you want to open.
+
+To Stop or Pause a File
+
+Click on the triangle at the bottom left of the screen.
+
+To Rewind a File
+
+Click and drag the slider to your left.
+
+The file will begin playing from the point you placed the slider.
+
+To Forward a File
+
+Click and drag the slider to your right.
+
+The file will begin playing from the point you placed the slider.
+
+To Adjust the Volume
+
+You can either adjust or mute the volume for a file. To adjust the volume of a file:
+
+Click on the triangles at the bottom right of the screen.
+
+A progress bar will indicate the change in volume.
+
+To select mute for a file:
+
+Click on the speaker icon at the bottom right of the screen.
+
+The icon will change to indicate that the file is in mute mode.
+
+To Set the Play Rate for a File
+
+Place the cursor over the triangle on the lower left of the screen.
+
+Right-click the mouse button.
+
+From the pull-down menu select one of the options.
+
+1/10 speed - 1/10th the original rate
+Half speed - 1/2 the original rate
+Normal speed - the original rate
+Double speed - twice the original rate
+Triple speed - three times the original rate
+Quadruple speed - four times the original rate
+
+To Alter the Screen Size
+
+Place the cursor over the screen.
+
+Right-click the mouse button.
+
+From the pull-down menu select a zoom option:
+
+Half Size - Shrinks the screen to half its original size
+Normal - Alters the screen to accommodate the picture
+Double Size - Expands the screen to twice its original size
+Quadruple Size - Adjusts the screen to 4 times its original size
+
+To Display Information on a Video File
+
+Click on the 
+i icon on the bottom right of the screen.
+
+
+A pop-up window displays details on the file you are viewing.
+
+Starting and Quitting Audio
+
+There are several ways to start Audio: 
+Audio
+starting
+
+starting
+Audio
+
+From the Front Panel
+From the command line 
+From the Workspace Programs menu
+
+To Start Audio From the Front Panel 
+
+Click the Voice Note control on the Applications subpanel to start the application. 
+Audio
+starting from Front Panel
+
+starting
+Audio from Front Panel
+
+Audio runs in note mode, and automatically starts recording.
+
+Click the Stop button to stop recording.
+
+
+To Start Audio From the Command Line 
+
+You can start Audio and open files directly from the command line. 
+Audio
+command-line start
+Audio
+startup
+
+command-line startup
+Audio
+
+Type 
+sdtaudio to start Audio. 
+
+Audio
+starting from command line
+
+starting
+Audio from command line
+
+Or:
+
+Type 
+sdtaudio
+
+filename to start Audio and open a specific file.
+
+
+To Start Audio From the Workspace Programs Menu
+
+Audio
+workspace menu startup
+Starting
+Audio
+
+Place the mouse pointer anywhere on the background of the desktop (the workspace) and click mouse button 3. 
+
+The Workspace menu appears. 
+
+Choose Programs, and then choose Audio from the Programs submenu.
+
+The Audio main window is displayed.
+
+To Exit Audio
+
+Choose Exit from the File menu or Close from the Window menu, or hold down the Alt key and press the F4 key with the mouse cursor over the Audio main window to exit Audio.
+
+Audio Main Window
+
+All Audio functions start with the main window. Open an audio file by choosing Open from the File menu; record by choosing New from the File menu and clicking the Record Audio button; set startup, recording, or playing options by choosing the appropriate item from the Options menu. 
+
+Audio
+starting from Workspace Programs menu
+
+starting
+Audio from Workspace Programs menu
+
+Audio main window
+
+
+Voice Notes
+
+Voice Note
+
+In the same way as Text Note allows you to rapidly create small text files and display them on the desktop, Voice Note allows you to record an audio message and save it on the desktop for playing later. For example, you might want to record the pronunciation of a foreign name, or a useful quotation which you don't want to type.
+
+The Voice Note control is located on the Applications subpanel of the Front Panel. When you click the Voice Note control it runs the Audio application, which immediately starts recording from your host's microphone. To stop recording, you click the Stop button or exit the Audio application. 
+
+The sound file that is created is displayed on your desktop when you exit the Audio application. You can remove it by choosing Remove From Workspace from the right-mouse button popup menu. You can remove it from your file system by deleting it from your home directory.
+
+Audio
+starting from Voice Note control
+
+starting
+Audio from Voice Note control
+
+Voice Note command
+
+If you click the Voice Note control and neglect to stop Audio, it can record and save a huge file that may eventually use up all your disk space.
+
+Displaying the Waveform Window
+
+\005An audio file can be displayed with or without a waveform displayed. The waveform is a graphic depiction of the relative sound levels of the audio file. 
+
+To Display the Waveform Window
+
+To show the waveform window, click the Show Wave Window button.
+
+To hide the waveform window, click the button again.
+
+The button is a toggle, changing from Show Wave Window to Hide Wave Window to Show Wave Window as it is clicked. 
+
+
+To Start Audio With the Waveform Displayed
+
+Choose Startup from the Options menu.
+
+The Options dialog box is displayed, with Startup selected as the Category. If the Options dialog box is already displayed, choose Startup from the Category menu.
+
+Click Waveform View.
+
+Click OK.
+
+The Options dialog box closes. The next time you start Audio the waveform will be displayed. 
+
+Opening and Playing Audio Files
+
+You can open an audio file from the Audio File menu or by dragging and dropping it from File Manager onto Audio. Once you have opened an audio file or recorded something, you can play it from the beginning or from any point in the file. You can specify whether an audio file will be played automatically when it is opened. 
+
+Audio
+playing audio files
+
+To Open an Audio File
+
+Choose Open from the File menu or hold down the Control key and press ``o'' with the mouse cursor over the Audio main window.
+
+The Audio-Open File dialog box is displayed.
+
+Navigate to the folder where the audio file is located.
+
+Navigate by selecting a folder in the Folders list or by entering a folder name in the Enter path or folder name text field.
+
+Optional. Type an audio-file suffix (au, wav, aiff) after the asterisk (*) in the Filter field.
+
+
+Only files with the specified suffix will be listed in the Files field.
+
+Press Return or click Update to update the change in the folder location or filter field.
+
+Select a file from the Files list.
+
+Double-click the file in the Files list or select it and click OK. 
+
+The selected file is opened. If Automatically play audio file on Open is selected in the Options-Play dialog box, the audio file starts playing.
+
+Audio
+opening a file
+opening
+Audio file
+
+To Open an Audio File With Drag and Drop
+
+Open File Manager and navigate to the folder where the audio file is located.
+
+Drag the audio file icon from File Manager and drop it on the Audio main window. 
+
+The Selected file is opened. If Automatically play audio file on Open is selected in the Options-Play dialog box, the audio file starts playing.
+
+To Specify Play Options
+
+Choose Play from the Options menu.
+
+The Options dialog box is displayed, with Play selected as the Category. If the Options dialog box is already displayed, choose Play from the Category menu.
+
+
+Determine whether files should automatically play when they are opened. 
+
+Click Automatically play audio file on Open to automatically play files when they are opened. 
+Deselect Automatically play audio file on Open if you do not want files to automatically start playing when opened. 
+
+Move the Set Default Play Volume and Balance Audio Output sliders to desired positions.
+
+Position the mouse pointer over the slider and press mouse button 1 as you move the mouse to change slider positions.
+
+ Click OK to apply the specified values and close the Options dialog box.
+
+To Play an Audio File
+
+Audio
+playing audio file
+
+Once you have recorded something or opened an audio file, you can play it, as follows. You can play AU, WAV, or AIFF files. 
+
+Click the Play Audio button.
+
+When you click Play Audio, play begins at the play pointer position. The file is played from the beginning if it has just been opened or if you have just created the recording. If you click the Stop Playing button during play and then click Play Audio, play begins at the previous stop point. 
+
+Note that the Play Audio button is a toggle: before play, it is Play Audio; during play, it is Stop Playing.
+
+Optional. Move the play pointer to a new start play position. 
+
+
+To move the play pointer to the beginning of the file, click the Go to Start button.
+
+To move the play pointer to the end of the file, click the Go to End button.
+
+To move the play pointer to a position within the file:
+
+If the waveform is not displayed, drag the slider with mouse button 1.
+If the waveform is displayed, click anywhere in the waveform window.
+
+Optional. Adjust the output volume by clicking on the Increase Volume or Decrease Volume buttons.
+
+
+To mute the output, click the Turn Sound Off button.
+
+To stop playing the file, click the Stop Playing button.
+
+The Play buttons are inactive when no file has been loaded or recorded. 
+
+Audio
+playing audio files
+
+Recording With Audio
+
+You can record and save audio files in three formats and three quality levels from three input sources. 
+
+To Specify Record Options
+
+You can specify audio quality, audio format, record volume, and input balance in the Options dialog box. You can also specify whether the set values will automatically be used when recording or if you will specify the values when you start recording 
+
+Choose Record from the Options menu.
+
+The Options dialog box is displayed, with Record selected as the Category. If the Options dialog box is already displayed, choose Record from the Category menu. 
+
+
+Choose Voice, CD, or DAT from the Audio Quality menu.
+
+Voice, which is the default, is the lowest quality: 8000 Hz sample rate, u-law encoding. CD has compact disc quality: 44100 Hz sample rate, linear encoding. DAT has digital audio tape quality: 48000 Hz sample rate, linear encoding. 
+
+Choose AU, WAV, or AIFF from the Audio Format menu.
+
+AU, which is the default, is Sun audio format. WAV is Microsoft PC format. AIFF is Macintosh audio format. 
+
+Determine whether to use the selected recording options as the default for new files.
+
+To use the selected recording options as the default, click Use selected recording options as default for new files.
+To specify recording options when you click Record Audio, click Ask me when I start recording.
+
+Set default record volume and balance the audio input.
+
+Position the mouse pointer over the slider and press mouse button 1 as you move the mouse to set the Default Record Volume and Balance Audio Input sliders to desired positions.
+
+Click OK to apply the specified values and close the Options dialog box.
+
+To Create a Recording
+
+You can record Audio files from a microphone, line-in, or CD source. 
+
+Specify recording options.
+
+Choose New from the File menu or hold down the Control key and press ``n'' with the mouse cursor over the Audio main window. 
+
+If a previous recording has not been saved, you are asked if you want to save it.
+
+Prepare to record.
+
+Be sure that the selected input device is connected to your computer and ready for transmission, and that the microphone or other input device is on.
+
+Click Record Audio button and start recording.
+
+Speak, sing, or play into the microphone or start transmission of audio from a line-in or CD source. Recording starts as soon as you click Record Audio unless you have specified Ask me when I start recording in the Options-Record dialog box.
+
+When recording is complete, click the Stop Recording button.
+
+Click Play Audio button to play what you have just recorded.
+
+The Record Audio button, which becomes the Stop Recording button during recording, is inactive if a file is open; the button's function is not displayed in the current function area when it is inactive. Similarly, the Play and Go to buttons are inactive when no audio file has been opened or recorded.
+
+To Save an Audio File or a Recording
+
+You can save an existing audio file or a new recording in AU, AIFF, or WAV format. 
+
+Choose Save As from the File menu or hold down the Control key and press ``a'' with the mouse cursor over the Audio main window.
+
+The Audio - Save As dialog box will be displayed.
+
+Specify the folder in which you want to save the file. 
+
+Change to a different folder, if you wish. Press Return or click Update to update the folder location.
+
+Choose a format (AU, WAV, or AIFF) from the Audio Format menu.
+
+AU, which is the default, is Sun audio format. WAV is Microsoft PC format. AIFF is Macintosh audio format. 
+
+Type a name in the Enter file name field.
+
+Audio files are usually named with 
+.au, 
+
+.wav, or 
+
+.aiff suffixes for easy identification. To overwrite an existing file, select the file in the Files list. 
+
+
+Click OK to save the audio file or recording.
+
+To Specify Input and Output Device Options
+
+You can specify output (play) and input (record) devices for playing and recording.
+
+Choose Devices from the Options menu.
+
+The Options dialog box is displayed, with Devices selected as the Category. If the Options dialog box is already displayed, choose Devices from the Category menu.
+
+
+Select Speaker, Headphone, or Line Out as Output Sources.
+
+Note that you can select more than one output source. Only devices that are installed on your computer are active.
+
+Select Microphone, Line In, or CD as the Input Source.
+
+Only devices that are installed on your computer are active.
+
+Click OK to apply the specified values and close the Options dialog box.
+
+To Display Information About an Audio File
+
+To view file information, choose Get Info from the File menu.
+
+The File Information dialog box is displayed.
+
+
+Audio provides the following information about the current file:
+
+File name
+File size in kilobytes
+File length in seconds
+Number of channels
+Sample rate (in kiloherz)
+Encoding (how many bits, what standard, etc.)
+
+Audio Control
+
+Audio Control enables you to control the volume and balance levels for playback and recording. Please refer to the following illustration for an example of the Audio Control window.
+
+
+Menus
+
+There are three menu items available:
+
+File controls whether or not you want Mixer Mode enabled (the default is enabled). Mixer mode enables you to listen to two audio sessions at once. For example, while listening to a Sun Microsystems broadcast you will also be able to hear the tone alerting you that you have new mail. Refer to the following illustration for an example of the Mixer mode enabled.
+
+
+File is also where you will find the Exit command when you are ready to quit Audio Control.
+View controls your audio input and output. Toggling the Applications Control shows/hides (toggles) all Master and all Application processes.
+Help provides you with assistance in all areas of Audio Control. Refer to the following illustration for an example showing the Help pull-down menu.
+
+
+Using the Tabs
+
+There are two tabs, Playback and Record. You can switch between adjusting Playback (Output) and Record (Input) by selecting the corresponding tab (toggles). If you have the Playback tab selected when you check the Application Controls box, the Application control box also displays. Refer to the following illustration for an example of this.
+
+
+Master Output
+
+The following controls are provided on the Master Output window:
+
+Output Source contains a list of available output sources. You check and uncheck sources to turn them on and off. Your choices are Built-in Speaker, Headphone, and Line Out. This list can grow to accommodate additional output devices. Volume and balance levels apply to all sources simultaneously, not to individual sources to turn them on and off.
+Volume slider for setting the master volume for all sources. The absolute level is displayed in a text label next to the control (the value is 50 in the figure above.) The displayed value changes as the slider is moved up and down.
+Balance slider for setting the balance for all sources. 
+Mute for simultaneously muting all output sources.
+
+Controlling Master Recordings
+
+You can control master recording parameters on the Master Recording window. Access it by selecting the Record tab at the top of the window. Please refer to the following illustration for an example of this.
+
+
+The controls provided are:
+
+Master Input contains a list of the available input sources. You can choose only one input source at a time. The default choices are Microphone, CD ROM, and Line In. This list can grow to accommodate additional input device.
+Gain (db) slider for setting the master gain (recording volume). The level is displayed next to the control (the value is 50 in the previous figure.)The displayed value changes as the slider is moved up and down.
+Monitor slider for adjusting the volume of the incoming audio that is sent to the output device(s). It allows you to monitor the audio as it is being recorded.
+Balance slider for setting the recording balance for the selected source.
+
+Controlling the Master and Application Output
+
+The Playback tab lets you control individual process audio output parameters. You can access it by selecting the Application Controls option from the View menu while the Playback tab is active. The new controls provided are exactly the same as those provided for the Master Output, with the exception that they are provided for one process at a time, rather than for an entire output device. Processes that are currently using audio are displayed in the list box at the top of the panel. By selecting a process, you can individually control the volume, balance, and muting of that process.
+
+
+Recording Using the Master and Application Input
+
+You can control individual process' audio input parameters using the Master and Application Input screen. You access it by selecting the Application Controls option from the View menu while the Record tab is active. Refer to the following illustration for an example of this.
+
+
+The controls provided behave exactly the same as those provided for the Master Output, with the exception that they are provided for one process at a time, rather than for an entire output device. Processes that are currently using audio are displayed in the list box at the top of the panel. By selecting a process, you can individually control the gain, and balance of that process. The Monitor volume is controllable only at the master level, so there is no Monitor Volume Slider on the Application Input panel.
+
+Using the Status Dialog
+
+This dialog allows you to view playback and recording status at the master level for each process. You can access it by selecting Status from the View menu. Please refer to the following illustration.
+
+
+The controls provided are:
+
+Process List Box this is a list of the items available for status monitoring. You can choose to view Master status or to see status for each of the running processes that are using dev/audio. You can choose only one process (or Master) to monitor at a time. As you select items in the list, the Playback and Record panes in the lower portion of the dialog update to reflect the status for the selected item being monitored.
+Continuous Update Checkbox status is displayed at the time the dialog was invoked, unless you check Continuous Update. If Continuous Update is checked, the status for the selected process is continuously monitored and updated.
+Update Now Button if Continuous Update is not turned on, you can update the display by clicking Update Now. If Continuous Update is turned on, the Update Now button is disabled (grayed out.)
+
+The status of each of the following parameters being monitored and is represented by either an LED icon in the on or off state, or a text string with the details of the status item being displayed.
+
+Playback and Record
+
+Open The device is open by a process. The device may be opened read only, write only, or read and write. Which is why there is an open for play and one for record. These will be used only when mixing is disabled.
+Paused The applications has commanded the device to pause playing or recording. Just like Open, you can have one direction paused while the other is active. Also, this will be used only when mixing is disabled.
+Active Sound is being played or recorded. In mixer mode this means at least one stream is playing or recording. It is possible that other streams will be paused. When the mixer is off then there can be only a single play and record stream, so this means that single stream is active.
+Underflow When playing there wasn't enough audio available so the device underflowed and there is silence. With the mixer this means that the stream didn't have enough sound to mix into the audio stream that is being played, so that one stream will have silence.
+Open-Waiting When the mixer is turned of this means a process is trying to open the audio device and can't because another process already has the device open. When the mixer is enabled it means a process is either trying to open the audio device a second time for the same direction, or the mixer is out of resources and is waiting for another process to close the audio device and free up a resource for use.
+EOF Count When playing it is possible to mark the audio stream so that you know when a segment has been played. This is done by doing a zero sized write and accepting signal. Each time this marker is encountered while playing the EOF Count will be incremented by one and a signal will be sent to the application.
+Samples The number of sample frams that has been played or recorded. A sample frame is all samples to play one sample time. For example, playing a mono audio stream means that one sample frame has one sample, but playing a stereo stream means that one sample frame has two samples. One for the left channel and one for the right channel.
+Encoding This combines two audio format properties, precision and encoding. Precision is the number of bits each sample uses. We support 16 bits and 8 bits. The encoding method determines any processing of the audio sample. This is usually done to compress the size of the audio stream so not as much data needs to be sent over the network or stored on disk. We support "linear" which is linear pulse code modulation, AKA linear PCM. We also support u-Law (u is for the Greek letter mu, which can't be reproduces in simple text like this, but it can in postscript), and A-Law. When combined together with precision we support 16-bit Linear PCM, 8-bit Linear PCM, 8-bit u-Law, and 8-bit A-Law. Also, linear PCM may be signed or unsigned, we support only signed.
+Sample Rate The number of times a second the audio stream is sampled and thus converted from an analog signal to a digital number for recording. Or converted from a digital number to an analog signal when playing. The higher the number the greater the accuracy of the digital signal. But a higher number also means more disk space is needed for storage or network bandwith is needed to transfer the data.
+Channels The number of samples in a sample frame. Currently we support 1 (mono) or 2 (stereo).
+Close Button Dismisses the Status dialog.

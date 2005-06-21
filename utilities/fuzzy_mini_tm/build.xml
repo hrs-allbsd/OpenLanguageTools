@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="fuzzy-tm" basedir="." default="all">
+	<import file="../../common.xml"/>
+	
+    <path id="build.classpath">
+	<path location="${build.dir}"/>
+        <path refid="deps.common.util"/>
+	<path refid="deps.xerces"/>
+	</path>
+
+	<!-- are dependencies built ? -->
+	<available 
+		classname="org.jvnet.olt.parsers.tagged.TagTable" 
+		property="present.tagged.markup"
+		classpathref="build.classpath"/>
+
+
+	<target name="pre-compile" depends="common.pre-compile" >
+	    <jjtree target="src/org/jvnet/olt/parsers/sgmltokens/SimpleSGMLTokenizer.jjt"
+	    	outputdirectory="src/org/jvnet/olt/parsers/sgmltokens/" 
+			javacchome="${javacchome}"  />
+
+		<javacc target="src/org/jvnet/olt/parsers/sgmltokens/SimpleSGMLTokenizer.jj"
+	    	outputdirectory="src/org/jvnet/olt/parsers/sgmltokens/"
+		   	javacchome="${javacchome}" />
+	</target>
+
+	<target name="dist" depends="common.dist">
+		<jar destfile="${build.dir}/fuzzytm.jar">
+	   		<zipfileset	dir="${build.dir}" includes="**/*.class"/>
+		</jar>
+	</target>
+</project>

@@ -1,0 +1,39 @@
+<!-- This is a development version of the transtech
+     xliff skeleton file format -->
+<!ELEMENT tt-xliff-skl ( file)+ >
+
+<!ATTLIST tt-xliff-skl
+   version          CDATA              #FIXED "1.0"
+   xml:lang         CDATA              #IMPLIED
+>
+
+<!ELEMENT file      (header,body) >
+<!ATTLIST file
+   original         CDATA              #REQUIRED
+   source-language  CDATA              #REQUIRED
+   datatype         CDATA              #REQUIRED
+   tool             CDATA              #IMPLIED
+   date             CDATA              #IMPLIED
+   xml:space        (default|preserve) "default"
+   ts               CDATA              #IMPLIED
+   category         CDATA              #IMPLIED
+   target-language  CDATA              #IMPLIED
+   product-name     CDATA              #IMPLIED
+   product-version  CDATA              #IMPLIED
+   build-num        CDATA              #IMPLIED
+>
+<!-- tool default = "manual" -->
+
+
+<!ELEMENT header        (xliff-file) >
+
+<!ELEMENT xliff-file           (#PCDATA) >
+<!ATTLIST xliff-file href CDATA #REQUIRED>
+<!ELEMENT body (formatting | tu-placeholder)*>
+<!ELEMENT formatting (#PCDATA) >
+<!ATTLIST formatting 
+    xml:space (default|preserve) "preserve"
+    type (whitespace|normal) "normal"
+>
+<!ELEMENT tu-placeholder EMPTY>
+<!ATTLIST tu-placeholder id NMTOKEN #REQUIRED>

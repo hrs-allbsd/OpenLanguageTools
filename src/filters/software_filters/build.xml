@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="software-filters" basedir="." default="all">
+	<import file="../../../common.xml"/>
+	
+	<available 
+		classname="org.jvnet.olt.alignment.Segment" 
+		property="do.build.deps"
+		classpathref="build.classpath"/>
+	
+	<path id="src.dirs">
+		<path location="common"/>
+		<path location="java_props_file"/>
+		<path location="java_res_file"/>
+		<path location="msg_file"/>
+		<path location="po_file"/>
+		<path location="rep_file"/>
+		<path location="software"/>
+		<path location="unit_test"/>
+		<path location="xres_file"/>
+		<path location="mozilla_dtd"/>
+	</path>
+
+	<patternset id="src.pattern">
+		<include name="**/*.java"/>
+		<exclude name="**/*Test.java/"/>
+		<exclude name="**/*TestCase.java/"/>
+	</patternset>
+	
+        <path id="build.classpath">
+		<path location="${build.dir}"/>
+		<path location="${common.basedir}/utilities/jars/junit.jar"/>
+		<path refid="deps.dtdparser"/>
+		<path refid="deps.common.util"/>
+	</path>
+
+	<target name="pre-compile" depends="common.pre-compile">
+		<jjtree target="java_props_file/org/jvnet/olt/parsers/PropsFileParser/PropsFileParser.jjt"
+			outputdirectory="java_props_file/org/jvnet/olt/parsers/PropsFileParser/"
+			javacchome="${javacchome}"/>
+
+		<javacc target="java_props_file/org/jvnet/olt/parsers/PropsFileParser/PropsFileParser.jj"
+			outputdirectory="java_props_file/org/jvnet/olt/parsers/PropsFileParser/"
+			javacchome="${javacchome}"/>
+		<jjtree target="java_res_file/org/jvnet/olt/parsers/JavaParser/ResBundleParser.jjt"
+			outputdirectory="java_res_file/org/jvnet/olt/parsers/JavaParser/"
+			javacchome="${javacchome}"/>
+
+		<javacc target="java_res_file/org/jvnet/olt/parsers/JavaParser/ResBundleParser.jj"
+			outputdirectory="java_res_file/org/jvnet/olt/parsers/JavaParser/"
+			javacchome="${javacchome}"/>
+		<jjtree target="msg_file/org/jvnet/olt/parsers/MsgFileParser/MsgFileParser.jjt"
+			outputdirectory="msg_file/org/jvnet/olt/parsers/MsgFileParser/"
+			javacchome="${javacchome}"/>
+
+		<javacc target="msg_file/org/jvnet/olt/parsers/MsgFileParser/MsgFileParser.jj"
+			outputdirectory="msg_file/org/jvnet/olt/parsers/MsgFileParser/"
+			javacchome="${javacchome}"/>
+		<jjtree target="po_file/org/jvnet/olt/parsers/POFileParser/POFileParser.jjt"
+			outputdirectory="po_file/org/jvnet/olt/parsers/POFileParser/"
+			javacchome="${javacchome}"/>
+
+		<javacc target="po_file/org/jvnet/olt/parsers/POFileParser/POFileParser.jj"
+			outputdirectory="po_file/org/jvnet/olt/parsers/POFileParser/"
+			javacchome="${javacchome}"/>
+		<jjtree target="rep_file/org/jvnet/olt/parsers/RepFileParser/RepFileParser.jjt"
+			outputdirectory="rep_file/org/jvnet/olt/parsers/RepFileParser/"
+			javacchome="${javacchome}"/>
+
+		<javacc target="rep_file/org/jvnet/olt/parsers/RepFileParser/RepFileParser.jj"
+			outputdirectory="rep_file/org/jvnet/olt/parsers/RepFileParser/"
+			javacchome="${javacchome}"/>
+		<jjtree target="xres_file/org/jvnet/olt/parsers/XResFileParser/XResFileParser.jjt"
+			outputdirectory="xres_file/org/jvnet/olt/parsers/XResFileParser/"
+			javacchome="${javacchome}"/>
+
+		<javacc target="xres_file/org/jvnet/olt/parsers/XResFileParser/XResFileParser.jj"
+			outputdirectory="xres_file/org/jvnet/olt/parsers/XResFileParser/"
+			javacchome="${javacchome}"/>
+                        
+                
+                        
+	</target>
+
+	<!-- when building editor we need only these files to build backconvertors [not tested] -->
+	<target name="build-phase1" id="do.build.editor" depends="pre-compile">
+	
+        <!-- build the parsers for the software message reformatting stuff -->
+	<path id="src.dirs">
+		<path location="java_props_file"/>
+		<path location="java_res_file"/>
+		<path location="msg_file"/>
+		<path location="po_file"/>
+		<path location="rep_file"/>
+		<path location="xres_file"/>
+		<path location="mozilla_dtd"/>
+                <path location="common"/>
+	</path>
+
+        <patternset id="src.pattern">
+                <include name="**/*.java"/>
+		<exclude name="**/*Test.java/"/>
+		<exclude name="**/*TestCase.java/"/>
+	</patternset>
+        
+        <javac
+            destdir="${build.dir}"
+            debug="${compiler.debug}"
+            classpathref="common.build.classpath">
+            <patternset refid="src.pattern"/>
+                        <src refid="src.dirs"/>
+        </javac>
+
+        
+        <javac debug="${compiler.debug}" srcdir="software"
+           classpathref="build.classpath"
+            destdir="${build.dir}"
+           includes="**/SoftwareFileReformat.java"/>
+	</target>
+
+	<target name="local-deps" unless="do.build.deps">
+		<ant dir="../segmenter_formatters/"/>
+		<ant dir="../non-conformant_sgml_tag_parser/"/>
+		<ant dir="../sgml_filter/"/>
+		<ant dir="../html_parser"/>
+		<ant dir="../mapping_file_parser"/>
+	</target>
+</project>
+

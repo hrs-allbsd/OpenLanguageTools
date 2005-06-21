@@ -1,0 +1,779 @@
+<!-- Fragment document type declaration subset:
+ArborText, Inc., 1988-1997, v.4001
+<!DOCTYPE BOOK PUBLIC "-//Sun Microsystems//DTD DocBook V3.0-Based SolBook Subset V2.0//EN" [
+<!ENTITY REFMAN1M PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN1M Version 2.0//EN" NDATA sgml>
+<!ENTITY JAVAVIRMACH2 PUBLIC "-//Sun::SunSoft//DOCUMENT JAVAVIRMACH2 Version 1.0//EN" NDATA sgml>
+<!ENTITY MTP PUBLIC "-//Sun::SunSoft//DOCUMENT MTP Version 4.0//EN" NDATA sgml>
+<!ENTITY SYSADV2 PUBLIC "-//Sun::SunSoft//DOCUMENT SYSADV2 Version 2.0//EN" NDATA sgml>
+<!ENTITY REFMAN1 PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN1 Version 2.0//EN" NDATA sgml>
+<!ENTITY SPARCINFOLIB PUBLIC "-//Sun::SunSoft//DOCUMENT SPARCINFOLIB Version 3.0//EN" NDATA sgml>
+<!ENTITY x86INFOLIB PUBLIC "-//Sun::SunSoft//DOCUMENT x86INFOLIB Version 4.0//EN" NDATA sgml>
+<!ENTITY MODDEBUG PUBLIC "-//Sun::SunSoft//DOCUMENT MODDEBUG Version 1.0//EN" NDATA sgml>
+<!ENTITY REFMAN3D PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN3D Version 1.0//EN" NDATA sgml>
+<!ENTITY DRIVER PUBLIC "-//Sun::SunSoft//DOCUMENT DRIVER Version 3.0//EN" NDATA sgml>
+<!ENTITY UGIDNW PUBLIC "-//Sun::SunSoft//DOCUMENT UGIDNW Version 1.0//EN" NDATA sgml>
+<!ENTITY JVPLUGINUG PUBLIC "-//Sun::SunSoft//DOCUMENT JVPLUGINUG Version 1.0//EN" NDATA sgml>
+<!ENTITY REFMAN5 PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN5 Version 2.0//EN" NDATA sgml>
+<!ENTITY SYSADV3 PUBLIC "-//Sun::SunSoft//DOCUMENT SYSADV3 Version 1.0//EN" NDATA sgml>
+<!ENTITY I18NDG PUBLIC "-//Sun::SunSoft//DOCUMENT I18NDG Version 1.0//EN" NDATA sgml>
+<!ENTITY % RTthreads "INCLUDE">
+<!ENTITY CDEUG PUBLIC "-//Sun::SunSoft//DOCUMENT CDEUG Version 4.0//EN" NDATA sgml>
+<!ENTITY % FTP "IGNORE">
+<!ENTITY sparc64C "64-bit SPARC: ">
+<!ENTITY ia "IA">
+<!ENTITY KCMSCMMDG PUBLIC "-//Sun::SunSoft//DOCUMENT KCMSCMMDG Version 2.0//EN" NDATA sgml>
+<!ENTITY KCMSAPPDG PUBLIC "-//Sun::SunSoft//DOCUMENT KCMSAPPDG Version 1.0//EN" NDATA sgml>
+<!ENTITY SMARTADMIN PUBLIC "-//Sun::SunSoft//DOCUMENT SMARTADMIN Version 1.0//EN" NDATA sgml>
+<!ENTITY NISQSTART PUBLIC "-//Sun::SunSoft//DOCUMENT NISQSTART Version 4.0//EN" NDATA sgml>
+<!ENTITY NETNAME PUBLIC "-//Sun::SunSoft//DOCUMENT NETNAME Version 4.0//EN" NDATA sgml>
+<!ENTITY SS PUBLIC "-//Sun::SunSoft//DOCUMENT SS Version 4.0//EN" NDATA sgml>
+<!ENTITY % IEEE "IGNORE">
+<!ENTITY % WBEM-SDK "IGNORE">
+<!ENTITY WBEMADMIN PUBLIC "-//Sun::SunSoft//DOCUMENT WBEMADMIN Version 1.0//EN" NDATA sgml>
+<!ENTITY SYSADV1 PUBLIC "-//Sun::SunSoft//DOCUMENT SYSADV1 Version 2.0//EN" NDATA sgml>
+<!ENTITY REFMAN7 PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN7 Version 2.0//EN" NDATA sgml>
+<!ENTITY REFMAN4 PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN4 Version 2.0//EN" NDATA sgml>
+<!ENTITY LLM PUBLIC "-//Sun::SunSoft//DOCUMENT LLM Version 4.0//EN" NDATA sgml>
+<!ENTITY ABOUTDOC PUBLIC "-//Sun::SunSoft//DOCUMENT ABOUTDOC Version 3.0//EN" NDATA sgml>
+<!ENTITY HWCONFIG PUBLIC "-//Sun::SunSoft//DOCUMENT HWCONFIG Version 4.0//EN" NDATA sgml>
+<!ENTITY STREAMS PUBLIC "-//Sun::SunSoft//DOCUMENT STREAMS Version 3.0//EN" NDATA sgml>
+<!ENTITY Product "Solaris 8">
+<!ENTITY x86HW PUBLIC "-//Sun::SunSoft//DOCUMENT x86HW Version 8.0//EN" NDATA sgml>
+<!ENTITY SVCLOCADMIN PUBLIC "-//Sun::SunSoft//DOCUMENT SVCLOCADMIN Version 1.0//EN" NDATA sgml>
+<!ENTITY WEBNFSDEVGDE PUBLIC "-//Sun::SunSoft//DOCUMENT WEBNFSDEVGDE Version 2.0//EN" NDATA sgml>
+<!ENTITY SPARCINSTALL PUBLIC "-//Sun::SunSoft//DOCUMENT SPARCINSTALL Version 3.0//EN" NDATA sgml>
+<!ENTITY % FCS "INCLUDE">
+]>
+-->
+<?Pub UDT registeredtm trademark>
+<?Pub UDT _bookmark _target>
+<?Pub CX book(title()bookinfo()preface()chapter()>
+<chapter id="closerlook"><?Pub Caret1><title>What's New: A Closer Look</title>
+<highlights>
+<para>This chapter describes new features of the &Product; release in detail. For a list of features with brief descriptions, see <xref linkend="whatsnewch1sparc-35941">.</para>
+<para>The &Product; operating environment includes advanced technologies for multithreading, symmetric multiprocessing, integrated TCP/IP-based networking, large file handling on the 64&ndash;bit operating environment, and centralized network administration tools. This Solaris release  provides many new  features that improve an already powerful, stable, operating environment.</para>
+<para>Some of the key features are:</para>
+<itemizedlist>
+<listitem><para>IPv6 adds increased address space and improves Internet functionality using a simplified header format, support for authentication and privacy, autoconfiguration of address assignments, and enables new quality-of-service capabilities.</para>
+</listitem><listitem><para>The &Product; operating environment provides the Naming Service switch back-end support for Lightweight Directory Access Protocol (LDAP) based directory service.</para>
+</listitem><listitem><para>The  Java 2 Software Development Kit (SDK) for Solaris significantly improves scalability and performance of Java applications.</para>
+</listitem><listitem><para>The Solaris 8 Installation CD provides a graphical, wizard based, Java powered application to install the Solaris operating environment and other software.</para>
+</listitem><listitem><para>The &Product; operating environment supports the Universal Disk Format (UDF) file system, enabling users to exchange data stored on CD-ROMs, disks, diskettes, DVDs, and other optical media.</para>
+</listitem><listitem><para>The Solaris Smart Card feature enables security administrators  to protect a computer desktop or individual application by requiring users to authenticate themselves by means of a smart card. </para>
+</listitem><listitem><para>The PDA Synchronization (PDA Sync) application synchronizes the data from applications such as Desktop Calendar, Desktop Mail, Memo, and Address, with  data in similar applications on a user's Personal Digital Assistant (PDA).</para>
+</listitem><listitem><para>The &Product; Software CDs and Languages CD include support for more than 90 locales, covering 37 languages.</para>
+</listitem><listitem><para>The Solaris Common Desktop Environment (CDE) contains new and enhanced features that incorporate easy to use desktop productivity tools, PC interoperability, and desktop management tools.</para>
+</listitem><listitem><para>The X Server is upgraded to the X11R6.4 industry standard which includes  features that increase user productivity and mobility, including remote execution of X applications through web browser on any web-based desktop, Xinerama, Color Utilization Policy, EnergyStar support, and new APIs and documentation for the developer tool kits. </para>
+</listitem></itemizedlist>
+</highlights>
+<sect1 id="whatsnewch2-1"><title>IPv6</title>
+<para>The Internet Protocol (IP), version 6 (IPv6), is an evolutionary step from the current version, IPv4. Deploying IPv6, using defined transition mechanisms,  does not disrupt current operations. IPv6 adds increased address space and  improves Internet functionality using a simplified header format, support for  authentication and privacy, autoconfiguration of address assignments, and enables new quality-of-service capabilities.</para>
+<para>For more information, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+</sect1><![ %FCS; [<sect1 id="whatsnewch2-80"><title>Native LDAP</title>
+<para>Native Lightweight Directory Access Protocol (LDAP) provides the Naming Service switch back-end support for LDAP based directory service. With the &Product; operating environment, network administrators can now specify LDAP as the desired name service to directory entry access by copying the <filename>nsswitch.ldap</filename> template file to <filename>/etc/nsswitch.conf</filename>.</para>
+<para>For more information, see the <olink targetdocent="NETNAME" type="V-ONLY"><citetitle>Solaris Naming Administration Guide</citetitle></olink> and the <olink targetdocent="NISQSTART" type="V-ONLY"><citetitle>Solaris Naming Setup and Configuration Guide</citetitle></olink>.</para>
+</sect1>]]>
+<sect1 id="whatsnewch2-262"><title>Java 2 SDK for Solaris</title>
+<para>The Java 2 SDK, Standard Edition version 1.2.1_04, provides substantially increased scalability and performance compared to the 1.1 releases, especially for server-class applications. The Java 2 SDK for Solaris includes these enhancements:</para>
+<itemizedlist>
+<listitem><para>Improved scalability </para>
+</listitem><listitem><para>Improved class libraries, including the new Java 2 APIs</para>
+</listitem><listitem><para>Enhanced memory management system</para>
+</listitem><listitem><para>High-performance, scalable Java Virtual Machine (JVM)</para>
+</listitem><listitem><para>Just-In-Time (JIT) compiler optimizations</para>
+</listitem><listitem><para>Faster Java thread synchronization</para>
+</listitem></itemizedlist>
+<para>Java 2 has replaced JDK 1.1 as the default JDK in the &Product; operating environment. JDK 1.1.8_09 is still available for applications that encounter incompatibility with the default Java 2 JDK.</para>
+<para>For more information, see the <olink targetdocent="JAVAVIRMACH2" type="V-ONLY"><citetitle>Java 2 SDK for Solaris Developer's Guide</citetitle></olink>. </para>
+</sect1>
+<sect1 id="whatsnewch2-111"><title>Installation and Management</title>
+<highlights>
+<para>The Solaris operating environment is a large, feature-rich environment; its structure gives customers the flexibility to meet their needs. New features enable customers to easily install and manage the Solaris environment.</para>
+</highlights>
+<sect2 id="whatsnewch2-78"><title>Solaris Web Start Enhanced Installation CD </title>
+<para>Solaris Web Start, a graphical, wizard based, Java powered software application that installs the Solaris operating environment and other software, is now distributed on a separate installation CD. Solaris Web Start also now includes an upgrade capability and the &ldquo;Kiosk,&rdquo; a browser-based environment in which information such as documentation, web pages, and other content is displayed as the user installs the Solaris operating environment.</para>
+<para>For more information, see the <olink targetdocent="SPARCINFOLIB" type="V-ONLY"><citetitle>Solaris 8 (SPARC Platform Edition) Installation Guide</citetitle></olink> or the <olink targetdocent="x86INFOLIB" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Installation Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="chapter1-6"><title>Booting a System Over the Network With DHCP</title>
+<para>Dynamic Host Configuration Protocol (DHCP) support for booting a system over the network has been added to this Solaris release. </para>
+<para>A system on the network can now use DHCP to acquire boot parameters and network configuration information needed to boot over the network. DHCP booting is supported on certain SPARC systems and &ia; based systems.  </para>
+<para>Previously, a system was booted over the network using Reverse Address Resolution Protocol (RARP) by default. Now you can choose either DHCP or RARP for network booting.</para>
+<para>A DHCP server must be installed and configured for your network prior to using DHCP to boot a system over the network. For information on setting up a DHCP server, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+<para>For information on booting a system over the network, see the <olink targetdocent="SYSADV1" type="V-ONLY"><citetitle>System Administration Guide, Volume 1</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-76" arch="ia"><title>Boot Partition in &Product;</title>
+<para>Users running Solaris <emphasis>Intel Platform Edition</emphasis> must now designate a separate IA boot                                        partition when using Solaris Web Start to  upgrade to Solaris 8 <emphasis>Intel Platform Edition</emphasis>. This boot partition, which requires 10 Mbytes of disk space, can be installed on a disk separate from the rest of the Solaris operating environment, thus enabling the user to install more than one operating system on a machine. Only the boot partition needs to be located on the boot disk.</para>
+<para>For more information, see the <olink targetdocent="SPARCINSTALL" type="V-ONLY"><citetitle>Solaris Advanced Installation Guide</citetitle></olink>. </para>
+</sect2>
+<sect2 id="whatsnewch2-77" arch="ia"><title>CD-ROM Boot</title>
+<para>This new feature enables the user to boot a system from an installation CD (rather than the Device Configuration Assistant diskette, as was the case in the past) using the &ldquo;El Torito&rdquo; standard.     </para>
+<para>The BIOS on most &ia; based motherboards manufactured since late 1997 supports the &ldquo;El Torito&rdquo; standard and thus recognizes CD-ROM drives as boot devices. To turn on this capability, the user runs the system's BIOS setup tool.</para>
+</sect2>
+<sect2 id="whatsnewch2-71"><title>DHCP Manager</title>
+<para>DHCP Manager provides a Java-based graphical interface for configuring and managing the Solaris DHCP server  and DHCP databases. It enables the system administrator to use a single tool to perform all DHCP management duties: set up and manage DHCP servers, manage client configuration options and macros, and manage networks and IP addresses that are under DHCP management.  </para>
+<para>DHCP Manager can be used instead of the Solaris DHCP command-line utilities, or in combination with them. </para>
+<para> DHCP Manager provides the following benefits:<itemizedlist>
+<listitem><para>A convenient, integrated point-and-click interface for the Solaris DHCP server's most sophisticated  functions</para>
+</listitem><listitem><para>DHCP management wizards that guide you through tasks such as configuring the DHCP server, configuring networks, and adding addresses</para>
+</listitem><listitem><para>A graphical view of the relationships between <literal>dhcptab</literal> macros and options, making it easier for you to determine where to place option values for the most efficient client configurations</para>
+</listitem></itemizedlist></para>
+<para>For more information about DHCP Manager, see the <olink targetdocent="REFMAN1M" localinfo="DHCPMGR.1M" type="V-ONLY"><citerefentry><refentrytitle>dhcpmgr</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink> man page and the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-90" arch="ia"><title>Large Disk Support</title>
+<para>By using improved BIOS interfaces to access the disk, &Product; <emphasis>Intel Platform Edition</emphasis> now fully uses disks larger than 8 Gbytes. Previously, only the first 8 Gbytes of any IDE disk could be used by Solaris <emphasis>Intel Platform Edition</emphasis>; also, only the first 8 Gbytes could be used for a root slice by either SCSI or IDE disks. Both of these restrictions have been removed on systems with improved BIOS interfaces.</para>
+<para>For more information, see the <olink targetdocent="x86INFOLIB" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Installation Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-164"><title>Solaris WBEM Services</title>
+<para> Solaris WBEM Services software is an implementation  of Web-Based Enterprise Management (WBEM)  on the Solaris 8 operating environment.  WBEM is an industry-wide initiative  that includes  standards for web-based management of systems, networks, and devices on multiple  platforms.  Solaris WBEM Services software makes it easier for software developers to create  management  applications that run in the Solaris operating environment and makes the  Solaris operating  environment easier to manage.  Solaris WBEM Services sofware provides secure access and manipulation of  management data. The product includes a built-in Solaris provider that enables management applications to access information about managed resources (devices and software) in the Solaris operating environment.    </para>
+<para>Solaris WBEM Services software provides the following services:  </para>
+<itemizedlist>
+<listitem><para>Management services, in the form of a CIM Object Manager that checks the  semantics and syntax of CIM data and distributes data between applications, the CIM  Repository, and managed resources. </para>
+</listitem><listitem><para>Security services that enable administrators to control user access to CIM  information. </para>
+</listitem><listitem><para>Logging services that consist of classes developers can use to create  applications that dynamically record event data to a log record and retrieve  data from a log record. Administrators can use this data to track and determine  the cause of events. </para>
+</listitem><listitem><para>XML services that convert XML data into CIM classes, enabling XML/HTTP-based  WBEM clients  to communicate with the CIM Object Manager.</para>
+</listitem></itemizedlist>
+<para>For detailed information about using Solaris WBEM Services,  see the <olink targetdocent="WBEMADMIN" type="V-ONLY"><citetitle>Solaris WBEM Services Administrator's Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-74"><title>Support for DNS in System Identification Utilities</title>
+<para>Domain name system (DNS) has been added to the list of name services that can be configured  through the system identification utilities. DNS is presented as a choice if no other name services are auto-detected, but can also be specified in the <filename>sysidcfg</filename> file. DNS cannot be auto-detected without the <filename>sysidcfg</filename> file.</para>
+<para>For more information, see the <olink targetdocent="SPARCINSTALL" type="V-ONLY"><citetitle>Solaris Advanced Installation Guide</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 5/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-75"><title>Support for IPv6 in the System Identification Utilities</title>
+<para>Systems can now be configured at install time to use IPv6 in addition to IPv4. There is currently no way to auto-detect IPv6,  so users are asked at install time whether or not a system is to be configured to use IPv6 unless a user specifies that IPv6 be used in a <filename>sysidcfg</filename> file.</para>
+<para>For more information, see the <olink targetdocent="SPARCINSTALL" type="V-ONLY"><citetitle>Solaris Advanced Installation Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-199"><title>Unlimited Number of Pseudo-terminals Available </title>
+<para>Solaris 8 software enables the opening on any number of pseudo-terminals (used by  programs  like <command>rlogin</command> and <command>telnet</command>). In previous releases, only 48  pseudo-terminals were  allocated by default. Solaris 8 software now allocates  pseudo-terminals dynamically when they are needed, automatically  adapting to the work load. This benefits desktop users and system administrators who deal with large numbers of open terminal sessions.</para>
+</sect2>
+<sect2 id="whatsnewch2-177"><title>Reading Documentation on the Solaris 8 Documentation CD</title>
+<para>The <command>ab2cd</command> script enables all users to read AnswerBook documentation directly from the 	Solaris 8 Documentation CD. It has been enhanced to provide better user 	feedback, to enable users to set the port number on which <command>ab2cd</command> runs, and to read documentation already installed on the user's system. </para>
+<para>For more information about the <command>ab2cd</command>, see the man page, <olink targetdocent="REFMAN1M" localinfo="AB2CD-1M" type="V-ONLY"><citerefentry><refentrytitle>ab2cd</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink>.</para>
+<para>This feature was first available in the Solaris 7 8/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-178"><title>Product Registry</title>
+<para> The Solaris Product Registry is a tool to manage  software installed using Solaris Web Start 3.0 or the  Solaris package management commands (<command>pkgadd</command>, for example).   It enables you to: </para>
+<itemizedlist>
+<listitem><para>View a list of installed and registered software and some software attributes </para>
+</listitem><listitem><para>Install additional software products </para>
+</listitem><listitem><para>Uninstall software</para>
+</listitem><listitem><para>Browse for and launch an installer</para>
+</listitem></itemizedlist>
+<para>For more information, see <olink targetdocent="x86INFOLIB" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Installation Guide</citetitle></olink> or <olink targetdocent="SPARCINFOLIB" type="V-ONLY"><citetitle>Solaris 8 (SPARC Platform Edition) Installation Guide</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 3/99 release.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-63"><title>Networking</title>
+<highlights>
+<para>The Solaris operating environment provides a stable and reliable networking environment. New network management and system administration features in this release expand tools for managing this environment.</para>
+</highlights><![ %FTP; [<sect2 id="chapter1-16"><?Pub Dtl>
+<title>Enhanced FTP Server</title>
+<para>The FTP server software in this Solaris release is modeled after the popular Washington University FTP server, <literal>wu-ftpd</literal>, but has been enhanced to include simplified system administration procedures. </para>
+<para>Traditionally, system administrators have compiled <literal>wu-ftpd</literal> from scratch after modifying <literal>#define</literal> statement to change limits or control the behavior of the FTP server. The Solaris FTP software server simplifies this procedure by making many of these parameters
+configurable or eliminating them where appropriate.</para>
+<para>The FTP server software can be configured to perform the following tasks:</para>
+<itemizedlist>
+<listitem><para>Define FTP server classes</para>
+</listitem><listitem><para>Create messages for FTP users</para>
+</listitem><listitem><para>Set FTP user login limits</para>
+</listitem><listitem><para>Enable or disable FTP user access to files</para>
+</listitem><listitem><para>Deny or grant FTP access to particular hosts</para>
+</listitem></itemizedlist>
+<para>The FTP server software works with IPv6 clients.</para>
+<para>For more information, see the <olink targetdocent="SYSADV1" type="V-ONLY"><citetitle>System Administration Guide, Volume 1</citetitle></olink> and the man page <olink targetdocent="REFMAN1M" localinfo="FTPD-1M" type="V-ONLY"><citerefentry><refentrytitle>ftpd</refentrytitle><manvolnum>1M</manvolnum>
+</citerefentry></olink>.</para>
+</sect2>]]><![ %FCS; [<sect2 id="whatsnewch2-157" arch="sparc"><title>InterDomain Networks</title>
+<para>InterDomain Networks (IDNs) enable the user to set up high-speed network connections between dynamic system domains without special hardware. Only certain SPARC servers support IDN. See your hardware manufacturer's documentation for information about whether your server supports IDNs.</para>
+<para>For more information, see the <olink targetdocent="UGIDNW" type="V-ONLY"><citetitle>Sun Enterprise 10000 InterDomain Networks User Guide</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 11/99 release.</para>
+</sect2>]]>
+<sect2 id="whatsnewch2-99"><title>IPsec for IPv4</title>
+<para>The IP Security Architecture (IPsec) provides protection for IP datagrams. The protection can include confidentiality, strong integrity of the data, partial sequence integrity (replay protection), and data authentication. IPsec is the authentication and encryption mechanism that affects the IP layer and can be effective with or without the knowledge of applications.</para>
+<para>For more information, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-141"><title>IPv6 NFS/RPC Compliant</title>
+<para>This feature adds IPv6 support to NFS and RPC in a seamless manner. There are  no changes to existing commands related to NFS. Most RPC applications will also  run over IPv6 without any change. Some advanced RPC applications with transport knowledge might require updates. </para>
+<para>For more information, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-101"><title>LLC2 Protocol</title>
+<para>The Class II logical link control driver (LLC2) interfaces network software (NetBIOS, SNA, OSI) running under the Solaris operating environment to a physical LAN network controlled by one of the supported communications adapters. The LLC2 driver, which appears as a driver to the network software, resides in the kernel and is accessed by standard UNIX STREAMS functions.</para>
+<para>This version of the LLC2 driver includes support for both connectionless and connection-oriented logical link control class II LLC2 operations for Ethernet, Token Ring,  and FDDI adapters when accessed through the appropriate Solaris MAC layer driver. The Data Link Provider Interface (DLPI) to the LLC2 driver enables multiple and different protocol stacks, (including NetBIOS and SNA), to operate simultaneously over one or more local area networks.  </para>
+<para>For more information on LLC2, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>. For more information on DLPI, see the <olink targetdocent="STREAMS" type="V-ONLY"><citetitle>STREAMS Programming Guide</citetitle></olink> and the man page <olink targetdocent="REFMAN7" localinfo="DLPI-7P" type="V-ONLY"><citerefentry><refentrytitle>dlpi</refentrytitle><manvolnum>7P</manvolnum></citerefentry></olink>. </para>
+<para>This feature was first available in the Solaris 7 8/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-142"><title>NIS/NIS+ Over IPv6 Transports</title>
+<para>Users can store IPv6 addresses in the NIS, NIS+, and DNS naming services, and also use NIS and NIS+ over IPv6 RPC transports to retrieve any NIS or NIS+ data. Two new maps have been added for NIS: <filename>ipnodes.byname</filename> and <filename>ipnodes.byaddr</filename>. These maps can contain both IPv4 and IPv6 information. A new table,  <filename>ipnodes.org_dir</filename>, has been added for NIS+, and it can also contain  both IPv4 and IPv6 addresses. While use of the new <command>ipnodes</command>(4)  database is preferred for both IPv4 and IPv6, the <command>hosts</command>(4) database  continues to be supported for IPv4 addresses.</para>
+<para>For more information, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-151"><title><filename>sendmail</filename> 8.9.3</title>
+<para>This version includes a new option, <literal>MaxHeadersLength</literal>, that limits the length of the sum of all header lines in any given message, which can prevent a denial-of-service attack. Also included is a new version of <filename>mail.local</filename> that implements the Local Mail Transfer Protocol, RFC 2033. This change allows for re-queuing of mail to the recipients that did not receive a message, rather than re-sending the message to all of the recipients if an error occurs. A new file called <filename>/etc/default/sendmail</filename> can be used to store options to start <filename>sendmail</filename>, so that the options are not touched during an upgrade. In addition, a new utility called <filename>smrsh</filename> increases security by reducing the number of commands that
+can be run using the <literal>|program</literal> syntax of <filename>sendmail</filename>.</para>
+<para>For more information, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-103"><title>Service Location Protocol</title>
+<para>The Service Location Protocol (SLP) is an Internet Engineering Task Force (IETF) protocol for discovering shared resources (such as  printers, file servers, netcams, and so on) in an enterprise network. The &Product; operating environment contains a full implementation of SLP that includes APIs that enable developers to  write SLP-enabled applications, and provides system administrators a framework for ease of network extensibility.</para><![ %FCS; [<para>For more information, see the <olink targetdocent="SVCLOCADMIN" type="V-ONLY"><citetitle>Service Location Protocol Administration Guide</citetitle></olink>.</para>]]></sect2><![ %FCS; [<sect2 id="whatsnewch2-158"><title>Solaris STREAMS Framework Enhancements</title>
+<para>The STREAMS framework enhancements in the &Product; operating environment provide more deterministic response times for real-time processes by ensuring that STREAMS processing uses a priority that does not conflict with the user process  priority.</para>
+<para>The &Product; operating environment also enforces conformance to the Solaris operating environment DDI specified interfaces for the following Solaris  STREAMS support functions:</para>
+<itemizedlist>
+<listitem><para><literal>WR(queue_t)</literal></para>
+</listitem><listitem><para><literal>RD(queue_t)</literal></para>
+</listitem><listitem><para><literal>OTHERQ(queue_t)</literal></para>
+</listitem><listitem><para><literal>SAMESTR(queue_t)</literal></para>
+</listitem></itemizedlist>
+<para>Conformance to the Solaris operating environment DDI specified interfaces  has been implemented by redirecting the functions listed above to the <literal>ddi.h</literal> implementations of these same functions in all cases of usage.</para>
+<caution>
+<para>This enforced conformance introduces a risk of system  failure in DDI non-compliant drivers and modules that incorrectly use the functions listed above. For DDI non-compliant drivers and modules, a version update of the non-compliant driver/module is required but no code changes are necessary.</para>
+</caution>
+<para>For more detailed specifications of the functions listed above, see the <olink targetdocent="STREAMS" type="V-ONLY"><citetitle>STREAMS Programming Guide</citetitle></olink>.</para>
+</sect2>]]>
+<sect2 id="whatsnewch2-194"><title>Network Time Protocol (NTP)</title>
+<para>NTP is upgraded from 3.4y to 3-5.93e and includes the following new features:  </para>
+<itemizedlist>
+<listitem><para><command>ntpdate(1m) </command> supports:<itemizedlist>
+<listitem><para>The <option>B</option> flag, to force time to be slowed using  <command>adjtime(2)</command>, even if the offset is greater than 128 ms</para>
+</listitem><listitem><para>The <option>q</option> flag, to query only, not setting the clock</para>
+</listitem><listitem><para>The <option>v</option> flag, to be verbose, and include the version in logging</para>
+</listitem></itemizedlist></para>
+</listitem><listitem><para><command>xntpd(1m)</command> supports the <option>A</option> flag, to disable authentication mode</para>
+</listitem><listitem><para><command>xntpdc(1m)</command> is a new daemon control program</para>
+</listitem></itemizedlist>
+<para>For more information, see <olink targetdocent="SYSADV2" type="V-ONLY"><citetitle>System Administration Guide, Volume 2</citetitle></olink>.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-232"><title>File System Enhancements</title>
+<highlights>
+<para>This section describes new features in the &Product; operating environment that affect file system management and logging.</para>
+</highlights>
+<sect2 id="chapter1-3"><title>Universal Disk Format File System</title>
+<para>The Universal Disk Format (UDF) file system, the industry-standard format for storing information on optical media technology, is supported in this Solaris release. The UDF file system can be used to exchange data on the following components when they contain a UDF file system:</para>
+<itemizedlist>
+<listitem><para>CD-ROMs</para>
+</listitem><listitem><para>Disks and diskettes</para>
+</listitem><listitem><para>Digital versatile disc or digital video disc (DVD) &mdash; DVD-ROM on supported platforms</para>
+</listitem></itemizedlist>
+<para>The UDF file system is provided as dynamically loadable, 32&ndash;bit and 64&ndash;bit modules, and contains system administration utilities for creating, mounting, and checking the file system on both SPARC and &ia; platforms. </para>
+<para>When a UDF file system is mounted, users can read, write, or list files from the device, and applications can access UDF file and directories with standard system calls.</para>
+<para>See the <olink targetdocent="SYSADV1" type="V-ONLY"><citetitle>System Administration Guide, Volume 1</citetitle></olink> and the man page <olink targetdocent="REFMAN1M" localinfo="MOUNT-UDFS-1M" type="V-ONLY"><citerefentry><refentrytitle>mount_udfs</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink> for more information.</para>
+<para>This feature was first available in the Solaris 7 11/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-104"><title>NFS Server Logging</title>
+<para>NFS server logging allows an NFS server to provide a record of  file operations performed on its file systems. The record includes information to keep track of what is accessed,  when it is accessed, and who accessed it. The location of the logs that contain this information can be specified through a set of configuration options. These options also can be used to select the operations that should be logged. This feature is particularly useful for sites that make anonymous FTP archives available to NFS and WebNFS clients.</para>
+<para>For more information, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-88" arch="ia"><title>XMEM Support</title>
+<para>Extended Memory (XMEM) support provides a mechanism that allows a single 32-bit process to efficiently allocate and manage more than 4 Gbytes of physical memory. The XMEM feature is implemented as a file system (<filename>xmemfs</filename>) that system administrators can mount and use to reserve memory for applications.</para>
+<para>For more information, see the man pages <olink targetdocent="REFMAN1M" localinfo="MOUNT-XMEMFS.1M" type="V-ONLY"><citerefentry><refentrytitle>mount_xmemfs</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink> and <olink targetdocent="REFMAN7" localinfo="XMEMFS-7FS" type="V-ONLY"><citerefentry><refentrytitle>xmemfs</refentrytitle><manvolnum>7FS</manvolnum></citerefentry></olink>.</para>
+<para>This feature was first available in the Solaris 7 11/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-95"><title>WebNFS JavaBeans Component</title>
+<para>The WebNFS JavaBeans component contains an XFileChooser class that extends the JFileChooser graphical component of the Java 2 API. This bean can be used by any Java 2 application that needs to display a file chooser to enable users to select a file for input (open) or output (save). Using XFileChooser, an application can access a file on a local disk or on an NFS server by using NFS URL naming.</para>
+<para>For more information, see the <olink targetdocent="WEBNFSDEVGDE" type="V-ONLY"><citetitle>WebNFS Developer's Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-184"><title>Deferred Access Time Updates on UFS File Systems</title>
+<para>Two new mount options, <command>dfratime</command> and <command>nodfratime</command> enable and disable deferred access time updates on UFS file systems.  When enabled, writing access time updates for the file system may be deferred until the disk is accessed for a reason other than updating access times. The default behavior is <command>dfratime</command>. Use the <command>nodfratime</command> option to disable this feature.  In addition, the <command>mount</command> option, <command>noatime</command>, turns off access time recording regardless of the dfratime/nodfratime value. </para>
+<para> For specific information about UFS mount options, see the <olink targetdocent="REFMAN1M" localinfo="MOUNT-UFS-1M" type="V-ONLY"><citerefentry><refentrytitle>mount_ufs</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink> man page.</para>
+<para>This feature was first available in the Solaris 7 3/99 release.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-951"><title>Diagnostic and Availability Enhancements</title>
+<highlights>
+<para>This section describes new features in the &Product; operating environment that affect system configuration and troubleshooting.</para>
+</highlights>
+<sect2 id="whatsnewch2-145"><title>Improved Core File Management</title>
+<sect3 id="whatsnewch2-146"><title>The <command>coreadm</command> command</title>
+<para>This release introduces the <command>coreadm</command> command, which provides flexible core file naming conventions and better core file retention. For example, you can use the <command>coreadm</command> command to configure a system so that all process core files are placed in a single system directory. This means it is easier to track problems by examining the core files in a specific directory whenever a Solaris process or daemon terminates abnormally.</para>
+<para>Two new configurable <filename>core</filename> file paths, per-process and global, can be enabled or disabled independent of each other. When a process terminates abnormally, it produces a <filename>core</filename> file in the current directory as in previous Solaris releases. But if a global core file path is enabled and set to <filename>/corefiles/core</filename>, for example, then each process that terminates abnormally produces <replaceable>two</replaceable> core files: one in the current working directory and one in the <filename>/corefiles</filename> directory.</para>
+<para>By default, the Solaris core paths and core file retention remain the same.</para>
+<para>See the <olink targetdocent="SYSADV2" type="V-ONLY"><citetitle>System Administration Guide, Volume 2</citetitle></olink> and the man page <olink targetdocent="REFMAN1M" localinfo="COREADM-1M" type="V-ONLY"><citerefentry><refentrytitle>coreadm</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink> for more information.</para>
+<para>This feature was first available in the Solaris 7 8/99 release.</para>
+</sect3>
+<sect3 id="whatsnewch2-147"><title>Examining Core Files With Proc Tools</title>
+<para>Some of the proc tools have been enhanced to examine process core files as well as live processes. The proc tools are utilities that can manipulate features of the <filename>/proc</filename> file system.</para>
+<para>The <command>/usr/proc/bin/pstack</command>, <command>pmap</command>, <command>pldd</command>, <command>pflags</command>, and <command>pcred</command> tools can now be applied to core files by specifying the name of the core file on the command line, similar to the way you specify a process ID to these commands. For example:</para>
+<screen>$ <userinput>./a.out</userinput>
+Segmentation Fault(coredump)
+$ <userinput>/usr/proc/bin/pstack ./core</userinput>
+core './core' of 19305: ./a.out
+ 000108c4 main     (1, ffbef5cc, ffbef5d4, 20800, 0, 0) + 1c
+ 00010880 _start   (0, 0, 0, 0, 0, 0) + b8</screen>
+<para>For more information on using proc tools to examine core files, see the man page <olink targetdocent="REFMAN1" localinfo="PROC-1" type="V-ONLY"><citerefentry><refentrytitle>proc</refentrytitle><manvolnum>1</manvolnum></citerefentry></olink>.</para>
+</sect3>
+</sect2>
+<sect2 id="chapter1-10"><title>Improved Device Configuration (<command>devfsadm </command>)</title>
+<para>The <command>devfsadm</command> command provides an improved mechanism for managing the special device files in the <filename>/dev</filename> and <filename>/devices</filename> directories, including support for dynamic reconfiguration events.</para>
+<para>In previous Solaris releases, device configuration was handled by <command>drvconfig</command>, which managed the physical device entries in the <filename>/devices</filename> directory, and five link generators, <command>devlinks</command>, <command>disks</command>, <command>tapes</command>, <command>ports</command>, and <command>audlinks</command>, which managed the logical device entries in the <filename>/dev</filename> directory.  For compatibility purposes, <command>drvconfig</command> and the other link generators are symbolic links to the <command>devfsadm</command> utility.</para>
+<para>Both reconfiguration boot processing and updating the <filename>/dev</filename> and <filename>/devices</filename> directories in response to dynamic reconfiguration events are handled by <command>devfsadmd</command>, the daemon version of the <command>devfsadm</command> command. This daemon is started from the <filename>/etc/rc*</filename> scripts when a system is booted.</para>
+<para>Since <literal>devfsadmd</literal>, the <command>devfsadm</command> daemon, automatically detects device configuration changes generated by any reconfiguration event, there is no need to run this command interactively.</para>
+<para>This feature was first available in the Solaris 7 11/99 release.</para>
+<para>For more information, see the man page <olink targetdocent="REFMAN1M" localinfo="DEVFSADM-1M" type="V-ONLY"><citerefentry><refentrytitle>devfsadm</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink>.</para>
+</sect2>
+<sect2 id="chapter1-7"><title>Improved System Error Messages</title>
+<para>The system boot and error message format now provides a numeric identifier, module name, and time stamp to messages generated by the <literal>syslog(1M)</literal> logging facility. In addition, messages that were previously lost after a system panic and reboot are now saved.</para>
+<para>This feature was first available in the Solaris 7 3/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-107"><title>Modular Debugger</title>
+<para>Modular debugger (<command>mdb</command>) is a new extensible utility for low-level  debugging and editing of the live operating system, operating  system crash dumps, user processes, user process core dumps, and  object files. <command>mdb</command> provides a completely customizable environment  for debugging complex software systems, such as an operating  system, for programs that are highly optimized, have had their  debug information removed, or are themselves low-level debugging  tools. <command>mdb</command> also handles customer situations where developers  can access only post-mortem information. </para>
+<para>For more information, see <olink targetdocent="MODDEBUG" type="V-ONLY"><citetitle>Solaris Modular Debugger Guide</citetitle></olink> and the<olink targetdocent="REFMAN1" localinfo="MDB-1" type="V-ONLY"><citerefentry><refentrytitle>mdb</refentrytitle><manvolnum>1</manvolnum></citerefentry></olink> man page.</para>
+</sect2>
+<sect2 id="whatsnewch2-200"><title>Remote Console Messaging</title>
+<para>This release includes the <command>consadm</command> command, which  enables you to select a serial device as an <emphasis>auxiliary</emphasis> (or  remote) console for troubleshooting remote system problems.</para>
+<para>This feature enables you to dial in to a serial port with a modem to  monitor console messages and participate in <command>init</command> state  transitions.</para>
+<para>For more information, see the man page <olink targetdocent="REFMAN1M" localinfo="CONSADM-1M" type="V-ONLY"><citerefentry><refentrytitle>consadm</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink> and the <olink targetdocent="SYSADV2" type="V-ONLY"><citetitle>System Administration Guide, Volume 2</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 5/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-106"><title>TCP/IP Internal Trace Support</title>
+<para>TCP/IP now provides internal trace support by logging TCP communication when a connection is terminated by a reset (RST) packet. When an RST packet is transmitted or received, information on as many as 10 packets, transmitted or received immediately before on that connection, is logged with the connection information. </para>
+<para>For more information, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 5/99 release.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-64"><title>Performance and Scalability Enhancements</title>
+<highlights>
+<para>This section describes new tools in the &Product; operating environment for monitoring and improving system performance.</para>
+</highlights>
+<sect2 id="whatsnewch2-86" arch="ia"><title>Added Support for PAE Mode</title>
+<para>With the release of Pentium Pro, Intel introduced a mode called Physical Address Extension (PAE) on its advanced processors. By using PAE, Solaris <emphasis>Intel Platform Edition</emphasis> can address up to 32 Gbytes of physical memory. Individual processes are still limited to a maximum of 3.5 Gbytes of virtual address space.</para>
+<para>PAE mode enables the user to run multiple instances of databases and memory-intensive applications, and to support large numbers of online users on a machine.</para>
+<para>It is best to use PCI disk controllers that support Dual Address Cycle (DAC) in your machine because they can transfer data to and    from any physical location. Other cards are limited to 4 Gbytes of     physical memory, and as a result performance may slow down because    the system needs to copy additional memory to transfer data.</para>
+<caution>
+<para>Some device drivers are not yet able to take advantage of PAE mode. Sun has tested PCI device drivers written by Sun on &ia; based machines with more than 4 Gbytes of memory. Sun's OEM partners intend to test their machines with devices they supply on &ia; based machines with more than 4 Gbytes of memory. In some cases however, if you add a third-party device driver to your system, it may become unstable, and panics and data corruption may result. If your system becomes unstable and you need that driver, you must disable PAE mode support. For more information, see the <olink targetdocent="HWCONFIG" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Device Configuration Guide</citetitle></olink>. </para>
+</caution>
+<para>This feature was first available in the Solaris 7 3/99 release.</para>
+</sect2>
+<sect2 id="chapter1-4"><title><command>apptrace</command></title>
+<para>A new application debugging tool, <command>apptrace</command> enables application developers and system support personnel to debug application or system problems by providing call traces to Solaris shared libraries, which may show the series of events leading up to a point of failure.</para>
+<para>The <command>apptrace</command> tool provides more reliable call-tracing than the previously available <command>sotruss</command> command. It also provides better display of function arguments, return values, and error cases for any Solaris library interface.</para>
+<para>By default, <command>apptrace</command> traces calls directly from the executable object, specified on the command line, to every shared library the executable depends on.</para>
+<para>For more information, see the man page <olink targetdocent="REFMAN1" localinfo="APPTRACE-1" type="V-ONLY"><citerefentry><refentrytitle>apptrace</refentrytitle><manvolnum>1</manvolnum></citerefentry></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-116" arch="sparc"><title><command>busstat</command></title>
+<para>A new system monitoring tool, <command>busstat</command> provides command line access to the  bus-related hardware performance counters in the system. It enables the gathering of system-wide bus performance statistics directly from the system hardware. The current list of supported hardware is SBus, AC and PCI devices. These are all SPARC system devices. Currently, there are no &ia; supported devices.</para>
+<para>The <command>busstat</command> command enables the measurement of system-wide statistics such as memory bank reads/writes, clock cycles, number of interrupts, streaming DVMA read/write transfers and so on.</para>
+<para>Superuser can use <command>busstat</command> to program these counters. Other users can only read counters programmed previously by superuser.</para>
+<para>The <command>busstat</command> command lists the devices in a system that are found to support these hardware performance counters. If no supported devices are found in the system, the following message is displayed:</para>
+<screen>busstat: No devices available in system. </screen>
+<para>For more information on using this monitoring tool, see the man page <olink targetdocent="REFMAN1M" localinfo="BUSSTAT-1M" type="V-ONLY"><citerefentry><refentrytitle>busstat</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-155"><title>Faster Boot for Servers</title>
+<para>In the &Product; operating environment, large servers now require significantly less time to boot. As a part of the boot performance improvement, the operating system probes for SCSI devices in parallel. Some old dual-port SCSI devices do not support parallel probing and should be removed from the system before installing or upgrading to the &Product; operating environment.</para>
+</sect2>
+<sect2 id="whatsnewch2-96"><title>New Alternative to <literal>poll()</literal> Interface</title>
+<para><filename>/dev/poll</filename> is a second form of polling for the completion of I/O events that provides much higher performance when a very large number of events must be polled for on file descriptors that remain open for a long time.  This feature supplements <literal>poll(2)</literal>; it does not replace <literal>poll(2)</literal>.</para>
+<para>For more information, see the <olink targetdocent="SS" type="V-ONLY"><citetitle>System Interface Guide</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 5/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-156"><title><command>prstat</command></title>
+<para>The <command>prstat</command> utility iteratively examines all active processes on the system and reports various statistics based on the selected output mode and sort order. <command>prstat</command> can also be used to report microstate accounting information and to summarize CPU and memory usage.</para>
+<para>For more information, see the man page <olink targetdocent="REFMAN1M" localinfo="PRSTAT.1M.1M" type="V-ONLY"><citerefentry><refentrytitle>prstat</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-114" arch="ia"><title>Xeon Enhancements</title>
+<para>To maximize performance, &Product; <emphasis>Intel Platform Edition</emphasis> now supports the Page Attribute Table (PAT) feature of  &ia; 32&ndash;bit processors (Pentium II and Pentium III). This support enables a device driver writer to take advantage of the write combining  feature for a device that can exploit write combining, even if the BIOS does not set up the device for write combining. </para>
+<para>For more information, see <olink targetdocent="DRIVER" type="V-ONLY"><citetitle>Writing Device Drivers</citetitle></olink>.</para>
+</sect2>
+</sect1><![ %FCS; [<sect1 id="whatsnewch2sparc-28"><title>Security Enhancements</title>
+<para>This section describes new features in the &Product; operating environment that affect system security and file system and directory ownership.</para>
+<sect2 id="whatsnewch2-167"><title>Solaris Smart Cards</title>
+<para>The Solaris Smart Card feature implements the Open Card Framework (OCF) 1.1 standard. Security administrators can use this technology to protect a computer desktop or individual application by requiring users to authenticate themselves by means of a smart card. Each host to be secured by Solaris Smart Cards requires a card reader. To gain access to secured desktops or applications, users first insert their smart cards into  the readers and then type the PINs for their cards. Host machines use the PINs and the users' passwords embedded on their cards to verify that users are whom they claim to be.</para>
+<para>Solaris Smart Cards supports two external card readers, the Sun Smart Card Reader I and the iButton Reader. Three smart cards are supported, the Java-based iButton and Cyberflex cards, and the Payflex smart card.</para>
+<para>The <olink targetdocent="SMARTADMIN" type="V-ONLY"><citetitle>Solaris Smart Cards Administration Guide</citetitle></olink> tells security administrators how to set up smart card support for their sites. It also introduces users to the smart cards technology.</para>
+</sect2>
+<sect2 id="whatsnewch2-169"><title>Default File System and Directory Permissions</title>
+<para>Many system files and directories in the &Product; release have different default ownership and stricter permissions than in previous releases. The default ownership and permissions changes are:</para>
+<itemizedlist>
+<listitem><para>Default file and directory ownership has been changed from <filename>bin</filename> to <filename>root</filename></para>
+</listitem><listitem><para>Files and directories previously with default permissions of <literal>775</literal> now have default permissions of <literal>755</literal></para>
+</listitem><listitem><para>Files and directories previously with default permissions of <literal>664</literal> now have default permissions of <literal>644</literal></para>
+</listitem><listitem><para>Default <filename>umask</filename> of the system is <literal>022</literal></para>
+</listitem></itemizedlist>
+<para>Keep the following in mind when creating a package to be added to a system running the &Product; release:</para>
+<itemizedlist>
+<listitem><para>All files and directories must have root as the default owner</para>
+</listitem><listitem><para>Directories and executables must have default permissions of <literal>555</literal> or <literal>755</literal></para>
+</listitem><listitem><para>Ordinary files must have default permissions of <literal>644</literal> or <literal>444</literal> </para>
+</listitem><listitem><para><filename>set-uid</filename> and <filename>set-gid</filename> files cannot be writable by the owner, unless the owner is root</para>
+</listitem></itemizedlist>
+<para>These changes do not apply to all files and directories in this release; for example, the changes do not apply to OpenWindows or CDE files and directories.</para>
+</sect2>
+<sect2 id="whatsnewch2-152"><title>Role-Based Access Control</title>
+<para>Traditional superuser-based systems grant full superuser powers to anyone who can become superuser. With role-based access control (RBAC) in the &Product; operating environment, administrators can assign limited  administrative capabilities to normal users.  This is achieved through three  new features:</para>
+<itemizedlist>
+<listitem><para>Authorizations &mdash; user rights that grant access to a restricted function</para>
+</listitem><listitem><para>Execution profiles &mdash; bundling mechanisms for grouping authorizations and commands with special attributes, typically superuser ID</para>
+</listitem><listitem><para>Roles &mdash; special types of user accounts intended for performing a set of administrative tasks</para>
+</listitem></itemizedlist>
+<para>The administrator creates an execution profile containing authorizations and privileged commands for a specific task or set of tasks.  That profile can be assigned directly to a user or to a role.  Roles, in turn, are assigned to users.  To gain access to a role, a user with the assigned role executes the <command>su</command> command.  Roles have the advantage of being shared accounts that do not need to be updated when individual responsibilities change. The following new files support RBAC: </para>
+<itemizedlist>
+<listitem><para><filename>/etc/user_attr</filename> &mdash; stores extended security attributes related to users and roles</para>
+</listitem><listitem><para><filename>/etc/security/auth_attr</filename> &mdash; lists and describes authorizations</para>
+</listitem><listitem><para><filename>/etc/security/prof_attr</filename> &mdash; lists execution profiles and associated  	  authorizations</para>
+</listitem><listitem><para><filename>/etc/security/exec_attr</filename> &mdash; associates execution attributes with execution profiles</para>
+</listitem><listitem><para><filename>/etc/security/policy.conf</filename> &mdash; provides the security policy  configuration for user-level attributes</para>
+</listitem></itemizedlist>
+<para>For more information, see <olink targetdocent="SYSADV2" type="V-ONLY"><citetitle>System Administration Guide, Volume 2</citetitle></olink></para>
+</sect2>
+<sect2 id="whatsnewch2-173"><title>Centralized Administration of User Audit Events</title>
+<para>The file, <filename>/etc/security/audit_user</filename>, which stores audit preselection classes for users and roles, is now supported in the name switch. It is no longer necessary to set up the audit events for a user on each system to which the user has access.</para>
+</sect2>
+<sect2 id="whatsnewch2-100"><title>Sun Enterprise Authentication Mechanism (Kerberos V5) Client Support</title>
+<para>This feature provides the Kerberos V5 client-side infrastructure, an addition to the Pluggable Authentication Module (PAM), and utility programs that can be used to secure RPC based applications, such as the NFS service. Kerberos provides selectable  strong user or server level authentication, integrity, or privacy support. The Kerberos clients can be used in conjunction with Sun Enterprise Authentication Mechanism (SEAM) (a part of SEAS 3.0) or other Kerberos V5 software (for instance,  the MIT distribution) to create a complete single network sign-on solution.</para>
+<para>For more information, see the <olink targetdocent="SYSADV2" type="V-ONLY"><citetitle>System Administration Guide, Volume 2</citetitle></olink>.</para>
+</sect2>
+</sect1>]]>
+<sect1 id="whatsnewch2-82"><title>Realtime Systems Enhancements</title>
+<para>This section describes new features in the &Product; operating environment that affect real time processes.</para>
+<sect2 id="whatsnewch2-110"><title>High Resolution Timers</title>
+<para>High resolution timers (HRTs) bypass the traditional 10 millisecond clock interface to expose the granularity of the physical clock interrupt from the hardware. Thus, the HRT interface allows a real time process to take control of one processor (of a multi-processor system) and operate to any required degree of precision in timing events. </para>
+<para>This is the last element needed to allow traditional real-time applications to be run under Solaris.</para>
+<para>For more information, see the <olink targetdocent="SS" type="V-ONLY"><citetitle>System Interface Guide</citetitle></olink>.</para>
+</sect2><![ %RTthreads; [<sect2 id="whatsnewch2-451"><title>User-level Priority Inheritance</title>
+<para> Real-time (RT) applications may run more than one thread in the real-time scheduling class at a time. It is possible for an RT thread with a low priority to get a mutual exclusion lock that then is required by an RT thread with a higher priority.  The high priority thread must then wait for the low priority thread to get done with the mutex lock and release it. This condition is called "priority inversion.&rdquo;</para>
+<para>The RT threads feature implements the POSIX interfaces (previously only dummied in) that let the high priority thread &ldquo;lend&rdquo; its priority to the low priority thread until it releases the lock. </para>
+<para>RT threads that use priority inheritance or priority ceiling locks should use <filename>PTHREAD_SCOPE_SYSTEM</filename> scheduling scope (or bound threads). Unbound threads use <filename>PTHREAD_SCOPE_PROCESS</filename> scheduling and are unsuitable for the needs of real-time applications.</para>
+<para>For more information, see the <olink targetdocent="MTP" type="V-ONLY"><citetitle>Multithreaded Programming Guide</citetitle></olink>.</para>
+</sect2>]]></sect1>
+<sect1 id="whatsnewch2-65"><title>Common Desktop Environment Desktop Enhancements</title>
+<para>The Common Desktop Environment (CDE) provides an advanced Motif-based desktop with an easy-to-use interface. The latest release of CDE includes new comprehensive features in desktop productivity, interoperability, and desktop management.</para>
+<sect2 id="whatsnewch2-127"><title>PDA Support</title>
+<para>The PDA Synchronization (PDASync) application synchronizes the data from Sun applications such as Desktop Calendar, Desktop Mail, Memo, and Address, with  data in similar applications on a user's Personal Digital Assistant (PDA). The PDASync software also enables users to install applications and databases from their workstation or server to their PDA. PDASync supports Palm OS compatible devices.</para>
+<para>For more information on the PDASync application, see the Help information on the PDASync software.</para>
+<para>This feature was first available in the Solaris 7 11/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-121"><title>Hot Key Editor</title>
+<para>The Hot Key Editor enables users to automate repetitive tasks, such as running executables or CDE actions, by predefining a series of commands to a given function key. This feature provides a GUI that enables users to view a hot key list containing the key, context and function, as well as the ability to edit, delete, and create new hot keys.</para>
+<para>For more information, see the <olink targetdocent="CDEUG" type="V-ONLY"><citetitle>Solaris Common Desktop Environment: User's Guide</citetitle></olink>.</para>
+</sect2><![ %IEEE; [<sect2 id="whatsnewch2-130">
+<title>I/O Enhancements</title>
+<para>&lt;IEEE 1394 and PCMCIA enhancements go here.></para>
+</sect2>]]>
+<sect2 id="whatsnewch2-128"><title>Java Media Framework</title>
+<para>The Java Media Framework (JMF), a Java-based application, provides smooth streaming video file format support for MPEG1, MPEG2, Quicktime, and AVI, as well as audio support for MIDI. This feature enables users to take advantage of the real-time video creation and broadcast functionality.</para>
+<para>For more information, see the <olink targetdocent="CDEUG" type="V-ONLY"><citetitle>Solaris Common Desktop Environment: User's Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-191" arch="sparc"><title>Audio Mixer</title>
+<para>CDE now includes a new GUI tool, <command>sdtaudiocontrol</command>, that  supersedes <command>audiocontrol</command>. <command>sdtaudiocontrol</command> uses the features of the audio mixer and provides:  </para>
+<itemizedlist>
+<listitem><para>A graphical method to enable and disable the audio mixer</para>
+</listitem><listitem><para>Volume and balance control for each application</para>
+</listitem><listitem><para>Volume and balance control for mixed audio when the audio mixer is enabled</para>
+</listitem><listitem><para>Controls enabling and disabling of the input and output ports</para>
+</listitem><listitem><para>Display of status information on each application using audio, and on the audio hardware</para>
+</listitem></itemizedlist>
+<para>See also <xref linkend="whatsnewch2-193">.</para>
+</sect2>
+<sect2 id="whatsnewch2-192" arch="sparc"><title>PC Launcher 1.0</title>
+<para>PC launcher 1.0 for SunPCi users enables seamless access and power to view, edit, and print many popular types of PC files or attachments instantly, by automatically launching the associated Windows application and file. By incorporating PC launcher into the Solaris CDE desktop, users can share attachments and files created by Microsoft Word, Excel, PowerPoint, Lotus 1&ndash;2&ndash;3, and AutoCAD applications.</para>
+<para>This feature was first available in the Solaris 7 5/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-136"><title>Netscape Application Launcher</title>
+<para>The Netscape Application Launcher  enables users to easily access and automatically launch Netscape files and associated Netscape applications such as Composer. This feature eliminates the need to run the entire Netscape environment, thus simplifying access to Netscape applications.</para>
+<para>For more information, see the <olink targetdocent="CDEUG" type="V-ONLY"><citetitle>Solaris Common Desktop Environment: User's Guide</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 11/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-138"><title>Print Client Enhancements</title>
+<para>Print Client now enables users to easily configure their own set of printers and default printer without any intervention from an administrator.</para>
+<para>For more information, see the <olink targetdocent="CDEUG" type="V-ONLY"><citetitle>Solaris Common Desktop Environment: User's Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-120"><title>SDTImage Enhancements</title>
+<para>The SDTImage screen snapshot feature now enables users to easily and quickly capture a screenshot image from the command line.</para>
+<para>For more information, see the <olink targetdocent="CDEUG" type="V-ONLY"><citetitle>Solaris Common Desktop Environment: User's Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-170"><title>Smart Card Support</title>
+<para>CDE now supports smart card authentication security technology. Users can now use smart cards to authenticate their identity when logging in to CDE on a protected system, relogging in after a screen lock, or reauthenticating after the smart card is removed. CDE supports both external and internal smart card devices.</para>
+<para>For more information, see the <olink targetdocent="CDEUG" type="V-ONLY"><citetitle>Solaris Common Desktop Environment: User's Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-119"><title>ToolTips</title>
+<para>ToolTips provides users with Balloon Help, a simple and short description of an icon function. Users can now place their cursor on an icon and the function of the icon is displayed.</para>
+<para>For more information, see the <olink targetdocent="CDEUG" type="V-ONLY"><citetitle>Solaris Common Desktop Environment: User's Guide</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 3/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-133"><title>X11R6.4 Support</title>
+<para>This new and enhanced version of XServer includes  key features that increase user productivity and mobility. These new features include:</para>
+<itemizedlist>
+<listitem><para>Web-enabled X application access on any browser-based desktop, providing users with access to corporate X applications through the Internet or intranet</para>
+</listitem><listitem><para>Xinerama, one logical screen image support that enables users to display an image across multiple monitors</para>
+</listitem><listitem><para>X Print support</para>
+</listitem><listitem><para>Color Utilization Policy (CUP), minimized color-map flashing</para>
+</listitem><listitem><para>EnergyStar support</para>
+</listitem><listitem><para>Developer Toolkit includes new APIs and documentation</para>
+</listitem></itemizedlist>
+<para>This feature was first available in the Solaris 7 11/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-174"><title>Extended Control Panel</title>
+<para>This feature provides a unified, consistent, and extensible launchpad for desktop customization. such as desktop controls for color, font, backdrop, and Application Manager.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-159"><title>Web Services</title>
+<para>This section describes a new web server as well as new features that affect web browsing and running Java applications on Web pages.</para>
+<sect2 id="whatsnewch2-160"><title>Java Plug-in</title>
+<para>Java Plug-in for the Solaris operating environment is an add-on product for Netscape Navigator that enables Java applets and JavaBeans components to run on Web pages using Java Runtime Environment (JRE) 1.2 instead of the default Java Virtual Machine (JVM) bundled with Navigator.</para>
+<para>For more information, see the <olink targetdocent="JVPLUGINUG" type="V-ONLY"><citetitle>Solaris Java Plug-in User's Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-161"><title>Netscape Communicator 4.7</title>
+<para>&Product; includes Netscape Communicator 4.7 and now installs it by default on your system.</para>
+<para>Netscape Communicator enables users to communicate, share, and access information over the Internet, and consists of the following tools:</para>
+<itemizedlist>
+<listitem><para>Netscape Navigator &mdash; to find and view information on the Web</para>
+</listitem><listitem><para>Netscape Messenger &mdash; to send and receive email and participate in news groups and chat groups</para>
+</listitem><listitem><para>Netscape Composer &mdash; to create and publish web pages</para>
+</listitem></itemizedlist>
+</sect2>
+<sect2 id="whatsnewch2-172"><title>Solaris Network Cache and Accelerator</title>
+<para>The Solaris Network Cache and Accelerator (NCA) increases web server performance by maintaining an in-kernel cache of web pages accessed during HTTP requests. NCA provides full HTTP (up to version 1.1) protocol support by either handling the request or by passing it to the web server for processing. This feature requires a NCA-compatible web server.</para>
+<para>For more information, see the <olink targetdocent="SYSADV3" type="V-ONLY"><citetitle>System Administration Guide, Volume 3</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-176"><title>Apache Web Server</title>
+<para>Apache is an open source implementation of an HTTP web server. It is one of the most popular web servers on the Internet. The open source Apache web server is now shipped with Solaris. It includes all the standard Apache modules, including proxy server support, as well as the <filename>mod_perl</filename> module.</para>
+<para>This product includes software developed by the Apache Group for use in the Apache HTTP server project. See their website, <ulink url="http://www.apache.org">http://www.apache.org</ulink>.</para>
+<para>For more information, see the <command>apache(1)</command> man page.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-68"><title>Printing</title>
+<para>This section describes new features in the &Product; operating environment that affect printer configuration and management.</para>
+<sect2 id="chapter1-15"><title>Print Naming Enhancement</title>
+<para>This Solaris release supports the <literal>printers</literal> database in <filename>/etc/nsswitch.conf</filename>, the name service switch file. The <literal>printers</literal> database provides centralized printer configuration information to print clients on the network.  </para>
+<para>By including the <literal>printers</literal> database and corresponding sources of information in the name service switch file, print clients automatically have access to printer configuration information without having to add it to their own systems.</para>
+<para>If you use Solaris Print Manager to set up printing in your network, the source of the printer configuration information is selected from the Select Naming Service menu rather than the <literal>printers</literal> database in the <filename>/etc/nsswitch.conf</filename> file.</para>
+<para>The following table describes the default <literal>printers</literal> entry in the <literal>/etc/nsswitch.conf</literal> file for the files, NIS, and NIS+ environments. The <literal>nisplus</literal> keyword represents the <filename>printers.org_dir</filename> table. The <literal>xfn</literal> keyword represents the FNS printer contexts.</para>
+<informaltable frame="topbot"><tgroup cols="2" colsep="0" rowsep="0"><colspec colwidth="36.16*"><colspec colwidth="63.84*"><thead><row rowsep="1"><entry><para>If Your Name Service Is ...</para></entry><entry><para>The Default <literal>printers</literal> Entry Is ...</para></entry></row></thead><tbody><row><entry><para><literal>files</literal></para></entry><entry><para><literal>printers:	user files</literal></para></entry></row><row><entry><para><literal>nis</literal></para></entry><entry><para><literal>printers:	user files nis</literal></para></entry></row><row><entry><para><literal>nis+</literal></para></entry><entry><para><literal>printers:	user nisplus files xfn</literal></para></entry></row></tbody></tgroup></informaltable>
+<para>For example, if your name service is NIS, printer configuration information on print clients is looked up in the following sources in this order:</para>
+<orderedlist>
+<listitem><para><literal>user</literal> &mdash; represents the user's <filename>$HOME/.printers</filename> file</para>
+</listitem><listitem><para><literal>files</literal> &mdash; represents the <filename>/etc/printers.conf</filename> file</para>
+</listitem><listitem><para><literal>nis</literal> &mdash; represents the <filename>printers.conf.byname</filename> table</para>
+</listitem></orderedlist>
+<para>For more information, see the man page <olink targetdocent="REFMAN4" localinfo="NSSWITCH.CONF-4" type="V-ONLY"><citerefentry><refentrytitle>nsswitch.conf</refentrytitle><manvolnum>4</manvolnum></citerefentry></olink> and the <olink targetdocent="NETNAME" type="V-ONLY"><citetitle>Solaris Naming Administration Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="chapter1-9"><title>Solaris Print Manager</title>
+<para>Solaris Print Manager is a Java-based graphical user interface that enables you to manage local and remote printer access. This tool can be used in the following name service environments: NIS, NIS+, NIS+ with Federated Naming Service (FNS), and files. You must be logged in as superuser to use this tool. </para>
+<para>Using Solaris Print Manager is the preferred method for managing printer access instead of Admintool:Printers because Solaris Print Manager centralizes printer information when it is used in a name service environment.</para>
+<para>Solaris Print Manager recognizes existing printer information on the printer servers, print clients, and in the name service databases. There are no conversion tasks required to use the new Solaris Print Manager as long as the print clients are running the Solaris 2.6 release or a compatible version.</para>
+<para>For more information, see the <olink targetdocent="SYSADV2" type="V-ONLY"><citetitle>System Administration Guide, Volume 2</citetitle></olink>.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-69"><title>Language Support</title>
+<highlights>
+<para>The &Product; operating environment provides support for over 90 locales, a new, intuitive interface for installing languages, expanded Unicode support, and improved data interoperability utilities.</para>
+</highlights>
+<sect2 id="whatsnewch2-79"><title>Universal Language Coverage</title>
+<para>The &Product; operating environment now includes support for more than 90 locales, covering 37 languages, on both the  &Product; Software CDs and the &Product; Languages CD.</para>
+<para>The &Product; Software CDs provide an English interface to input, display, and print text in a target language, including multibyte locales. In addition, the  &Product; Languages CD provides localized interface and documentation.</para>
+<para>This new packaging approach greatly simplifies the development  and testing of  applications for international markets and eliminates the need to purchase  an optional media kit to set  up a non-English development or production  environment.</para>
+<para>Customers will also notice a new locale installation mechanism. In previous Solaris releases the locale support included with the operating environment depended on the software cluster installed. The new installation interface in the &Product; operating environment  enables users to install only those regions for which they require locale  support. </para>
+<para>For more information, see the <olink targetdocent="I18NDG" type="V-ONLY"><citetitle>International Language Environments Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-801"><title>Improved Language Installation and Setup</title>
+<para>Users will find the setup and installation to  be significantly easier, whether installing only a single language or the full range of 37  languages packaged with the &Product; operating environment. </para>
+<para>Changes to packaging on the &Product; CD have reduced the storage requirements for a  mixed language installation and a redesign of the install interface makes  language selection and grouping extremely intuitive.</para>
+<para>For more information, see the <olink targetdocent="SPARCINFOLIB" type="V-ONLY"><citetitle>Solaris 8 (SPARC Platform Edition) Installation Guide</citetitle></olink> or the <olink targetdocent="x86INFOLIB" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Installation Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-81"><title>Expanded Unicode Support</title>
+<para>The &Product; operating environment continues to broaden support for Unicode, with the addition of new  Unicode (UTF-8) locales for Simplified Chinese and Traditional Chinese.</para>
+<para>Also, complete support for Complex Text Layout (CTL) scripts has been enabled. This allows proper rendering of text for bidirectional and also context-sensitive shaping scripts like Arabic, Hebrew, and Thai in the Unicode locale.</para>
+<para>Unicode is often used in a mixed script environment, where it is necessary to display text from multiple languages in a single environment. In those cases  where it is necessary to provide support for cultural-specific  conventions such as date and time, monetary format, and collation,  the multiple Unicode locales provided in Solaris are quite useful.</para>
+<para>For more information, see the <olink targetdocent="I18NDG" type="V-ONLY"><citetitle>International Language Environments Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-820"><title>Customer-Extensible Codeset Conversion (<command>geniconvtbl</command>)</title>
+<para>Developers have the ability, with the &Product; operating environment, to create user-defined codeset converters, enabling table driven creation and easy addition of new codeset  conversions by using the <command>geniconvtbl</command> utility.</para>
+<para>This permits user-defined and user-customizable codeset conversions with a standard system utility and interface like <command>iconv(1)</command> and <command>iconv(3C)</command>. This new capability enhances the ability of an application to deal with incompatible data types, particularly data generated from proprietary or legacy applications. Modification to existing Solaris codeset conversions is also supported.</para>
+<para>For more information, see the <olink targetdocent="I18NDG" type="V-ONLY"><citetitle>International Language Environments Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-83"><title>Improved Data Interoperability</title>
+<para>Data interoperability with non-Solaris environments has been improved in the &Product; operating environment with the addition of the following new <command>iconv</command> data conversion  utilities :</para>
+<itemizedlist>
+<listitem><para><command>iconv</command> for Japanese mainframe data types</para>
+</listitem><listitem><para><command>iconv</command> for Microsoft data encodings (including user defined characters)</para>
+</listitem><listitem><para><command>iconv</command> for UTF-8 interoperability in China and Korea</para>
+</listitem><listitem><para><command>iconv</command> for various Unicode encoding formats and international and de facto industry standard codesets</para>
+</listitem></itemizedlist>
+<para>For more information, see the <olink targetdocent="I18NDG" type="V-ONLY"><citetitle>International Language Environments Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-85"><title>New Locales Added</title>
+<para>Two new locales have been added to the &Product; operating environment for Iceland (ISO8859-15) and  Russia (ANSI1251). The new Russian locale is in addition to the existing  Russian (8859-5) locale and provides native Microsoft data encoding support.</para>
+<para>For more information, see the <olink targetdocent="I18NDG" type="V-ONLY"><citetitle>International Language Environments Guide</citetitle></olink>.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-93"><title>Documentation</title>
+<para>This section describes improvements in the AnswerBook2 server software and the reorganization of the &Product; Reference Manual.</para>
+<para>For more information on changes in the &Product; documentation set, see <olink targetdocent="ABOUTDOC" type="V-ONLY"><citetitle>About Solaris 8 Documentation</citetitle></olink>.</para>
+<sect2 id="whatsnewch2-117"><title>AB2 1.4.2 AnswerBook2 Server</title>
+<para>The AnswerBook2 version 1.4.2 server software provides improved performance, a textual, rather than graphical, navigation interface, and the ability to view and search information by collection.</para>
+<para>For more information, see the <olink targetdocent="SPARCINFOLIB" type="V-ONLY"><citetitle>Solaris 8 (SPARC Platform Edition) Installation Guide</citetitle></olink> or the <olink targetdocent="x86INFOLIB" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Installation Guide</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 8/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-94"><title>Reference Manual Reorganization</title>
+<para>The section of the <citetitle>SunOS Reference Manual</citetitle> that describes the C library functions (but does not include the system calls) now contains six books instead of one. These books are: </para>
+<itemizedlist>
+<listitem><para>Library Interfaces and Headers</para>
+</listitem><listitem><para>Basic Library Functions</para>
+</listitem><listitem><para>Networking Library Functions</para>
+</listitem><listitem><para>Threads and Realtime Library Functions</para>
+</listitem><listitem><para>Extended Library Functions</para>
+</listitem><listitem><para>Curses Library Functions</para>
+</listitem></itemizedlist>
+<para>In addition, many of the man page suffixes have been changed to reflect the library that contains the function (for example, all man pages describing functions contained in <filename>libnsl</filename> now have the suffix <literal>.3NSL</literal>).</para>
+<para>For more information, see the <olink targetdocent="REFMAN1" localinfo="INTRO-1" type="V-ONLY"><citerefentry><refentrytitle>Intro</refentrytitle><manvolnum>1</manvolnum></citerefentry></olink> man page and <olink targetdocent="ABOUTDOC" type="V-ONLY"><citetitle>About Solaris 8 Documentation</citetitle></olink>.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-193" arch="sparc"><title>Audio Mixer</title>
+<para>The audio mixer driver now enables multiple applications to simultaneously play and record audio. This new enhancement supersedes the previous capability, which only supported a single play application and a single record application.   </para>
+<para>The audio mixing function is turned on by default and can be turned off as well as on using the new <command>mixerctl(1)</command>utility, or through other methods described in  the man page <command>audiocs 7D</command>. </para>
+<note>
+<para>When running <trademark>SunVTS</trademark> the mixing function should be disabled.   </para>
+</note>
+<para>In addition, CDE 1.4 now includes a new GUI tool,<command>sdtaudiocontrol</command>, that  supersedes <command>audiocontrol</command>. <command>sdtaudiocontrol</command> uses the features of the audio mixer and provides:  </para>
+<itemizedlist>
+<listitem><para>A graphical method to enable and disable the audio mixer</para>
+</listitem><listitem><para>Volume and balance control for each application</para>
+</listitem><listitem><para> Volume and balance control for mixed audio when the audio mixer is enabled</para>
+</listitem><listitem><para>Controls enabling and disabling the input and output ports</para>
+</listitem><listitem><para>Display of status information on each application using audio and on the audio hardware</para>
+</listitem></itemizedlist>
+<para>For more information, see the man pages <olink targetdocent="REFMAN7" localinfo="AUDIOCS-7D" type="V-ONLY"><citerefentry><refentrytitle>audiocs</refentrytitle><manvolnum>7D</manvolnum></citerefentry></olink>, <olink targetdocent="REFMAN7" localinfo="AUDIO-SUPPORT-7I" type="V-ONLY"><citerefentry><refentrytitle>audio_support</refentrytitle><manvolnum>7I</manvolnum></citerefentry></olink>, and <olink targetdocent="REFMAN7" localinfo="MIXER-7I" type="V-ONLY"><citerefentry><refentrytitle>mixer</refentrytitle><manvolnum>7I</manvolnum></citerefentry></olink>.</para>
+</sect1>
+<sect1 id="whatsnewch2-70"><title>Software Developer Environment</title>
+<para>The Solaris operating environment provides developers with the documentation, development software libraries, productivity tools, sample code, and testing tools needed to develop software applications for the Solaris runtime environments. </para>
+<sect2 id="whatsnewch2-72"><title>&sparc64C;64&ndash;bit KCMS Libraries</title>
+<para>Kodak Color Management System (KCMS) is now providing a 64&ndash;bit version of the libraries. Applications that currently use  KCMS and are converted to the 64&ndash;bit operating environment can now retain color management.</para>
+<para>For more information, see the <olink targetdocent="KCMSAPPDG" type="V-ONLY"><citetitle>KCMS Application Developer's Guide</citetitle></olink> and the <olink targetdocent="KCMSCMMDG" type="V-ONLY"><citetitle>KCMS CMM Developer's Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-168"><title>Always Ready Power Management</title>
+<para>The Solaris 8 operating environment provides a new automatic device Power  Management framework. A device driver using the new interfaces will be  automatically power managed on the appropriate platforms.  Unlike previous  releases, the <filename>/etc/power.conf</filename> file no longer needs to be manually updated to start power management of the device.</para>
+<para>For more information, see <olink targetdocent="DRIVER" type="V-ONLY"><citetitle>Writing Device Drivers</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-295"><title>The <command>cpustat</command> and  <command>cputrack</command> Commands</title>
+<para>System administrators can use the new <command>cpustat</command> and  <command>cputrack</command> commands to monitor the performance of a system  or a process.</para>
+<para>The <command>cpustat</command> command gathers system-wide CPU  information. This command must be run by the superuser. The  <command>cputrack</command> command is similar to the <command>truss</command>  command for displaying information about an application or a process. This  command can be run by regular users.</para>
+<para>Developers can create their own versions of these monitoring tools by  using the same library APIs that were used to build the  <command>cpustat</command> command.</para>
+<para>See <olink targetdocent="REFMAN1M" localinfo="CPUSTAT-1M" type="V-ONLY"><citerefentry><refentrytitle>cpustat</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink> and <olink targetdocent="REFMAN1" localinfo="CPUTRACK-1" type="V-ONLY"><citerefentry><refentrytitle>cputrack</refentrytitle><manvolnum>1</manvolnum></citerefentry></olink> for more information.</para>
+</sect2>
+<sect2 id="chapter1-501"><title>Extensions to Runtime Link Auditing</title>
+<para>Additional means of invoking runtime link auditing libraries is provided by the link editor options <literal>-p</literal> and <literal>-P</literal>. Additional runtime link auditing interfaces <function>la_activity</function> and <function>la_objsearch</function> have been added. </para>
+<para>For more information, see the <olink targetdocent="LLM" type="V-ONLY"><citetitle>Linker and Libraries Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="chapter1-175"><title>Perl 5</title>
+<para>Practical Extraction and Report Language (Perl) 5.005_03, a powerful  general purpose programming language, generally available as free software,  is included in this Solaris release.</para>
+<para>Perl has emerged as the standard development tool for complex system  administration tasks, such as graphic, network, and web programming  because of its excellent process, file, and text manipulation features.</para>
+<para>Perl 5 includes a dynamically loadable module framework, which allows the  addition of new functionality for specific tasks. Many modules are freely  available from the Comprehensive Perl Archive Network (CPAN), at  <ulink url="http://www.cpan.org"><literal>http://www.cpan.org</literal></ulink>.  </para>
+<para>Some of the core modules included with this Solaris Perl installation are  <filename>CGI</filename>, <filename>NDBM_File</filename>, and <filename>Getopt</filename>. These modules reside in the  <filename>/usr/perl5/5.00503</filename> directory. The  <filename>site_perl</filename> directory is initially empty and is intended to  store your locally installed Perl 5 modules. </para>
+<para>To access the Perl5 man pages, add <filename>/usr/perl5/man</filename> to your <filename>MANPATH</filename> environment variable. See the man page, <olink targetdocent="REFMAN1" localinfo="PERL-1" type="V-ONLY"><citerefentry><refentrytitle>perl</refentrytitle><manvolnum>1</manvolnum></citerefentry></olink>, for general Perl information. </para>
+</sect2>
+<sect2 id="whatsnewch2-166"><title>Role-Based Access Control for Developers</title>
+<para>The addition of role-based access control (RBAC) to the Solaris operating environment gives developers the opportunity to deliver fine-grained security in new and modified applications. RBAC is an alternative to the  all-or-nothing security model of traditional superuser-based systems.  With RBAC, an administrator can assign privileged functions to specific  user accounts (or special accounts called roles).  Developers can now create privileged functions that check for authorizations instead of checking for  specific IDs such as superuser.</para>
+<para>For more information, see the <olink targetdocent="SYSADV2" type="V-ONLY"><citetitle>System Administration Guide, Volume 2</citetitle></olink> and the man page <olink targetdocent="REFMAN5" localinfo="RBAC-5" type="V-ONLY"><citerefentry><refentrytitle>rbac</refentrytitle><manvolnum>5</manvolnum></citerefentry></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-171"><title><function>strftime</function> Function Update</title>
+<para>The <literal>%u</literal> conversion specification for the <function>strftime</function> function represents a weekday as a decimal number <literal>[1,7]</literal>, with <literal>1</literal> now representing Monday (rather than Sunday, as was the case in the Solaris 7 operating environment). This new behavior conforms to the X/Open CAE Specification, System Interfaces and Headers.</para>
+<para>For more information, see the <olink targetdocent="I18NDG" type="V-ONLY"><citetitle>International Language Environments Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="chapter1-502"><title>Secure Path Name Change From <filename>/usr/lib</filename> to <filename>/usr/lib/secure</filename></title>
+<para>The secure directory from which files can be preloaded is now <filename>/usr/lib/secure</filename> for 32&ndash;bit objects and <filename>/usr/lib/secure/sparcv9</filename> for 64&ndash;bit SPARCV9 objects.</para>
+<para>For more information, see the <olink targetdocent="LLM" type="V-ONLY"><citetitle>Linker and Libraries Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="chapter1-503"><title><literal></literal>Dynamic String Token Support</title>
+<para>Greater flexibility in establishing instruction set specific,  and system specific dependencies is provided with the new       <literal>$ISALIST</literal>, <literal>$OSNAME</literal> and <literal>$OSREL</literal> dynamic string tokens.</para>
+<para>For more information, see the <olink targetdocent="LLM" type="V-ONLY"><citetitle>Linker and Libraries Guide</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-179"><title>Alternate One-level Libthread</title>
+<para>The standard Solaris threads implementation is a two-level model, in which user-level threads are multiplexed over possibly fewer lightweight processes, (LWPs).  An LWP is the fundamental unit of execution that is dispatched to a processor by the operating system.  </para>
+<para>Solaris 8 software provides an alternate threads implementation, a one-level model, in which user-level threads are associated one-to-one with LWPs.  This implementation is simpler than the standard implementation and may be beneficial to some multithreaded applications.  It provides the same interfaces for POSIX threads and Solaris threads as for the standard implementation.  </para>
+<para>Existing multihreaded programs can be bound with the alternate libthread at run time using the <envar>LD_LIBRARY_PATH</envar> and <envar>LD_LIBRARY_PATH_64</envar>environment variable. </para>
+<para>See the <olink targetdocent="REFMAN3D" localinfo="THREADS-3THR" type="V-ONLY"><citerefentry><refentrytitle>threads</refentrytitle><manvolnum>3THR</manvolnum></citerefentry></olink> man page for details of usage.</para>
+</sect2>
+<sect2 id="whatsnewch2-183"><title>Updated DDI Interfaces for Cluster-aware Device Drivers</title>
+<para>An overview introduces the concept of device classes and the necessary interface modifications and additions for device driver writers. The overview is found in <olink targetdocent="DRIVER" type="V-ONLY"><citetitle>Writing Device Drivers</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 3/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-185"><title>8&ndash;bit Visual Support</title>
+<para>The 8&ndash;bit visual shared library provides a set of translation functions, enabling 8-bit visual applications to run on hardware that only provides support for 24-bit visual depth. The functions use the device driver's native 24-bit rendering function calls for applications requesting 8-bit visual support. This is done by translating 8-bit pseudocolor colormap pixel data into 24-bit truecolor colormap pixel data before rendering an image on the 24-bit hardware visual supported platform.</para>
+<para>This feature was first available in the Solaris 7 8/99 release.</para>
+</sect2><![ %WBEM-SDK; [<sect2 id="whatsnewch2-165"><?Pub Dtl>
+<title>Sun WBEM SDK</title>
+<para>Sun WBEM Software Developer's Kit (SDK) is a developer's toolkit you can use to create applications and providers for WBEM-enabled environments. Using the client  application programming interfaces (APIs), you can develop  applications to run in and manage any WBEM-enabled environment. Additionally,
+you can use the provider APIs to develop provider programs that enable  specific technologies, such as a device that uses a specific protocol, to  communicate with a WBEM-enabled environment. </para>
+<para>Sun WBEM SDK includes the following components:</para>
+<itemizedlist>
+<listitem><para>Client API, a public set of APIs that enable applications to communicate with the CIM Object Manager using Remote Method Invocation (RMI) or eXtensible Markup Language (XML) over HTTP</para>
+</listitem><listitem><para>Provider API, interfaces that the CIM Object Manager and provider programs use to communicate</para>
+</listitem><listitem><para>MOF Compiler that converts MOF, the language for defining CIM classes, to Java </para>
+</listitem><listitem><para>Sample client programs you can use as a basis for creating your own WBEM-enabled applications</para>
+</listitem><listitem><para>Sample provider programs you can use as a basis for creating your own provider programs</para>
+</listitem></itemizedlist>
+<para>For information about any of the Sun WBEM SDK components, see the Sun WBEM SDK Developer's Guide. Also included with Sun WBEM SDK documentation, the Sun WBEM SDK: MOF Style Guide provides guidelines for designing extensions to the Solaris Schema using Managed Object Format.</para>
+</sect2>]]></sect1>
+<sect1 id="whatsnewch2-66"><title>&ia; Hardware</title>
+<highlights>
+<para>This section describes new features in the &Product; operating environment specific to the &ia; platform.</para>
+</highlights>
+<sect2 id="whatsnewch2-87" arch="ia"><title>ACPI</title>
+<para>Advanced Configuration and Power Interface (ACPI) is a new, more flexible way to configure and control &ia; hardware.  ACPI obsoletes Plug and Play BIOS and the Intel Multi-Processor Specification (MPSPEC). If a valid ACPI configuration is available on your &ia; based system, the &Product; operating environment automatically uses it to configure the hardware.  The &Product; operating environment does not yet support ACPI-based power management.</para>
+</sect2><![ %FCS; [<![ %IEEE; [<sect2 id="whatsnewch2-113">
+<title>IEEE 1394 High Speed Serial Bus</title>
+<para></para>
+</sect2>]]>]]>
+<sect2 id="whatsnewch2-89" arch="ia"><title>PCI Hot-Plug Support</title>
+<para>This feature enables standard PCI adapters to be hot-plugged into a machine with the hot-plug capability that is running Solaris Intel Platform Edition. You can now add (hot-add) or remove (hot-remove) adapters from a system while the system is still running.</para>
+<para>For more information, see the <olink targetdocent="SYSADV1" type="V-ONLY"><citetitle>System Administration Guide, Volume 1</citetitle></olink> and <olink targetdocent="DRIVER" type="V-ONLY"><citetitle>Writing Device Drivers</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 11/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-92" arch="ia"><title>Universal Serial Bus Support for Keyboards and  Mouse Devices</title>
+<para>Solaris <emphasis>Intel Platform Edition</emphasis> now provides Universal Serial Bus (USB) support for keyboards and mouse devices. USB is an emerging I/O bus standard that supports a wide variety of peripherals, such as speakers, modems, printers, and cameras, as well as keyboards and mouse devices. While a fairly new standard, USB is quickly gaining wide acceptance in the Intel market. USB ports are becoming a standard on many &ia; based  machines, and USB support is being integrated into all Intel PCI chip  sets.</para>
+</sect2>
+<sect2 id="whatsnewch2-115" arch="ia"><title>X Server Video Driver Enhancement</title>
+<para>Solaris <emphasis>Intel Platform Edition</emphasis> now provides support for the  following video devices: <itemizedlist>
+<listitem><para>Cirrus Logic GD5465</para>
+</listitem><listitem><para>3Dlabs Permedia2 (Diamond Fire GL 1000 Pro)</para>
+</listitem><listitem><para>S3 Trio3D</para>
+</listitem><listitem><para>Matrox Productiva G100</para>
+</listitem><listitem><para>Matrox Millennium G200</para>
+</listitem><listitem><para>Matrox Millennium G400</para>
+</listitem><listitem><para>Matrox Mystique G200</para>
+</listitem><listitem><para>Matrox Mystique G400</para>
+</listitem><listitem><para>NVIDIA RIVA TNT2 (Diamond Viper V770)</para>
+</listitem></itemizedlist></para>
+<para>For more information, see the <olink targetdocent="x86HW" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Hardware Compatibility List</citetitle></olink>.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-195"><title>&ia; SCSI Drivers</title>
+<para>This section describes enhancements in the &Product; <emphasis>Intel Platform Edition</emphasis> operating environment.</para>
+<sect2 id="whatsnewch2-196"><title><literal>cadp</literal> Driver Enhancements </title>
+<para>The Solaris <literal>cadp</literal> driver has been enhanced to include support for: <itemizedlist>
+<listitem><para> PCI and SCSI Hot-Plug capability</para>
+</listitem><listitem><para>Physical Address Extension (PAE) mode</para>
+</listitem><listitem><para>Ultra devices</para>
+</listitem><listitem><para>Cluster and multi-initiator configurations </para>
+</listitem></itemizedlist> </para>
+<para>as well as improvements in quality and performance.</para>
+<para>For more information, see the <olink targetdocent="HWCONFIG" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Device Configuration Guide</citetitle></olink>.</para>
+<para>This feature was first available in the Solaris 7 8/99 release.</para>
+</sect2>
+<sect2 id="whatsnewch2-197"><title><literal>ncrs</literal> Device Driver Enhancements</title>
+<para>The Solaris <literal>ncrs</literal> device driver now supports the SCSI  hot-plugging functionality and Ultra2 devices, in addition to  including general functionality and performance improvements.</para>
+<para>For more information, see the <olink targetdocent="HWCONFIG" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Device Configuration Guide</citetitle></olink> and the <olink targetdocent="x86HW" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Hardware Compatibility List</citetitle></olink>.</para>
+</sect2>
+<sect2 id="whatsnewch2-198"><title><literal>symhisl</literal> Device Driver</title>
+<para>The <literal>symhisl</literal> device driver, which supports the SYM53C896 chip and the  SYM22910 and SYM21002 adapters, is now included in  Solaris <emphasis>Intel Platform Edition</emphasis>.</para>
+<para>For more information, see the <olink targetdocent="x86HW" type="V-ONLY"><citetitle>Solaris 8 (Intel Platform Edition) Hardware Compatibility List</citetitle></olink>.</para>
+</sect2>
+</sect1>
+<sect1 id="whatsnewch2-187"><title>Other Software</title>
+<sect2 id="whatsnewch2-188"><title>Early Access Software</title>
+<para>The Solaris 8 release includes an Early Access (EA) directory with EA software. For more information, refer to the README on the Solaris Software CD 2 of 2.</para>
+</sect2>
+<sect2 id="whatsnewch2-189"><title>Freeware</title>
+<para>Several freeware tools and libraries are included in the Solaris 8 release. These tools include:  </para>
+<itemizedlist>
+<listitem><para><command>bash</command> - <command>Sh</command>- compatible command language interpreter </para>
+</listitem><listitem><para><command>bzip2</command> - Block-sorting file compressor  </para>
+</listitem><listitem><para><command>gpatch</command> - Used to apply patch files to originals </para>
+</listitem><listitem><para><command>gzip</command> - GNU zip compression utility</para>
+</listitem><listitem><para> <command>less </command>- A pager, like <command>more</command></para>
+</listitem><listitem><para> <command>libz</command> - Also known as 'zlib', this is a library that performs compression (specifically, RFCs 1950-1952) </para>
+</listitem><listitem><para><command>mkisofs</command> - Builds a CD image using a iso9660 file system</para>
+</listitem><listitem><para><command>rpm2cpio</command> - Transforms a package in RPM format (Red Hat Package Manager) to a cpio archive </para>
+</listitem><listitem><para><command>tcsh</command> - C shell with file name completion and command line editing</para>
+</listitem><listitem><para><command>zip</command> - Compression and file packaging utility</para>
+</listitem><listitem><para><command>zsh</command> - Command interpreter (shell) usable as an interactive login shell and as a shell script command processor</para>
+</listitem></itemizedlist>
+</sect2>
+</sect1>
+</chapter>

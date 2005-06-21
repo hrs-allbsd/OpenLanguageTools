@@ -1,0 +1,4 @@
+#!/bin/sh
+CLASSPATH=${TT_WS_ROOT}/build/utilities/
+
+java -classpath ${CLASSPATH} com.sun.tmc.parsers.SgmlDocFragmentParser.ViewStrings $1

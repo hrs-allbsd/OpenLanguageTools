@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <something>
+        something
+    </something>
+    <file>
+        <unit id="1">
+            <source xml:lang="en-US">(Translated) Foo</source>
+        </unit>
+        <unit id="2">
+            <source xml:lang="en-US">(Translated) Bla </source>
+            <source xml:lang="en-US">(Translated) This is<b>bold text</b> so there</source>
+        </unit>
+        <unit id="3">
+            <source xml:lang="en-US">(Translated) ABC</source>
+            <source xml:lang="en-US">(Translated) EDFG</source>
+        </unit>
+    </file>
+</root>

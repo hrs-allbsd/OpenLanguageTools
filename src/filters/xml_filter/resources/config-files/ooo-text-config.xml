@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE config SYSTEM "xml-config.dtd">
+<config>
+<head>
+<namespace>http://openoffice.org/2000/text</namespace>
+<file-type>StarOffice/OpenOffice text documents namespace</file-type>
+<file-type-description>This is a test xml config file for these types of document</file-type-description>
+<author>Tim Foster</author>
+<generated-by>Manually written xml config file</generated-by>
+<generated-date>08/Feb/2005</generated-date>
+<last-modified-date>08/Feb/2005</last-modified-date>
+</head>
+<body>
+<config-element translatable="yes" hardness="hard">p</config-element>
+<config-element translatable="yes" hardness="inline">span</config-element>
+</body>
+</config>

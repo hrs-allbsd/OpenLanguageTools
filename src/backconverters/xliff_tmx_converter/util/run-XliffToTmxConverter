@@ -1,0 +1,7 @@
+#!/bin/sh
+
+CLASSPATH=/home/kb128066/projects/transtech-build/
+
+export CLASSPATH
+
+java -classpath ${CLASSPATH} com.sun.transtech.xliff_tmx_converter.TransformerTest $1

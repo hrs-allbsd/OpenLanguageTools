@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="format wrapping modules">
+    <target name="init">
+        <property file="build.properties"/>
+        <property name="utils.dir" value="${TT_WS_ROOT}/utilities/general/src/"/>
+        <property name="tagged_markup.dir" value="${TT_WS_ROOT}/utilities/tagged_markup/"/>
+        <property name="sgml_parser.dir" value="${TT_WS_ROOT}/utilities/sgml_doc_fragment/src/"/>
+        <property name="nc_sgml_parser.dir" value="${TT_WS_ROOT}/utilities/non-conformant_sgml_doc_fragment/src/"/>
+        <property name="printf_parser.dir" value="${TT_WS_ROOT}/utilities/printf_parser/"/>
+        <property name="messg_format_parser.dir" value="${TT_WS_ROOT}/utilities/messageformat_parser/"/>
+        <property name="format_wrappers.dir" value="${TT_WS_ROOT}/src/filters/format_handling/"/>
+    </target>
+    
+    <target name="local-init">
+        <property file="build.properties"/>
+        <property name="build" value="${TT_WS_ROOT}/../transtech-build"/>
+        <property name="classpath" value="${build}"/>
+    </target>
+    
+    <target depends="local-init, format_wrappers" name="all">
+    </target>
+    
+    <target depends="init, utils, tagged_markup, sgml_parser, nc_sgml_parser, printf_parser, messg_format_parser" name="format_wrappers">
+        <ant dir="${format_wrappers.dir}" target="format_handler">
+            <property name="class-path" value="${build}"/>
+            <property name="build" value="${build}"/>
+        </ant>        
+    </target>
+
+    <target name="utils">
+        <ant dir="${utils.dir}" target="utils">
+            <property name="class-path" value="${build}"/>
+            <property name="build" value="${build}"/>
+        </ant>        
+    </target>
+        
+    <target name="tagged_markup">
+        <javac classpath="${classpath}" debug="true" destdir="${build}" failonerror="true" includes="**/*.java" srcdir="${tagged_markup.dir}"/>
+    </target>
+
+    <target name="sgml_parser">
+        <ant dir="${sgml_parser.dir}" target="parser">
+            <property name="class-path" value="${build}"/>
+            <property name="build" value="${build}"/>
+        </ant>        
+    </target>
+
+    <target name="nc_sgml_parser">
+        <ant dir="${nc_sgml_parser.dir}" target="parser">
+            <property name="class-path" value="${build}"/>
+            <property name="build" value="${build}"/>
+        </ant>        
+    </target>
+        
+    <target name="printf_parser">
+        <ant dir="${printf_parser.dir}" target="parser">
+            <property name="class-path" value="${build}"/>
+            <property name="build" value="${build}"/>
+        </ant>        
+    </target>
+    
+    <target name="messg_format_parser">
+        <ant dir="${messg_format_parser.dir}" target="parser">
+            <property name="class-path" value="${build}"/>
+            <property name="build" value="${build}"/>
+        </ant>        
+    </target>   
+</project>

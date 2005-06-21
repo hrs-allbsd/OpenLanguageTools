@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE config SYSTEM "xml-config.dtd">
+<config>
+<head>
+<identifier>
+<dtd>
+<system>http://scrollkeeper.sourceforge.net/dtds/scrollkeeper-omf-1.0/scrollkeeper-omf.dtd</system>
+<public>-//OMF//DTD Scrollkeeper OMF Variant V1.0//EN</public>
+</dtd>
+</identifier>
+<file-type>ScrollKeeper OMF</file-type>
+<file-type-description>ScrollKeeper Open Source Metadata Framework</file-type-description>
+<author>Tim Foster</author>
+<generated-by>Tim Foster</generated-by>
+<generated-date>11th August 2004</generated-date>
+<last-modified-date>11th August 2004</last-modified-date>
+</head>
+
+<body>
+<config-element translatable="yes" hardness="hard">arevision</config-element>
+<config-element translatable="yes" hardness="hard">creator</config-element>
+<config-element translatable="yes" hardness="hard">maintainer</config-element>
+<config-element translatable="yes" hardness="hard">contributor</config-element>
+<config-element translatable="yes" hardness="hard">title</config-element>
+<config-element translatable="yes" hardness="hard">date</config-element>
+<config-element translatable="yes" hardness="hard">version</config-element>
+<!-- not including subject here since it's empty
+ <config-element translatable="yes" hardness="hard">subject</config-element>
+-->
+
+<config-element translatable="yes" hardness="hard">description</config-element>
+<config-element translatable="yes" hardness="hard">type</config-element>
+<!-- 
+Also not including the following, since they're empty
+<config-element translatable="yes" hardness="hard">format</config-element>
+<config-element translatable="yes" hardness="hard">identifier</config-element>
+<config-element translatable="yes" hardness="hard">language</config-element>
+<config-element translatable="yes" hardness="hard">coverage</config-element>
+<config-element translatable="yes" hardness="hard">relation</config-element>
+<config-element translatable="yes" hardness="hard">rights</config-element>
+
+-->
+<config-element translatable="yes" hardness="hard">source</config-element>
+</body>
+</config>

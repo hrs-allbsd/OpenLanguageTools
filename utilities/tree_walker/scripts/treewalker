@@ -1,0 +1,16 @@
+#!/bin/ksh
+
+ORACLE_HOME=/database/oracle/OraHome1
+export ORACLE_HOME
+
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ORACLE_HOME}/lib
+export LD_LIBRARY_PATH
+
+TT_WS_ROOT=/home/jc73554/java_stuff/suntrans2/tt_ws
+export TT_WS_ROOT
+
+CLASSPATH=../classes:${TT_WS_ROOT}/utilities/jars/oracle-jdbc.jar
+export CLASSPATH
+
+java -classpath ${CLASSPATH} com.sun.transtech.gibbon.IndexTreeWalker $1 $2 $3 $4
+

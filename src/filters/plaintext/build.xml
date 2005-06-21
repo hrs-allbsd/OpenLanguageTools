@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="plain-text" basedir="." default="all">
+	<import file="../../../common.xml"/>
+	
+    <path id="build.classpath">
+		<path location="${build.dir}"/>
+		<path refid="deps.common.util"/>
+	</path>
+
+	<available 
+		classname="org.jvnet.olt.filters.segmenter_facade.SegmenterFacade" 
+		property="do.build.deps"
+		classpathref="build.classpath"
+	/>
+
+	<target name="pre-compile" depends="common.pre-compile">
+    	<jjtree target="src/org/jvnet/olt/filters/plaintext/BlockSegmenter_en.jjt"
+	     	 outputdirectory="src/org/jvnet/olt/filters/plaintext/"
+             javacchome="${javacchome}"/>
+
+     	<javacc target="src/org/jvnet/olt/filters/plaintext/BlockSegmenter_en.jj"
+	     	 outputdirectory="src/org/jvnet/olt/filters/plaintext/"
+             javacchome="${javacchome}"/>
+	</target>
+
+	<target name="compile" depends="local-deps,common.compile">
+	</target>
+	
+	<target name="local-deps" unless="do.build.deps">
+		<!-- order matters ! segmenters and non-conf needs to built prior to sgml_filter -->
+		<ant dir="../segmenter_formatters/"/>
+		<ant dir="../segmenters/"/>
+		<ant dir="../non-conformant_sgml_tag_parser/"/>
+		<ant dir="../sgml_filter/"/>
+	</target>
+
+</project>

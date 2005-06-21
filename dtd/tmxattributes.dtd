@@ -1,0 +1,111 @@
+<!-- =================================================================== -->
+<!-- DTD:      TMX Attributes DTD                                        -->
+<!-- PURPOSE:  To define the possible attributes for an alignment import -->
+<!--           project.                                                  -->
+<!-- SYSTEM:   Part of the SunTrans 2 System, Alignment Import Tool      -->
+<!-- RELATED DTDS: TMX 1.1, 1.2 and 1.3 - See http://lisa.org/tmx        -->
+<!-- WRITTEN:  2002/07/24 Brian Kidney, Translation Technology,          -->
+<!--           Sun Microsystems Inc.                                     -->
+<!-- =================================================================== -->
+
+<!-- =================================================================== -->
+<!--                           CHANGE HISTORY                            -->
+<!-- 3. Modified: 2002/07/30 Brian Kidney, Translation Technology
+        a. Chnaged pertmx element from * to +
+     2. Modified: 2002/07/29 Brian Kidney, Translation Technology
+        a. Removed texttype and componenttype elements (not needed).
+        b. Changed the element fileidentifier, overrides attribute to "no".
+        c. Changed root elements (tmxattributes) children to global and  
+           pertmx*, to support per tmx file attributes.
+     1. Modified: 2002/07/26 Brian Kidney, Translation Technology
+        a. Removed sourcelanguage and targetlanguage elements (not nedded).
+        b. Changed the default value of the element formattype's attribute 
+           overrides to "no".
+        c. Added the partno element.
+     Developed by: 2002/07/24 Brian Kidney, Translation Technoloy 
+        - First Draft                                                    -->
+<!-- =================================================================== -->
+
+<!-- =================================================================== -->
+<!--                    ROOT ELEMENT (ROOT = tmxattributes)              -->
+<!-- =================================================================== -->
+
+<!-- "*" means that the attribute must appear 1 or more times.           -->
+<!-- A tmx attribute must contain one global child element or one or many       
+     pertmx child elements.                                              -->
+<!ELEMENT tmxattributes (global | pertmx+)>
+
+<!-- "?" means that the attribute may appear 0 or 1 times only           -->
+<!ELEMENT global (projectid?, workspacebuild?, module?, shortbookname?, 
+  subjectarea?, partno?, formattype?, versionidentifier?)>
+
+<!ELEMENT pertmx (tmxfile, fileidentifier?, projectid?, workspacebuild?, 
+  module?, shortbookname?, subjectarea?, partno?, formattype?, 
+  versionidentifier?)> 
+  
+<!-- =================================================================== -->
+<!--                      File Level Attributes                          -->
+<!-- =================================================================== -->
+
+<!-- NOTE: The overrides attribute on each element allows the user to decide 
+           if an element in this XML file overrides the equivalent value if 
+           it appears in the TMX file.                                   -->
+
+<!-- TMX File: The name of the TMXFile these attributes refer to.        -->
+<!ELEMENT tmxfile (#PCDATA)>
+           
+<!-- File Identifier: This is a unique identifier for a file or file like 
+object. It defines a set of message segments that logically belong together. 
+It can be a full path, or a URL, or some other such identifier.          
+
+NOTE: This can be used for both document or software file identifiers.   -->
+<!ELEMENT fileidentifier (#PCDATA)>
+<!ATTLIST fileidentifier overrides (yes | no) "no">
+
+<!-- Project ID: This is an ID field that represents the project that the 
+segments are associated with. Normally this will be the IMS project ID.  
+
+NOTE: This can be used for both document or software project ids.        -->
+<!ELEMENT projectid (#PCDATA)>
+<!ATTLIST projectid overrides (yes | no) "yes">
+
+<!-- Workspace / Build: An identifier for a workspace/build. This attribute 
+would be shared across a set of segments.                                -->
+<!ELEMENT workspacebuild (#PCDATA)>
+<!ATTLIST workspacebuild overrides (yes | no) "yes">
+
+<!-- Module: Star Office module. This attribute is also shared across a set 
+of segments.                                                             -->
+<!ELEMENT module (#PCDATA)>
+<!ATTLIST module overrides (yes | no) "yes">
+
+<!-- Short Book Name: This is the short book name of the book that the 
+document comes from. It applies to SGML documents, and can be ascertained 
+from pubstool.                                                           -->
+<!ELEMENT shortbookname (#PCDATA)>
+<!ATTLIST shortbookname overrides (yes | no) "yes">
+
+<!-- Subject Area: This is a top level attribute that the subject area of a 
+segment, i.e., the general style of writing, etc.                        -->
+<!ELEMENT subjectarea (#PCDATA)>
+<!ATTLIST subjectarea overrides (yes | no) "yes">
+
+<!-- Part No: The Part No                                                -->
+<!ELEMENT partno (#PCDATA)>
+<!ATTLIST partno overrides (yes | no) "yes">
+
+<!-- =================================================================== -->
+<!--                    Segement Pair Level Attributes                   -->
+<!-- =================================================================== -->
+
+<!-- Format Type: The orignal format of the file. e.g. HTML, XML, etc.  -->
+<!ELEMENT formattype (#PCDATA)>
+<!ATTLIST formattype overrides (yes | no) "no">
+
+<!-- Version Identifier: This sets the Version Identifier String for each 
+aligned target segment.                                                  -->
+<!ELEMENT versionidentifier (#PCDATA)>
+<!ATTLIST versionidentifier overrides (yes | no) "yes">
+
+<!-- =================== End of TMX Attributes DTD ===================== -->
+

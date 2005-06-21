@@ -1,0 +1,26 @@
+<!-- Fragment document type declaration subset:
+ArborText, Inc., 1988-1997, v.4001
+<!DOCTYPE BOOK PUBLIC "-//Sun Microsystems//DTD DocBook V3.0-Based SolBook Subset V2.0//EN" [
+<!ENTITY typeconv SYSTEM "typeconv.sgm">
+<!ENTITY sundocs SYSTEM "sundocs.sgm">
+]>
+-->
+<?Pub UDT registeredtm trademark>
+<?Pub UDT _bookmark _target>
+<?Pub CX book(title()bookinfo()>
+<preface id="preface-1"><?Pub Caret1><title>Preface</title>
+<highlights>
+<para><citetitle>What's New in the Solaris 8 Operating Environment</citetitle> highlights and describes the new features of the <trademark>Solaris</trademark> 8 operating environment. </para>
+</highlights>
+<note>
+<para>The Solaris operating environment runs on two types of hardware, or platforms - SPARC and IA. The Solaris operating environment also runs on both 64&ndash;bit and 32&ndash;bit address spaces. The information in this document pertains to both platforms and address spaces unless called out in a special chapter, section, note, bullet, figure, table, example, or code example.</para>
+</note>
+<note>
+<para>In this document the term &ldquo;IA&rdquo; refers to the Intel 32&ndash;bit processor architecture, which includes the Pentium, Pentium Pro, Pentium II, Pentium II Xeon, Celeron, Pentium III, and Pentium III Xeon processors and compatible microprocessor chips made by AMD and Cyrix.</para>
+</note>
+<sect1 id="preface-4"><title>How This Book Is Organized</title>
+<para><xref linkend="whatsnewch1sparc-35941"> contains tables that list new features and functionality in the Solaris 8 software release and previous releases of the Solaris operating environment.</para>
+<para><xref linkend="closerlook"> provides more extensive descriptions of the new features and functionality in the Solaris 8 operating environment.</para>
+</sect1>&sundocs;
+&typeconv;
+</preface>

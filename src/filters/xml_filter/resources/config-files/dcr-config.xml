@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE config SYSTEM "xml-config.dtd">
+<config>
+<head>
+<identifier>
+<dtd>
+<system>dcr4.5.dtd</system>
+</dtd>
+</identifier>
+<file-type>Java.com DTD</file-type>
+<file-type-description>Java.com DTD</file-type-description>
+<author>Michael Ryan</author>
+<generated-by>M. Ryan</generated-by>
+<generated-date>02-06-04</generated-date>
+<last-modified-date>02-06-04</last-modified-date>
+</head>
+
+
+<body>
+<config-element translatable="yes" hardness="hard">item</config-element>
+<config-element translatable="yes" hardness="hard">value</config-element>
+
+<config-attribute translatable="yes" parent-element="item" default="yes">name</config-attribute>
+<config-attribute translatable="yes" parent-element="item" default="yes">value</config-attribute>
+
+
+</body>
+</config>

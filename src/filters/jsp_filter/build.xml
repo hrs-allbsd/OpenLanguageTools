@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="jsp_filter" basedir="." default="all">
+	<import file="../../../common.xml"/>
+	
+    <path id="build.classpath">
+		<path location="${build.dir}"/>
+		<path refid="deps.common.util"/>
+	</path>
+	
+	<available 
+		classname="org.jvnet.olt.filters.html.HtmlTagTable" 
+		property="do.build.deps"
+		classpathref="build.classpath"
+		/>
+
+
+	<target name="compile" depends="pre-compile,local-deps,build-phase1,common.compile">
+	</target>
+
+	<target name="build-phase1" if="do.phase1">
+        <patternset id="src.pattern" >
+            <include name="**/JspTagTable.java"/>
+            <include name="**/JspSegmenterTable.java"/>
+        </patternset>
+	</target>
+
+	<target name="local-deps" unless="do.build.deps">
+		<ant dir="../alignment_interface/"/>
+		<ant dir="../html_parser/">
+			<property name="do.phase1" value="please"/>
+		</ant>
+	</target>
+
+
+</project>

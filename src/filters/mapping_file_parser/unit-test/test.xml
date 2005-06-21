@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!DOCTYPE suntrans-mapping-file PUBLIC "-//TRANSTECH//SUNTRANS MAPPING FILE//EN"
+ "http://www.ireland/~timf/suntrans-mapping-file.dtd">
+
+<suntrans-mapping-file version="1.0">
+ <mapping>
+  <source>./bla/foo/workspace/solaris/usr/lib/locale/C/file.po</source>
+  <target>/usr/lib/locale/C/file.po</target>
+ </mapping>
+ <mapping>
+  <source>./abc/def/C/dtcacl.msg</source>
+  <target>dtcacl.msg</target>
+ </mapping>
+ <mapping>
+  <source></source>
+  <target>dtpad.msg</target>
+ </mapping>
+</suntrans-mapping-file>

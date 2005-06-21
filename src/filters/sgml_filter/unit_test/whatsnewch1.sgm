@@ -1,0 +1,15 @@
+<!-- Fragment document type declaration subset:
+ArborText, Inc., 1988-1997, v.4001
+<!DOCTYPE BOOK PUBLIC "-//Sun Microsystems//DTD DocBook V3.0-Based SolBook Subset V2.0//EN" [
+<!ENTITY % FCS "INCLUDE">
+]>
+-->
+<?Pub UDT registeredtm trademark>
+<?Pub UDT _bookmark _target>
+<?Pub CX book(title()bookinfo()preface()>
+<chapter id="whatsnewch1sparc-35941"><?Pub Caret1><title>What's New at a Glance</title>
+<highlights>
+<para>This is a sample sgml file.<para>
+</highlights>
+<para>We can include sample entities in this paragraph. The Solaris operating environment is the foundation for web-based computing. It is scalable and has the capacity to run and grow businesses on the Internet. The Solaris 64&ndash;bit operating environment provides the capacity, performance, and precision needed for handling very large files. Reliable, solid, and multifaceted, Solaris software is built to provide capacity, security, interoperability, manageability, and global connectivity.</para>
+</chapter>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="segmenter_formatters" basedir="." default="all">
+	<import file="../../../common.xml"/>
+	
+    <path id="build.classpath">
+		<path location="${build.dir}"/>
+		<path refid="deps.common.util"/>
+    </path>
+
+	<available 
+		classname="org.jvnet.olt.format.GlobalVariableManager" 
+		property="do.build.deps"
+		classpathref="build.classpath"
+	/>
+
+	<target name="pre-compile" depends="common.pre-compile">
+		<echo>${do.build.deps}</echo>
+	</target>
+
+	<target name="compile" depends="pre-compile,local-deps,common.compile">
+	</target>
+
+	<target name="local-deps" unless="do.build.deps">
+		<ant dir="../format_handling/"/>
+	</target>
+	
+</project>

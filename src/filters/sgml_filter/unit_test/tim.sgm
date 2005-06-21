@@ -1,0 +1,1 @@
+On the client's side, DNS is implemented through the &rdquor;resolver.&rdquo; The resolver's function is to resolve users' queries.

@@ -1,0 +1,105 @@
+<!DOCTYPE BOOK PUBLIC "-//Sun Microsystems//DTD DocBook V3.0-Based SolBook Subset V2.0//EN" [
+<!--ArborText, Inc., 1988-1997, v.4001-->
+<!ENTITY REFMAN1M PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN1M Version 2.0//EN" NDATA sgml>
+<!ENTITY JAVAVIRMACH2 PUBLIC "-//Sun::SunSoft//DOCUMENT JAVAVIRMACH2 Version 1.0//EN" NDATA sgml>
+<!ENTITY BookName "What's New in the Solaris 8 Operating Environment">
+<!ENTITY MTP PUBLIC "-//Sun::SunSoft//DOCUMENT MTP Version 4.0//EN" NDATA sgml>
+<!ENTITY SYSADV2 PUBLIC "-//Sun::SunSoft//DOCUMENT SYSADV2 Version 2.0//EN" NDATA sgml>
+<!ENTITY REFMAN1 PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN1 Version 2.0//EN" NDATA sgml>
+<!ENTITY SPARCINFOLIB PUBLIC "-//Sun::SunSoft//DOCUMENT SPARCINFOLIB Version 3.0//EN" NDATA sgml>
+<!ENTITY x86INFOLIB PUBLIC "-//Sun::SunSoft//DOCUMENT x86INFOLIB Version 4.0//EN" NDATA sgml>
+<!ENTITY MODDEBUG PUBLIC "-//Sun::SunSoft//DOCUMENT MODDEBUG Version 1.0//EN" NDATA sgml>
+<!ENTITY REFMAN3D PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN3D Version 1.0//EN" NDATA sgml>
+<!ENTITY DRIVER PUBLIC "-//Sun::SunSoft//DOCUMENT DRIVER Version 3.0//EN" NDATA sgml>
+<!ENTITY UGIDNW PUBLIC "-//Sun::SunSoft//DOCUMENT UGIDNW Version 1.0//EN" NDATA sgml>
+<!ENTITY JVPLUGINUG PUBLIC "-//Sun::SunSoft//DOCUMENT JVPLUGINUG Version 1.0//EN" NDATA sgml>
+<!ENTITY REFMAN5 PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN5 Version 2.0//EN" NDATA sgml>
+<!ENTITY SYSADV3 PUBLIC "-//Sun::SunSoft//DOCUMENT SYSADV3 Version 1.0//EN" NDATA sgml>
+<!ENTITY I18NDG PUBLIC "-//Sun::SunSoft//DOCUMENT I18NDG Version 1.0//EN" NDATA sgml>
+<!ENTITY % RTthreads "INCLUDE">
+<!ENTITY OWPG PUBLIC "-//Sun::SunSoft//DOCUMENT OWPG Version 2.0//EN" NDATA sgml>
+<!ENTITY CDEUG PUBLIC "-//Sun::SunSoft//DOCUMENT CDEUG Version 4.0//EN" NDATA sgml>
+<!ENTITY % FTP "IGNORE">
+<!ENTITY JAVAVIRMACH PUBLIC "-//Sun::SunSoft//DOCUMENT JAVAVIRMACH Version 2.0//EN" NDATA sgml>
+<!ENTITY sparc64C "64-bit SPARC: ">
+<!ENTITY solaris64C "64-bit: ">
+<!ENTITY solaris32C "32-bit: ">
+<!ENTITY solaris32 "32-bit">
+<!ENTITY solaris64 "64-bit">
+<!ENTITY sparcC "SPARC: ">
+<!ENTITY sparc "SPARC">
+<!ENTITY ia "IA">
+<!ENTITY iac "IA: ">
+<!ENTITY AMIPG PUBLIC "-//Sun::SunSoft//DOCUMENT AMIPG Version 1.0//EN" NDATA sgml>
+<!ENTITY KCMSCMMDG PUBLIC "-//Sun::SunSoft//DOCUMENT KCMSCMMDG Version 2.0//EN" NDATA sgml>
+<!ENTITY KCMSAPPDG PUBLIC "-//Sun::SunSoft//DOCUMENT KCMSAPPDG Version 1.0//EN" NDATA sgml>
+<!ENTITY CDEL10NPG PUBLIC "-//Sun::SunSoft//DOCUMENT CDEL10NPG Version 2.0//EN" NDATA sgml>
+<!ENTITY SMARTADMIN PUBLIC "-//Sun::SunSoft//DOCUMENT SMARTADMIN Version 1.0//EN" NDATA sgml>
+<!ENTITY NISQSTART PUBLIC "-//Sun::SunSoft//DOCUMENT NISQSTART Version 4.0//EN" NDATA sgml>
+<!ENTITY NETNAME PUBLIC "-//Sun::SunSoft//DOCUMENT NETNAME Version 4.0//EN" NDATA sgml>
+<!ENTITY typeconv SYSTEM "typeconv.sgm">
+<!ENTITY sundocs SYSTEM "sundocs.sgm">
+<!ENTITY SS PUBLIC "-//Sun::SunSoft//DOCUMENT SS Version 4.0//EN" NDATA sgml>
+<!ENTITY % IEEE "IGNORE">
+<!ENTITY % WBEM-SDK "IGNORE">
+<!ENTITY MOFSTYLE PUBLIC "-//Sun::SunSoft//DOCUMENT MOFSTYLE Version 1.0//EN" NDATA sgml>
+<!ENTITY WBEMSDKDG PUBLIC "-//Sun::SunSoft//DOCUMENT WBEMSDKDG Version 1.0//EN" NDATA sgml>
+<!ENTITY SCHEMAREF PUBLIC "-//Sun::SunSoft//DOCUMENT SCHEMAREF Version 1.0//EN" NDATA sgml>
+<!ENTITY WBEMADMIN PUBLIC "-//Sun::SunSoft//DOCUMENT WBEMADMIN Version 1.0//EN" NDATA sgml>
+<!ENTITY SYSADV1 PUBLIC "-//Sun::SunSoft//DOCUMENT SYSADV1 Version 2.0//EN" NDATA sgml>
+<!ENTITY REFMAN7 PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN7 Version 2.0//EN" NDATA sgml>
+<!ENTITY REFMAN4 PUBLIC "-//Sun::SunSoft//DOCUMENT REFMAN4 Version 2.0//EN" NDATA sgml>
+<!ENTITY LLM PUBLIC "-//Sun::SunSoft//DOCUMENT LLM Version 4.0//EN" NDATA sgml>
+<!ENTITY ABOUTDOC PUBLIC "-//Sun::SunSoft//DOCUMENT ABOUTDOC Version 3.0//EN" NDATA sgml>
+<!ENTITY HWCONFIG PUBLIC "-//Sun::SunSoft//DOCUMENT HWCONFIG Version 4.0//EN" NDATA sgml>
+<!ENTITY STREAMS PUBLIC "-//Sun::SunSoft//DOCUMENT STREAMS Version 3.0//EN" NDATA sgml>
+<!ENTITY Product "Solaris 8">
+<!ENTITY x86HW PUBLIC "-//Sun::SunSoft//DOCUMENT x86HW Version 8.0//EN" NDATA sgml>
+<!ENTITY NETP PUBLIC "-//Sun::SunSoft//DOCUMENT NETP Version 1.0//EN" NDATA sgml>
+<!ENTITY ONCDG PUBLIC "-//Sun::SunSoft//DOCUMENT ONCDG Version 4.0//EN" NDATA sgml>
+<!ENTITY SVCLOCADMIN PUBLIC "-//Sun::SunSoft//DOCUMENT SVCLOCADMIN Version 1.0//EN" NDATA sgml>
+<!ENTITY WEBNFSDEVGDE PUBLIC "-//Sun::SunSoft//DOCUMENT WEBNFSDEVGDE Version 2.0//EN" NDATA sgml>
+<!ENTITY SPARCINSTALL PUBLIC "-//Sun::SunSoft//DOCUMENT SPARCINSTALL Version 3.0//EN" NDATA sgml>
+<!ENTITY whatsnewch1 SYSTEM "whatsnewch1.sgm">
+<!ENTITY whatsnewch2 SYSTEM "whatsnewch2.sgm">
+<!ENTITY ONLINEACCESS PUBLIC "-//Sun::SunSoft//DOCUMENT ONLINEACCESS Version 3.0//EN" NDATA sgml>
+<!ENTITY % FCS "INCLUDE">
+<!ENTITY fr-other-trademarks SYSTEM "fr-other-trademarks.sgm">
+<!ENTITY fr-sun-trademarks SYSTEM "fr-sun-trademarks.sgm">
+<!ENTITY other-trademarks SYSTEM "other-trademarks.sgm">
+<!ENTITY sun-trademarks SYSTEM "sun-trademarks.sgm">
+<!ENTITY fr-legal SYSTEM "fr-legal.sgm">
+<!ENTITY legal SYSTEM "legal.sgm">
+<!ENTITY preface SYSTEM "preface.sgm">
+<!ENTITY abstract SYSTEM "Abstract.sgm">
+<!ENTITY IntelArch "IA">
+]>
+<?Pub UDT registeredtm trademark>
+<?Pub UDT _bookmark _target>
+<?Pub Inc>
+<book fpi="-//Sun::SunSoft//DOCUMENT SOLREVIEW Version 2.0//en" role="UNNUMBERED" label="beta" id="SOLREVIEW" lang="en" userlevel="all-audiences"><title>&BookName;</title>
+<bookinfo><bookbiblio><title>&BookName;</title>
+<authorgroup><author><firstname>Christopher</firstname><surname>Franklin</surname></author>
+</authorgroup>
+<isbn></isbn>
+<pubsnumber>805-6332&ndash;10</pubsnumber>
+<releaseinfo></releaseinfo>
+<pubdate>February 2000</pubdate><publisher><publishername>Sun Microsystems, Inc.</publishername><address><street>901 San Antonio Road</street><city>Palo Alto</city><state>CA</state><postcode>94303-4900</postcode><country>U.S.A.</country></address>
+</publisher>
+<copyright><year>2000</year><holder>     Sun Microsystems</holder></copyright>
+<abstract>&abstract;
+</abstract>
+</bookbiblio>
+<legalnotice>&legal;
+&fr-legal;
+</legalnotice>
+<subjectset>
+<subject>
+<subjectterm>Introduction &amp; Overview</subjectterm>
+</subject>
+</subjectset>
+</bookinfo>&preface;
+&whatsnewch1;
+&whatsnewch2;
+<?Pub Caret>
+</book>

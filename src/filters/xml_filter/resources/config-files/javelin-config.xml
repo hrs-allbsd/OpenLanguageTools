@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE config SYSTEM "xml-config.dtd">
+<config>
+<head>
+<identifier>
+<dtd>
+<system>content.dtd</system>
+</dtd>
+</identifier>
+<file-type>Javelin XML</file-type>
+<file-type-description>Javelin XML. These files contain block tags with all
+PCDATA being translatable (hence this simple config file). There is also content
+in CDATA sections, which probably isn't optimal.</file-type-description>
+<author>Tim Foster</author>
+<generated-by>Tim Foster</generated-by>
+<generated-date>17th August 2004</generated-date>
+<last-modified-date>17th August 2004</last-modified-date>
+</head>
+<body>
+<!-- No actual additional stuff required, the default behaviour
+ is sufficient for these files -->
+</body>
+</config>

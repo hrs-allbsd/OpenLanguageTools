@@ -1,0 +1,17 @@
+domain "messages"
+# This message file is being used for lots of
+# different reasons
+
+# This message describes the context of the first option
+msgid  "%s: illegal option -- %c\n <<weird sgml like tags />>"
+msgstr "%s: illegal otion -- %c translation\n"
+
+# another random comment
+
+# make sure to tranlate this one properly
+msgid "This is a message "
+      "on two lines"
+msgstr "This is a translated "
+       "message on two lines"
+
+# nothing else for translation

@@ -1,0 +1,14 @@
+<?xml encoding="UTF-8" ?>
+
+<!-- Created by jc73554 on 21 August 2002, 17:43 -->
+
+<!ELEMENT tmconfig (host, port, database, driver, user, password)>
+
+<!ELEMENT host (#PCDATA)>
+<!ELEMENT port (#PCDATA)>
+<!ELEMENT database (#PCDATA)>
+<!ELEMENT driver (url,class)>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT class (#PCDATA)>
+<!ELEMENT user (#PCDATA)>
+<!ELEMENT password (#PCDATA)>

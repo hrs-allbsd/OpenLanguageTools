@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="about" name="Open Language Tools">
-   
-    <target name="about">
-     <echo>This is the Open Language Tools build file. Valid targets are :</echo>
-     <echo>about [no others yet]</echo>
+
+    <property file="build.ant.properties"/>
+
+    <target name="init">
+        <tstamp/>
+        <property environment="myenv"/>
+        <property name="javacc_cpath" value="${JAVACC_LIB}"/>
+        <property name="javacc.lib" value="${javacc_cpath}"/>
+        <property name="xerces" value="utilities/jars/xerces.jar"/>
+        <mkdir dir="${build}"/>
     </target>
-      
+
+    <target name="about">
+        <echo>This is the Open Language Tools build file. Valid targets are :</echo>
+        <echo>about, global_utilities, filters, transeditor, backconverters</echo>
+	<echo>More information is available at</echo>
+	<echo>https://open-language-tools.dev.java.net</echo>
+    </target>
+
+    <target name="clean" depends="init">
+        <delete dir="${build}"/>
+    </target>
+
+
+    <target name="all" depends="init, global_utilities, filters, backconverters, transeditor">
+    </target>
+
+
+    <target name="global_utilities" depends="init">
+         <ant dir="utilities">
+             <property name="build.dir" value="${build}"/>
+             <property name="dest.dir" value="${build}"/>
+         </ant>
+    </target>
+    
+
+    <target name="backconverters" depends="init" >
+         <ant dir="src/backconverters" target="all">
+            <property name="classpath" value="${build}/utilities:${build}/filters"/>
+	    <property name="build" value="${build}/backconv"/>
+         </ant>
+    </target>
+
+
+    <target name="filters" depends="init, global_utilities">
+          <ant dir="src/filters" target="all">
+             <property name="build" value="${build}/filters"/>
+             <property name="classpath" value="${build}/tt-common.jar:${build}/filters"/>
+          </ant>
+    </target>
+
+    <target name="transeditor" depends="init">
+        <ant dir="src/transeditor" target="all">
+	    	<property name="do.build.editor" value="please"/>
+		</ant>
+    </target>
+
 </project>

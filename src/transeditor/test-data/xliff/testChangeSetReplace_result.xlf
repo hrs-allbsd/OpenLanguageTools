@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+<file source-language="en-US" datatype="PO" original="SUNW_OST_OSLIB.po" xml:space="default" target-language="ja-JP">
+<body>
+	<trans-unit id="a1" translate="yes" reformat="yes" xml:space="default">
+		<source>THE_TEST</source>
+		<target state="100-Match:approved">XA1<it id="1" pos="open">%s</it>XA2<it id="2" pos="open">%d</it>XA3</target>
+		<alt-trans tool="SunTrans" match-quality="100" xml:space="default">
+			<source>bank <it id="1" pos="open">%s</it> being tested by process <it id="2" pos="open">%d</it></source>
+			<target xml:lang="ja-JP">バンク <it id="1" pos="open">%s</it> はプロセス <it id="2" pos="open">%d</it> によってテスト中</target>
+		</alt-trans>
+	</trans-unit>
+</body>
+</file>
+</xliff>

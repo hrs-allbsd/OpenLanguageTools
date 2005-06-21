@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="xml-merging-tool" basedir="." default="all">
+	<import file="../../common.xml"/>
+	
+    <path id="build.classpath">
+		<path location="${build.dir}"/>
+	</path>
+
+	<!-- are dependencies built ? -->
+	<available 
+		classname="org.jvnet.olt.parsers.tagged.TagTable" 
+		property="present.tagged.markup"
+		classpathref="build.classpath"/>
+
+
+	<target name="pre-compile" depends="common.pre-compile" >
+    	<jjtree javacchome="${javacchome}" target="src/org/jvnet/olt/parsers/SgmlDocFragmentParser/SgmlDocFragmentParser.jjt" outputdirectory="src/org/jvnet/olt/parsers/SgmlDocFragmentParser/" />
+   		<javacc javacchome="${javacchome}" target="src/org/jvnet/olt/parsers/SgmlDocFragmentParser/SgmlDocFragmentParser.jj" outputdirectory="src/org/jvnet/olt/parsers/SgmlDocFragmentParser/" />
+	</target>
+
+	<!-- make sure dependencies are built first -->
+	<target name="compile" depends="pre-compile,local-deps,common.compile">
+	</target>
+
+   	<!-- we depend on tagged_markup; if it's not in classpath build it -->
+	<target name="local-deps" unless="present.tagged.markup">
+		<ant dir="../tagged_markup" target="compile" inheritall="true"/> 
+	</target>
+ 
+	
+</project>

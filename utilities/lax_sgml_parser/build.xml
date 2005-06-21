@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="lax-sgml-parser" basedir="." default="all">
+	<import file="../../common.xml"/>
+	
+    <path id="build.classpath"/>
+    
+	<target name="pre-compile" depends="common.pre-compile">
+		<jjtree target="src/org/jvnet/olt/laxparsers/sgml/LaxSgmlDocFragmentParser.jjt"
+				outputdirectory="src/org/jvnet/olt/laxparsers/sgml" 
+				javacchome="${javacchome}"/>
+		<javacc target="src/org/jvnet/olt/laxparsers/sgml/LaxSgmlDocFragmentParser.jj"	
+				outputdirectory="src/org/jvnet/olt/laxparsers/sgml" 
+				javacchome="${javacchome}"/>
+  </target>
+  
+</project>

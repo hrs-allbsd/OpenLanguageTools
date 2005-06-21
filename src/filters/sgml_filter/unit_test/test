@@ -1,0 +1,10 @@
+<screenshot>
+        <mediaobject>
+          <imageobject><imagedata
+            fileref="figures/quick-lounge_window.png" format="PNG"/>
+          </imageobject>
+          <textobject>
+            <phrase>The &appname; applet.</phrase>
+          </textobject>
+        </mediaobject>
+</screenshot>

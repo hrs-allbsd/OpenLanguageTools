@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="xliff-tmx-converter" basedir="." default="all">
+	<import file="../../../common.xml"/>
+	
+    <path id="build.classpath">
+		<path location="${build.dir}"/>
+		<path location="deps.common.util"/>
+	</path>
+
+</project>

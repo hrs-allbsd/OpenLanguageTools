@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<!-- WARNING: all VERSION tokens surrounded by @ will be replaced by ant
+	directory -->
+<shortcuts>
+
+  <programGroup defaultName="Open Language Tools XLIFF Translation Editor @VERSION@" location="applications"/>
+
+   <shortcut
+     name="Open Language Tools XLIFF Translation Editor"
+     programGroup="yes"
+     desktop="no"
+     applications="yes"
+     startMenu="yes"
+     startup="no"
+     target="$INSTALL_PATH/translation.sh"
+     workingDirectory="$INSTALL_PATH"
+     commandLine=""
+     initialState="noShow"
+     iconFile="help"
+     iconIndex="0"
+     encoding="UTF-8"
+     description="Launch the Open Language Tools XLIFF Translation Editor">
+
+     <createForPack name="Base"/>
+   </shortcut>
+
+    <shortcut
+     name="Uninstaller"
+     programGroup="yes"
+     desktop="yes"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     target="java"
+     commandLine="-jar &quot;$INSTALL_PATH/Uninstaller/uninstaller.jar&quot;"
+     initialState="noShow"
+     iconFile="trash"
+     iconIndex="0"
+     workingDirectory=""
+     type="Application"
+     encoding="UTF-8"
+     description="IzPack uninstaller">
+     <createForPack name="Base" />
+   </shortcut>
+
+</shortcuts>

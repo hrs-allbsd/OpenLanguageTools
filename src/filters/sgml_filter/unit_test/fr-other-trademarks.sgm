@@ -1,0 +1,15 @@
+<!-- Fragment document type declaration subset:
+ArborText, Inc., 1988-1999, v.4002
+<!DOCTYPE BOOK PUBLIC "-//Sun Microsystems//DTD DocBook V3.0-Based SolBook Subset V2.0//EN">
+-->
+<?Pub UDT _bookmark _target>
+<?Pub CX book(title()bookinfo(bookbiblio()legalnotice(para()para(>
+<!-- @(#)fr-other-trademarks.sgm 1.4 99/01/07 96/10/10 SMI; read/write file for legal attributions --><?Pub Caret>Netscape est une marque de Netscape Communications Corporation.  Netscape Navigator est une marque de Netscape Communications Corporation.  Kodak Color Management System est une marque de
+Eastman Kodak Company. KCMS est une marque de fabrique d'Eastman Kodak Company. PostScript est une marque de fabrique d'Adobe Systems, Incorporated, laquelle pourrait &eacute;`tre d&eacute;pos&eacute;e dans certaines juridictions. SPARCstorage est une marque de SPARC International, Inc. UltraSPARC est
+une marque de SPARC International, Inc.<!--REPLACE THIS COMMENT WITH THIRD
+PARTY TRADEMARKS THAT REQUIRE ATTRIBUTION APPEAR IN 'TMARK.' IF YOU BELIEVE
+A THIRD PARTY MARK NOT APPEARING IN 'TMARK' SHOULD BE ATTRIBUTED, CONSULT
+YOUR EDITOR OR THE SUN TRADEMARK GROUP FOR GUIDANCE. TEXT WITHIN THE <_COMMENT>
+TAGS WILL NOT BE PRINTED OR DISPLAYED IN YOUR DOCUMENT. DO NOT MODIFY ANY
+TEXT EXCEPT THE ATTRIBUTIONS YOU INSERT.-->
+<?Pub *0000001323>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="xml_filter" basedir="." default="all">
+	<import file="../../../common.xml"/>
+	
+    <path id="build.classpath">
+		<path location="${build.dir}"/>
+		<path refid="deps.common.util"/>
+	</path>
+
+	<target name="compile" depends="pre-compile,build-phase1,common.compile">
+	</target>
+
+	<target name="build-phase1" if="do.phase1">
+		<patternset id="src.pattern">
+			<include name="**/XmlEncodingTagController.java"/>
+			<include name="**/HtmlMetaTagController.java"/>
+		</patternset>
+	</target>
+ 
+</project>

@@ -1,0 +1,13 @@
+<!-- Fragment document type declaration subset:
+ArborText, Inc., 1988-1997, v.4001
+<!DOCTYPE BOOK PUBLIC "-//Sun Microsystems//DTD DocBook V3.0-Based SolBook Subset V2.0//EN">
+-->
+<?Pub UDT _bookmark _target>
+<?Pub CX book(title()bookinfo(bookbiblio()legalnotice(para()para(>
+<!-- @(#)fr-sun-trademarks.sgm 1.4 98/12/15 SMI; read/write file for legal trademarks -->
+<?Pub Caret>AutoClient, CacheFS, HotJava, Java, JavaBeans, JDK, NFS, OpenWindows, PEX, Power Management, Solstice Enterprise Agents, SunATM, SunOS, SunVTS, Sun WebServer, WebNFS, XGL, XIL, Sun Enterprise, 
+<!--REPLACE THIS COMMENT WITH ATRIBUTION OF ALL OTHER SUN TRADEMARKS MENTIONED
+SIGNIFICANTLY THROUGHOUT PRODUCT OR DOCUMENTATION. TEXT WITHIN THE <_COMMENT>
+TAGS WILL NOT BE PRINTED OR DISPLAYED IN YOUR DOCUMENT. DO NOT MODIFY ANY
+TEXT EXCEPT THE ATTRIBUTIONS YOU INSERT.-->
+<?Pub *0000000869 73>
