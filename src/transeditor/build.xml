@@ -126,6 +126,7 @@
         <copy file="${dest.dir}/backconv.jar" verbose="true" tofile="${installer.dir}/classes/XliffBackConverter.jar"/>
         <copy file="${dest.dir}/utilities-fuzzytm.jar" verbose="true" tofile="${installer.dir}/classes/fuzzytm.jar"/>
         <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
+	<copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
 
 		<copy todir="${installer.dir}" verbose="true">
 			<fileset dir="installer">
@@ -380,6 +381,7 @@
                 <include name="TransEditor.jar"/>
                 <include name="EditorSetup.jar"/>
                 <include name="xerces2.jar"/>
+		<include name="xmlParserAPIs.jar"/>
                 <include name="activation.jar"/>
                 <include name="jdom.jar"/>
                 <include name="mail.jar"/>

@@ -45,4 +45,4 @@ echo "Installation directory: $INSTALL_PATH"
 echo "Classpath: $CLASSPATH"
 
 		
-"$JAVA" -Xmx${MEMORY}M ${DEBUG} -classpath ${CLASSPATH} org.jvnet.olt.filters.gui.XliffFilterGUI $INSTALL_PATH/xml-config
+"$JAVA" -Xmx${MEMORY}M ${DEBUG} -classpath ${CLASSPATH} org.jvnet.olt.filters.gui.XliffFilterGUI $INSTALL_PATH/resources/
