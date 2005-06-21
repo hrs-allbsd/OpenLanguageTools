@@ -29,6 +29,8 @@ import org.jvnet.olt.editor.util.BaseElements;
 import org.jvnet.olt.editor.util.NestableException;
 import org.jvnet.olt.xliff.mrk.MrkContentTracker;
 
+import org.jvnet.olt.format.GlobalVariableManager;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
