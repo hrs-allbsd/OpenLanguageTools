@@ -86,7 +86,7 @@
 	</path>
 
 	<path id="deps.xerces">
-		<fileset dir="${common.basedir}/utilities/jars" includes="xerces2.jar"/>
+		<fileset dir="${common.basedir}/utilities/jars" includes="xerces2.jar xmlParserAPIs.jar"/>
 	</path>
 
     <!-- jars in lib/junit -->
