@@ -1,5 +1,0 @@
-<!ELEMENT node (node?, node?) >
-<!ATTLIST node
-     type (r|h|l) #REQUIRED
-     rowid ID     #REQUIRED
->
