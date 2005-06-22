@@ -44,6 +44,7 @@
 				<include name="**/*.jar"/>
 			</fileset>
             <file src="translation.bat" targetdir="$INSTALL_PATH"/>
+			<file src="logging.properties" targetdir="$INSTALL_PATH"/>
             <file src="editor.ico" targetdir="$INSTALL_PATH/icons"/>
             <file src="trash.ico" targetdir="$INSTALL_PATH/icons"/>
 			<file src="OLT_XLIFF_Translation_Editor_Manual_@VERSION_FLAT@.pdf" targetdir="$INSTALL_PATH"/>

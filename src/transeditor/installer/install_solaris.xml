@@ -45,6 +45,7 @@
 				<include name="**/*.jar"/>
 			</fileset>
 			<file src="translation.sh" targetdir="$INSTALL_PATH"/>
+			<file src="logging.properties" targetdir="$INSTALL_PATH"/>
 			<file src="Editor.desktop" targetdir="$INSTALL_PATH"/>
 			<file src="OLT_XLIFF_Translation_Editor_Manual_@VERSION_FLAT@.pdf" targetdir="$INSTALL_PATH"/>
 			<parsable targetfile="$INSTALL_PATH/translation.sh" os="unix"/>
