@@ -92,6 +92,10 @@
             <fileset dir="${dtd.dir}">
                 <include name="xliff.dtd"/>
                 <include name="tt-xliff-skl.dtd"/>
+                <include name="xliff-core-1.1.xsd"/>
+                <include name="xml.xsd"/>
+                <include name="datatypes.dtd"/>
+                <include name="XMLSchema.dtd"/>
             </fileset>
             <fileset dir="${tmx-conv.dir}/src/resource/">
                 <include name="xliff-tmx.xsl"/>
