@@ -19,10 +19,6 @@ fi
 
 cd "$INSTALL_PATH"
 
-if [ ! -d "$HOME/.suntrans40" ] ; then
-	mkdir "$HOME/.suntrans40"
-fi
-
 #build the classpath
 CLASSPATH="TransEditor.jar"
 for j in classes/*.jar ; do
