@@ -36,6 +36,7 @@
                 <li><a href="#q11">Can I use these tools in a commercial setting ?</a></li>
                 <li><a href="#q12">Where can I get the Open Language Tools ?</a></li>
                 <li><a href="#q13">Why isn't my language listed in the logo ?</a></li>
+                <li><a href="#q14">How can I translate the Open Language Tools ?</a></li>
             </ol>
         </p>
   
@@ -232,11 +233,34 @@
             book motif, the "Open Language Tools" title, and the URL to our web pages.
         </p>
         <p>People can then add four of five different translations of "Open Language
-           Tools" to appear in the background. Ultimately, it'd be nice if our 
-           project home page had some clever Javascript to randomly pick one of 
-           these logos to display : if you know some clever Javascript, or can 
-           contribute additional translations, then let us know !
+            Tools" to appear in the background. Ultimately, it'd be nice if our 
+            project home page had some clever Javascript to randomly pick one of 
+            these logos to display : if you know some clever Javascript, or can 
+            contribute additional translations, then let us know !
         </p>
+        
+        <h4><a name="q13">13. How can I translate the Open Language Tools ?</a></h4>
+        <p>Well, as mentioned <a href="http://open-language-tools.dev.java.net#help">
+        here</a> on our project home page, one of the areas we ultimately would like
+        help on this project, is to provide translations of the Editor and Filter's
+        user interface. Unfortunately at the moment, our tools are in the somewhat
+        embarassing position of not being correctly internationalised ! As 
+        <a href="http://www.alanis.com/main.html">Alanis Morisette</a> would say,
+        isn't it ironic...  don't you think ?</p>
+        
+        <p>The problem is, that we haven't wrapped the user-visible strings in
+            calls to methods of <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ResourceBundle.html">
+            <code>java.util.ResourceBundle</code></a>, allowing the
+            source code to get to a state where it's messages can be translated. 
+            In the meantime, if you're really eager,
+            I guess you could translate our documentation or the contents of our 
+            website, but otherwise (and if you're still seeing this question) the 
+            tools can't be translated yet. If you'd like to help out with the 
+            internationalisation work on the code, let us know - we'd love the 
+            support !
+        </p>
+        
+        
         
     </body>
 </html>
