@@ -2,4 +2,4 @@ SET OLT_HOME="$INSTALL_PATH"
 
 CD %OLT_HOME
 
-java -Xmx256M  -classpath classes\filters.jar;classes\tt-common.jar;classes\dtdparser121.jar org.jvnet.olt.filters.gui.XliffFilterGUI $INSTALL_PATH\resources
+java -Xmx256M  -classpath classes\filters.jar;classes\tt-common.jar;classes\dtdparser121.jar;classes\xerces2.jar;classes\xmlParserAPIs.jar org.jvnet.olt.filters.gui.XliffFilterGUI "$INSTALL_PATH\resources"

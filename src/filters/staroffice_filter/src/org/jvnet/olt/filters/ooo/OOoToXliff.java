@@ -86,12 +86,16 @@ public class OOoToXliff {
                 dir = dir.substring(0,dir.length()-1);
             }
 
+            // create a temporary DTD file, just so the resolver can
+            // resolve to something (doesn't have to be a real DTD) - just
+            // any readable file
+            File dummyDTD = File.createTempFile("dummyDTD","dtd");
             XmlToXliff xliffConv = new XmlToXliff(dir, oooFile.getAbsolutePath()+".xml",
-                    srcLang, "UTF-8", logger, "/dev/null");
+                    srcLang, "UTF-8", logger, dummyDTD.getAbsolutePath());
             
             File xmlXlzFile = new File(oooFile.getAbsolutePath()+".xml.xlz");
             File xlzFile = new File(oooFile.getAbsolutePath()+".xlz");
-            
+            dummyDTD.delete();
             // now remove the .xml portion of the filename
             boolean renamed = xmlXlzFile.renameTo(xlzFile);
             

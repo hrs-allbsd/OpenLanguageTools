@@ -1,6 +1,6 @@
 
 /*
- * Copyright  2005 Sun Microsystems, Inc. 
+ * Copyright  2005 Sun Microsystems, Inc.
  * All rights reserved Use is subject to license terms.
  *
  */
@@ -133,11 +133,8 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
         
         //Show / hide log button action
         
+        boolean newState = !jScrollPane1.isVisible();
         jScrollPane1.setVisible(! jScrollPane1.isVisible());
-        
-        
-        boolean newState = jScrollPane1.isVisible();
-        
         int height = (int)jScrollPane1.getSize().getHeight();
         if(firstShow){
             height = PREFFERED_HEIGHT;
@@ -150,6 +147,7 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
         setShowLogBtnText();
         updateLableLayout();
         repaint();
+        pack();
         
     }//GEN-LAST:event_showLogBtnActionPerformed
     
@@ -195,7 +193,12 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
         dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
         
         List files = extr.extractFiles(dtde);
-        convertFiles(files);
+        if (files.isEmpty()){
+            this.logger.log(Level.SEVERE, "ERROR : No files found from drop target !");
+            showCompletionDialog(false);
+        } else {
+            convertFiles(files);
+        }
     }
     
     /**

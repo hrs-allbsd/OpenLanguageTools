@@ -136,7 +136,9 @@ public class XmlConfigManager {
             String configNameDigest = generateDigest(configName);
             
             String configNameEncoded = URLEncoder.encode(configNameDigest, "UTF-8");
-            
+            // windows can't cope with "*" in the filename, aw bless..
+            // need to replace with something it can deal with.
+            configNameEncoded = configNameEncoded.replace('*', '_');
             
             String configFileName = configNameEncoded + ".conf";
             

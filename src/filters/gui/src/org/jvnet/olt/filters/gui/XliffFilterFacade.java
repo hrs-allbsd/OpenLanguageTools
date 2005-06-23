@@ -469,7 +469,8 @@ public class XliffFilterFacade {
             if (directory == null) directory="";
             
             String guid = (String)attributes.get("portal.guid");
-            String dummyDTDFile = XmlToXliff.getDummyDTDFile();
+            File tmpFile = File.createTempFile("dummy","dtd");
+            String dummyDTDFile = tmpFile.getAbsolutePath();
             
             XmlIdentifier identifier = null;
             if (guid == null) {
@@ -482,9 +483,7 @@ public class XliffFilterFacade {
             // save the xml identifier in the map to be used by the next tool
             // in the chain (most likely to be the TM tool);
             attributes.put("last.xml.identifier",identifier);
-            
-        } catch(javax.naming.NamingException ex) {
-            throw new XliffFilterFacadeException("XmlToXliff NamingException \n" + ex.getMessage());
+            tmpFile.delete();
         } catch (XmlParseException e){
             // try to delete any .xlf or .skl files that were created
             File tmp = new File(file.getAbsolutePath()+".xlf");

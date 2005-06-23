@@ -80,7 +80,9 @@ public class XmlToXliff {
         this.xmlIdent = null;
         XmlIdentifier xmlIdentifier = id;
         if (id == null){
-            xmlIdentifier = this.getXmlIdentifier(filename, logger);
+            Reader reader = new InputStreamReader(new BufferedInputStream
+                        (new FileInputStream(filename)),encoding);
+            xmlIdentifier = this.getXmlIdentifier(reader, logger);
         }
         // System.out.println("xmlIdentifier is " + xmlIdentifier);
         TagTable xmlTagTable = null;
@@ -228,8 +230,7 @@ public class XmlToXliff {
             
         } catch (java.io.IOException e){
             throw new XmlFilterException(e.getMessage());
-        } catch (org.jvnet.olt.parsers.XmlDocFragmentParser.ParseException e){
-            e.printStackTrace();
+        } catch (org.jvnet.olt.parsers.XmlDocFragmentParser.ParseException e){            
             throw new XmlFilterException(e.getMessage());
         } catch (Exception e){
             e.printStackTrace();
@@ -265,13 +266,12 @@ public class XmlToXliff {
         
     }
     
-    private XmlIdentifier getXmlIdentifier(String filename, Logger logger) throws XmlParseException {
+    private XmlIdentifier getXmlIdentifier(Reader reader, Logger logger) throws XmlParseException {
         File dummy = new File(dummyDTDFile);
         if (!dummy.exists()){
-            throw new XmlParseException("Dummy DTD file " + filename+" does not exist - contact SunTrans2 support staff");
+            throw new XmlParseException("Dummy DTD file " + dummyDTDFile +" does not exist - contact SunTrans2 support staff");
         }
-        
-        InputSource inputSource = new InputSource(filename);
+        InputSource inputSource = new InputSource(reader);
         
         XmlIdentifier xmlIdentifier = new XmlIdentifier();
         
@@ -287,6 +287,7 @@ public class XmlToXliff {
         } catch(javax.xml.parsers.ParserConfigurationException ex) {
             throw new XmlParseException("Failed to parse the Xml File due to a ParserConfigurationException \n" + ex.getMessage());
         } catch(java.io.IOException ex) {
+            ex.printStackTrace();
             throw new XmlParseException("Failed to parse the Xml File due to a IOException \n" + ex.getMessage());
         }
         
