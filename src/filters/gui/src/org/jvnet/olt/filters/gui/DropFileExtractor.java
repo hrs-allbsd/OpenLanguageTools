@@ -73,9 +73,9 @@ public class DropFileExtractor {
                 fileList = processDrop(trans, flavor);
             }
         } catch (java.awt.datatransfer.UnsupportedFlavorException e) {
-            logger.throwing(getClass().getName(), "extractFiles",e);
+            logger.log(Level.SEVERE, "Problem handling drag n' drop unknown flavor : "+e.getMessage(),e);
         } catch (java.io.IOException e) {
-            logger.throwing(getClass().getName(), "extractFiles",e);
+            logger.log(Level.SEVERE, "Problem handling drag n' drop IO Exception : "+e.getMessage(),e);
         }
         
         return fileList;
@@ -104,9 +104,9 @@ public class DropFileExtractor {
             String[] filenames = s.split("\n");
             
             for (int i = 0; i < filenames.length; i++) {
-                try {
-                    URI u = new URI(filenames[i]);
-                    File f = new File(u.getPath().trim());
+                try {                    
+                    URI u = new URI(filenames[i].trim());
+                    File f = new File(u.getPath());
                     fileList.add(f);
                 } catch (URISyntaxException e){
                     throw new IOException("Unknown URI syntax :"+filenames[i]);
@@ -158,8 +158,8 @@ public class DropFileExtractor {
         }
 
         try {
-            URI u = new URI(buf.toString());
-            File f = new File(u.getPath().trim());
+            URI u = new URI(buf.toString().trim());
+            File f = new File(u.getPath());
             fileList.add(f);
         } catch (URISyntaxException e){
             throw new IOException("Unknown URI syntax for Mac filename :"+buf.toString());
