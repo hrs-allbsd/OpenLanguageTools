@@ -275,10 +275,6 @@ public class Context implements XLIFFModel {
     }
 
     public void addSourceContext(String groupName, Map values) {
-        if (!"message id".equals(groupName)) {
-            return;
-        }
-
         for (Iterator i = values.entrySet().iterator(); i.hasNext();) {
             Map.Entry entry = (Map.Entry)i.next();
 

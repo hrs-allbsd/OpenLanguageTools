@@ -23,7 +23,7 @@ public class SourceContextGroupHandler extends MapHandler {
     }
 
     protected void postAction() {
-        if ((groupName != null) && "message id".equals(groupName)) {
+        if ((groupName != null)) {
             ctx.addSourceContext(groupName, map);
         }
     }
