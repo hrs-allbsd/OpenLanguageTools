@@ -20,6 +20,12 @@
 	<target name="compile" depends="local-deps,common.compile">
 	</target>
 
+	<target name="pre-compile" depends="common.pre-compile">
+	       <mkdir dir="${build.dir}/org/jvnet/olt/filters/xliffsubsegment/xliff/"/>
+	       <copy file="src/org/jvnet/olt/filters/xliffsubsegment/xliff/jaxb.properties"
+		     tofile="${build.dir}/org/jvnet/olt/filters/xliffsubsegment/xliff/jaxb.properties"/>
+
+	</target>
 	
 	<target name="local-deps" unless="do.build.deps">
 		<ant dir="../alignment_interface"/>
