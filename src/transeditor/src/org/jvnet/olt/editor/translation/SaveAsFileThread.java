@@ -63,28 +63,28 @@ public class SaveAsFileThread implements Runnable {
         f.setAcceptAllFileFilterUsed(false);
         f.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        XLIFFZipOpenFilter xlzfilter = new XLIFFZipOpenFilter();
-        XLIFFOpenFilter xlffilter = new XLIFFOpenFilter();
         int iType = 0; //0 for xlz, 1for xlf
 
         File curFile = backend.getCurrentFile();
 
-        if (curFile.getName().endsWith(".xlz") == true) {
+        
+        
+        if(OpenFileFilters.isFileNameXLZ(curFile)){
+        //if (curFile.getName().endsWith(".xlz") == true) {
             iType = 0;
             f.addChoosableFileFilter(OpenFileFilters.XLZ_FILTER);
             f.setFileFilter(OpenFileFilters.XLZ_FILTER);
-            f.setSelectedFile(new File("*.xlz"));
-        } else if (curFile.getName().endsWith(".xlf") == true) {
+        } else if (OpenFileFilters.isFileNameXLF(curFile)) {
             iType = 1;
             f.addChoosableFileFilter(OpenFileFilters.XLF_FILTER);
             f.setFileFilter(OpenFileFilters.XLF_FILTER);
-            f.setSelectedFile(new File("*.xlf"));
         }
 
         String fname = backend.getConfig().getStrLastFile();
         f.setCurrentDirectory(new File(fname).getParentFile());
+        f.setSelectedFile(curFile);
+        
         message[1] = f;
-
         String[] options = { "OK", "Cancel" };
 
         File fSaveAsFile = null;
