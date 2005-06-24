@@ -51,6 +51,8 @@ public class SingleSegmentMatch extends Match {
         TMData tmpdata = backend.getTMData();
 
         TMData.TMSentence tms = tmpdata.tmsentences[iSentenceID];
+        
+        handleAsAppliedMatch(tms,iTransType,iApplyType);
     }
 
     /**
