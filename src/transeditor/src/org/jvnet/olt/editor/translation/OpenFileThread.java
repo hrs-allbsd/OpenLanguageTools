@@ -47,7 +47,7 @@ class OpenFileThread extends Thread {
         try {
             TransProject project = backend.getProject();
 
-            XLIFFParser xp = new XLIFFParser(file.getAbsolutePath());
+            XLIFFParser xp = new XLIFFParser(file);
 
             if (!xp.build()) {
                 post.buildMethodFailed();

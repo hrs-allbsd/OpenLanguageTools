@@ -5,6 +5,9 @@
  */
 package org.jvnet.olt.editor.translation;
 
+import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.filechooser.FileFilter;
 
 
@@ -19,36 +22,74 @@ import javax.swing.filechooser.FileFilter;
  * @author boris
  */
 public class OpenFileFilters {
-    public static final FileFilter XLF_FILTER = new OpenFileFilter("xlf", "XLIFF files (.xlf)");
+    public static final FileFilter XLF_FILTER = new OpenFileFilter(new String[]{"xlf","xliff"}, "XLIFF files (.xlf,.xliff)");
     public static final FileFilter XLZ_FILTER = new OpenFileFilter("xlz", "XLIFF package files (.xlz)");
-
+    
     static class OpenFileFilter extends FileFilter {
-        final String ext;
         final String description;
-
-        OpenFileFilter(String extension, String description) {
-            this.ext = "." + extension;
+        final Set exts = new HashSet();
+        
+        OpenFileFilter(String[] extensions, String description) {
+            for(int i = 0; extensions != null && i < extensions.length;i++){
+                if(extensions[i] != null)
+                    exts.add(extensions[i]);
+            }
             this.description = description;
         }
-
+        
+        OpenFileFilter(String extension, String description) {
+            this(new String[]{extension},description);
+        }
+        
+        
         public boolean accept(java.io.File file) {
             if (file == null) {
                 return false;
             }
-
+            
             if (file.isDirectory()) {
                 return true;
             }
-
-            return file.getName().endsWith(this.ext);
+            
+            String ext = getExtension(file);
+            
+            return isKnownExt(ext);
         }
-
+        
         public String getDescription() {
             return description;
         }
+        
+        boolean isKnownExt(String ext){
+            return ext != null && exts.contains(ext);
+        }
     }
-
+    
     /** Creates a new instance of OpenFileFilters */
     private OpenFileFilters() {
     }
+    
+    static public String getExtension(File f) {
+        if(f == null)
+            return null;
+        
+        int idx = f.getName().lastIndexOf('.');
+        if(idx == -1 || idx + 1 >= f.getName().length())
+            return null;
+        
+        return f.getName().substring(idx+1);
+    }
+    
+    static public boolean isFileNameXLF(File file){
+        String ext = getExtension(file);
+        
+        return ( ((OpenFileFilter)XLF_FILTER).isKnownExt(ext));
+    }
+
+    static public boolean isFileNameXLZ(File file){
+        String ext = getExtension(file);
+        
+        return ( ((OpenFileFilter)XLZ_FILTER).isKnownExt(ext));
+    }
+    
 }

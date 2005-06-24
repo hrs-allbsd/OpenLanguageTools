@@ -26,6 +26,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.jvnet.olt.editor.translation.Constants;
+import org.jvnet.olt.editor.translation.OpenFileFilters;
 import org.jvnet.olt.editor.util.FileUtils;
 import org.jvnet.olt.editor.util.LanguageMappingTable;
 import org.jvnet.olt.editor.util.MultiWriter;
@@ -69,15 +70,15 @@ public class XLIFFParser {
 
     //TODO change param to File
     //bug 4758111
-    public XLIFFParser(String aSourceXLIFFFilePath) throws NestableException, Exception {
-        this.sourceFile = new File(aSourceXLIFFFilePath);
-
+    public XLIFFParser(File file) throws NestableException, Exception {
+        sourceFile = new File(file.getAbsolutePath());
+        
         try {
             Version ver = null;
 
             //logger.finer(aSourceXLIFFFilePath);
-            if (aSourceXLIFFFilePath.endsWith(".xlf") == true) {
-                FileInputStream fis = new FileInputStream(aSourceXLIFFFilePath);
+            if (OpenFileFilters.isFileNameXLF(file)) {
+                FileInputStream fis = new FileInputStream(file);
                 InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
 
                 try {
@@ -86,7 +87,7 @@ public class XLIFFParser {
                     isr.close();
                 }
 
-                fis = new FileInputStream(aSourceXLIFFFilePath);
+                fis = new FileInputStream(file);
                 isr = new InputStreamReader(fis, "UTF-8");
 
                 long t1 = System.currentTimeMillis();
@@ -102,7 +103,7 @@ public class XLIFFParser {
                 //TODO remove from here
                 writer.saveTargetLanguageCode(model.getTargetLanguage());
             } else {
-                xlzZipFile = new XliffZipFileIO(new File(aSourceXLIFFFilePath));
+                xlzZipFile = new XliffZipFileIO(file);
 
                 java.io.Reader rdr = xlzZipFile.getXliffReader();
 
