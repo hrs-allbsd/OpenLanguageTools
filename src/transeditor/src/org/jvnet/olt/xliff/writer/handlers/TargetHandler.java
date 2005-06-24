@@ -53,7 +53,8 @@ public class TargetHandler extends BaseHandler {
 
                     AttributesImpl attrs = new AttributesImpl(element.getAttrs());
                     setAttributeValue(attrs, "state", state);
-                    setAttributeValue(attrs, "xml:lang", ctx.getTargetLang());
+                    if(ctx.getVersion().isXLIFF10())
+                        setAttributeValue(attrs, "xml:lang", ctx.getTargetLang());
 
                     element = new Element(element.getPrefix(), element.getLocalName(), element.getOriginalQName(), attrs, element.getPath());
 
