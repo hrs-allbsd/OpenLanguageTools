@@ -9,6 +9,7 @@ package org.jvnet.olt.filters.gui;
 
 import java.awt.Component;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,8 @@ public class XliffFilterRunner implements Runnable {
     private Logger logger = null;
     private Map attributes = null;
     private XliffFilterGUI gui = null;
+
+    private static final java.util.ResourceBundle xliffFilterGUIMessages = java.util.ResourceBundle.getBundle("org/jvnet/olt/filters/gui/XliffFilterGUIMessages");
     
     /**
      * Does XLIFF conversion of the input job - uses XliffFilterFacade to do
@@ -48,7 +51,9 @@ public class XliffFilterRunner implements Runnable {
             this.filterFacade.convert(fileToConvert, this.attributes, this.logger);
             //this.gui.showCompletionDialog(fileToConvert, true);
         } catch (XliffFilterFacadeException e){
-            this.logger.log(Level.WARNING,"Problem converting file "+e.getMessage());
+            this.logger.log(Level.WARNING,MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Problem_converting_file_o"),
+                    new Object[] {fileToConvert.getAbsolutePath(), e.getMessage()}));
             //this.gui.showCompletionDialog(fileToConvert, false, e.getMessage());
         }
     }

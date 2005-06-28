@@ -1,12 +1,13 @@
 
 /*
- * Copyright  2005 Sun Microsystems, Inc. 
+ * Copyright  2005 Sun Microsystems, Inc.
  * All rights reserved Use is subject to license terms.
  *
  */
 
 package org.jvnet.olt.filters.gui;
 
+import java.util.MissingResourceException;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -22,6 +23,8 @@ public class TextAreaHandler extends Handler{
      * target text area
      */
     private JTextArea area;
+    private static final java.util.ResourceBundle xliffFilterGUIMessages = java.util.ResourceBundle.getBundle("org/jvnet/olt/filters/gui/XliffFilterGUIMessages");
+    
     /**
      * default formatter
      */
@@ -39,7 +42,13 @@ public class TextAreaHandler extends Handler{
          */
         private StringBuffer fmt(LogRecord rec){
             sb.delete(0,sb.length());
-            sb.append(rec.getLevel().getName());
+            try {
+                sb.append(xliffFilterGUIMessages.getString(rec.getLevel().toString()));
+            } catch (MissingResourceException e){
+                // it's not too severe if we have a Level that's not localised
+                System.out.println("unlocalised message "+rec.getLevel().toString());
+                sb.append(rec.getLevel().toString());
+            }
             sb.append(": ");
             sb.append(rec.getMessage());
             
@@ -69,8 +78,8 @@ public class TextAreaHandler extends Handler{
             
             
             SwingUtilities.invokeLater(new Runnable(){
-                public void run() {                    
-                    area.append(msg);                    
+                public void run() {
+                    area.append(msg);
                     area.setCaretPosition(area.getText().length());
                 }
                 

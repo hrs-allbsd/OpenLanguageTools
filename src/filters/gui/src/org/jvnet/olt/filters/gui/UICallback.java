@@ -26,7 +26,7 @@ import java.io.File;
  * @author boris
  */
 public interface UICallback {
-    
+ 
     /**
      * Called when new batch starts
      */

@@ -23,6 +23,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.dnd.DnDConstants;
 import java.io.FileInputStream;
+import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -88,7 +89,7 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Open Language Tools XLIFF Filters");
-        showLogBtn.setText("Show log >>>");
+        showLogBtn.setText(xliffFilterGUIMessages.getString("Show_log_>>>"));
         showLogBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showLogBtnActionPerformed(evt);
@@ -117,7 +118,7 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Drop Files Here");
+        jLabel1.setText(xliffFilterGUIMessages.getString("Drop_files_here"));
         jLabel1.setBorder(new javax.swing.border.TitledBorder("Open Language Tools XLIFF Filters"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -187,14 +188,14 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
      */
     public void drop(java.awt.dnd.DropTargetDropEvent dtde) {
         if (this.attributes == null){
-            this.logger.log(Level.SEVERE,"WARNING : Filter attributes not configured !");
+            this.logger.log(Level.SEVERE,xliffFilterGUIMessages.getString("WARNING_:_Filter_attributes_not_configured_!"));
         }
         
         dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);
         
         List files = extr.extractFiles(dtde);
         if (files.isEmpty()){
-            this.logger.log(Level.SEVERE, "ERROR : No files found from drop target !");
+            this.logger.log(Level.SEVERE, xliffFilterGUIMessages.getString("ERROR_:_No_files_found_from_drop_target_!"));
             showCompletionDialog(false);
         } else {
             convertFiles(files);
@@ -218,7 +219,9 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
             }
             
             public void startFile(File f) {
-                logger.info("Processing file:"+f.getAbsolutePath());
+                logger.info(MessageFormat.format(
+                        xliffFilterGUIMessages.getString("Processing_file_o"),
+                        new Object[] {f.getAbsolutePath()}));
             }
             
             public void doneFile() {
@@ -249,13 +252,13 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
     protected void showCompletionDialog(boolean success){
         if (success){
             JOptionPane.showMessageDialog((Component)this,
-                    "All files were converted successfuly",
-                    "Open Language Tools XLIFF Filter",
+                    xliffFilterGUIMessages.getString("All_files_were_converted_successfuly"),
+                    "Open Language Tools XLIFF Filters",
                     JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog((Component)this,
-                    "Conversion of some of the files failed - see log file for more information.\n",
-                    "Open Language Tools XLIFF Filter",
+                    xliffFilterGUIMessages.getString("Conversion_of_some_of_the_files_failed_-_see_log_file_for_more_information."),
+                    "Open Language Tools XLIFF Filters",
                     JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -269,7 +272,7 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
     
     private void setShowLogBtnText(){
         if(showLogBtn != null && jScrollPane1 != null)
-            showLogBtn.setText(jScrollPane1.isVisible() ? " Hide log <<<" : "Show log >>>");
+            showLogBtn.setText(jScrollPane1.isVisible() ? xliffFilterGUIMessages.getString("_Hide_log_<<<") : xliffFilterGUIMessages.getString("Show_log_>>>"));
     }
     
     private void updateLableLayout(){
@@ -308,9 +311,9 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
         prefs.put("xml.config.dtd", (String)attribs.get("xml.config.dtd"));
         prefs.put("xml.config.dir",  (String)attribs.get("xml.config.dir"));
         
-        boolean configuredXmlStore = prefs.getBoolean("configured.xml.config", false);
+        //boolean configuredXmlStore = prefs.getBoolean("configured.xml.config", false);
         
-        if (!configuredXmlStore){
+        //if (!configuredXmlStore){
             try {
                 XliffFilterFacade.updateXmlConfigRepository(resourcesDir+File.separator+"xml-config",
                         resourcesDir+File.separator+".xml-config-store",
@@ -318,15 +321,15 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
                 
                 prefs.putBoolean("configured.xml.config", true);
             } catch (XliffFilterFacadeException e){
-                this.logger.log(Level.SEVERE,"Problem configuring XML filter!",e);
+                this.logger.log(Level.SEVERE,xliffFilterGUIMessages.getString("Problem_configuring_XML_filter!"),e);
             }
-        }
+        //}
         return attribs;
     }
     
     public String getResourcesDir(){
         if (this.resourcesDir == null){
-            this.logger.log(Level.SEVERE,"WARNING ! No resources file defined !");
+            this.logger.log(Level.SEVERE,xliffFilterGUIMessages.getString("WARNING_!_No_resources_file_defined_!"));
         }
         return this.resourcesDir;
     }
@@ -345,4 +348,6 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
     /** A logger we can use to capture logging output with
      */
     private Logger logger = null;
+
+    private static final java.util.ResourceBundle xliffFilterGUIMessages = java.util.ResourceBundle.getBundle("org/jvnet/olt/filters/gui/XliffFilterGUIMessages");
 }

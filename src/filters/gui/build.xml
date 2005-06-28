@@ -16,6 +16,12 @@
         <path refid="deps.common.util"/>
     </path>
 
+    <target name="pre-compile" depends="init">
+	<mkdir dir="${build.dir}/org/jvnet/olt/filters/gui"/>
+	<copy file="src/org/jvnet/olt/filters/gui/XliffFilterGUIMessages.properties"
+	      tofile="${build.dir}/org/jvnet/olt/filters/gui/XliffFilterGUIMessages.properties"/>
+    </target>
+
     <target name="compile" depends="pre-compile,local-deps,common.compile">
     </target>
 

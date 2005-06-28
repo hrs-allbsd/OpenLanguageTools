@@ -27,6 +27,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.MessageFormat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,6 +43,8 @@ import java.util.logging.Logger;
  */
 public class DropFileExtractor {
     private static final Logger logger = Logger.getLogger(DropFileExtractor.class.getName());
+
+    private static final java.util.ResourceBundle xliffFilterGUIMessages = java.util.ResourceBundle.getBundle("org/jvnet/olt/filters/gui/XliffFilterGUIMessages");
     
     /**
      * Creates a new instance of DropFileExtractor.
@@ -73,9 +76,15 @@ public class DropFileExtractor {
                 fileList = processDrop(trans, flavor);
             }
         } catch (java.awt.datatransfer.UnsupportedFlavorException e) {
-            logger.log(Level.SEVERE, "Problem handling drag n' drop unknown flavor : "+e.getMessage(),e);
+            // problem handling drag n' drop - unknown flavour +e.getMessage()
+            logger.log(Level.SEVERE, MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Problem_handling_drag_n'_drop_unknown_flavor_o"),
+                    new Object[] {e.getMessage()}) ,e);
         } catch (java.io.IOException e) {
-            logger.log(Level.SEVERE, "Problem handling drag n' drop IO Exception : "+e.getMessage(),e);
+            // problem handling drag n' drop - IO Exception + e.getMessage()
+            logger.log(Level.SEVERE, MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Problem_handling_drag_n'_drop_IO_Exception_o"),
+                    new Object[] {e.getMessage()}),e);
         }
         
         return fileList;
@@ -92,7 +101,7 @@ public class DropFileExtractor {
         List fileList = new ArrayList();
         String repClassStr = flavor.getDefaultRepresentationClassAsString();
         String mimeType = flavor.getMimeType();
-        logger.finer(flavor.getHumanPresentableName() + " == " + repClassStr + " m " + mimeType);
+        logger.finer(flavor.getHumanPresentableName() + "==" + repClassStr + "_mime_" + mimeType);
         
         Object o = null;
         
@@ -107,9 +116,12 @@ public class DropFileExtractor {
                 try {                    
                     URI u = new URI(filenames[i].trim());
                     File f = new File(u.getPath());
-                    fileList.add(f);
+                    fileList.add(f);                    
                 } catch (URISyntaxException e){
-                    throw new IOException("Unknown URI syntax :"+filenames[i]);
+                    // Unknown URI Syntax : +filenames[i]
+                    throw new IOException(MessageFormat.format(
+                            xliffFilterGUIMessages.getString("Unknown_URI_syntax_o"),
+                            new Object[] {filenames[i]}));
                 }
             }
             
@@ -129,7 +141,10 @@ public class DropFileExtractor {
             } else if (o instanceof java.io.InputStreamReader) {
                 fileList = getMacOSXFileList(o);
             } else {
-                logger.log(Level.SEVERE, "Object type " + o.getClass().toString() + " unknown.");
+                // "Object type "+ o.getClass.toString() + " unknown"
+                logger.log(Level.SEVERE, MessageFormat.format(
+                        xliffFilterGUIMessages.getString("Object_type_o_unknown"),
+                        new Object[] {o.getClass().toString()}));
             }
         } else {
             logger.finer("o was null!");
@@ -162,7 +177,10 @@ public class DropFileExtractor {
             File f = new File(u.getPath());
             fileList.add(f);
         } catch (URISyntaxException e){
-            throw new IOException("Unknown URI syntax for Mac filename :"+buf.toString());
+            // unknown URI syntax for Mac filename + buf.toString()
+            throw new IOException(MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Unknown_URI_syntax_for_Mac_filename_o"),
+                    new Object[] {buf.toString()}));
         }
         return fileList;
     }
@@ -185,7 +203,11 @@ public class DropFileExtractor {
                 File f = (File)content;
                 fileList.add(f);
             } else {
-                logger.log(Level.SEVERE, "List contents of type " + content.getClass().toString() + " are unknown.");
+                // List contents of type + content.getClass().toString() are unknown
+                logger.log(Level.SEVERE, 
+                        MessageFormat.format(
+                        xliffFilterGUIMessages.getString("List_contents_of_type_o_are_unknown"),
+                        new Object[] {content.getClass().toString()}));
             }
         }
         

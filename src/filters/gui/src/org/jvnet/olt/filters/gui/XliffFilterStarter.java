@@ -8,12 +8,13 @@
 package org.jvnet.olt.filters.gui;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
+
 
 /**
  * This simple starter kicks off a thread that processes all jobs.
@@ -32,6 +33,8 @@ public class XliffFilterStarter  {
     private int failedFiles;
     
     private XliffFilterFacade filterFacade = null;
+
+    private static final java.util.ResourceBundle xliffFilterGUIMessages = java.util.ResourceBundle.getBundle("org/jvnet/olt/filters/gui/XliffFilterGUIMessages");
     
     /**
      * Creates a new instance of XliffFilterStarter
@@ -65,7 +68,11 @@ public class XliffFilterStarter  {
                         
                         File f = (File)it.next();
                         if (! f.isFile() || !f.canRead()){
-                            logger.log(Level.WARNING,"File "+f.getAbsolutePath()+" is not readable, or is a directory. This file will NOT be converted");
+                            // File f.getAbsolutePath() is not readable, or is a
+                            // directory. This file will NOT be converted
+                            logger.log(Level.WARNING,MessageFormat.format(
+                                    xliffFilterGUIMessages.getString("File_o_is_not_readable,_or_is_a_directory._This_file_will_NOT_be_converted"),
+                                    new Object[] {f.getAbsolutePath()}));
                             failedFiles++;
                         } else{
                             runFile(f);
@@ -91,13 +98,20 @@ public class XliffFilterStarter  {
             filterFacade.convert(f, attributes, logger);
             
         } catch (XliffFilterFacadeException e){
-            this.logger.log(Level.WARNING,"Problem converting file "+f.getAbsolutePath()+":"+e.getMessage());
+            // Problem converting file f.getAbsolutePath() : e.getMessage()
+            this.logger.log(Level.WARNING,
+                    MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Problem_converting_file_o"),
+                    new Object[] {f.getAbsolutePath(), e.getMessage()}));
             failed = true;
             failedFiles++;
         } finally {
             gui.doneFile();
-            
-            logger.info("Conversion " + (failed ? "FAILED" : "SUCCESSFUL"));
+            if (failed){
+                logger.info(xliffFilterGUIMessages.getString("Conversion_FAILED"));
+            } else {
+                logger.info(xliffFilterGUIMessages.getString("Conversion_SUCCESSFUL"));
+            }
         }
     }
 }

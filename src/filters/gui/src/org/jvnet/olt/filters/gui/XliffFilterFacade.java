@@ -14,6 +14,7 @@
 
 package org.jvnet.olt.filters.gui;
 
+import java.text.MessageFormat;
 import org.jvnet.olt.filters.xml.xmlconfig.ProcessXmlConfigException;
 import org.jvnet.olt.filters.xml.xmlconfig.XmlConfigMain;
 import java.util.*;
@@ -76,7 +77,9 @@ public class XliffFilterFacade {
     
     private static Map typeMap;
     private static StandaloneLocaleTable standaloneLocaleTable = new StandaloneLocaleTable();
-    
+
+    private static final java.util.ResourceBundle xliffFilterGUIMessages = java.util.ResourceBundle.getBundle("org/jvnet/olt/filters/gui/XliffFilterGUIMessages");
+
     
     /**
      * Creates an instance of an XliffFilterFacade. We're taking a Map of attributes
@@ -126,7 +129,7 @@ public class XliffFilterFacade {
         try {
             XmlConfigManager.init(xmlConfigDTDLocation, xmlConfigStoreLocation);
         } catch (java.io.IOException e){
-            logger.log(Level.WARNING, "Unable to configure XML Filter - XML to XLIFF conversion may not work.");
+            logger.log(Level.WARNING, xliffFilterGUIMessages.getString("Unable_to_configure_XML_Filter_-_XML_to_XLIFF_conversion_may_not_work."));
         }
         //logger.log(Level.FINE,"Finished initialising config manager");
         
@@ -141,7 +144,8 @@ public class XliffFilterFacade {
         String language = (String)attributes.get("source.language");
         if (language == null){
             language = "en-US";
-            logger.log(Level.WARNING,"No language specified : using en-US as default for source XLIFF conversion");
+            // No language specified : using en_US as a default for source XLIFF conversion
+            logger.log(Level.WARNING,xliffFilterGUIMessages.getString("No_language_specified_:_using_en-US_as_default_for_source_XLIFF_conversion"));
         }
         
         // default to ISO8859-1
@@ -168,7 +172,10 @@ public class XliffFilterFacade {
                 processText(file, attributes, logger, language, encoding);
                 break;
             case XLZ:
-                logger.log(Level.INFO, file.getName() +" appears to already be in XLIFF zip format");
+                // File file.getName() appears to already be in XLIFF zip format
+                logger.log(Level.INFO, MessageFormat.format(
+                        xliffFilterGUIMessages.getString("File_o_appears_to_already_be_in_XLIFF_zip_format"), 
+                        new Object[] {file.getName()}));
                 break;
             case SGML:
                 encoding = determineEncoding(encoding, language,logger);
@@ -187,7 +194,7 @@ public class XliffFilterFacade {
              *   processBook(file, props, logger, language, encoding);
              */
             case BOOK:
-                logger.log(Level.INFO,"Not processing book files - no support yet.");
+                logger.log(Level.INFO,xliffFilterGUIMessages.getString("Not_processing_book_files_-_no_support_yet."));
                 break;
             case JSP :
                 encoding = determineEncoding(encoding, language,logger);
@@ -245,8 +252,10 @@ public class XliffFilterFacade {
     
     private void processHtml(File file,  Map attributes, Logger logger, String language, String encoding)
     throws XliffFilterFacadeException {
-        
-        logger.log(Level.INFO, "Doing HTML to XLIFF conversion on " + file.getName());
+        // Doing HML to XLIFF conversion on file.getName()
+        logger.log(Level.INFO, MessageFormat.format(
+                xliffFilterGUIMessages.getString("Doing_HTML_to_XLIFF_conversion_on_o"),
+                new Object[] {file.getName()}));
         try {
             String directory = (String)attributes.get("suntrans2.directory");
             if (directory == null) directory="";
@@ -265,28 +274,31 @@ public class XliffFilterFacade {
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
             throw new XliffFilterFacadeException("HtmlToXliff :" + e.getMessage()+"\n"+
-                    "An error occurred while trying to parse that html file."+
-                    "Please check the format, and try again");
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_html_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
         } catch (java.io.IOException e){
-            throw new XliffFilterFacadeException("HtmlToXliff i/o Exception: " + e.getMessage());
+            throw new XliffFilterFacadeException("HtmlToXliff IO Exception: " + e.getMessage());
         } catch (Throwable t){
             File tmp = new File(file.getAbsolutePath()+".xlf");
             tmp.delete();
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
             throw new XliffFilterFacadeException("HtmlToXliff :" + t.getMessage()+"\n"+
-                    "An error occurred while trying to parse that html file. "+
-                    "Please check the format, and try again.");
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_html_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
         }
     }
     
     private void processText(File file, Map attributes, Logger logger, String language, String encoding)
     throws XliffFilterFacadeException {
         // ------------------ plaintext conversion -------------------------
-        logger.log(Level.INFO, "Doing plaintext to XLIFF conversion on " + file.getName());
+        logger.log(Level.INFO, 
+                MessageFormat.format(
+                xliffFilterGUIMessages.getString("Doing_plaintext_to_XLIFF_conversion_on_o"),
+                new Object[] {file.getName()}));
         try {
             // the guid is a cookie that can be set in the xlz file - it's not used here
-            String guid = "";
+            String guid = xliffFilterGUIMessages.getString("");
             String directory = (String)attributes.get("suntrans2.directory");
             if (directory == null) directory="";
             PlaintextToXliff plain = new PlaintextToXliff(directory, file.getAbsolutePath(), language, encoding, logger, guid);
@@ -294,7 +306,7 @@ public class XliffFilterFacade {
         } catch (PlaintextParserException e){
             throw new XliffFilterFacadeException("PlaintextToXliff " + e.getMessage());
         } catch (java.io.IOException e){
-            throw new XliffFilterFacadeException("PlaintextToXliff i/o Exception: " + e.getMessage());
+            throw new XliffFilterFacadeException("PlaintextToXliff IO Exception: " + e.getMessage());
         }
     }
     
@@ -310,7 +322,9 @@ public class XliffFilterFacade {
         // confused about some of this code, that's the reason why. Will work
         // on this a bit more.
         
-        logger.log(Level.INFO, "Doing SGML to XLIFF conversion on " + file.getName());
+        logger.log(Level.INFO, MessageFormat.format(
+                xliffFilterGUIMessages.getString("Doing_SGML_to_XLIFF_conversion_on_o"),
+                new Object[] {file.getName()}));
         try {
             String directory = (String)attributes.get("suntrans2.directory");
             String guid = (String)attributes.get("portal.guid");
@@ -325,7 +339,7 @@ public class XliffFilterFacade {
             if (translatableFileMap != null){
                 logger.log(Level.CONFIG,"Looking for " + file.getAbsolutePath()+" in gvm map");
                 String bookFile = (String)translatableFileMap.get(file.getAbsolutePath());
-                logger.log(Level.CONFIG,"Found " + bookFile+ " in translatable file map");
+                logger.log(Level.CONFIG,"Found " + bookFile+" in translatable file map");
                 
                 if (bookFile != null){
                     logger.log(Level.CONFIG,"getting gvm from gvm map");
@@ -339,9 +353,11 @@ public class XliffFilterFacade {
                     // at this point, we know that the file contains just
                     // a program listing or something, so set a flag.
                     treatFileAsSingleSegment = true;
-                    logger.log(Level.INFO,"File " + file.getAbsolutePath() +" appears to "+
-                            " be included from a sgml programlisting or similar tag. \n"+
-                            "We will treat this entire file as a single segment.");
+                    logger.log(Level.INFO,MessageFormat.format(
+                                xliffFilterGUIMessages.getString("File_appears_to_"+
+                                "_be_included_from_a_sgml_programlisting_or_similar_tag."),
+                                new Object[] {file.getAbsolutePath()}));
+                                
                     logger.log(Level.CONFIG,"getting gvm from gvm map");
                     gvm = (GlobalVariableManager)gvmMap.get(bookFile);
                 }
@@ -358,7 +374,10 @@ public class XliffFilterFacade {
             try {
                 SgmlToXliff xliff = new SgmlToXliff(filename, shortname, gvm, language, encoding, logger, guid,treatFileAsSingleSegment);
             } catch (SgmlParseException e){ // catching any parse exceptions here, we try to then use a different parser
-                logger.log(Level.INFO,"Unable to process " + filename+" with standard SGML parser, trying DTD SGML parser.");
+                logger.log(Level.INFO,
+                        MessageFormat.format(
+                        xliffFilterGUIMessages.getString("Unable_to_process_o_with_standard_SGML_parser"),
+                        new Object[] {filename}));
                 NonConformantSgmlToXliff nonc = new NonConformantSgmlToXliff(filename, shortname, gvm, language, encoding, logger, guid,treatFileAsSingleSegment);
             }
             
@@ -370,8 +389,8 @@ public class XliffFilterFacade {
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
             throw new XliffFilterFacadeException("SgmlToXliff :" + e.getMessage()+"\n"+
-                    "An error occurred while trying to parse that sgml file."+
-                    "Please check the format, and try again");
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_sgml_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
             
         } catch (Throwable t){
             
@@ -380,8 +399,8 @@ public class XliffFilterFacade {
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
             throw new XliffFilterFacadeException("SgmlToXliff :" + t.getMessage()+"\n"+
-                    "An error occurred while trying to parse that sgml file. "+
-                    "Please check the format, and try again.");
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_sgml_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
         }
         
     }
@@ -414,12 +433,14 @@ public class XliffFilterFacade {
     throws XliffFilterFacadeException {
         // ------------------ book conversion -------------------------
         
-        logger.log(Level.INFO, "Doing .book to XLIFF conversion on " + file.getName());
+        logger.log(Level.INFO, MessageFormat.format(
+                xliffFilterGUIMessages.getString("Doing_.book_to_XLIFF_conversion_on_o"),
+                new Object[] {file.getName()}));
         try {
             String directory = (String)attributes.get("suntrans2.directory");
             String guid = (String)attributes.get("portal.guid");
             // looking up the gvm
-            HashMap gvmMap = (HashMap)attributes.get("gvm.map");
+            HashMap gvmMap = (HashMap)attributes.get(xliffFilterGUIMessages.getString("gvm.map"));
             GlobalVariableManager gvm = null;
             logger.log(Level.CONFIG,"getting gvm from gvm map");
             gvm = (GlobalVariableManager)gvmMap.get(file.getAbsolutePath());
@@ -442,18 +463,18 @@ public class XliffFilterFacade {
             tmp.delete();
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
-            throw new XliffFilterFacadeException("BookToXliff :" + e.getMessage()+"\n"+
-                    "An error occurred while trying to parse that book file."+
-                    "Please check the format, and try again");
+            throw new XliffFilterFacadeException("BookToXliff :"+ e.getMessage()+"\n"+
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_book_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
             
         } catch (Throwable t){
             File tmp = new File(file.getAbsolutePath()+".xlf");
             tmp.delete();
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
-            throw new XliffFilterFacadeException("BookToXliff :" + t.getMessage()+"\n"+
-                    "An error occurred while trying to parse that book file. "+
-                    "Please check the format, and try again.");
+            throw new XliffFilterFacadeException("BookToXliff :"+ t.getMessage()+"\n"+
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_book_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
         }
         
     }
@@ -462,7 +483,10 @@ public class XliffFilterFacade {
     throws XliffFilterFacadeException {
         // --------------------- xml conversion -----------------
         
-        logger.log(Level.INFO, "Doing XML to XLIFF conversion on " + file.getName());
+        logger.log(Level.INFO, 
+                MessageFormat.format(
+                xliffFilterGUIMessages.getString("Doing_XML_to_XLIFF_conversion_on_o"),
+                new Object[] {file.getName()}));
         
         try {
             String directory = (String)attributes.get("suntrans2.directory");
@@ -491,18 +515,18 @@ public class XliffFilterFacade {
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
             throw new XliffFilterFacadeException("XmlToXliff :" + e.getMessage()+"\n"+
-                    "An error occurred while trying to parse that xml file."+
-                    "Please check the format, and try again");
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_xml_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
         } catch (java.io.IOException e){
-            throw new XliffFilterFacadeException("XmlToXliff i/o Exception: " + e.getMessage());
+            throw new XliffFilterFacadeException("XmlToXliff IO Exception: " + e.getMessage());
         } catch (Throwable t){
             File tmp = new File(file.getAbsolutePath()+".xlf");
             tmp.delete();
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
             throw new XliffFilterFacadeException("XmlToXliff :" + t.getMessage()+"\n"+
-                    "An error occurred while trying to parse that xml file. "+
-                    "Please check the format, and try again.");
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_xml_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
         }
     }
     
@@ -510,7 +534,9 @@ public class XliffFilterFacade {
     private void processJsp(File file,  Map attributes, Logger logger, String language, String encoding)
     throws XliffFilterFacadeException {
         
-        logger.log(Level.INFO, "Doing JSP to XLIFF conversion on " + file.getName());
+        logger.log(Level.INFO, MessageFormat.format(
+                xliffFilterGUIMessages.getString("Doing_JSP_to_XLIFF_conversion_on_o"),
+                new Object[] {file.getName()}));
         try {
             String directory = (String)attributes.get("suntrans2.directory");
             if (directory == null) directory="";
@@ -528,25 +554,27 @@ public class XliffFilterFacade {
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
             throw new XliffFilterFacadeException("JspToXliff :" + e.getMessage()+"\n"+
-                    "An error occurred while trying to parse that jsp file."+
-                    "Please check the format, and try again");
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_jsp_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
         } catch (java.io.IOException e){
-            throw new XliffFilterFacadeException("JspToXliff i/o Exception: " + e.getMessage());
+            throw new XliffFilterFacadeException("JspToXliff IO Exception: " + e.getMessage());
         } catch (Throwable t){
             File tmp = new File(file.getAbsolutePath()+".xlf");
             tmp.delete();
             tmp = new File(file.getAbsolutePath()+".skl");
             tmp.delete();
             throw new XliffFilterFacadeException("JspToXliff :" + t.getMessage()+"\n"+
-                    "An error occurred while trying to parse that jsp file. "+
-                    "Please check the format, and try again.");
+                    xliffFilterGUIMessages.getString("An_error_occurred_while_trying_to_parse_that_jsp_file._")+
+                    xliffFilterGUIMessages.getString("Please_check_the_format,_and_try_again."));
         }
     }
     
     private void processSoftware(File file, Map attributes, Logger logger, String language, String encoding)
     throws XliffFilterFacadeException {
         // ------------------ software conversion -------------------------
-        logger.log(Level.INFO, "Doing software to XLIFF conversion on " + file.getName());
+        logger.log(Level.INFO, MessageFormat.format(
+                xliffFilterGUIMessages.getString("Doing_software_to_XLIFF_conversion_on_o"),
+                new Object[] {file.getName()}));
         try {
             String directory = (String)attributes.get("suntrans2.directory");
             if (directory == null) directory="";
@@ -568,7 +596,9 @@ public class XliffFilterFacade {
     private void processOpenOffice(File file, Map attributes, Logger logger, String language, String encoding)
     throws XliffFilterFacadeException {
         // ------------------ OpenOffice Writer conversion -------------------------
-        logger.log(Level.INFO, "Doing OpenOffice.org Writer to XLIFF conversion on " + file.getName());
+        logger.log(Level.INFO, MessageFormat.format(
+                xliffFilterGUIMessages.getString("Doing_OpenOffice.org_to_XLIFF_conversion_on_o"),
+                new Object[] {file.getName()}));
         try {
             String directory = (String)attributes.get("suntrans2.directory");
             if (directory == null) directory="";
@@ -589,20 +619,35 @@ public class XliffFilterFacade {
         if (charset == null){
             charset = standaloneLocaleTable.getDefaultEncoding(language);
             if (charset != null){
-                logger.log(Level.INFO,"No encoding supplied by user : using default encoding for " + language +" : "+ charset);
+                // No encoding supplied by user : using default encoding for lang which is charset
+                logger.log(Level.INFO, MessageFormat.format(
+                        xliffFilterGUIMessages.getString("No_encoding_supplied_by_user_:_using_default_encoding_for_o_which_is_o"),
+                        new Object[] {language, charset}));
             } else {
-                logger.log(Level.WARNING,"Unable to determine default encoding for "+language+" : using ISO8859-1.");
-                charset = "ISO8859-1";
+                // Unable to determine default encoding for lang, using ISO8859-1
+                logger.log(Level.WARNING,
+                        MessageFormat.format(xliffFilterGUIMessages.getString("Unable_to_determine_default_encoding_for_o_using_ISO8859-1"),
+                        new Object[] {language}));
+                charset = xliffFilterGUIMessages.getString("ISO8859-1");
             }
         }
         if (!java.nio.charset.Charset.isSupported(charset)){
-            logger.log(Level.INFO,"Warning! User supplied charset "+ charset +" doesn't seem to be supported.");
+            // Warning ! User supplied charset charset doesn't seem to be supported
+            logger.log(Level.INFO,MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Warning!_User_supplied_charset_o_doesn't_seem_to_be_supported"),
+                    new Object[] {charset}));
             charset = standaloneLocaleTable.getDefaultEncoding(language);
             if (charset != null){
-                logger.log(Level.INFO,"Reverting to default encoding for " + language +" : "+ charset);
+                // Reverting to default encoding for lang which is charset
+                logger.log(Level.INFO,MessageFormat.format(
+                        xliffFilterGUIMessages.getString("Reverting_to_default_encoding_for_o_which_is_o"),
+                        new Object[] {language, charset}));
             } else {
-                logger.log(Level.WARNING,"Unable to determine default encoding for "+language+" : using ISO8859-1.");
-                charset = "ISO8859-1";
+                // Unable to determine default encoding for lang, using ISO8859-1
+                logger.log(Level.WARNING, MessageFormat.format(
+                        xliffFilterGUIMessages.getString("Unable_to_determine_default_encoding_for_o_using_o"),
+                        new Object[] {language, "ISO8859-1"}));
+                charset = xliffFilterGUIMessages.getString("ISO8859-1");
             }
         }
         return charset;
@@ -619,10 +664,15 @@ public class XliffFilterFacade {
         // try to determine html file character set (if it has one declared)
         String charset = HtmlMetaTagController.getMetaCharset(file.getAbsolutePath());
         if (charset != null){
-            logger.log(Level.INFO,"Ignoring user-specified charset "+encoding+" since html file "+
-                    file.getName()+" declared it's charset to be " +charset+" - using that instead.");
+            // Ignoring user specified charset encoding since file declared it's charset to be charset, using that instead
+            logger.log(Level.INFO, MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Ignoring_user-specified_charset_o_using_o_instead"),
+                    new Object[] {encoding, charset}));
             if (!java.nio.charset.Charset.isSupported(charset)){
-                logger.log(Level.INFO,"Warning! File-declared charset "+ charset +" doesn't seem to be supported, trying user-supplied encoding...");
+                // Warning ! File declared charset charset doesn't seem to be supported, trying user-supplied charset instead...
+                logger.log(Level.INFO, MessageFormat.format(
+                        xliffFilterGUIMessages.getString("Warning!_File-declared_charset_o"),
+                        new Object[] {charset}));
                 charset = determineEncoding(encoding, language, logger);
             }
         } else {
@@ -640,14 +690,21 @@ public class XliffFilterFacade {
         // try to determine xml file character set
         String encoding = XmlEncodingTagController.getXmlEncoding(file,logger);
         if (encoding != null){
-            logger.log(Level.INFO,"Ignoring user-specified encoding since xml file "+
-                    file.getName()+"either declared it's encoding or defaults to " +encoding+" - using that instead.");
+            logger.log(Level.INFO,MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Ignoring_user-specified_charset_using_o_instead"),
+                    new Object[] {encoding}));
             if (!java.nio.charset.Charset.isSupported(encoding)){
-                logger.log(Level.INFO,"Warning! File-declared charset "+ encoding +" doesn't seem to be supported, defaulting to UTF-8.");
+                // Warning ! File-declared charset doesn't seem to be supported, defaulting to UTF-8
+                logger.log(Level.INFO, MessageFormat.format(
+                        xliffFilterGUIMessages.getString("Warning!_File-declared_charset_UTF"),
+                        new Object[] {encoding}));
                 encoding="UTF-8";
             }
         } else {
-            logger.log(Level.INFO,"Some problem encountered while determining encoding for " +file.getName()+" - defaulting to UTF-8.");
+            // Some problem encountered while determining encoding for file.getName(), defaulting to UTF-8
+            logger.log(Level.INFO,MessageFormat.format(
+                    xliffFilterGUIMessages.getString("Some_problem_encountered_while_determining_encoding_for_o_defaulting_to_UTF-8"),
+                    new Object[] {file.getName()}));
             encoding="UTF-8";
         }
         return encoding;
@@ -662,7 +719,7 @@ public class XliffFilterFacade {
         File sourceDir = new File(sourceDirname);
         File repositoryDir = new File(configStoreDirname);
         if (!sourceDir.isDirectory() || !repositoryDir.isDirectory()){
-            throw new XliffFilterFacadeException("source dir and config dir must be directories !");
+            throw new XliffFilterFacadeException(xliffFilterGUIMessages.getString("source_dir_and_config_dir_must_be_directories_!"));
         }
         try {
             XmlConfigManager.init(configDtd, configStoreDirname);
@@ -671,15 +728,19 @@ public class XliffFilterFacade {
                 if (configFiles[i].canRead()){
                     XmlConfigManager.processConfig(configFiles[i]);
                 } else {
-                    Logger.global.log(Level.WARNING,"Unable to access configuration file "+configFiles[i].getAbsolutePath());
+                    Logger.global.log(Level.WARNING, MessageFormat.format(
+                            xliffFilterGUIMessages.getString("Unable_to_access_configuration_file_o"),
+                            new Object[] {configFiles[i].getAbsolutePath()}));
                 }
             }
         } catch (ProcessXmlConfigException e){
-            XliffFilterFacadeException xfe = new XliffFilterFacadeException("Unable to add files to XML Config Store "+e.getMessage());
+            XliffFilterFacadeException xfe = new XliffFilterFacadeException(
+                    xliffFilterGUIMessages.getString("Unable_to_add_files_to_XML_Config_Store_:_")+e.getMessage());
             xfe.initCause(e);
             throw xfe;
         } catch (IOException e){
-            XliffFilterFacadeException xfe = new XliffFilterFacadeException("IO problem trying to configure XML config store : "+e.getMessage());
+            XliffFilterFacadeException xfe = new XliffFilterFacadeException(
+                    xliffFilterGUIMessages.getString("IO_problem_trying_to_configure_XML_config_store_:_")+e.getMessage());
             xfe.initCause(e);
             throw xfe;
         }

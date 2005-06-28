@@ -22,7 +22,7 @@ package org.jvnet.olt.filters.gui;
  * @author timf
  */
 public class XliffFilterFacadeException extends java.lang.Exception {
-    
+  
     /**
      * Creates a new instance of <code>XliffFilterFacadeException</code> without detail message.
      */
