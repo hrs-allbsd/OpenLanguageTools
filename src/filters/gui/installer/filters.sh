@@ -19,7 +19,7 @@ fi
 
 cd "$INSTALL_PATH"
 
-CLASSPATH=""
+CLASSPATH="resources:"
 for j in classes/*.jar ; do
 	CLASSPATH="$j:${CLASSPATH}"				  
 done
