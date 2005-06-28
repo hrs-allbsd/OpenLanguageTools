@@ -170,7 +170,7 @@ TOKEN :
 TOKEN :
 {
   // I'm currently not allowing "#" and "!" in words just for the time being 
-  <WORD:  ("\\=" | "\\:" | "\\ " | "\\\t" | "\\\f" | ~["\t"," ","\b","\f","=","\\",":","#","!","\n","\r"] )+  >
+  <WORD:  ("\\=" | "\\:" | "\\ " | "\\\t" | "\\\f" | "\\!" | ~["\t"," ","\b","\f","=","\\",":","#","!","\n","\r"] )+  >
 }
 
 /* String literals */
