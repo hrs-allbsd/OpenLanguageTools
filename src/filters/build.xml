@@ -36,7 +36,7 @@
 		</ant>
 
 		<jar destfile="${dest.dir}/formatting-editor.jar" basedir="${build.dir}/${module.filters.editor.name}" includes="**/*.class"/>
-		<jar destfile="${dest.dir}/filters-editor.jar" basedir="${build.dir}/${module.filters.editor.name}" includes="**/*.class"/>
+		<jar destfile="${dest.dir}/filters-editor.jar" basedir="${build.dir}/${module.filters.editor.name}" includes="**/*.class, **/*.properties"/>
 
 	</target>
 	
@@ -119,7 +119,7 @@
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
 		</ant>
 	   
-        <jar destfile="${dest.dir}/filters.jar" basedir="${build.dir}/${module.filters.name}" includes="**/*.class"/>
+        <jar destfile="${dest.dir}/filters.jar" basedir="${build.dir}/${module.filters.name}" includes="**/*.class **/*.properties"/>
 
 	<ant dir="gui" target="dist">
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
