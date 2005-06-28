@@ -243,19 +243,27 @@
         <p>Well, as mentioned <a href="http://open-language-tools.dev.java.net#help">
         here</a> on our project home page, one of the areas we ultimately would like
         help on this project, is to provide translations of the Editor and Filter's
-        user interface. Unfortunately at the moment, our tools are in the somewhat
+        user interface. Unfortunately at the moment, some of our tools are in the 
         embarassing position of not being correctly internationalised ! As 
         <a href="http://www.alanis.com/main.html">Alanis Morisette</a> would say,
         isn't it ironic...  don't you think ?</p>
         
-        <p>The problem is, that we haven't wrapped the user-visible strings in
+        <p>The problem is, that we haven't wrapped many of the user-visible strings in
             calls to methods of <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ResourceBundle.html">
             <code>java.util.ResourceBundle</code></a>, allowing the
             source code to get to a state where it's messages can be translated. 
-            In the meantime, if you're really eager,
-            I guess you could translate our documentation or the contents of our 
-            website, but otherwise (and if you're still seeing this question) the 
-            tools can't be translated yet. If you'd like to help out with the 
+        </p>
+        <p>So far, we can you can translate the
+            <a href="https://open-language-tools.dev.java.net/source/browse/*checkout*/open-language-tools/src/filters/gui/src/org/jvnet/olt/filters/gui/XliffFilterGUIMessages.properties">
+            message file</a> for the XLIFF Filter GUI, but that's all for now - if you want
+            to translate it, feel free - mail me your translations, and I'll pop it
+            into CVS and give you a big credit in the
+            <a href="https://open-language-tools.dev.java.net/source/browse/*checkout*/open-language-tools/AUTHORS">
+            AUTHORS</a> file !
+        </p>
+        <p>Otherwise, if you're really eager,
+            you could translate our documentation or the contents of our 
+            website. If you'd like to help out with the 
             internationalisation work on the code, let us know - we'd love the 
             support !
         </p>
