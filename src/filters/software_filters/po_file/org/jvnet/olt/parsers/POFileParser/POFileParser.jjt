@@ -29,7 +29,7 @@ public class POFileParser //  implements MesgBDParser
    */
   public static final String getVersionInfo()
   {
-    return "PO File Parser - version: $Revision: 1.1 $";
+    return "PO File Parser - version: $Revision: 1.2 $";
   }
  
   // variables for GNU PO file
@@ -190,7 +190,7 @@ TOKEN :
 
 TOKEN :
 {
-  <NEWLINE: "\n">
+  <NEWLINE: ("\n" | "\r\n")>
 }
 
 
@@ -307,7 +307,7 @@ void msgid_text():
 }
 {
   t=<STRING_LITERAL> { s+=t.image; key = t.image; } 
-  ( 
+( 
      ( t=<WS> { s+=t.image;} )?
      arr=message_line(key) { s+= arr[0]; key = arr[1];} 
   )*  
