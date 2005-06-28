@@ -243,11 +243,13 @@ public class SoftwareToXliff {
                 switch (pivFileinfo[i].getType()) {
                     case TokenCell.DOMAIN_KEY_WORD:
                         // we're not doing anything for domains just yet...
+                        formatter.writeFormatting(pivFileinfo[i].getText());
                         break;
                         
                     case TokenCell.DOMAIN:
                         // likewise, no domain specific stuff happening yet...
                         //strDomain = pivFileinfo[i].getText();
+                        formatter.writeFormatting(pivFileinfo[i].getText());
                         break;
                         
                     case TokenCell.MARKER:
