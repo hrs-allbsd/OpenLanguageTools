@@ -18,8 +18,10 @@
 
     <target name="pre-compile" depends="init">
 	<mkdir dir="${build.dir}/org/jvnet/olt/filters/gui"/>
-	<copy file="src/org/jvnet/olt/filters/gui/XliffFilterGUIMessages.properties"
-	      tofile="${build.dir}/org/jvnet/olt/filters/gui/XliffFilterGUIMessages.properties"/>
+	<copy todir="${build.dir}/org/jvnet/olt/filters/gui/">
+	  <fileset dir="src" includes="**/Xliff*.properties"/>
+	</copy>
+		
     </target>
 
     <target name="compile" depends="pre-compile,local-deps,common.compile">
