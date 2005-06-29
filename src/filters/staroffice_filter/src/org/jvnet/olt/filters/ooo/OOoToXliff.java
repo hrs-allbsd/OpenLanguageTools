@@ -63,6 +63,11 @@ public class OOoToXliff {
             xmlTypeMap.put("sxi","OpenOffice.org Impress");
             xmlTypeMap.put("sxc","OpenOffice.org Calc");
             
+            xmlTypeMap.put("odt","Open Document Format Text");
+            xmlTypeMap.put("ods","Open Document Format Spreadsheet");
+            xmlTypeMap.put("odg","Open Document Format Graphics");
+            xmlTypeMap.put("odp","Open Document Format Presentation");
+            
             this.logger = logger;
             File xmlFile = extractContent(oooFile, oooFile.getParent());
             if (xmlFile == null){
@@ -256,7 +261,7 @@ public class OOoToXliff {
                 while ((i=is.read())!=-1){
                     os.write(i);
                 }
-                logger.log(Level.INFO,"Written entry "+entry.getName());
+                logger.log(Level.CONFIG,"Written entry "+entry.getName());
                 os.closeEntry();
                 
                 //System.out.println("Written entry " + entry.getName());

@@ -30,9 +30,12 @@ public class ViewStringsNamespace
  
       XmlDocFragmentParser parser = new  XmlDocFragmentParser(reader);
       parser.parse();
-      System.out.println("Goit here");
-      XmlDocFragmentQualifierFixerVisitor stringView = new XmlDocFragmentQualifierFixerVisitor();
-      parser.walkParseTree(stringView, null);
+      StringViewingVisitor visit = new StringViewingVisitor();
+      parser.walkParseTree(visit, null);
+      XmlDocFragmentQualifierFixerVisitor fixNS = new XmlDocFragmentQualifierFixerVisitor();
+      parser.walkParseTree(fixNS, null);
+      visit = new StringViewingVisitor();
+      parser.walkParseTree(visit, null);
     }
     catch(Exception ex)
     {

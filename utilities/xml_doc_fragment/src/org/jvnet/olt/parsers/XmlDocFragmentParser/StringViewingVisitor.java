@@ -27,6 +27,9 @@ implements XmlDocFragmentParserVisitor
     if(!node.getPrefix().equals("")) {
         System.out.println("*** Prefix is " + node.getPrefix() + " ***");
     }
+    if (!node.getNamespaceID().equals("")){
+        System.out.println("Namespace ID is "+node.getNamespaceID()+" ****");
+    }
     
     if(node.getType() == 23) {
         try {

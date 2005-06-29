@@ -11,8 +11,13 @@ import java.util.*;
 
 public class XmlFilterHelper {
     
-    public static String stripDoubleQuotes(String quotedString) {
-        return quotedString.substring(1, (quotedString.length() - 1));
+    public static String stripDoubleQuotes(String quotedString) {      
+        if (quotedString.charAt(quotedString.length()-1)=='\"' &&
+            quotedString.charAt(0) == '\"'){
+            return quotedString.substring(1, (quotedString.length() - 1));
+        } else {
+            return quotedString;
+        }
     }
   
     public static void printMap(Map namespaceMap) {

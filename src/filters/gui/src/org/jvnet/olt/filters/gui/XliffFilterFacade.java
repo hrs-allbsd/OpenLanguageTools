@@ -113,6 +113,12 @@ public class XliffFilterFacade {
         typeMap.put("sxw", new Integer(OPENOFFICE));
         typeMap.put("sxc", new Integer(OPENOFFICE));
         typeMap.put("sxi", new Integer(OPENOFFICE));
+        // not strictly an OpenOffice format only anymore, but
+        // we use the same mechanism for these files...
+        typeMap.put("odt", new Integer(OPENOFFICE));
+        typeMap.put("ods", new Integer(OPENOFFICE));
+        typeMap.put("odg", new Integer(OPENOFFICE));
+        typeMap.put("odp",new Integer(OPENOFFICE));
         
         //logger.log(Level.FINE,"Initialising xml config manager");
         // need a better way of doing this.

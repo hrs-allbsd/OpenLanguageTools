@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE config SYSTEM "xml-config.dtd">
+<config>
+<head>
+<namespace>urn:oasis:names:tc:opendocument:xmlns:text:1.0</namespace>
+<file-type>Open Document Format text documents namespace</file-type>
+<file-type-description>This is a test xml config file for these types of document</file-type-description>
+<author>Tim Foster</author>
+<generated-by>Manually written xml config file</generated-by>
+<generated-date>29/Jun/2005</generated-date>
+<last-modified-date>29/Jun/2005</last-modified-date>
+</head>
+<body>
+<config-element translatable="yes" hardness="hard">p</config-element>
+<config-element translatable="yes" hardness="inline">s</config-element>
+<config-element translatable="yes" hardness="inline">span</config-element>
+</body>
+</config>
