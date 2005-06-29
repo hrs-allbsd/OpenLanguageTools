@@ -87,6 +87,11 @@ public class OpenOfficeXmlBackConversionCommand implements XmlBackConversionComm
         typeMap.put("OpenOffice.org Calc","sxc");
         typeMap.put("OpenOffice.org Impress","sxi");
         
+        typeMap.put("Open Document Format Text", "odt");
+        typeMap.put("Open Document Format Spreadsheet", "ods");
+        typeMap.put("Open Document Format Graphics", "odg");
+        typeMap.put("Open Document Format Presentation", "odp");
+        
         this.extension = (String)typeMap.get(xmlType);
         if (this.extension == null){
             this.extension="unknown";
@@ -94,8 +99,8 @@ public class OpenOfficeXmlBackConversionCommand implements XmlBackConversionComm
     }
     
     /**
-     * Does XLZ to OpenOffice.org sxw conversion. We assume that all of the required
-     * OOo styles.xml, meta.xml, etc. are already present in the xlz archive.
+     * Does XLZ to OpenOffice.org & OpenDocument conversion. We assume that all of the required
+     * styles.xml, meta.xml, etc. are already present in the xlz archive.
      */
     public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws XmlBackConversionCommandException  {
         try {
@@ -113,7 +118,7 @@ public class OpenOfficeXmlBackConversionCommand implements XmlBackConversionComm
             boolean renamed = xmlFile.renameTo(renamedXMLFile);
             if (!renamed){
                 throw new XmlBackConversionCommandException("Unable to rename input XML file "
-                        +xmlFile.getAbsolutePath()+" to content.xml for inclusion in the OOo archive");
+                        +xmlFile.getAbsolutePath()+" to content.xml for inclusion in the OOo/OpenDocument archive");
             }
             
             // since the XLZ file looks really like the output sxw file, rather than
@@ -128,7 +133,7 @@ public class OpenOfficeXmlBackConversionCommand implements XmlBackConversionComm
             
             
         } catch (java.io.IOException e){
-            throw new XmlBackConversionCommandException("IO Exception thrown while recreating OOo archive from "+originalXlzFilename+" " +
+            throw new XmlBackConversionCommandException("IO Exception thrown while recreating OOo/OpenDocument archive from "+originalXlzFilename+" " +
                     " : "+e.getMessage());
         }
         

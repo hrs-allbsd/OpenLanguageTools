@@ -32,6 +32,10 @@ public class DefaultXmlBackConversionCommandFactory implements XmlBackConversion
         knownCommands.put("OpenOffice.org Writer", new Integer(OPENOFFICE));
         knownCommands.put("OpenOffice.org Impress", new Integer(OPENOFFICE));                           
         knownCommands.put("OpenOffice.org Calc", new Integer(OPENOFFICE));
+        knownCommands.put("Open Document Format Text", new Integer(OPENOFFICE));
+        knownCommands.put("Open Document Format Spreadsheet", new Integer(OPENOFFICE));
+        knownCommands.put("Open Document Format Graphics", new Integer(OPENOFFICE));
+        knownCommands.put("Open Document Format Presentation", new Integer(OPENOFFICE));
     }
 
     /**
