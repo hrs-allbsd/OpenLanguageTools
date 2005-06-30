@@ -48,6 +48,9 @@ public class VariableManagerFactory {
         validFormatsHash.put("PROPERTIES", new Integer(PROPERTIES));
         validFormatsHash.put("PLAINTEXT", new Integer(PLAINTEXT));
         validFormatsHash.put("DTD", new Integer(DTD));
+
+        validFormatsHash.put("STAROFFICE", new Integer(XML));
+
     }
 
     public GlobalVariableManager createVariableManager(java.lang.String type) throws InvalidFormatTypeException {

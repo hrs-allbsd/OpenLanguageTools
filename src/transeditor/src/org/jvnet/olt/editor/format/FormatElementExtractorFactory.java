@@ -48,6 +48,9 @@ public class FormatElementExtractorFactory {
         validFormatsHash.put("DTD", new Integer(DTD));
 
         validFormatsHash.put("PLAINTEXT", new Integer(PLAINTEXT));
+        
+        validFormatsHash.put("STAROFFICE", new Integer(XML));
+        
     }
 
     public FormatElementExtractor createFormatExtractor(String type, GlobalVariableManager gvm) throws InvalidFormatTypeException {
