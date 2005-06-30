@@ -29,62 +29,80 @@ public class TargetHandler extends BaseHandler {
     private Map tgtChangeSet;
     private XLIFFSentence currentSntnc;
     private boolean ignoreChars;
-
+    
     /** Creates a new instance of TargetHandler */
     public TargetHandler(Context ctx) {
         super(ctx);
-
+        
         tgtChangeSet = ctx.getTgtChangeSet();
     }
-
+    
     public void dispatch(org.jvnet.olt.xliff.handlers.Element element, boolean start) throws org.jvnet.olt.xliff.ReaderException {
         if ("target".equals(element.getQName())) {
             if (start) {
                 String transUnitId = ctx.getCurrentTransId();
-
+                
                 if (tgtChangeSet.containsKey(transUnitId)) {
                     currentSntnc = (XLIFFSentence)tgtChangeSet.get(transUnitId);
-
+                    
                     String state = currentSntnc.getTranslationState();
-
+                    
                     if (ctx.getVersion().isXLIFF11()) {
                         state = "x-" + state;
                     }
-
+                    
                     AttributesImpl attrs = new AttributesImpl(element.getAttrs());
                     setAttributeValue(attrs, "state", state);
                     if(ctx.getVersion().isXLIFF10())
                         setAttributeValue(attrs, "xml:lang", ctx.getTargetLang());
-
+                    
                     element = new Element(element.getPrefix(), element.getLocalName(), element.getOriginalQName(), attrs, element.getPath());
-
+                    
                     if (ctx.getVersion().isXLIFF11()) {
                         element.addNamespaceDeclaration(null, Constants.XLIFF_1_1_URI);
                     }
+                    
+                    ignoreChars = true;
+                    
+                    writeElement(element, true);                
+                    char[] ch = currentSntnc.getSentence().toCharArray();
+                    writeChars(ch, 0, ch.length, false);
+                    writeElement(element, false);
                 }
+                else
+                    writeElement(element, true);
+                
             } else {
                 tgtChangeSet.remove(ctx.getCurrentTransId());
-                currentSntnc = null;
+                
+                if(!ignoreChars)
+                    writeElement(element, false);
+
+                ignoreChars = false;
             }
-
-            ignoreChars = currentSntnc != null;
-
+            
+//            ignoreChars = currentSntnc != null;
+            
+//            writeElement(element, start);
+        }
+        else{
             writeElement(element, start);
         }
     }
-
+    
     public void dispatchChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws org.jvnet.olt.xliff.ReaderException {
-        if (currentSntnc != null) {
+/*        if (currentSntnc != null) {
             char[] ch = currentSntnc.getSentence().toCharArray();
             writeChars(ch, 0, ch.length, false);
             currentSntnc = null;
         }
-
+ */
         if (!ignoreChars) {
             writeChars(chars, start, length);
         }
+        
     }
-
+    
     public void dispatchIgnorableChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws ReaderException {
         if (!ignoreChars) {
             writeChars(chars, start, length);
