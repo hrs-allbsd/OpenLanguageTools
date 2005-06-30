@@ -39,15 +39,15 @@
     <target name="backconverters" depends="init" >
          <ant dir="src/backconverters" target="all">
             <property name="classpath" value="${build}/utilities:${build}/filters"/>
-	    <property name="build" value="${build}/backconv"/>
+			    <property name="build" value="${build}/backconv"/>
+			    <property name="build.dir" value="${build}/backconv"/>
          </ant>
     </target>
 
 
     <target name="filters" depends="init, global_utilities">
           <ant dir="src/filters" target="all">
-             <property name="build" value="${build}/filters"/>
-             <property name="classpath" value="${build}/tt-common.jar:${build}/filters"/>
+             <property name="build.dir" value="${build}/filters"/>
           </ant>
     </target>
 

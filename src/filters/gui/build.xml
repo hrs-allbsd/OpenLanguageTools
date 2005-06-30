@@ -5,7 +5,7 @@
 <project name="gui" basedir="." default="all">
     <import file="../../../common.xml"/>
 
-    <property name="installer.dir" value="${build}/installer"/>
+    <property name="installer.dir" value="${build.dir}/installer"/>
     <!-- IzPack setup -->
     <property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.7.0/"/>	
     <taskdef name="izpack" classpath="${IZPACK_HOME}/lib/compiler.jar"
