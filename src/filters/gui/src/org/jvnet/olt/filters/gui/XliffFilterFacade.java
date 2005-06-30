@@ -304,7 +304,7 @@ public class XliffFilterFacade {
                 new Object[] {file.getName()}));
         try {
             // the guid is a cookie that can be set in the xlz file - it's not used here
-            String guid = xliffFilterGUIMessages.getString("");
+            String guid = "";
             String directory = (String)attributes.get("suntrans2.directory");
             if (directory == null) directory="";
             PlaintextToXliff plain = new PlaintextToXliff(directory, file.getAbsolutePath(), language, encoding, logger, guid);
