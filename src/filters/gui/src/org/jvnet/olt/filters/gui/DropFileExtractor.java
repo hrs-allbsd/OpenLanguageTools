@@ -27,6 +27,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.MessageFormat;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 
 /**
@@ -43,7 +45,7 @@ import java.util.logging.Logger;
  */
 public class DropFileExtractor {
     private static final Logger logger = Logger.getLogger(DropFileExtractor.class.getName());
-
+    
     private static final java.util.ResourceBundle xliffFilterGUIMessages = java.util.ResourceBundle.getBundle("org/jvnet/olt/filters/gui/XliffFilterGUIMessages");
     
     /**
@@ -113,12 +115,24 @@ public class DropFileExtractor {
             String[] filenames = s.split("\n");
             
             for (int i = 0; i < filenames.length; i++) {
-                try {                    
-                    URI u = new URI(filenames[i].trim());
+                try {
+                    String uriString = filenames[i].trim();
+                    // Workaround for a KDE bug :
+                    // KDE gives us a "uri" of the form
+                    // file:/<something> and not file://<something>                    
+                    if (!uriString.startsWith("file://")){
+                        if (uriString.startsWith("file:/")){  
+                            uriString = uriString.replaceAll("file:","");                            
+                            // in addition, bleedin' KDE doesn't URI-encode
+                            // the string either, so let's do that too
+                            uriString = "file://"+uriString.replaceAll(" ","%20");
+                        }
+                    }
+                    
+                    URI u = new URI(uriString);
                     File f = new File(u.getPath());
-                    fileList.add(f);                    
+                    fileList.add(f);
                 } catch (URISyntaxException e){
-                    // Unknown URI Syntax : +filenames[i]
                     throw new IOException(MessageFormat.format(
                             xliffFilterGUIMessages.getString("Unknown_URI_syntax_o"),
                             new Object[] {filenames[i]}));
@@ -171,7 +185,7 @@ public class DropFileExtractor {
         while ((i = reader.read()) != -1) {
             buf.append((char)i);
         }
-
+        
         try {
             URI u = new URI(buf.toString().trim());
             File f = new File(u.getPath());
@@ -204,7 +218,7 @@ public class DropFileExtractor {
                 fileList.add(f);
             } else {
                 // List contents of type + content.getClass().toString() are unknown
-                logger.log(Level.SEVERE, 
+                logger.log(Level.SEVERE,
                         MessageFormat.format(
                         xliffFilterGUIMessages.getString("List_contents_of_type_o_are_unknown"),
                         new Object[] {content.getClass().toString()}));
