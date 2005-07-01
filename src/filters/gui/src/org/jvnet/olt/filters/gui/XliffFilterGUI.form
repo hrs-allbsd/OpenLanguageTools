@@ -67,7 +67,7 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jvnet/olt/filters/gui/XliffFilterGUIMessages.properties" key="Show_log_&gt;&gt;&gt;" replaceFormat="xliffFilterGUIMessages.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jvnet/olt/filters/gui/XliffFilterGUIMessages.properties" key="Drop_files_here" replaceFormat="xliffFilterGUIMessages.getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
