@@ -42,7 +42,7 @@ class JAutoSaveDlg extends JDialog {
     private int interval;
 
     public JAutoSaveDlg(JFrame owner, boolean enabled, int interval) {
-        super(owner, "Autosave Property Setting", false);
+        super(owner, "Autosave Property Setting", true);
         m_owner = owner;
         this.bEnable = enabled;
 

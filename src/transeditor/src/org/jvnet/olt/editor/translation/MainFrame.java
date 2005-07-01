@@ -5701,7 +5701,7 @@ OUT:
         boolean tempFile = backend.getConfig().isBFlagTempFile();
 
         JAutoSaveDlg jAd = new JAutoSaveDlg(this, autoSave, interval);
-        jAd.show();
+        jAd.setVisible(true);
 
         if (jAd.isCancelled()) {
             return;
