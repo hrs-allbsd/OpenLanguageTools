@@ -105,6 +105,7 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(150, 200));
         logTextArea.setEditable(false);
+        logTextArea.setLineWrap(true);
         logTextArea.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         jScrollPane1.setViewportView(logTextArea);
 
