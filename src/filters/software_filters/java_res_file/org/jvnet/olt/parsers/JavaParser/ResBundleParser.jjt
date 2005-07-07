@@ -61,7 +61,7 @@ public class ResBundleParser //  implements MesgBDParser
    */
   public static final String getVersionInfo()
   {
-    return "Resource Bundle Parser - version: $Revision: 1.1 $";
+    return "Resource Bundle Parser - version: $Revision: 1.2 $";
   }
 
   protected boolean boolParsed = false;
@@ -754,6 +754,8 @@ void res_line() :
   lcurly_hack()
   (white_sp_or_comment())*
   key_value_pair()
+  (white_sp_or_comment() |
+   comma_hack())*
   (white_sp_or_comment())*
   rcurly_hack() 
 }
@@ -767,6 +769,8 @@ String ns_res_line() :
    // message as normal. Not sure what this will result in :-(
    key_value_pair()
   (st=ns_white_sp_or_comment(){s+=st;})*
+  (st=ns_comma_hack() {s+=st;} | 
+   st=ns_white_sp_or_comment(){s+=st;})*
   st=ns_rcurly_hack() {s+=st;}
   {return s;}
 }
