@@ -40,8 +40,8 @@
          TODO: include the version number in the source code
          in a replacable area so it can be seen in the running app
          -->
-        <property name="build.version" value="1.0"/>
-        <property name="build.version.flat" value="1_0"/>
+        <property name="build.version" value="01072005"/>
+        <property name="build.version.flat" value="01072005"/>
 
         <available 
                 file="${dest.dir}/filters.jar"
@@ -61,6 +61,7 @@
         <copy file="${dest.dir}/tt-common.jar" verbose="true" tofile="${installer.dir}/classes/tt-common.jar"/>
         <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
 	<copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
+	<copy file="${lib.dir}/dtdparser121.jar" verbose="true" todir="${installer.dir}/classes/"/>
 
         <copy todir="${installer.dir}" verbose="true">
             <fileset dir="installer">
@@ -86,6 +87,8 @@
 		<include name="*.xml"/>
 	    </fileset>
         </copy>
+	
+	<copy todir="${installer.dir}/resources/" file="../../../www/olt-branding//icon.png"/>
 
         <!-- copy the license into the distribution -->
         <copy todir="${installer.dir}" file="../../../LICENSE.txt"/>
