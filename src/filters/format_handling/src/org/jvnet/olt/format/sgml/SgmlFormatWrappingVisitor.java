@@ -240,7 +240,8 @@ public class SgmlFormatWrappingVisitor
         m_buffer.append(escapeSgmlTokens(format));
         m_buffer.append("</ept>");
         if (tagName != null){
-            if (segmenterTable.dontSegmentInsideTag(tagName) && protectPcdata){
+            if ((segmenterTable.dontSegmentInsideTag(tagName) || segmenterTable.dontSegmentOrCountInsideTag(tagName))
+                && protectPcdata){
                 phraseMrkLevel--;
                 //System.out.println("Adding CLOSE mrk tag to xliff output");
                 if (phraseMrkLevel==0){
