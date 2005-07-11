@@ -983,7 +983,15 @@ public class XliffHandlerImpl implements XliffHandler {
     public void handle_target(final java.lang.String data,
     final Attributes meta) throws SAXException {
         logger.log(Level.FINEST, "handle_target: " + data);
-
+        // first check the value of the state attribute
+        if(meta != null) {
+            String translationStatus = meta.getValue("state");
+            if(translationStatus != null) {
+                targetTU.setTranslationStatus(translationStatus);
+            }
+        }
+        // this can be if we have a target like:
+        // <target xml:lang="ja-JP" state="user:translated"><mrk mtype="phrase"> foo bar </mrk></target>
         if(data == null) {
             return;
         }
@@ -992,12 +1000,7 @@ public class XliffHandlerImpl implements XliffHandler {
             targetTU.appendToText(data);
         }
 
-        if(meta != null) {
-            String translationStatus = meta.getValue("state");
-            if(translationStatus != null) {
-                targetTU.setTranslationStatus(translationStatus);
-            }
-        }
+        
     }
 
 
