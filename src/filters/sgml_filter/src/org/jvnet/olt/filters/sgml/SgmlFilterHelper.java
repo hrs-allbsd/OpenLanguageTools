@@ -1,6 +1,6 @@
 
 /*
- * Copyright  2005 Sun Microsystems, Inc. 
+ * Copyright  2005 Sun Microsystems, Inc.
  * All rights reserved Use is subject to license terms.
  *
  */
@@ -48,7 +48,7 @@ public class SgmlFilterHelper {
      * @return a normalised version of the input string
      */
     protected static String normalise(StringBuffer buffer) throws SgmlFilterException {
-        // System.out.println("Normalising " + buffer.toString()); 
+        // System.out.println("Normalising " + buffer.toString());
         // we have to see how to do this.
         StringReader reader = new StringReader(buffer.toString());
         NonConformantSgmlDocFragmentParser parser = new NonConformantSgmlDocFragmentParser(reader);
@@ -128,11 +128,10 @@ public class SgmlFilterHelper {
                             //  will be the case unless we are in the states
                             //  WS or CR_AFTER_WS.
                             if( !( state == WS ||
-                            state == CR_AFTER_WS) ) {
+                                    state == CR_AFTER_WS) ) {
                                 bufOut.append(' ');
                             }
-                        }
-                        else {
+                        } else {
                             //  Leave whitespace alone if removeWhitespace is false.
                             bufOut.append((char) ch);
                         }
@@ -141,10 +140,9 @@ public class SgmlFilterHelper {
                     case (int) '\n':
                     case (int) '\r':
                         if( state == WS ||
-                        state == CR_AFTER_WS) {
+                                state == CR_AFTER_WS) {
                             state = CR_AFTER_WS;
-                        }
-                        else {
+                        } else {
                             state = CR;
                         }
                         break;
@@ -159,27 +157,26 @@ public class SgmlFilterHelper {
                                 //  will be the case unless we are in the states
                                 //  WS or CR_AFTER_WS.
                                 if( !( state == WS ||
-                                state == CR_AFTER_WS) ) {
+                                        state == CR_AFTER_WS) ) {
                                     bufOut.append(' ');
                                 }
-                            }
-                            else {
+                            } else {
                                 //  Leave whitespace alone if removeWhitespace is false.
                                 bufOut.append((char) ch);
                             }
                             state = WS;
                         }
                         //----------
-                        else if( state == CR ) { bufOut.append(' '); }
-                        bufOut.append((char) ch);
-                        state = DEFAULT;
+                        else if( state == CR ) { bufOut.append(' '); } else {
+                            bufOut.append((char) ch);
+                            state = DEFAULT;
+                        }
                         break;
                 }
             }
             //  Should we append a space if we end in the CR state?, i.e.
             if( state == CR ) { bufOut.append(' '); }
-        }
-        catch(IOException ioEx) {
+        } catch(IOException ioEx) {
             throw new SgmlFilterException("Caught io exception in normalise function");
         }
         return bufOut.toString();
@@ -284,7 +281,7 @@ public class SgmlFilterHelper {
      *
      * where [end] is one of ';' '\n' '\r' ' ' '&lt;' '&gt;'
      * </pre><br>
-     * 
+     *
      * @return The input string with character references processed as per description.
      * @param segmenterTable the segmenter table used to convert entities
      * @param s The input string
@@ -319,20 +316,17 @@ public class SgmlFilterHelper {
                 if (state == IN_AMP){
                     eroBuf.append(c);
                     state = IN_HASH;
-                }
-                else outputBuf.append(c);
+                } else outputBuf.append(c);
             } else if (c == 'x' || c == 'X'){
                 if (state == IN_HASH){
                     eroBuf.append(c);
                     state = IN_HEXHASH;
-                }
-                else if (state == IN_AMP || state == IN_HASH || state == IN_HEXHASH){
+                } else if (state == IN_AMP || state == IN_HASH || state == IN_HEXHASH){
                     entityBuf.append(c);
                 } else {
                     outputBuf.append(c);
                 }
-            }
-            else if (c == ';' || c == '<' || c == '>' || c == '\n' || c == '\r' || c== ' ' || c=='!'){
+            } else if (c == ';' || c == '<' || c == '>' || c == '\n' || c == '\r' || c== ' ' || c=='!'){
                 // reached something that ends an entity definition : check to see if we're defining an entity
                 if (state == IN_HASH || state == IN_HEXHASH || state == IN_AMP){
                     // in a decimal numeric entity
@@ -365,8 +359,7 @@ public class SgmlFilterHelper {
                 
             } else if (state == IN_AMP || state == IN_HASH || state == IN_HEXHASH){
                 entityBuf.append(c);
-            }
-            else {
+            } else {
                 outputBuf.append(c);
             }
         }
@@ -432,8 +425,7 @@ public class SgmlFilterHelper {
             if (converted){
                 if (c == '<' || c == '>' || c == '\n' || c == '\r' || c == '!' || c == ' '){
                     outputBuf.append((char)c);
-                }
-                else outputBuf.append(';');
+                } else outputBuf.append(';');
             }
             if (!converted){
                 char mychar = (char)myint;
@@ -457,8 +449,7 @@ public class SgmlFilterHelper {
                 outputBuf.append(entityBuf.toString());
                 if (c == '<' || c == '>' || c == '\n' || c == '\r' || c == '!' || c == ' '){
                     outputBuf.append((char)c);
-                }
-                else outputBuf.append(';');
+                } else outputBuf.append(';');
             }
         }
     }
@@ -498,8 +489,7 @@ public class SgmlFilterHelper {
             if (converted){
                 if (c == '<' || c == '>' || c == '\n' || c == '\r' || c == '!' || c == ' '){
                     outputBuf.append((char)c);
-                }
-                else outputBuf.append(';');
+                } else outputBuf.append(';');
             }
             if (!converted){
                 char mychar = (char)myint;
@@ -514,8 +504,7 @@ public class SgmlFilterHelper {
             outputBuf.append(entityBuf.toString());
             if (c == '<' || c == '>' || c == '\n' || c == '\r' || c == '!' || c == ' '){
                 outputBuf.append((char)c);
-            }
-            else outputBuf.append(';');
+            } else outputBuf.append(';');
         }
     }
     
@@ -541,8 +530,7 @@ public class SgmlFilterHelper {
             outputBuf.append(entityBuf.toString());
             if (c == '<' || c == '>' || c == '\n' || c == '\r' || c == '!' || c == ' '){
                 outputBuf.append((char)c);
-            }
-            else outputBuf.append(';');
+            } else outputBuf.append(';');
         }
     }
     
@@ -560,7 +548,7 @@ public class SgmlFilterHelper {
         } else if (msFlag.equals("IGNORE")) {
             return false;
         }
-                
+        
         String variable = gvm.resolveVariable(msFlag,"PARAMETER");
         if (variable.equals("INCLUDE")){
             return true;
@@ -641,14 +629,14 @@ public class SgmlFilterHelper {
             
         } catch (Exception e){
             throw new SgmlFilterException("Exception trying to remove segmentation protection from " +
-            string+" "+e.getMessage());
+                    string+" "+e.getMessage());
         }
         //System.out.println("Ain't doing nuttin");
         //return string;
     }
     
     protected static int countSegment(String segment, SegmenterTable segmenterTable, TagTable tagTable, String language, List tagList)  throws SgmlFilterException{
-        return countSegment(segment, segmenterTable, tagTable, language, tagList, null);      
+        return countSegment(segment, segmenterTable, tagTable, language, tagList, null);
     }
     
     /** Wordcounts a segment
@@ -666,7 +654,7 @@ public class SgmlFilterHelper {
         StringReader reader = new StringReader(completeSegment);
         NonConformantSgmlDocFragmentParser parser = new NonConformantSgmlDocFragmentParser(reader);
         AttributeCountNonConformantSgmlDocFragmentVisitor visitor =
-        new AttributeCountNonConformantSgmlDocFragmentVisitor(segmenterTable,tagTable, language, tagList);
+                new AttributeCountNonConformantSgmlDocFragmentVisitor(segmenterTable,tagTable, language, tagList);
         int count = 0;
         try {
             parser.parse();
@@ -704,18 +692,18 @@ public class SgmlFilterHelper {
             throw new SgmlFilterException("Caught an exception doing wordcounting " + e.getMessage());
         }
         List words = segmenterFacade.getWordList();
-                
+        
         int count=0;
         // now to compute the count
         // == number of words - number of words that are &nbsp; or &gt; or &lt;
         for (int i=0;i<words.size();i++){
-            count++;            
+            count++;
             String word = (String)words.get(i);
             if (word.equals("&nbsp;") ||
-                word.equals("&gt;") || 
-                word.equals("&lt;") ||
-                word.equals("&amp;")){
-                    // we don't count those entities
+                    word.equals("&gt;") ||
+                    word.equals("&lt;") ||
+                    word.equals("&amp;")){
+                // we don't count those entities
                 word = "";
             } else if (gvm!=null){
                 if (wordIsSystemEntityRef(word, gvm)){
@@ -732,7 +720,7 @@ public class SgmlFilterHelper {
         return count;
     }
     
-    private static boolean wordIsSystemEntityRef(String entityRef, GlobalVariableManager gvm){                
+    private static boolean wordIsSystemEntityRef(String entityRef, GlobalVariableManager gvm){
         if (entityRef.charAt(0)=='&' && entityRef.charAt(entityRef.length()-1)==';'){
             return gvm.isVariableDefined(entityRef.substring(1,entityRef.length()-1),"SYSTEM");
         }
