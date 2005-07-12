@@ -1,6 +1,6 @@
 
 /*
- * Copyright  2005 Sun Microsystems, Inc. 
+ * Copyright  2005 Sun Microsystems, Inc.
  * All rights reserved Use is subject to license terms.
  *
  */
@@ -182,15 +182,15 @@ public class SoftwareFileReformat {
             int iNumCells = pivFileinfo.length;
             System.out.println("count="+iNumCells);
             for (int i = 0; i < iNumCells; i++) {
-                               
+                
                 switch (pivFileinfo[i].getType()) {
                     case TokenCell.DOMAIN_KEY_WORD:
-                        System.out.println("domain keyword");
+                        //System.out.println("domain keyword");
                         fileWriter.write(pivFileinfo[i].getText());
                         break;
                         
                     case TokenCell.DOMAIN:
-                        System.out.println("domain");
+                        //System.out.println("domain");
                         //strDomain = pivFileinfo[i].getText();
                         //boolInSunBin = writeSunBinText(pivFileinfo[i].getText(),
                         //boolInSunBin, writer);
@@ -198,7 +198,7 @@ public class SoftwareFileReformat {
                         break;
                         
                     case TokenCell.MARKER:
-                        System.out.println("marker");
+                        //System.out.println("marker");
                         //boolInSunBin = inSunBinTrueTest(boolInSunBin, writer);
                         //writer.print("marker = " + pivFileinfo[i].getText() +"\n");
                         
@@ -215,12 +215,18 @@ public class SoftwareFileReformat {
                         break;
                         
                     case TokenCell.MESSAGE:
-                        System.out.println("message");
+                        //System.out.println("message");
                         if (pivFileinfo[i].isTranslatable()) {
                             //boolInSunBin = inSunBinTrueTest(boolInSunBin, writer);
                             //String temp = formatWrapper.wrapFormatting(pivFileinfo[i].getText());
-                            String message = pivFileinfo[i].getText();
+                            String message = "";
+                            if (pivFileinfo[i].hasTranslation()){
+                                message = pivFileinfo[i].getTranslation();
+                            } else {
+                                message = pivFileinfo[i].getText();
+                            }
                             String msgid = pivFileinfo[i].getKeyText();
+                            
                             if (msgid==null){
                                 msgid="";
                             }
@@ -246,7 +252,7 @@ public class SoftwareFileReformat {
                                     break;
                                 case MessageListGenerator.MSG_FILE:
                                     // FIXME : we need to do something clever here
-                                    // with the start & end segment things due to 
+                                    // with the start & end segment things due to
                                     // the changable $quote directive found in msg
                                     // files.
                                     indent=0;
@@ -279,11 +285,11 @@ public class SoftwareFileReformat {
                         //}
                         
                         break;
-
+                        
                     case TokenCell.CONTEXT:
                         //make sure we ignore
-                    break;
-
+                        break;
+                        
                     default:
                         fileWriter.write(pivFileinfo[i].getText());
                         //formatter.writeFormatting(pivFileinfo[i].getText());
@@ -300,7 +306,7 @@ public class SoftwareFileReformat {
             file.delete();
             File newFile = new File(filename+".formatted");
             if (!newFile.renameTo(file)){
-                throw new IOException ("Problem renaming " + filename+".formatted to "+filename);
+                throw new IOException("Problem renaming " + filename+".formatted to "+filename);
             }
             //package these two files into one .xlz file
             
@@ -316,11 +322,11 @@ public class SoftwareFileReformat {
     private PrintWriter createNewPivFile(Map data, int iDomainNumber)
     throws IOException, UnsupportedEncodingException {
         String strFileName = ((String) data.get("output file name")) + "." +
-        iDomainNumber;
+                iDomainNumber;
         File file = new File(strFileName);
         FileOutputStream stream = new FileOutputStream(file);
         PrintWriter writer = new PrintWriter(new BufferedWriter(
-        new OutputStreamWriter(System.out, "UTF-8")));
+                new OutputStreamWriter(System.out, "UTF-8")));
         
         return writer;
     }
