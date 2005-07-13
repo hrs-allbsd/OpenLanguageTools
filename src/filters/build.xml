@@ -44,8 +44,8 @@
 
 	</target>
 	
-	<!-- target name="dist.st2" depends="init" unless="do.build.editor"-->	
-	<target name="dist.st2" depends="init" unless="do.build.editor">	
+	<!-- target name="dist.st2" depends="init, deps" unless="do.build.editor"-->	
+	<target name="dist.st2" depends="init, deps" unless="do.build.editor">	
    		<echo>Building mapping file parser</echo>
 		
 		<!-- turn off dependency checking off. -->
@@ -139,6 +139,14 @@
     <target name="all" depends="dist"> 
         <echo>Built all XLIFF filters into ${build.dir}</echo>
     </target>
+
+    <!-- build dependencies -->
+        <target name="deps" unless="do.build.deps">
+                <ant dir="../../utilities">
+                        <property name="do.dist.st2" value="please"/>
+                </ant>
+        </target>
+
 
     <target name="nightly" depends="all">
 	<tstamp/>
