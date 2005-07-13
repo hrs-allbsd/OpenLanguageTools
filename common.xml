@@ -8,6 +8,7 @@
     <!-- fallback to common properties in project root; we do this for directories
          which do not have build.local.properties
     -->
+
     <dirname property="common.basedir" file="${ant.file.common}"/>
 	<property file="${common.basedir}/common.properties"/>
 
@@ -101,6 +102,7 @@
 		<path refid="build.classpath"/>
 		<pathelement location="${build.dir}"/>
 	</path>
+	
     <!-- TASKS DEFINITIONS -->
 
 
@@ -215,7 +217,43 @@
 		<echo>all</echo>
 	</target>
 
+   
+    <!-- upload a nightly build to java.net -->
+    <!-- requires build.ant.properties to contain username/passwd details -->
+    <!-- properties : java.net.username == username
+		      java.net.passwd == password
+		      uploaded.file.name == name of file to appear on java.net
+		      uploaded.file.dir == name of directory on java.net
+		      path.to.file == file in build area to upload
+		      description == description of file
+    -->
+    <path id="upload.file.class.path">
+        <fileset dir="${common.basedir}/utilities/jars/javanettasks" includes="**/*.jar"/>
+    </path>
 
 
+    <!-- this does java.net uploads to allow us to do nightly builds
+       Username and pasword information is accessed from a file in
+      ~/.java.net with contents similar to :
+      userName=timf
+      password=yadayada
+      proxyServer=proxy.acme.com
+      proxyPort=8080
+     --> 
+    <target name="upload">
+	<taskdef name="javaNetUpload"
+                 classname="org.kohsuke.jnt.ant.FileUploadTask"
+                 classpathref="upload.file.class.path"/>
+        <echo>Uploading file ${path.to.file} to ${uploaded.file.dir}/${uploaded.file.name}</echo>
+        <javaNetUpload
+                projectName="open-language-tools"
+                toFile="${uploaded.file.dir}/${uploaded.file.name}"
+                fromFile="${path.to.file}"
+                fileDescription="${uploaded.file.description}"
+                overwrite="yes"
+                fileStatus="Draft"
+        />
+        
+    </target>
 
 </project>

@@ -6,6 +6,10 @@
 	<import file="../../common.xml"/>
 
  	<property name="module.filters.name" value="filters"/>
+        <property name="build.version" value="1.0"/>
+        <property name="build.version.flat" value="1_0"/>
+
+
     <property name="module.filters.editor.name" value="filters"/>
 
 	<target name="dist.editor" if="do.build.editor">
@@ -135,6 +139,22 @@
     <target name="all" depends="dist"> 
         <echo>Built all XLIFF filters into ${build.dir}</echo>
     </target>
+
+    <target name="nightly" depends="all">
+	<tstamp/>
+	<ant target="upload">
+	   <property name="path.to.file" value="${dest.dir}/xliff_filters_v${build.version.flat}_unix.tar.gz"/>
+ 	   <property name="uploaded.file.name" value="xliff_filters_nightly-${DSTAMP}_unix.tar.gz"/>
+	   <property name="uploaded.file.dir" value="/Releases/Unstable"/>
+	   <property name="uploaded.file.description" value="XLIFF Filters nightly ${DSTAMP} UNIX"/>
+        </ant>
+        <ant target="upload">
+           <property name="path.to.file" value="${dest.dir}/xliff_filters_v${build.version.flat}_win.zip"/>
+           <property name="uploaded.file.name" value="xliff_filters_nightly-${DSTAMP}_win.zip"/>
+           <property name="uploaded.file.dir" value="/Releases/Unstable"/>
+           <property name="uploaded.file.description" value="XLIFF Filters nightly ${DSTAMP} Windows"/>
+        </ant>
+     </target>
     
          
 </project>

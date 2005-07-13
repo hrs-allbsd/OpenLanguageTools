@@ -187,7 +187,7 @@
                 <include name="org/jvnet/olt/laxparsers/software/"/>
                 <include name="org/jvnet/olt/parsers/MessageFormatParser/"/>
                 <include name="org/jvnet/olt/parsers/PrintfParser/"/>
-				<include name="org/jvnet/olt/parsers/XmlDocFragmentParser/"/>
+		<include name="org/jvnet/olt/parsers/XmlDocFragmentParser/"/>
                 <include name="org/jvnet/olt/so_back_converter/"/>
                 <include name="org/jvnet/olt/util/"/>
                 <include name="org/jvnet/olt/xliff/"/>
@@ -207,11 +207,11 @@
                 <include name="resources/gifs/"/>
                 <include name="resources/LICENSE.txt/"/>
 
-				<!-- include stuff from filters -->
+		<!-- include stuff from filters -->
                 <include name="org/jvnet/olt/tmci/"/>
                 <include name="org/jvnet/olt/filters/software/"/>
                 <include name="org/jvnet/olt/io/"/>
-                <include name="com/sun/tmc/parsers/"/>
+                <include name="org/jvnet/olt/parsers/"/>
             </fileset>
         </jar>
 
@@ -511,6 +511,22 @@
     <target name="setup-compile" depends="init" description="compiles the setup classes">
         <mkdir dir="${build.dir.setup}"/>
         <javac classpathref="javac.classpath" destdir="${build.dir.setup}" includes="org/jvnet/olt/editor/setup/**" srcdir="src"/>
+     </target>
+
+    <target name="nightly" depends="all">
+        <tstamp/>
+        <ant target="upload">
+           <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_sol.tar.gz"/>
+           <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_sol.tar.gz"/>
+	   <property name="uploaded.file.dir" value="/Releases/Unstable"/>
+           <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} UNIX"/>
+        </ant>
+        <ant target="upload">
+           <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_win.zip"/>
+           <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_win.zip"/>
+	   <property name="uploaded.file.dir" value="/Releases/Unstable"/>
+           <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} Windows"/>
+        </ant>
      </target>
 
 </project>
