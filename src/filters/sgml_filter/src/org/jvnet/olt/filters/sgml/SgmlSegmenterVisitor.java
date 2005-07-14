@@ -1285,7 +1285,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             }*/
         } catch (Throwable e){
             e.printStackTrace();
-            th row new SgmlFilterException("Exception while correcting tags on "+ segment+ " - "+ e.getMessage());
+            throw new SgmlFilterException("Exception while correcting tags on "+ segment+ " - "+ e.getMessage());
             
         }
         
