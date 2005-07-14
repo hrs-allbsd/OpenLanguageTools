@@ -1,6 +1,5 @@
-
 /*
- * Copyright  2005 Sun Microsystems, Inc. 
+ * Copyright  2005 Sun Microsystems, Inc.
  * All rights reserved Use is subject to license terms.
  *
  */
@@ -101,7 +100,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
     private GlobalVariableManager gvm;
     private SegmenterFormatter formatter;
     
-    
+    private Stack stateStack;
     private int tagState = DEFAULT;
     // our default state
     private static final int DEFAULT = 0;
@@ -117,7 +116,8 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
     // a configuration flag, to ensure that "dontsegment" is always
     // turned on (useful if the sgml file we're parsing is referenced
     // from a system entity inside a program listing, eg:
-    // <programlisting>&my-sample-code.sgm</programlisting>
+    // <programlisting>&my-sample-code.sgm</programlisting> where
+    // mysample code is in fact a big wodge of java,c,etc.
     private boolean treatFileAsSingleSegment = false;
     
     // a string representing the marked section we're in (if any)
@@ -181,6 +181,9 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
         
         this.converter = converter;
         this.tagList = new ArrayList();
+        this.stateStack = new Stack();
+        //System.out.println("Initialising state to ...");
+        updateSegmentationState(this.tagState);
     }
     
     public void setTreatFileAsSingleSegment(boolean treatFileAsSingleSegment){
@@ -254,43 +257,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                         processComment(simpleNode);
                         break;
                     case TaggedMarkupNodeConstants.CDATA:
-                        /* We deal with CDATA by treating it as a section of verbatim layout
-                         * inline text.
-                         */
-                        // deal with whatever stuff we have at the moment to get it out of the way
-                        switch (tagState){
-                            case VERBATIMLAYOUT:
-                                verbatimBuffer = handleBlockNode(verbatimBuffer,
-                                        simpleNode, false);
-                                break;
-                            case NONSEGMENTABLE:
-                                StringBuffer tmp = new StringBuffer(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegBuffer), "dontsegment"));
-                                inlineNoSegBuffer = handleBlockNode(tmp, simpleNode, false);
-                                break;
-                            case NONCOUNTABLEORSEGMENTABLE:
-                                StringBuffer non = new StringBuffer(SgmlFilterHelper.insertSegmentationProtection(inlineNoSegNoCountBuffer.toString(), "dontsegmentorcount"));
-                                inlineNoSegNoCountBuffer = handleBlockNode(non, simpleNode, false);
-                                break;
-                            case DEFAULT:
-                                buf =  handleBlockNode(buf, simpleNode, false);
-                                break;
-                            default:
-                                System.out.println("WARNING - dropped off the end of a case statement !!");
-                                
-                        }
-                        int savedState = tagState;
-                        tagState = VERBATIMLAYOUT;
-                        
-                        formatter.writeFormatting("<![CDATA[");
-                        String cdata = simpleNode.getNodeData();
-                        TaggedMarkupNode tmp = simpleNode;
-                        tmp.setNodeData(SgmlFilterHelper.wrapXMLChars(cdata.substring(9,cdata.length()-3)));
-                        processPcdata(tmp);
-                        
-                        verbatimBuffer = handleBlockNode(verbatimBuffer, simpleNode, false);
-                        formatter.writeFormatting("]]>");
-                        tagState = savedState;
-                        
+                        processCdata(simpleNode);
                         break;
                     case TaggedMarkupNodeConstants.MARKED_SECTION_TAG:
                         processMarkedSectTag(simpleNode);
@@ -356,11 +323,10 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 // tag, we choose whether to write marked sections or not based on this.
                 this.openTagStack.push(tag);
             }
+            
             // next, work out what state we should be in, based on our current state
             // and the contents of this tag.
-            
             if (tagTable.tagMayContainPcdata(tagName,namespaceID)) { // inline tags
-                
                 switch (tagState){
                     case DEFAULT:
                         // the default state requires a bit of explanation. The idea here is to
@@ -379,6 +345,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             if (!tagTable.tagEmpty(tagName,namespaceID) && !simpleNode.isEmptyTag()){
                                 // if it's not an empty tag, we want to protect the entire tag contents
                                 tagState = NONCOUNTABLEORSEGMENTABLE;
+                                updateSegmentationState(tagState);
                                 nonSegmentableNonCountableStack.push(tag);
                             } else if (nonSegmentableNonCountableStack.isEmpty()){
                                 // just protect the tag itself - important for JSP files
@@ -393,6 +360,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             if (!tagTable.tagEmpty(tagName,namespaceID) && !simpleNode.isEmptyTag()){
                                 // if it's not an empty tag, we protect the tag and it's contents
                                 tagState = NONSEGMENTABLE;
+                                updateSegmentationState(tagState);
                                 nonSegmentableStack.push(tag);
                             } else if (nonSegmentableStack.isEmpty()){
                                 // just protect the tag itself - important for JSP files
@@ -405,6 +373,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             inlineNoTransBuffer.append(nodeData);
                             if (!tagTable.tagEmpty(tagName,namespaceID) && !simpleNode.isEmptyTag()){
                                 tagState = NONTRANSLATABLE;
+                                updateSegmentationState(tagState);
                                 nonTranslatableStack.push(tag);
                             } else if (nonSegmentableStack.isEmpty()){
                                 // just protect the tag itself - important for JSP files
@@ -418,6 +387,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             if (!tagTable.tagEmpty(tagName,namespaceID) && !simpleNode.isEmptyTag()){
                                 verbatimStack.push(tag);
                                 tagState = VERBATIMLAYOUT;
+                                updateSegmentationState(tagState);
                             } else if (verbatimStack.isEmpty()){
                                 // just protect the tag itself - important for JSP files
                                 buf.append(SgmlFilterHelper.insertSegmentationProtection(verbatimBuffer.toString(),"donttranslate"));
@@ -426,22 +396,27 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             
                         } // Normal inline tags
                         else {
+                            updateSegmentationState(tagState);
                             buf.append(nodeData);
                         }
                         break;
                     case VERBATIMLAYOUT:
+                        updateSegmentationState(tagState);
                         verbatimStack.push(tag);
                         verbatimBuffer.append(nodeData);
                         break;
                     case NONTRANSLATABLE:
+                        updateSegmentationState(tagState);
                         nonTranslatableStack.push(tag);
                         inlineNoTransBuffer.append(nodeData);
                         break;
                     case NONCOUNTABLEORSEGMENTABLE:
+                        updateSegmentationState(tagState);
                         nonSegmentableNonCountableStack.push(tag);
                         inlineNoSegNoCountBuffer.append(nodeData);
                         break;
                     case NONSEGMENTABLE:
+                        updateSegmentationState(tagState);
                         nonSegmentableStack.push(tag);
                         inlineNoSegBuffer.append(nodeData);
                         break;
@@ -459,6 +434,9 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 
                 // Depending on which state we're in, we need to empty our buffers
                 // and add them into the main buf for segmentation.
+                
+                // TODO walk back up the tag state, adding buffer contents in
+                // order (starting from the first-added element)
                 switch (tagState){
                     case DEFAULT:
                         // don't need to do anything here.
@@ -478,6 +456,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                     case NONSEGMENTABLE:
                         buf.append(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegNoCountBuffer),"dontsegment"));
                         inlineNoSegBuffer = new StringBuffer();
+                        break;
                     default:
                         System.out.println("WARNING : Dropped off the end of a case statement !");
                 }
@@ -555,7 +534,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             }
             
             if (tagTable.tagMayContainPcdata(tagName,namespaceID)){
-                switch (tagState){
+                switch (this.tagState){
                     case NONSEGMENTABLE:
                         inlineNoSegBuffer.append(nodeData);
                         if (nonSegmentableStack.size() > 0){
@@ -565,7 +544,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             // then we're back at normal segmentable text
                             // System.out.println("Back at normal text again ! " + tagName);
                             buf.append(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegBuffer),"dontsegment"));
-                            tagState = DEFAULT;
                             inlineNoSegBuffer = new StringBuffer();
                         }
                         break;
@@ -578,7 +556,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             // then we're back at normal segmentable text
                             // System.out.println("Back at normal text again ! " + tagName);
                             buf.append(SgmlFilterHelper.insertSegmentationProtection(inlineNoSegNoCountBuffer.toString(),"dontsegmentorcount"));
-                            tagState = DEFAULT;
                             inlineNoSegNoCountBuffer = new StringBuffer();
                         }
                         break;
@@ -591,7 +568,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             //System.out.println("Appending non-trans text to buffer");
                             buf.append(SgmlFilterHelper.insertSegmentationProtection(inlineNoTransBuffer.toString(), "donttranslate"));
                             //System.out.println(buf.toString());
-                            tagState = DEFAULT;
                             inlineNoTransBuffer = new StringBuffer();
                         }
                         break;
@@ -602,7 +578,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                         }
                         if (verbatimStack.empty()){
                             buf.append(SgmlFilterHelper.insertSegmentationProtection(verbatimBuffer.toString(),"verbatim"));
-                            tagState = DEFAULT;
+                            verbatimBuffer = new StringBuffer();
                         }
                         break;
                     case DEFAULT:
@@ -611,16 +587,16 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                     default:
                         System.out.println("WARNING - dropped off the end of a case statement !");
                 }
+                // lastly, go back to our previous state :
+                this.tagState =  retrieveSegmentationState();
                 
             } else { // we've hit a block node - turn *everything* off
                 // in case we haven't closed our various special buffers properly (eg. no close tags)
                 // we'll make sure that it's appended into our main buffer - if those buffer are
                 // empty anyway, this won't do any harm.
-                // FIXME : Problem -  we don't know which order to append these onto the buffer :-(
-                // We could fix this by adding each chunk of text (verbatim, inline, etc.) to a
-                // list (as an object, declaring what type it was) in the order we encounter it,
-                // and then iterate across that list, adding the each chunk to the main "buf"
-                // StringBuffer in sequence. Similar notes under processMarkedSectTag, processOpenTag
+                
+                // TODO : Problem -  we're adding these in the wrong order -- need to fix that
+                // Similar notes under processMarkedSectTag, processOpenTag
                 buf.append(SgmlFilterHelper.insertSegmentationProtection(verbatimBuffer.toString(),"verbatim"));
                 buf.append(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegBuffer),"dontsegment"));
                 buf.append(SgmlFilterHelper.insertSegmentationProtection(inlineNoSegNoCountBuffer.toString(),"dontsegmentorcount"));
@@ -630,8 +606,10 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 inlineNoSegBuffer = new StringBuffer();
                 inlineNoSegNoCountBuffer = new StringBuffer();
                 inlineNoTransBuffer = new StringBuffer();
-                
+                // back to default state
                 tagState = DEFAULT;
+                stateStack.clear();
+                updateSegmentationState(tagState);
                 
                 nonSegmentableStack.clear();
                 nonSegmentableNonCountableStack.clear();
@@ -691,6 +669,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             boolean translatablePcData = translatablePcData();
             if (!translatablePcData){
                 tagState = NONTRANSLATABLE;
+                updateSegmentationState(tagState);
                 formatter.writeFormatting(nodeData);
             } else {
                 
@@ -708,7 +687,13 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                         verbatimBuffer.append(nodeData);
                         break;
                     case DEFAULT:
-                        buf.append(nodeData);
+                        // we're only normalising if the pcdata is 
+                        if (!SgmlFilterHelper.getLeadingWhitespace(nodeData).equals(nodeData)){
+                            buf.append(new StringBuffer(nodeData));
+                        } else {
+                            // whitespace normalise here
+                            buf.append(SgmlFilterHelper.normalise(new StringBuffer(nodeData)));
+                        }
                         break;
                     default:
                         System.out.println("WARNING : dropped off the end of a case statement!");
@@ -853,6 +838,10 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                     buf.append(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegBuffer),"dontsegment"));
                     buf.append(SgmlFilterHelper.insertSegmentationProtection(inlineNoSegNoCountBuffer.toString(),"dontsegmentorcount"));
                     buf.append(SgmlFilterHelper.insertSegmentationProtection(inlineNoTransBuffer.toString(),"donttranslate"));
+                    verbatimBuffer = new StringBuffer();
+                    inlineNoSegBuffer = new StringBuffer();
+                    inlineNoSegNoCountBuffer = new StringBuffer();
+                    inlineNoTransBuffer = new StringBuffer();
                     
                     // Now work out whether we need to write ms content to xlf or skeleton,
                     // so we look for the first "interesting thing" inside the marked sect.
@@ -891,6 +880,13 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                     buf.append(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegBuffer),"dontsegment"));
                     buf.append(SgmlFilterHelper.insertSegmentationProtection(inlineNoSegNoCountBuffer.toString(),"dontsegmentorcount"));
                     buf.append(SgmlFilterHelper.insertSegmentationProtection(inlineNoTransBuffer.toString(),"donttranslate"));
+                    verbatimBuffer = new StringBuffer();
+                    inlineNoSegBuffer = new StringBuffer();
+                    inlineNoSegNoCountBuffer = new StringBuffer();
+                    inlineNoTransBuffer = new StringBuffer();
+                    
+                    
+                    
                     //System.out.println("Got IGNORED marked section"+printNodes(ignoredMarkedSectionNodes));
                     if (nextItemIsBlockTag(ignoredMarkedSectionNodes)){
                         // need to segment what we've got in buf so far (fix for 6234207)
@@ -926,6 +922,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                             ignoredSectionBuffer.append(myNode.getNodeData());
                         }
                         buf.append(SgmlFilterHelper.insertSegmentationProtection(ignoredSectionBuffer.toString(), "donttranslate"));
+                        ignoredSectionBuffer = new StringBuffer();
                     }
                 }
             }
@@ -1007,6 +1004,44 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
         buf = new StringBuffer(BUFFSIZE);
     }
     
+    protected void processCdata(TaggedMarkupNode simpleNode) throws SegmenterFormatterException, IOException{
+         /* We deal with CDATA by treating it as a section of verbatim layout
+          * inline text.
+          */
+        // deal with whatever stuff we have at the moment to get it out of the way
+        switch (tagState){
+            case VERBATIMLAYOUT:
+                verbatimBuffer = handleBlockNode(verbatimBuffer,
+                        simpleNode, false);
+                break;
+            case NONSEGMENTABLE:
+                StringBuffer tmp = new StringBuffer(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegBuffer), "dontsegment"));
+                inlineNoSegBuffer = handleBlockNode(tmp, simpleNode, false);
+                break;
+            case NONCOUNTABLEORSEGMENTABLE:
+                StringBuffer non = new StringBuffer(SgmlFilterHelper.insertSegmentationProtection(inlineNoSegNoCountBuffer.toString(), "dontsegmentorcount"));
+                inlineNoSegNoCountBuffer = handleBlockNode(non, simpleNode, false);
+                break;
+            case DEFAULT:
+                buf =  handleBlockNode(buf, simpleNode, false);
+                break;
+            default:
+                System.out.println("WARNING - dropped off the end of a case statement !!");
+                
+        }
+        updateSegmentationState(this.tagState);
+        tagState = VERBATIMLAYOUT;
+        
+        formatter.writeFormatting("<![CDATA[");
+        String cdata = simpleNode.getNodeData();
+        TaggedMarkupNode tmp = simpleNode;
+        tmp.setNodeData(SgmlFilterHelper.wrapXMLChars(cdata.substring(9,cdata.length()-3)));
+        processPcdata(tmp);
+        
+        verbatimBuffer = handleBlockNode(verbatimBuffer, simpleNode, false);
+        formatter.writeFormatting("]]>");
+        tagState = retrieveSegmentationState();
+    }
     
     /** This method gets called when we've hit a block node, and want to segment the
      * text we've built up in the input StringBuffer. The contents of the buffer are
@@ -1097,7 +1132,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
         return buf;
     }
     
-    
     /** This method actually performs segmentation. It also performs whitespace normalisation
      * if we're not in a verbatimLayout tag.
      * @return A List of segments if applicable. If the text is just whitespace, then we return an empty List.
@@ -1110,11 +1144,8 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
     protected List doSentenceSegmentation(StringBuffer buf)
     throws SgmlFilterException, SegmenterFormatterException {
         
-        // whitespace normalise the input, returning a single element List, if we just
-        // end up with spaces
-        String normalised = SgmlFilterHelper.normalise(buf);
-        // now remove the normalising protection for any protected <screen> tags, for example
-        buf = new StringBuffer(SgmlFilterHelper.removeSegmentationProtection(normalised, "verbatim"));
+        // remove segmentation protection for verbatim layout contents
+        buf = new StringBuffer(SgmlFilterHelper.removeSegmentationProtection(buf.toString(), "verbatim"));
         
         if (buf.length() == 1 && (Character.isWhitespace(buf.charAt(0)))){
             ArrayList tmp = new ArrayList();
@@ -1143,6 +1174,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
         
         tmpSegments = segmenterFacade.getSegments();
         formatting = segmenterFacade.getFormatting();
+        
         /*
          * At this point, I need to "clean up" the segments I've got - that is,
          * if a tag was cut in half, mid segment, I have to fix that, also deal
@@ -1167,19 +1199,18 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             // run get opened again for this segment (complex stuff)
             String unfixedSegment = (String) it.next();
             String result = fixTags(unfixedSegment, closedOnLastSegmentationRun);
+            
             if (result != null){
                 // now remove the leading and trailing spaces and write them as mid-segment formatting
-                
                 String s = SgmlFilterHelper.getLeadingWhitespace(result);
                 if (s.length() != 0){
-                    formatter.writeMidSegmentFormatting(SgmlFilterHelper.getLeadingWhitespace(result));
+                    formatter.writeMidSegmentFormatting(s);
                     result = SgmlFilterHelper.stripLeadingWhitespace(result);
-                    
                 }
+                
                 String trailing = SgmlFilterHelper.getTrailingWhitespace(result);
                 if (trailing.length() != 0){
                     result = SgmlFilterHelper.stripTrailingWhitespace(result);
-                    
                 }
                 // if we've got a segment with just spaces, stripping the leading
                 // and trailing spaces can result in an empty segment. if this is
@@ -1213,6 +1244,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
     }
     
     
+    
     /** this method takes a (possibly) broken segment, and makes sure that the tags balance
      * correctly according to the tagTable that it uses. Note that only tags that need to be
      * closed will be closed ( if (!tagTable.tagEmpty(tagname)) // close tag )
@@ -1228,7 +1260,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
      */
     protected String fixTags(String segment, List closedOnLastRun) throws SgmlFilterException{
         
-        //System.out.println("original = " + segment);
+        
         StringBuffer result= new StringBuffer();
         StringReader tagFixReader = new StringReader(segment);
         NonConformantSgmlDocFragmentParser parser = new  NonConformantSgmlDocFragmentParser(tagFixReader);
@@ -1244,18 +1276,21 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             result.append(sgmlSegmentCorrector.getTextAtBeginning());
             result.append(segment);
             result.append(sgmlSegmentCorrector.getTextAtEnd());
-            //System.out.println("Fixed = " + result.toString());
+            
+            /* for debugging :
+             * if (!segment.equals(result.toString())){
+             *    System.out.println("fixTags Altered a segment :");
+             *    System.out.println("original = " + segment);
+             *    System.out.println("Fixed = " + result.toString());
+            }*/
         } catch (Throwable e){
             e.printStackTrace();
-            throw new SgmlFilterException("Exception while correcting tags on "+ segment+ " - "+ e.getMessage());
+            th row new SgmlFilterException("Exception while correcting tags on "+ segment+ " - "+ e.getMessage());
             
         }
-        // next, normalise the segment - requires a re-parse unfortunately.
-        // Haven't got marked section normalisation done yet
-        // that is, things like "<b><i></i></b>" become ""
-        // and <![ INCLUDE []]> doesn't become "" (but it should)
+        
         try {
-            //System.out.println("Normalising " + result.toString());
+            // System.out.println("Normalising " + result.toString());
             StringReader tagNormaliseReader = new StringReader(result.toString());
             parser = new  NonConformantSgmlDocFragmentParser(tagNormaliseReader);
             parser.parse();
@@ -1483,4 +1518,51 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
         }
     }
     
+    /** Manages access to our current state : that is, whether the current
+     * text is treated as normal inline content, non-segmentable content,
+     * non-translatable, verbatim layout, non-segmentable non-wordcountable ,etc.
+     * It's implemented using a simple stack
+     */
+    private void updateSegmentationState(int state){
+        stateStack.push(new Integer(state));
+        //System.out.println("Moved to state "+printState(state));
+    }
+    
+    /** returns a new segmentation state - see the comments under
+     * updateSegmentationState(int state) for more details.
+     */
+    private int retrieveSegmentationState(){
+        stateStack.pop();
+        Integer i = new Integer(DEFAULT);
+        if (!stateStack.empty()){
+            i = (Integer)stateStack.peek();
+        } else {
+            System.out.println("WARNING - state stack is empty !");
+        }
+        // System.out.println("Back to state " +printState(i.intValue()));
+        return i.intValue();
+    }
+    
+    private String printState(int i){
+        String stateName = "DEFAULT";
+        switch(i){
+            case DEFAULT:
+                break;
+            case NONSEGMENTABLE:
+                stateName = "NONSEGMENTABLE";
+                break;
+            case NONCOUNTABLEORSEGMENTABLE:
+                stateName = "NONCOUNTABLEORSEGMENTABLE";
+                break;
+            case NONTRANSLATABLE:
+                stateName = "NONTRANSLATABLE";
+                break;
+            case VERBATIMLAYOUT:
+                stateName = "VERBATIMLAYOUT";
+                break;
+            default:
+                System.out.println("WARNING : Dropped off the end of a case statement in printState ");
+        }
+        return stateName;
+    }
 }

@@ -49,7 +49,7 @@ public class SgmlSegmentNormaliserVisitor implements NonConformantSgmlDocFragmen
     public Object visit(org.jvnet.olt.filters.NonConformantSgmlDocFragmentParser.SimpleNode simpleNode, Object obj) {
         try {
             switch (simpleNode.getType()){
-                case NonConformantSgmlDocFragmentParserTreeConstants.JJTCLOSE_TAG:
+                case NonConformantSgmlDocFragmentParserTreeConstants.JJTOPEN_TAG:
                     tagStack.push(simpleNode);                
                     break;
                     // these can appear as empty elements in the parse tree -
@@ -57,7 +57,7 @@ public class SgmlSegmentNormaliserVisitor implements NonConformantSgmlDocFragmen
                 case NonConformantSgmlDocFragmentParserTreeConstants.JJTSGML_DATA:
                 case NonConformantSgmlDocFragmentParserTreeConstants.JJTTAG:
                     break;
-                case NonConformantSgmlDocFragmentParserTreeConstants.JJTOPEN_TAG:
+                case NonConformantSgmlDocFragmentParserTreeConstants.JJTCLOSE_TAG:
                     if (!tagStack.empty()){
                         if (!((SimpleNode)tagStack.peek()).getTagName().equals(simpleNode.getTagName()) ||
                                  simpleNode.hasAttribute() ){
