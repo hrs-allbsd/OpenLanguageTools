@@ -25,11 +25,13 @@ public class XLIFFEntityResolver implements EntityResolver {
 
     static {
         schemas.put(new SchemaLocator("-//XLIFF//DTD XLIFF//EN", "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd"), "/resources/xliff.dtd");
+        schemas.put(new SchemaLocator("-//XLIFF//DTD XLIFF//EN", null ), "/resources/xliff.dtd");
         schemas.put(new SchemaLocator(null, "xliff-core-1.1.xsd"), "/resources/xliff-core-1.1.xsd");
         schemas.put(new SchemaLocator(null, "http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"), "/resources/xliff-core-1.1.xsd");
         schemas.put(new SchemaLocator(null, "http://www.w3.org/2001/xml.xsd"), "/resources/xml.xsd");
         schemas.put(new SchemaLocator("-//W3C//DTD XMLSCHEMA 200102//EN", "XMLSchema.dtd"), "/resources/XMLSchema.dtd");
         schemas.put(new SchemaLocator("datatypes", "datatypes.dtd"), "/resources/datatypes.dtd");
+        schemas.put(new SchemaLocator(null , "datatypes.dtd"), "/resources/datatypes.dtd");
     }
 
     static private XLIFFEntityResolver instance = new XLIFFEntityResolver();
@@ -40,6 +42,14 @@ public class XLIFFEntityResolver implements EntityResolver {
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
         logger.finer("Resolving publicId:" + publicId + " systemId:" + systemId);
 
+        //
+        // workaround to support SYSTEM declaration 
+        //
+        if (systemId.endsWith("xliff.dtd") && publicId == null) {
+            publicId = "-//XLIFF//DTD XLIFF//EN";
+            systemId = "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd";
+        }
+        
         if (systemId.endsWith("/XMLSchema.dtd")) {
             systemId = "XMLSchema.dtd";
         }
