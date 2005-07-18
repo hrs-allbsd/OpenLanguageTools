@@ -75,7 +75,7 @@ public class TestSupport {
     static public File makeFile(String subDir, String filename) throws IllegalStateException {
         String dirPath = System.getProperties().getProperty("junit.output.dir");
 
-        Assert.assertNotNull(dirPath);
+        Assert.assertNotNull("junit.output.dir is missing",dirPath);
 
         File fullDir = new File(dirPath, subDir);
         fullDir.mkdirs();
