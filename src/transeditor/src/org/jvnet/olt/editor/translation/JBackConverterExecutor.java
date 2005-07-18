@@ -249,20 +249,24 @@ public class JBackConverterExecutor {
                         }
 
                         if (tmxFailed) {
-                            callback.fileError(BackconversionStatusCallback.ERROR_TMX);
+                            callback.fileError(BackconversionStatusCallback.ERROR_TMX,null);
                         } else {
                             callback.fileSuccess();
                         }
                     } catch (org.jvnet.olt.backconv.BackConverterException xbce) {
                         xbce.printStackTrace();
-                        callback.fileError(BackconversionStatusCallback.ERROR_BACKCONV);
+                        callback.fileError(BackconversionStatusCallback.ERROR_BACKCONV,xbce);
                     } catch (org.jvnet.olt.xliff_tmx_converter.XliffToTmxTransformerException xtc) {
                         xtc.printStackTrace();
-                        callback.fileError(BackconversionStatusCallback.ERROR_TMX);
+                        callback.fileError(BackconversionStatusCallback.ERROR_TMX,xtc);
                     } catch (UnsupportedOperationException uoe) {
                         //frame maker stuff
-                        callback.fileError(BackconversionStatusCallback.ERROR_FRAMEFILE);
+                        callback.fileError(BackconversionStatusCallback.ERROR_FRAMEFILE,null);
+                    } catch (Throwable t){
+                        //anything we catch
+                        callback.fileError(BackconversionStatusCallback.ERROR_UNKNOWN,t);
                     }
+                    
                 }
 
                 callback.conversionEnd();
@@ -297,20 +301,23 @@ public class JBackConverterExecutor {
                     }
 
                     if (tmxFailed) {
-                        callback.fileError(BackconversionStatusCallback.ERROR_TMX);
+                        callback.fileError(BackconversionStatusCallback.ERROR_TMX,null);
                     } else {
                         callback.fileSuccess();
                     }
                 } catch (org.jvnet.olt.backconv.BackConverterException xbce) {
                     xbce.printStackTrace();
-                    callback.fileError(BackconversionStatusCallback.ERROR_BACKCONV);
+                    callback.fileError(BackconversionStatusCallback.ERROR_BACKCONV,xbce);
                 } catch (org.jvnet.olt.xliff_tmx_converter.XliffToTmxTransformerException xtc) {
                     xtc.printStackTrace();
-                    callback.fileError(BackconversionStatusCallback.ERROR_TMX);
+                    callback.fileError(BackconversionStatusCallback.ERROR_TMX,xtc);
                 } catch (UnsupportedOperationException uoe) {
                     //frame maker stuff
-                    callback.fileError(BackconversionStatusCallback.ERROR_FRAMEFILE);
+                    callback.fileError(BackconversionStatusCallback.ERROR_FRAMEFILE,null);
+                } catch (Throwable th){
+                    callback.fileError(BackconversionStatusCallback.ERROR_UNKNOWN,th);
                 }
+                
 
                 callback.conversionEnd();
             }

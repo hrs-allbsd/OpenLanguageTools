@@ -18,6 +18,7 @@ import java.io.File;
  * @author boris
  */
 public interface BackconversionStatusCallback {
+    public static final int ERROR_UNKNOWN  = -1;
     public static final int ERROR_TMX = 0;
     public static final int ERROR_BACKCONV = 1;
     public static final int ERROR_FRAMEFILE = 2;
@@ -28,7 +29,7 @@ public interface BackconversionStatusCallback {
 
     public void fileSuccess();
 
-    public void fileError(int errorCode);
+    public void fileError(int errorCode,Throwable t);
 
     public void conversionEnd();
 
