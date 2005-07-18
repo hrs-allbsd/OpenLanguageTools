@@ -133,6 +133,9 @@ public class XliffToTmxTransformer {
             logger.log(Level.FINE, "Translated target method not found in trans-unit", ex);
 		ex.printStackTrace();
             return false;
+        } catch (NullPointerException ex) {
+            logger.log(Level.FINE, "Count not parse the XLIFF file", ex);
+            throw new XliffToTmxTransformerException(ex.getMessage());
         } catch (SAXException ex) {
             logger.log(Level.FINE, "Could not parse the XLIFF file", ex);ex.printStackTrace();
             throw new XliffToTmxTransformerException(ex.getMessage());
@@ -210,6 +213,9 @@ public class XliffToTmxTransformer {
             logger.log(Level.FINE,
                 "Could not configure the XSLT transformer", ex);
             throw new XliffToTmxTransformerException();
+        } catch (NullPointerException ex) {
+            logger.log(Level.FINE, "Count not parse the XLIFF file", ex);
+            throw new XliffToTmxTransformerException(ex.getMessage());
         } catch (SAXException ex) {
             logger.log(Level.FINE, "Could not parse the XLIFF file", ex);
             throw new XliffToTmxTransformerException(ex.getMessage());

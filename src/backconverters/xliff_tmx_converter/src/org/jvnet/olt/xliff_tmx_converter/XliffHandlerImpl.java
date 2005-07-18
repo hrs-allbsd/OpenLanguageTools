@@ -735,6 +735,10 @@ public class XliffHandlerImpl implements XliffHandler {
         if(inTransUnit) {
             String state = meta.getValue("state");
             
+            if(state==null) {
+                throw new NullPointerException("Cannot generate tmx. Segment has not defined state.");
+            }
+            
             if(state.equals("100-Match:approved")){
                 isTranslated = true; 
             }
