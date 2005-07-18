@@ -5,6 +5,7 @@
  */
 package org.jvnet.olt.xliff;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,20 +14,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-import java.net.MalformedURLException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
-import org.jvnet.olt.editor.translation.Constants;
-import org.jvnet.olt.editor.translation.OpenFileFilters;
 import org.jvnet.olt.editor.util.FileUtils;
 import org.jvnet.olt.editor.util.LanguageMappingTable;
 import org.jvnet.olt.editor.util.MultiWriter;
@@ -37,7 +34,9 @@ import org.jvnet.olt.utilities.XliffZipFileIO;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
+import org.xml.sax.SAXParseException;
+
+
 
 
 /**
@@ -49,90 +48,180 @@ public class XLIFFParser {
     private static final Logger logger = Logger.getLogger(XLIFFParser.class.getName());
     private org.jvnet.olt.xliff.XLIFFModel model = null;
     private org.jvnet.olt.xliff.SAXWriter writer = null;
-
+    
+    private static final int FILE_TYPE_XLF = 0;
+    private static final int FILE_TYPE_XLZ = 1;
+    
     //added by tony 07-31
     public XLIFFSentence[] m_xlfSrcSentences;
     public XLIFFSentence[] m_xlfTgtSentences;
-    private List m_IDList = null;
-    private String m_strSourceLanguage = null;
-    private String m_strTargetLanguage = null;
-    private int m_iSize = 0;
 
+    private String sourceLang = null;
+    private String targetLang = null;
+    
+    private int m_iSize = 0;
+    
     //end of tony's addition
     private XliffZipFileIO xlzZipFile = null;
     private File sourceFile;
     private File tempCopy;
+
     private TrackingGroup m_groupTracking = null;
     private TrackingComments m_commentsTracking = null;
     private AttributesFactory m_attrFactory = null;
     private TrackingSourceContext m_sourceContextTracking = null;
-    private String m_originalDataType;
-
+    private String originalDataType;
+    
+    private boolean didFastOpen;
+    private File file;
+    private int fileType;
+    private Version version;
+    
+    public XLIFFParser(File file){
+        this.file = file;
+        
+        this.sourceFile = new File(file.getAbsolutePath());
+    }
+    
+    /** this method examines the file to open.
+     *
+     * Result of examination is:
+     * <ul>
+     *  <li>File type xlz or xlf</li>
+     *  <li>XLIFF version 1.0/1.1</li>
+     *  <li>Source / Target languages</li>
+     * </ul>
+     *
+     */
+    public void examineFile() throws NestableException,IOException{
+        try{
+            fileType = guessFileType(file);
+            
+            java.io.Reader isr = getReader();
+            try {
+                guessFileVersion(isr);
+                if(version == null)
+                    throw new NestableException("Wrong version","Unknown version");
+                
+            } finally {
+                if(isr != null)
+                    isr.close();
+            }
+            
+        } catch (Exception e){
+            throw new NestableException(e);
+        } finally{
+            didFastOpen = true;
+        }
+    }
+    
+    private int guessFileType(File f) throws IOException {
+        ZipFile zf = null;
+        try{
+            zf = new ZipFile(f);
+            return FILE_TYPE_XLZ;
+        } catch (ZipException ze){
+            return FILE_TYPE_XLF;
+        } finally{
+            if(zf != null)
+                zf.close();
+        }
+        
+    }
+    
+    private java.io.Reader getReader() throws IOException{
+        if(fileType == FILE_TYPE_XLF)
+            return new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+        else if(fileType == FILE_TYPE_XLZ){
+            xlzZipFile = new XliffZipFileIO(file);
+            return new BufferedReader(xlzZipFile.getXliffReader());
+            
+        } else
+            throw new IllegalStateException("unknown file type");
+    }
+    
     //TODO change param to File
     //bug 4758111
-    public XLIFFParser(File file) throws NestableException, Exception {
-        sourceFile = new File(file.getAbsolutePath());
+    public void readFile() throws IOException,NestableException {
         
         try {
-            Version ver = null;
-
             //logger.finer(aSourceXLIFFFilePath);
+            
+            java.io.Reader r = getReader();
+            
+            long t1 = System.currentTimeMillis();
+            
+            SAXReader reader = new SAXReader(version);
+            model = reader.parse(r);
+            long t2 = System.currentTimeMillis();
+            logger.info("Document read in " + ((t2 - t1) / 1000.0) + " seconds");
+            logger.info("Avg speed:" + ((model.getSize() * 1000.0) / (t2 - t1)) + " segs/sec");
+            
+            writer = new org.jvnet.olt.xliff.SAXWriter(version);
+            
+            build();
+        } catch (ZipException ze){
+            throw new NestableException(ze);
+        } catch (SAXParseException spe){
+            throw new NestableException(spe);
+        } catch (SAXException sa){
+            throw new NestableException(sa);
+        } catch(ParserConfigurationException pce){
+            throw new NestableException(pce);
+        }
+/*
+ 
             if (OpenFileFilters.isFileNameXLF(file)) {
                 FileInputStream fis = new FileInputStream(file);
                 InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-
-                try {
-                    ver = guessFileVersion(isr);
-                } finally {
-                    isr.close();
-                }
-
+ 
+ 
                 fis = new FileInputStream(file);
                 isr = new InputStreamReader(fis, "UTF-8");
-
+ 
                 long t1 = System.currentTimeMillis();
                 SAXReader reader = new SAXReader(ver);
                 model = reader.parse(isr);
-
+ 
                 long t2 = System.currentTimeMillis();
                 logger.info("Document read in " + ((t2 - t1) / 1000.0) + " seconds");
                 logger.info("Avg speed:" + ((model.getSize() * 1000.0) / (t2 - t1)) + " segs/sec");
-
+ 
                 writer = new org.jvnet.olt.xliff.SAXWriter(model.getVersion());
-
+ 
                 //TODO remove from here
                 writer.saveTargetLanguageCode(model.getTargetLanguage());
             } else {
                 xlzZipFile = new XliffZipFileIO(file);
-
+ 
                 java.io.Reader rdr = xlzZipFile.getXliffReader();
-
+ 
                 try {
                     ver = guessFileVersion(rdr);
                 } finally {
                     rdr.close();
                 }
-
+ 
                 long t1 = System.currentTimeMillis();
                 SAXReader reader = new SAXReader(ver);
                 model = reader.parse(xlzZipFile.getXliffReader());
-
+ 
                 long t2 = System.currentTimeMillis();
                 logger.info("Document read in " + ((t2 - t1) / 1000.0) + " seconds");
                 logger.info("Avg speed:" + ((model.getSize() * 1000.0) / (t2 - t1)) + " segs/sec");
                 writer = new SAXWriter(model.getVersion());
-
+ 
                 //TODO remove from here
                 writer.saveTargetLanguageCode(model.getTargetLanguage());
             }
-
+ 
             //TODO clean up the mess below
         } catch (MalformedURLException e) {
             logger.throwing(getClass().getName(), "XLIFFParser", e);
             throw new NestableException(e);
         } catch (ZipException ze) {
             logger.throwing(getClass().getName(), "XLIFFParser", ze);
-
+ 
             if (ze.getMessage().equals("Error - entry for content.xlf doesn't exist")) {
                 throw new Exception("xlzFileInvalid");
             } else {
@@ -146,53 +235,62 @@ public class XLIFFParser {
             logger.throwing(getClass().getName(), "XLIFFParser", ee);
             throw ee;
         }
+ */
     }
-
-    private Version guessFileVersion(java.io.Reader r) throws IOException, SAXException, ParserConfigurationException {
+    
+    private Version guessFileVersion(java.io.Reader r)
+    throws IOException, SAXException, ParserConfigurationException,NestableException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(false);
         factory.setNamespaceAware(true);
-
+        
         SAXParser saxParser = factory.newSAXParser();
-
-        XLIFFFastFailParser ffp = new XLIFFFastFailParser(XLIFFFastFailParser.SEARCH_TYPE_VERSION);
-
+        
+        XLIFFFastFailParser ffp = new XLIFFFastFailParser(XLIFFFastFailParser.SEARCH_TYPE_LANGS);
+        
         try {
             saxParser.parse(new InputSource(r), ffp);
+            
+            
         } catch (XLIFFFastFailParser.FailureException fe) {
             logger.info("Failure while opening guessing the XLIFF version");
             logger.info("the file is not a valid XLIFF file");
-
+            
+            throw new NestableException("unknown version");
             //handle failure
         } catch (XLIFFFastFailParser.SuccessException se) {
             logger.info("XLIFF version:" + (ffp.getVersion().isXLIFF10() ? "1.0" : "1.1"));
         } finally {
-            return ffp.getVersion();
+            version = ffp.getVersion();
+            sourceLang = ffp.getSourceLanguage();
+            targetLang = ffp.getTargetLanguage();
+            
+            return version;
         }
     }
-
-    public boolean build() {
-        m_strSourceLanguage = model.getSourceLanguage();
-        m_strTargetLanguage = model.getTargetLanguage();
-        m_originalDataType = model.getOriginalDataType();
-
+    
+    private boolean build() {
+        sourceLang = model.getSourceLanguage();
+        targetLang = model.getTargetLanguage();
+        originalDataType = model.getOriginalDataType();
+        
         m_groupTracking = model.getGroupTrack();
         m_commentsTracking = model.getCommentsTrack();
         m_sourceContextTracking = model.getSourceContextTrack();
         m_attrFactory = model.getAttrFactory();
-
+        
         m_iSize = model.getSize();
         m_xlfSrcSentences = new XLIFFSentence[m_iSize];
         m_xlfTgtSentences = new XLIFFSentence[m_iSize];
-
+        
         int j = 0;
-
+        
         for (Iterator i = model.getIDArray().iterator(); i.hasNext(); j++) {
             String key = (String)i.next();
             m_xlfSrcSentences[j] = (XLIFFSentence)model.getGroupZeroSource().get(key);
             m_xlfTgtSentences[j] = (XLIFFSentence)model.getGroupZeroTarget().get(key);
         }
-
+        
         /*
                 for(int i=0;i<m_iSize;i++) {
                     m_xlfSrcSentences[i] = (XLIFFSentence)gReader.getGroupZeroSource().get(m_IDList.get(i));
@@ -203,101 +301,102 @@ public class XLIFFParser {
          */
         return true;
     }
-
-    public void cleanMemory() {
+    
+    public void shutdown() {
         model = null;
-
+        
         //TODO think of something smart here
         //  System.gc();
     }
-
+    
     /*
     public List getIDArray() {
         if(m_IDList == null) m_IDList = gReader.getIDArray();
         return m_IDList;
     }
-    */
+     */
     public List getAltTransMatchInfo(String aTransUnitId) {
         ArrayList theList = (ArrayList)model.getGroupAltTrans().get(aTransUnitId);
-
+        
         if (theList == null) {
             return new ArrayList();
         }
-
+        
         return theList;
     }
-
+    
     public void saveSourceSegment(XLIFFSentence aSentence) throws NestableException {
         writer.saveSourceSentence(aSentence);
     }
-
+    
     public void saveTargetSegment(XLIFFSentence aSentence) throws NestableException {
         writer.saveTargetSentence(aSentence);
     }
-
+    
     public void setTargetLanguage(String strTgtLanInput) {
-        m_strTargetLanguage = strTgtLanInput;
-
+        targetLang = strTgtLanInput;
+        
         //        try{
         writer.saveTargetLanguageCode(strTgtLanInput);
         model.setTargetLanguage(strTgtLanInput);
-
+        
         //        } catch  (NestableException ne) {
         //            ne.printStackTrace();
         //        }
     }
-
+    
     private void prepareFile(File fInput) throws IOException {
         try {
             if ((fInput == null) || sourceFile.equals(fInput)) {
                 return;
             }
-
+            
             boolean boolNoOpenedFile = (xlzZipFile == null);
             boolean boolFlatXliffFile = fInput.getName().endsWith("xlf");
-
+            
             //  Guard clause to ensure no attempt is made to write an XLZ file when
             //  skeleton data does not exist.
             if (boolNoOpenedFile && !boolFlatXliffFile) {
                 throw new MissingSklDataException("There is no skeleton data available to write an XLZ file.");
             }
-
-            if (boolFlatXliffFile) {
-                xlzZipFile = new XliffZipFileIO(fInput);
-
+            
+            //if (boolFlatXliffFile) {
+            //    xlzZipFile = new XliffZipFileIO(fInput);
+                
                 //gWriter.setSaveAsFileWriter(xlzZipFile);
-            } else {
+            //} else {
+            if (!boolFlatXliffFile) {
                 if (!xlzZipFile.hasSkeleton()) {
                     throw new MissingSklDataException("There is no skeleton data available to write an XLZ file.");
                 }
-
+                
                 //  Read in the Skeleton data
                 java.io.Reader sklReader = xlzZipFile.getSklReader();
-
+                
                 XliffZipFileIO xlzZipFileNew = new XliffZipFileIO(fInput);
                 java.io.Writer sklWriter = xlzZipFileNew.getSklWriter();
-
+                
                 int ch = 0;
-
+                
                 while ((ch = sklReader.read()) != -1) {
                     sklWriter.write((char)ch);
                 }
-
+                
                 xlzZipFile = xlzZipFileNew;
-
+                
                 //gWriter.setSaveAsFileWriter(xlzZipFileNew);
             }
         } catch (IOException ioec) {
-            ioec.printStackTrace();
+            throw ioec;
         }
     }
-
+    
     public void saveToFile(File dstFile) throws NestableException {
         try {
             prepareFile(dstFile);
-
+            
             writer.saveComments(m_commentsTracking);
-
+            
             //What we do here: when saving file we need to parse the original file and inject
             //the modified data into into the XML stream
             //So we need the orig file while we write out the new file. Therefore we can not use
@@ -317,32 +416,32 @@ public class XLIFFParser {
             throw new NestableException("SAXException", sae);
         }
     }
-
+    
     private void saveToRegularFile(File destFile) throws IOException, SAXException {
         java.io.Writer xwriter = null;
         java.io.Reader reader = null;
         java.io.Writer realWriter = null;
         java.io.Writer tempCopyWriter = null;
-
+        
         if (tempCopy == null) {
             tempCopy = File.createTempFile("ste", ".xlf");
             FileUtils.copyFiles(sourceFile, tempCopy);
         }
-
+        
         File tempCopy2 = File.createTempFile("ste", ".xlf");
-
+        
         boolean useTemp = false;
-
+        
         try {
             xwriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(destFile), "UTF-8"));
             tempCopyWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempCopy2), "UTF-8"));
             reader = new InputStreamReader(new FileInputStream(tempCopy), "UTF-8");
-
+            
             realWriter = new MultiWriter(new java.io.Writer[] { tempCopyWriter, xwriter });
-
-            writer.saveTargetLanguageCode(m_strTargetLanguage);
+            
+            writer.saveTargetLanguageCode(targetLang);
             writer.write(reader, realWriter);
-
+            
             tempCopy.delete();
             tempCopy = tempCopy2;
         } finally {
@@ -354,7 +453,7 @@ public class XLIFFParser {
                     ;
                 }
             }
-
+            
             if (writer != null) {
                 try {
                     xwriter.flush();
@@ -363,7 +462,7 @@ public class XLIFFParser {
                     ;
                 }
             }
-
+            
             if (tempCopyWriter != null) {
                 try {
                     tempCopyWriter.flush();
@@ -372,7 +471,7 @@ public class XLIFFParser {
                     ;
                 }
             }
-
+            
             if (reader != null) {
                 try {
                     reader.close();
@@ -382,39 +481,39 @@ public class XLIFFParser {
             }
         }
     }
-
+    
     private void saveToXLZFile(XliffZipFileIO xlz) throws IOException, SAXException {
         java.io.Writer realWriter = null;
         java.io.Writer xwriter = null;
         java.io.Reader reader = null;
         java.io.Writer tempCopyWriter = null;
-
+        
         if (tempCopy == null) {
             tempCopy = File.createTempFile("ste", ".xlf");
-
-            reader = xlzZipFile.getXliffReader();
+            
+            reader = xlz.getXliffReader();
             FileUtils.copyStreamToFile(reader, tempCopy);
             reader.close();
         }
-
+        
         File tempCopy2 = File.createTempFile("ste", ".xlf");
-
+        
         try {
-            reader = xlzZipFile.getXliffReader();
-            xwriter = xlzZipFile.getXliffWriter();
-
+            reader = xlz.getXliffReader();
+            xwriter = xlz.getXliffWriter();
+            
             tempCopyWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempCopy2), "UTF-8"));
             realWriter = new MultiWriter(new java.io.Writer[] { tempCopyWriter, xwriter });
             reader = new InputStreamReader(new FileInputStream(tempCopy), "UTF-8");
-
-            writer.saveTargetLanguageCode(m_strTargetLanguage);
+            
+            writer.saveTargetLanguageCode(targetLang);
             writer.write(reader, realWriter);
-
+            
             realWriter.close();
             reader.close();
-
-            xlzZipFile.writeZipFile();
-
+            
+            xlz.writeZipFile();
+            
             tempCopy.delete();
             tempCopy = tempCopy2;
         } finally {
@@ -425,7 +524,7 @@ public class XLIFFParser {
                     ;
                 }
             }
-
+            
             if (writer != null) {
                 try {
                     xwriter.close();
@@ -433,7 +532,7 @@ public class XLIFFParser {
                     ;
                 }
             }
-
+            
             if (tempCopyWriter != null) {
                 try {
                     tempCopyWriter.close();
@@ -441,7 +540,7 @@ public class XLIFFParser {
                     ;
                 }
             }
-
+            
             if (reader != null) {
                 try {
                     reader.close();
@@ -451,47 +550,47 @@ public class XLIFFParser {
             }
         }
     }
-
+    
     public int getSize() {
         return m_iSize;
     }
-
+    
     public String getSourceLanguage() {
-        if (m_strSourceLanguage == null) {
+        if (sourceLang == null) {
             return null;
         }
-
+        
         LanguageMappingTable name2id = LanguageMappingTable.getInstance();
-
-        return (String)name2id.translateLangCode(m_strSourceLanguage);
+        
+        return (String)name2id.translateLangCode(sourceLang);
     }
-
+    
     public String getTargetLanguage() {
-        if (m_strTargetLanguage == null) {
+        if (targetLang == null) {
             return null;
         }
-
+        
         LanguageMappingTable name2id = LanguageMappingTable.getInstance();
-
-        return (String)name2id.translateLangCode(m_strTargetLanguage);
+        
+        return (String)name2id.translateLangCode(targetLang);
     }
-
+    
     public XLIFFSentence[] getSourceXLIFFSentences() {
         return m_xlfSrcSentences;
     }
-
+    
     public XLIFFSentence[] getTargetXLIFFSentences() {
         return m_xlfTgtSentences;
     }
-
+    
     public TrackingGroup getGroupTrack() {
         return m_groupTracking;
     }
-
+    
     public TrackingComments getCommentsTrack() {
         return m_commentsTracking;
     }
-
+    
     /**
      * A method to return the <context> information associated with each
      * <source> element within a trans-unit, used to help the translator
@@ -500,17 +599,18 @@ public class XLIFFParser {
     public TrackingSourceContext getSourceContextTrack() {
         return m_sourceContextTracking;
     }
-
+    
     public AttributesFactory getAttrFactory() {
         return m_attrFactory;
     }
-
+    
     public String getOriginalDataType() {
-        return m_originalDataType;
+        return originalDataType;
     }
-
+    
     public void populateVariableManager(GlobalVariableManager gvm) {
         //  Delegate to the MrkContentTracker
         model.populate(gvm);
     }
+    
 }

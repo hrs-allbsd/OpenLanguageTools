@@ -826,7 +826,7 @@ public class TMData extends PivotData {
                 tmsentences[i].build();
             }
         } finally {
-            xliffparser.cleanMemory();
+            xliffparser.shutdown();
         }
 
         return true;

@@ -49,11 +49,15 @@ class OpenFileThread extends Thread {
 
             XLIFFParser xp = new XLIFFParser(file);
 
-            if (!xp.build()) {
-                post.buildMethodFailed();
+            xp.examineFile();
+            
+            xp.readFile();
+            
+            //if (!xp.build()) {
+            //    post.buildMethodFailed();
 
-                return;
-            }
+            //    return;
+            //}
 
             TMData tmpdata = new TMData(project, xp);
 
