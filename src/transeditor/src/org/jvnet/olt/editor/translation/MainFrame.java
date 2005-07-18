@@ -1006,10 +1006,13 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 disableGUI();
                 m_timer.stop();
 
-                backend.saveFileToTemp();
-
-                m_timer.restart();
-                enableGUI();
+                try{
+                    backend.saveFileToTemp();
+                }                
+                finally {
+                    m_timer.restart();
+                    enableGUI();
+                }
             }
         };
 
@@ -2698,9 +2701,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
         int result = f.showOpenDialog(this);
 
-        switch (result) {
-        case JFileChooser.APPROVE_OPTION: // ok
-
+        if(result == JFileChooser.APPROVE_OPTION){
             try {
                 //bug 4821917
                 backend.resetBeforeOpen();
@@ -2743,11 +2744,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
                 return false;
             }
-
-            break;
-
-        case JFileChooser.CANCEL_OPTION: // cancel
-            break;
         }
 
         return true;
@@ -2807,6 +2803,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             Runnable saveCurrentFileRunnable = new SaveCurrentFileThread(this, backend);
             Thread saveCurrentFileThread = new Thread(saveCurrentFileRunnable);
             saveCurrentFileThread.start();
+            
         } catch (Exception ex) {
             System.err.println("Thread synchronization problem, possible race condition.");
             ex.printStackTrace();

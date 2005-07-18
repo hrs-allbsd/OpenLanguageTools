@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 import org.jvnet.olt.editor.model.*;
 import org.jvnet.olt.editor.util.FileUtils;
@@ -50,6 +51,8 @@ public class Backend {
     private Configuration config;
     private List projPropLstnrs = new LinkedList();
 
+    private boolean saveInProgress = false;
+    
     //Creates a new instance of Backend 
     private Backend(Configuration cfg) {
         this.config = cfg;
@@ -145,15 +148,26 @@ public class Backend {
         return doSaveFile(newFile, false);
     }
 
-    private boolean doSaveFile(File newFile, boolean autosave) {
+    private boolean doSaveFile(File newFile, boolean autosave) throws IllegalStateException {
         if ((newFile == null) || (tmpdata == null)) {
             return false;
         }
 
+        logger.finest("Will toggle save in progress");
+    
+        synchronized(this){
+            if(saveInProgress)
+                throw new IllegalStateException("Save in progress");
+            saveInProgress = true;
+        }
+                    
+        logger.finest("Thread "+Thread.currentThread().getName()+ " saving file");
+        
+        
         try {
             boolean writeProtected = config.isBFlagWriteProtection();
 
-            tmpdata.saveAllTranslations(false, writeProtected);
+            tmpdata.saveAllTranslations(autosave, writeProtected);
 
             //TODO get rid of target lang from MainFrame
             //TODO Do we actually need to set the targ lang ??
@@ -167,6 +181,13 @@ public class Backend {
             logger.severe("Exception:" + ne);
 
             return false;
+        }
+        finally{
+            synchronized(this){
+                logger.finest("Will toggle save in progress off");
+
+                saveInProgress = false;
+            }
         }
     }
 
@@ -256,6 +277,7 @@ public class Backend {
 
     public void tryToOpenFile(File f, OpenFileThread.PostXLIFFOpenHandler postHandler) {
         resetBeforeOpen();
+        
         new OpenFileThread(f, this, postHandler).start();
     }
 
@@ -384,4 +406,7 @@ public class Backend {
 
         return currentTemp;
     }
+    
+    
+    
 }
