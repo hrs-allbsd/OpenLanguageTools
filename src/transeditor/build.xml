@@ -328,7 +328,6 @@
     </target>
 
     <!-- we need to setup working dir and different classpath -->
-	<!--
     <target name="test" depends="pre-test,compile">
         <junit printsummary="yes" haltonfailure="no" dir=".">
             <classpath>
@@ -358,7 +357,6 @@
 		</junitreport>
     
     </target>
-    -->
     
 
 	<target name="online">
