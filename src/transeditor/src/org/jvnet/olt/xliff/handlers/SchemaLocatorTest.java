@@ -37,7 +37,7 @@ public class SchemaLocatorTest extends TestCase{
     }
 
     public void testLookupBySystem(){
-        SchemaLocator loc = new SchemaLocator(null,"SYSTEM");
+        SchemaLocator loc = new SchemaLocator("PUBLIC","SYSTEM");
         
         SchemaLocator tst1 = new SchemaLocator("PUBLIC",null);
         SchemaLocator tst2 = new SchemaLocator("PUBLIC","SYSTEM");
@@ -45,7 +45,7 @@ public class SchemaLocatorTest extends TestCase{
         
         assertFalse(tst1.equals(loc));
         assertEquals(tst2,loc);
-        assertEquals(tst3,loc);
+        assertFalse(tst3.equals(loc));
         
         
     }
