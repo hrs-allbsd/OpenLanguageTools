@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Logger;
+import java.util.zip.ZipException;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -43,6 +44,8 @@ import org.jvnet.olt.editor.spellchecker.SpellCheckerAPI;
 import org.jvnet.olt.editor.translation.preview.FilePreviewPane;
 import org.jvnet.olt.editor.util.*;
 import org.jvnet.olt.minitm.MiniTMException;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 
 /**
@@ -688,28 +691,64 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         }
 
         public void exceptionThrown(Throwable exce) {
+            String defaultMsg =  "An unknown error occured while opening this file.\n" + 
+                    "Please copy the text in editor console and send it to\n" + 
+                    "dev@open-language-tools.dev.java.net along with a copy\n" + 
+                    "of the source file.";
+            
             if (exce instanceof java.lang.OutOfMemoryError) {
                 JOptionPane.showMessageDialog(MainFrame.this, "The application was not able to allocate enough memory while opening the XLIFF file." + "\n Please consult the user manual on how to increase the amount of available application memory.", "Not Enough Memory", JOptionPane.OK_OPTION);
 
                 return;
             }
 
+            
+            
+            if(exce instanceof NestableException){
+                String msg = defaultMsg;
+                NestableException ne = (NestableException)exce;
+                Throwable th2 = ne.getCause();
+                
+                if(th2 instanceof SAXException){
+                    SAXParseException sxe = (SAXParseException)th2;
+                    msg = "The file is not well-formed XML document.\nError occured at line "+
+                            sxe.getLineNumber()+" column:"+sxe.getColumnNumber()+
+                            "\nError message:"+sxe.getMessage();
+                    
+                    
+                }
+                if(th2 instanceof IOException){
+                    msg = "An input/output error occured:\n"+th2.getMessage();
+                }
+                if(th2 instanceof ZipException){
+                    msg = "The xlz file seems to be corrupted:\n"+th2.getMessage();
+                }
+                
+                JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
             exce.printStackTrace();
 
-            if (exce.getMessage() != null) {
+            //TODO review the exception handling below; right now it's turned off
+            
+            if (exce.getMessage() != null && false) {
                 Toolkit.getDefaultToolkit().beep();
 
+                //TODO  this is thrown by Languages.getFlagPath() ouch !
                 if (exce.getMessage().equals("LanguageError")) {
                     JOptionPane.showMessageDialog(MainFrame.this, "Invalid .xlz file - language(s) error", "Error", JOptionPane.ERROR_MESSAGE);
+                //TODO thrown by XLIFF parser when zip is broken
                 } else if (exce.getMessage().equals("xlzFileInvalid")) {
                     JOptionPane.showMessageDialog(MainFrame.this, "Invalid .xlz file.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (exce.getMessage().indexOf("Open Language Tools Exception") != -1) {
+                //TODO generic NestableException
                     JOptionPane.showMessageDialog(MainFrame.this, "There is a fatal error when opening the file.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(MainFrame.this, "Open failed, please check the file which you opened.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(MainFrame.this, "An unknown error occured while opening this file.\n" + "Please copy the text in editor console and send it to\n" + "dev@open-language-tools.dev.java.net along with a copy\n" + "of the source file.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(MainFrame.this, defaultMsg+"\nError message:"+exce.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
 
