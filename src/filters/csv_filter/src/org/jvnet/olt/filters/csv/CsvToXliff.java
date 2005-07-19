@@ -71,6 +71,10 @@ public class CsvToXliff {
             throw new CsvToXliffException("Error - keys \"field.separator\", \"escape.char\" and \"total.fields\" must be specified in properties file !");
         }
         
+        if (separatorStr.length() != 1 || escapeStr.length() != 1){
+            throw new CsvToXliffException("Field separator and escape chars can be 1 character in length at the moment.");
+        }
+        
         this.separator = new Character(separatorStr.charAt(0));
         this.escape = new Character(escapeStr.charAt(0));
         this.totalFields = Integer.parseInt(totalStr);
