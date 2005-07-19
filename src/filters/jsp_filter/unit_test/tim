@@ -1,2 +1,0 @@
-This is a <a href="<%jsp tag here%>"> with <%=value=%> an inline </a><% BLOCK JSP HERE %> bit as well - this should be a separate segment.
-<p><% this is a large section of jsp text %>

@@ -1,4 +1,0 @@
-#!/bin/sh
-CLASSPATH=/space/timf/transtech-build
-export CLASSPATH
-java com.sun.tt.filters.NonConformantSgmlDocFragmentParser.ViewStrings $@
