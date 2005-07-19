@@ -74,7 +74,7 @@ public class SgmlSegmentCorrectorVisitor implements NonConformantSgmlDocFragment
     }
     
     public void setValue(String value){
-        //this.value = value;
+        this.value = value;
     }
     
     /** This method does the main work of fixing the html input.
@@ -95,7 +95,6 @@ public class SgmlSegmentCorrectorVisitor implements NonConformantSgmlDocFragment
                         Tag tag = null;
                         if (tagList.size() == 0 || index > tagList.size()-1){
                             System.out.println("Hit open tag called " + simpleNode.getTagName());
-                            System.out.println("WUh Wuh Wuh!");
                             tag = new Tag(simpleNode.getTagName(),"Unknown Namespace !",null);
                         } else {
                             tag = (Tag)tagList.get(index);
@@ -121,7 +120,7 @@ public class SgmlSegmentCorrectorVisitor implements NonConformantSgmlDocFragment
                         }
                         else { // we have unmatched tags in this segment
                             System.out.println("Unmatched Tag " + simpleNode.getNodeData());
-                            System.out.println(value);
+                            // System.out.println(value);
                             tagStack.pop();
                         }
                     }
