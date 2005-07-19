@@ -26,6 +26,7 @@ import org.jvnet.olt.xliff.ReaderException;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -240,33 +241,31 @@ public class ParserX extends DefaultHandler {
     }
 
     //Error handling below:
-    void location() {
-        System.out.print("Location: ");
+    void location(SAXParseException spe) {
+        logger.info("Location: ");
 
         if (locator == null) {
-            logger.finer("?");
+            logger.info("?");
         } else {
-            logger.finer("Line:" + locator.getLineNumber() + " col:" + locator.getColumnNumber());
+            logger.info("Line:" + spe.getLineNumber() + " col:" + spe.getColumnNumber());
         }
     }
 
     public void warning(org.xml.sax.SAXParseException exception) throws org.xml.sax.SAXException {
-        logger.finer("warning Exception:" + exception);
-        location();
-        exception.printStackTrace();
+        logger.warning("warning Exception:" + exception);
+        location(exception);
     }
 
     public void fatalError(org.xml.sax.SAXParseException exception) throws org.xml.sax.SAXException {
-        logger.finer("fatalError Exception:" + exception);
-        location();
+        logger.severe("fatalError Exception:" + exception);
+        location(exception);
         throw exception;
     }
 
     public void error(org.xml.sax.SAXParseException exception) throws org.xml.sax.SAXException {
-        logger.finer("error Exception:" + exception);
-        location();
+        logger.severe("error Exception:" + exception);
+        location(exception);
 
-        //exception.printStackTrace();
         throw exception;
     }
 
