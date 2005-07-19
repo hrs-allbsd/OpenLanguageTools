@@ -27,7 +27,6 @@ import org.xml.sax.helpers.AttributesImpl;
  */
 public class TargetHandler extends BaseHandler {
     private Map tgtChangeSet;
-    private XLIFFSentence currentSntnc;
     private boolean ignoreChars;
     
     /** Creates a new instance of TargetHandler */
@@ -39,64 +38,64 @@ public class TargetHandler extends BaseHandler {
     
     public void dispatch(org.jvnet.olt.xliff.handlers.Element element, boolean start) throws org.jvnet.olt.xliff.ReaderException {
         if ("target".equals(element.getQName())) {
-            if (start) {
-                String transUnitId = ctx.getCurrentTransId();
-                
-                if (tgtChangeSet.containsKey(transUnitId)) {
-                    currentSntnc = (XLIFFSentence)tgtChangeSet.get(transUnitId);
-                    
-                    String state = currentSntnc.getTranslationState();
-                    
-                    if (ctx.getVersion().isXLIFF11()) {
-                        state = "x-" + state;
-                    }
-                    
-                    AttributesImpl attrs = new AttributesImpl(element.getAttrs());
-                    setAttributeValue(attrs, "state", state);
-                    if(ctx.getVersion().isXLIFF10())
-                        setAttributeValue(attrs, "xml:lang", ctx.getTargetLang());
-                    
-                    element = new Element(element.getPrefix(), element.getLocalName(), element.getOriginalQName(), attrs, element.getPath());
-                    
-                    if (ctx.getVersion().isXLIFF11()) {
-                        element.addNamespaceDeclaration(null, Constants.XLIFF_1_1_URI);
-                    }
-                    
-                    ignoreChars = true;
-                    
-                    writeElement(element, true);                
-                    char[] ch = currentSntnc.getSentence().toCharArray();
-                    writeChars(ch, 0, ch.length, false);
-                    writeElement(element, false);
-                }
-                else
-                    writeElement(element, true);
-                
-            } else {
-                tgtChangeSet.remove(ctx.getCurrentTransId());
-                
-                if(!ignoreChars)
-                    writeElement(element, false);
+            ignoreChars = false;
 
-                ignoreChars = false;
+            //end tag -- just dump out
+            if(!start){
+                writeElement(element, start);
+                return;
             }
             
-//            ignoreChars = currentSntnc != null;
+            String transUnitId = ctx.getCurrentTransId();
+
+            //has sentence changed ? -- no
+            if (!tgtChangeSet.containsKey(transUnitId)){
+                writeElement(element, true);
+                return;
+            }
+
+            //If the sntns has been changed write it out and forbid overwriting
+            XLIFFSentence currentSntnc = (XLIFFSentence)tgtChangeSet.get(transUnitId);
+            Element newElement = updateElementState(element,currentSntnc.getTranslationState());
             
-//            writeElement(element, start);
-        }
-        else{
-            writeElement(element, start);
+            writeElement(newElement, true);
+            char[] ch = currentSntnc.getSentence().toCharArray();
+            writeChars(ch, 0, ch.length, false);
+            
+            tgtChangeSet.remove(ctx.getCurrentTransId());
+            ignoreChars = true;
+        } else {
+            
+            //copy all mixed content unless we dumped the sentence already
+            if(!ignoreChars)
+                writeElement(element, start);
         }
     }
     
-    public void dispatchChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws org.jvnet.olt.xliff.ReaderException {
-/*        if (currentSntnc != null) {
-            char[] ch = currentSntnc.getSentence().toCharArray();
-            writeChars(ch, 0, ch.length, false);
-            currentSntnc = null;
+    /** Create new element which reflects new sentence state
+     *
+     */
+    private org.jvnet.olt.xliff.handlers.Element updateElementState(org.jvnet.olt.xliff.handlers.Element element,String state) {
+        
+        
+        if (ctx.getVersion().isXLIFF11()) {
+            state = "x-" + state;
         }
- */
+        
+        AttributesImpl attrs = new AttributesImpl(element.getAttrs());
+        setAttributeValue(attrs, "state", state);
+        if(ctx.getVersion().isXLIFF10())
+            setAttributeValue(attrs, "xml:lang", ctx.getTargetLang());
+        
+        element = new Element(element.getPrefix(), element.getLocalName(), element.getOriginalQName(), attrs, element.getPath());
+        
+        if (ctx.getVersion().isXLIFF11()) {
+            element.addNamespaceDeclaration(null, Constants.XLIFF_1_1_URI);
+        }
+        return element;
+    }
+    
+    public void dispatchChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws org.jvnet.olt.xliff.ReaderException {
         if (!ignoreChars) {
             writeChars(chars, start, length);
         }
@@ -108,4 +107,10 @@ public class TargetHandler extends BaseHandler {
             writeChars(chars, start, length);
         }
     }
+
+    public boolean handleSubElements() {
+        return true;
+    }
+    
+    
 }
