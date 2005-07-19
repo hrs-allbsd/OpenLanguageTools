@@ -242,7 +242,6 @@ public class DocbookTagTable implements TagTable {
         verbatimSet.add("programlisting");
         verbatimSet.add("programlistingco");
         verbatimSet.add("literallayout");
-        verbatimSet.add("synopsis");
         verbatimSet.add("screenshot");
         
         //  "EMPTY" tags

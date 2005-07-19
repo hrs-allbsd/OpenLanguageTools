@@ -71,6 +71,7 @@ public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.Segme
         dontSegmentSet.add("holder");
         dontSegmentSet.add("year");
         dontSegmentSet.add("copyright");
+        dontSegmentSet.add("synopsis");
 
         dontSegmentSet.add("address");
         dontSegmentSet.add("city");
@@ -80,6 +81,7 @@ public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.Segme
         dontSegmentSet.add("state");
         dontSegmentSet.add("publishername");
         
+        dontSegmentSet.add("funcsynopsisinfo");
         // these are non-segmentable non countable tags that are inline
         
         dontSegmentOrCountSet.add("programlisting");
