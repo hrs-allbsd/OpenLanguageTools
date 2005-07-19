@@ -175,7 +175,9 @@ public class MiniTMFrame extends JPanel {
             AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(iSrcTableSel + i, 0, true)); //icon
             AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(iSrcTableSel + i, AlignmentMain.testMain2.showType, true));
         }
-
+        
+        theMatch.handleWhenSelected();
+        
         AlignmentMain.testMain2.startEditing();
     }
 
