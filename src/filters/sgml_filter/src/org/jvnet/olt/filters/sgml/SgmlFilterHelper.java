@@ -171,7 +171,7 @@ public class SgmlFilterHelper {
                             }                            
                         }
                         //----------
-                        else if( state == CR ) { bufOut.append('\n'); }
+                        else if( state == CR ) { bufOut.append(' '); }
                         bufOut.append((char) ch);
                         state = DEFAULT;
                         break;
