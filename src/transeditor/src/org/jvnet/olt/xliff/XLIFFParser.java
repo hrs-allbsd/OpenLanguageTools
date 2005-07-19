@@ -101,7 +101,7 @@ public class XLIFFParser {
             try {
                 guessFileVersion(isr);
                 if(version == null)
-                    throw new NestableException("Wrong version","Unknown version");
+                    throw new NestableException("Wrong version");
                 
             } finally {
                 if(isr != null)
@@ -153,6 +153,7 @@ public class XLIFFParser {
             
             SAXReader reader = new SAXReader(version);
             model = reader.parse(r);
+            
             long t2 = System.currentTimeMillis();
             logger.info("Document read in " + ((t2 - t1) / 1000.0) + " seconds");
             logger.info("Avg speed:" + ((model.getSize() * 1000.0) / (t2 - t1)) + " segs/sec");
@@ -411,9 +412,9 @@ public class XLIFFParser {
                 saveToRegularFile(dstFile);
             }
         } catch (IOException ioe) {
-            throw new NestableException("IOException", ioe);
+            throw new NestableException(ioe);
         } catch (SAXException sae) {
-            throw new NestableException("SAXException", sae);
+            throw new NestableException(sae);
         }
     }
     
