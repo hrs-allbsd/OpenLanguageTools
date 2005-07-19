@@ -119,6 +119,9 @@
        <ant dir="staroffice_filter">
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
 		</ant>
+	<ant dir="csv_filter">
+			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
+	</ant>
 	<ant dir="gui" target="compile">
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
 		</ant>

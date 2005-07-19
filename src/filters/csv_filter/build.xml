@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<!-- this is a child build script -->
+
+<project name="csv_filter" basedir="." default="all">
+	<import file="../../../common.xml"/>
+
+        <path id="build.classpath">
+		<path location="${build.dir}"/>
+		<path refid="deps.common.util"/>
+	</path>
+	
+	<target name="compile" depends="pre-compile,local-deps,common.compile">
+	</target>
+
+	<target name="local-deps" unless="do.build.deps">
+		<ant dir="../segmenter_formatters">
+		   <property name="build.dir" value="${build.dir}"/>
+                </ant>
+		<ant dir="../format_handling">
+		   <property name="build.dir" value="${build.dir}"/>
+		</ant>
+	</target>
+</project>
