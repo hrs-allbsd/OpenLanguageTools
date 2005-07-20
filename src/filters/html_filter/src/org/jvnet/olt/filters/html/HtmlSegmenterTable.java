@@ -24,7 +24,7 @@ import java.util.HashMap;
 public class HtmlSegmenterTable implements org.jvnet.olt.parsers.tagged.SegmenterTable {
     private HashSet dontSegmentSet;
     private HashSet dontSegmentOrCountSet;
-    private HashSet containsTranslatableSet;
+    private HashSet nonTranslatablePcdataSet;
     private HashMap hasTranslatableAttrMap;
     private HashMap segmentLevelMap;
     private HashMap entityMap;
@@ -38,10 +38,9 @@ public class HtmlSegmenterTable implements org.jvnet.olt.parsers.tagged.Segmente
         
         hasTranslatableAttrMap = new HashMap();
         segmentLevelMap = new HashMap();
-        containsTranslatableSet = new HashSet();
+        nonTranslatablePcdataSet = new HashSet();
         
         dontSegmentOrCountSet.add("script");
-        dontSegmentOrCountSet.add("style");
         dontSegmentOrCountSet.add("code");
         
         dontSegmentSet.add("caption");
@@ -361,6 +360,7 @@ public class HtmlSegmenterTable implements org.jvnet.olt.parsers.tagged.Segmente
         entityMap.put("rsaquo",new Character('\u203a'));
         entityMap.put("euro",new Character('\u20ac'));
         
+        nonTranslatablePcdataSet.add("style");
     }
     
     /**
@@ -462,9 +462,10 @@ public class HtmlSegmenterTable implements org.jvnet.olt.parsers.tagged.Segmente
     }
     
     public boolean containsTranslatableText(String tag) {
-        if (dontSegmentOrCountSet.contains(tag.toLowerCase())){
+        if (nonTranslatablePcdataSet.contains(tag.toLowerCase())){
             return false;
-        } else return true;
+        }
+        else return true;
     }
     
     public boolean containsTranslatableText(String tag, String namespaceID) {

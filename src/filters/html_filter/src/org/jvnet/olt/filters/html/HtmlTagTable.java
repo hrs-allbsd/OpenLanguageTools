@@ -18,9 +18,8 @@ package org.jvnet.olt.filters.html;
  */
 
 import java.util.HashSet;
-import org.jvnet.olt.parsers.SgmlDocFragmentParser.*;
 
-public class HtmlTagTable implements TagTable, org.jvnet.olt.parsers.tagged.TagTable {
+public class HtmlTagTable implements org.jvnet.olt.parsers.tagged.TagTable {
     
     private HashSet pcdataSet;
     private HashSet verbatimSet;
@@ -71,7 +70,7 @@ public class HtmlTagTable implements TagTable, org.jvnet.olt.parsers.tagged.TagT
         // appears to be inline...
         pcdataSet.add("desc");
         pcdataSet.add("script");
-        pcdataSet.add("style");
+        //pcdataSet.add("style");
         pcdataSet.add("option");
         pcdataSet.add("img");
         pcdataSet.add("area");
