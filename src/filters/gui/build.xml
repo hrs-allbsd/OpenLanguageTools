@@ -40,8 +40,6 @@
          TODO: include the version number in the source code
          in a replacable area so it can be seen in the running app
          -->
-        <property name="build.version" value="01072005"/>
-        <property name="build.version.flat" value="01072005"/>
 
         <available 
                 file="${dest.dir}/filters.jar"

@@ -50,6 +50,7 @@
 			<include name="**/*.xml"/>
 	    </fileset>
 	    <file src="resources/xml-config.dtd" targetdir="${INSTALL_PATH}/resources"/>
+	    <file src="resources/icon.png" targetdir="${INSTALL_PATH}/resources"/>
 	    <file src="resources/.xml-config-store/README" targetdir="${INSTALL_PATH}/resources/.xml-config-store/"/>
 			<parsable targetfile="$INSTALL_PATH/filters.sh" os="unix"/>
 			<parsable targetfile="$INSTALL_PATH/Filters.desktop" os="unix"/>
