@@ -49,7 +49,7 @@ public class VariableManagerFactory {
         validFormatsHash.put("PLAINTEXT", new Integer(PLAINTEXT));
         validFormatsHash.put("DTD", new Integer(DTD));
 
-        validFormatsHash.put("STAROFFICE", new Integer(XML));
+        validFormatsHash.put("STAROFFICE", new Integer(PLAINTEXT));
 
     }
 
