@@ -9,7 +9,7 @@
     <info>
         <appname>Open Language Tools XLIFF Translation Editor</appname>
         <appversion>@VERSION@</appversion>
-		<appsubpath>Open Language Tools/XLIFF Translation Editor/@VERSION@</appsubpath>
+        <appsubpath>Open Language Tools/XLIFF Translation Editor/@VERSION@</appsubpath>
         <authors>
             <author name="Open Language Tools project" email="dev@open-language-tools.dev.java.net"/>
         </authors>
@@ -42,21 +42,22 @@
             <description>This component includes all the needed Translation Editor files</description>
             <file src="LICENSE.txt" targetdir="$INSTALL_PATH"/>
             <fileset dir="." targetdir="$INSTALL_PATH">
-				<include name="**/*.jar"/>
-			</fileset>
-			<file src="translation.sh" targetdir="$INSTALL_PATH"/>
-			<file src="logging.properties" targetdir="$INSTALL_PATH"/>
-			<file src="Editor.desktop" targetdir="$INSTALL_PATH"/>
-			<file src="OLT_XLIFF_Translation_Editor_Manual_@VERSION_FLAT@.pdf" targetdir="$INSTALL_PATH"/>
-			<parsable targetfile="$INSTALL_PATH/translation.sh" os="unix"/>
-			<parsable targetfile="$INSTALL_PATH/Editor.desktop" os="unix"/>
-			<executable stage="never" targetfile="$INSTALL_PATH/translation.sh" os="unix"/>
+                <include name="**/*.jar"/>
+            </fileset>
+            <file src="translation.sh" targetdir="$INSTALL_PATH"/>
+            <file src="logging.properties" targetdir="$INSTALL_PATH"/>
+            <file src="Editor.desktop" targetdir="$INSTALL_PATH"/>
+            <file src="OLT_XLIFF_Translation_Editor_Manual_@VERSION_FLAT@.pdf" targetdir="$INSTALL_PATH"/>
+            <parsable targetfile="$INSTALL_PATH/translation.sh" os="unix"/>
+            <parsable targetfile="$INSTALL_PATH/Editor.desktop" os="unix"/>
+            <executable stage="never" targetfile="$INSTALL_PATH/translation.sh" os="unix"/>
         </pack>
         <pack name="Spellchecker" required="no" preselected="yes">
             <description>This component includes the Spell Checker feature</description>
-            <fileset dir="spellchecker/" targetdir="$INSTALL_PATH/spellchecker/bin/"> 
-				<include name="**/*"/>
-			</fileset>
+            <fileset dir="spellchecker/" targetdir="$INSTALL_PATH/spellchecker/"> 
+                <include name="**/*"/>
+            </fileset>
+            <executable stage="never" targetfile="$INSTALL_PATH/spellchecker/bin/aspell" os="unix"/>
         </pack>
     </packs>
 </installation>

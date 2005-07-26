@@ -5276,8 +5276,17 @@ OUTER2:
                 editorHome = backend.getConfig().getHome().getAbsolutePath();
             }
 
-            proc = Runtime.getRuntime().exec(SpellCheckerAPI.getCommand(editorHome, dictLang));
+            proc = Runtime.getRuntime().exec(SpellCheckerAPI.getCommand(editorHome, dictLang,lang));
 
+            try{
+                int x = proc.exitValue();
+                logger.warning("Spellchecker process has died with exit code:"+x);
+            }
+            catch(IllegalThreadStateException ite){
+                //We IGNORE THIS EXCEPTION
+                logger.finer("The spellchecker process seems to be OK so far");
+            }
+            
             /*errorGobbler = new
             StreamGobbler(proc.getErrorStream(), "ERROR");
 
@@ -5372,10 +5381,12 @@ OUT:
                         int flag = -1;
                         resultString = null;
 
+                        logger.finest("Checking word:"+word);
                         SpellCheckerAPI.checkWord(pw, word);
 
+                        
                         resultString = SpellCheckerAPI.getResult(br);
-
+                        logger.finest("Result string:"+resultString);
                         if (resultString == null) {
                             break OUT;
                         }
@@ -5393,6 +5404,7 @@ OUT:
                                         suggestion.add(tokens2.nextToken().trim());
                                     }
                                 }
+                                logger.finest("Result suggestions:"+suggestion);
 
                                 PivotTextPane.wordInRowIndex = i;
                                 PivotTextPane.wordStart = offset + curP;
