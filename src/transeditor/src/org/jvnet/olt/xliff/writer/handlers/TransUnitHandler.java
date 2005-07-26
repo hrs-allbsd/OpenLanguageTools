@@ -59,7 +59,9 @@ public class TransUnitHandler extends BaseHandler {
                 if (targetNeedsSave()) {
                     saveTarget();
                 }
-
+                if(commentNeedsSave()){
+                    saveComment();
+                }
                 transUnitId = null;
             }
         } else {
@@ -67,7 +69,7 @@ public class TransUnitHandler extends BaseHandler {
                 saveTarget();
             }
 
-            if (((start && "alt-trans".equals(element.getQName())) || (!start && "trans-unit".equals(element.getQName()))) && commentNeedsSave()) {
+            if ((start && "alt-trans".equals(element.getQName())) && commentNeedsSave()) {
                 saveComment();
             }
         }
