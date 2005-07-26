@@ -59,7 +59,7 @@ public class SourceHandler extends BaseHandler {
     public void dispatchChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws org.jvnet.olt.xliff.ReaderException {
         if (currentSntnc != null) {
             char[] ch = currentSntnc.getSentence().toCharArray();
-            writeChars(ch, 0, ch.length);
+            writeChars(ch, 0, ch.length,false );
             currentSntnc = null;
         }
 
