@@ -293,6 +293,10 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
             textComponent.paste();
         }
     }
+   
+    boolean isModified(){
+        return modified;
+    }
 }
 
 

@@ -4336,6 +4336,8 @@ OUTER2:
 
         tmpdata.getCommentsTrack().setComment(key, commentdlg.getComment());
 
+        this.setBHasModified(commentdlg.isModified());
+        
         AlignmentMain.testMain2.refreshIcon();
         this.setMenuState();
     }
