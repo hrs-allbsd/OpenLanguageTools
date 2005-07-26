@@ -282,14 +282,18 @@
     </target>
 
 	<target name="run" depends="compile">
+                <copy tofile="${installer.dir}/logging.debug.properties" verbose="true" file="logging.properties" overwrite="no"/>
+
 		<java 
 			classpathref="run.classpath" 
-			fork="yes"
+			fork="yes" 
+                        dir="${installer.dir}"
 			classname="org.jvnet.olt.editor.translation.TransEditor">
 			<jvmarg value="-Xdebug"/>
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
-			<jvmarg value="-Xmx512M"/>
-            <sysproperty key="java.util.logging.config.file" value="logging.properties"/>
+			<jvmarg value="-Xmx512M"/>                        
+                        <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
+                        <sysproperty key="editor_home" value="${installer.dir}"/>
 		</java>
 		
 	</target>
@@ -526,5 +530,21 @@
            <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} Windows"/>
         </ant>
      </target>
+	 
+    <target name="rc">
+        <ant target="upload">
+           <property name="path.to.file" value="${dest.dir}/xliff_filters_v1_1RC1_unix.tar.gz"/>
+           <property name="uploaded.file.name" value="xliff_filters_v1_1RC1_unix.tar.gz"/>
+	   <property name="uploaded.file.dir" value="/Releases/"/>
+           <property name="uploaded.file.description" value="OLT XLIFF Filters 1.1 Release Candidate 1 UNIX"/>
+        </ant>
+        <ant target="upload">
+           <property name="path.to.file" value="${dest.dir}/xliff_filters_v1_1RC1_win.zip"/>
+           <property name="uploaded.file.name" value="xliff_filters_v1_1RC1_win.zip"/>
+	   <property name="uploaded.file.dir" value="/Releases/"/>
+           <property name="uploaded.file.description" value="XLIFF Filters 1.1 Release Candidate 1 Windows"/>
+        </ant>
+     </target>
+
 
 </project>
