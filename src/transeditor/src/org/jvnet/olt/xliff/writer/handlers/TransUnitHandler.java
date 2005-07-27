@@ -103,20 +103,23 @@ public class TransUnitHandler extends BaseHandler {
         TrackingComments tc = ctx.getTrackingComments();
         String note = tc.getComment(transUnitId);
 
-        Element e = new Element(null, "note", "note", null, "/");
+        //EVIL HACK:note can be null when removing
+        if(note != null){
+            Element e = new Element(null, "note", "note", null, "/");
 
-        writeElement(e, true);
-        writeChars(note.toCharArray(), 0, note.length());
-        writeElement(e, false);
+            writeElement(e, true);
+            writeChars(note.toCharArray(), 0, note.length());
+            writeElement(e, false);
 
-        tc.setCommentModified(transUnitId, false);
+            tc.setCommentModified(transUnitId, false);
+        }
     }
 
     private boolean targetNeedsSave() {
         return tgtChangeSet.containsKey(transUnitId);
     }
 
-    private boolean commentNeedsSave() {
+    private boolean commentNeedsSave() {       
         return ctx.getTrackingComments().isCommentModified(ctx.getCurrentTransId());
     }
 

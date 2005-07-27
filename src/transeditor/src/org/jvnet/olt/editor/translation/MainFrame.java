@@ -4322,21 +4322,20 @@ OUTER2:
             return;
         }
 
-        String transId = backend.getConfig().getTranslatorID();
+        
 
         if (commentdlg == null) {
             commentdlg = new JCommentDialog(this);
-            commentdlg.setTranslatorId(transId);
         }
 
         String key = tmpdata.tmsentences[iSelRow].getTransUintID();
         String comment = tmpdata.getCommentsTrack().getComment(key);
-
-        commentdlg.init(JCommentDialog.COMMENT_SEGMENT, comment, iSelRow);
+        String transId = backend.getConfig().getTranslatorID();
+        commentdlg.init(JCommentDialog.COMMENT_SEGMENT, comment, iSelRow,transId);
 
         tmpdata.getCommentsTrack().setComment(key, commentdlg.getComment());
 
-        this.setBHasModified(commentdlg.isModified());
+        this.setBHasModified(commentdlg.needsSave());
         
         AlignmentMain.testMain2.refreshIcon();
         this.setMenuState();
@@ -4365,10 +4364,13 @@ OUTER2:
 
         String key = tmpdata.tmsentences[iSelRow].getTransUintID();
         String comment = tmpdata.getCommentsTrack().getComment(key);
+        String transId = backend.getConfig().getTranslatorID();
 
-        commentdlg.init(JCommentDialog.COMMENT_SEGMENT, comment, iSelRow);
+        commentdlg.init(JCommentDialog.COMMENT_SEGMENT, comment, iSelRow,transId);
         tmpdata.getCommentsTrack().setComment(key, commentdlg.getComment());
 
+        setBHasModified(commentdlg.needsSave());        
+        
         AlignmentMain.testMain2.refreshIcon();
         this.setMenuState();
     }
@@ -4411,9 +4413,12 @@ OUTER2:
 
         String key = "header";
         String comment = tmpdata.getCommentsTrack().getComment(key);
+        String transId = backend.getConfig().getTranslatorID();
 
-        commentdlg.init(JCommentDialog.COMMENT_FILE, comment, -1);
+        commentdlg.init(JCommentDialog.COMMENT_FILE, comment, -1, transId);
 
+        setBHasModified(commentdlg.needsSave());
+        
         tmpdata.getCommentsTrack().setComment(key, commentdlg.getComment());
     }
 

@@ -25,6 +25,7 @@ public class NoteHandler extends BaseHandler {
     private boolean header;
     private String note;
     private boolean ignoreChars;
+    private boolean remove;
 
     /** Creates a new instance of NoteHandler */
     public NoteHandler(Context ctx, boolean header) {
@@ -34,6 +35,8 @@ public class NoteHandler extends BaseHandler {
 
     public void dispatch(org.jvnet.olt.xliff.handlers.Element element, boolean start) throws org.jvnet.olt.xliff.ReaderException {
         if (start) {
+            remove = false;
+            
             TrackingComments tc = ctx.getTrackingComments();
 
             String key = ctx.getCurrentTransId();
@@ -44,8 +47,9 @@ public class NoteHandler extends BaseHandler {
 
             if (tc.isCommentModified(key)) {
                 note = tc.getComment(key);
+                remove = note == null;
             }
-
+            
             ignoreChars = note != null;
         } else {
             note = null;
@@ -54,16 +58,20 @@ public class NoteHandler extends BaseHandler {
             tc.setCommentModified(header ? "header" : ctx.getCurrentTransId(), false);
         }
 
-        writeElement(element, start);
+        if(!remove)
+            writeElement(element, start);
     }
 
     public void dispatchChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws org.jvnet.olt.xliff.ReaderException {
+        if(remove)
+            return;
+
         if (note != null) {
             char[] ch = note.toCharArray();
             writeChars(ch, 0, ch.length);
             note = null;
         }
-
+        
         if (!ignoreChars) {
             writeChars(chars, start, length);
         }
