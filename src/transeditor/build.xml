@@ -251,7 +251,7 @@
 		
 		<echo>Building installer for Solaris</echo>
        <izpack input="${installer.dir}/install_solaris.xml"
-        output="${dest.dir}/transeditor_v${build.version.flat}_sol.jar"
+        output="${dest.dir}/transeditor_v${build.version.flat}_unix.jar"
         installerType="standard"
         basedir="${installer.dir}"
         izPackDir="${IZPACK_HOME}"/>
@@ -270,8 +270,8 @@
 			<zipfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_win.jar"/>
 			<zipfileset dir="${installer.dir}" includes="install.bat" />
 		</zip>
-		<tar destfile="${dest.dir}/transeditor_v${build.version.flat}_sol.tar.gz" compression="gzip">
-			<tarfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_sol.jar" mode="555"/>
+		<tar destfile="${dest.dir}/transeditor_v${build.version.flat}_unix.tar.gz" compression="gzip">
+			<tarfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_unix.jar" mode="555"/>
 			<tarfileset dir="${installer.dir}" includes="install.sh" mode="755"/>
 		</tar>
 	</target>
@@ -518,8 +518,8 @@
     <target name="nightly" depends="all">
         <tstamp/>
         <ant target="upload">
-           <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_sol.tar.gz"/>
-           <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_sol.tar.gz"/>
+           <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_unix.tar.gz"/>
+           <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_unix.tar.gz"/>
 	   <property name="uploaded.file.dir" value="/Releases/Unstable"/>
            <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} UNIX"/>
         </ant>
