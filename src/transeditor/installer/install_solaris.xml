@@ -9,7 +9,7 @@
     <info>
         <appname>Open Language Tools XLIFF Translation Editor</appname>
         <appversion>@VERSION@</appversion>
-        <appsubpath>Open Language Tools/XLIFF Translation Editor/@VERSION@</appsubpath>
+        <appsubpath>Open_Language_Tools/XLIFF_Translation_Editor/@VERSION@</appsubpath>
         <authors>
             <author name="Open Language Tools project" email="dev@open-language-tools.dev.java.net"/>
         </authors>
