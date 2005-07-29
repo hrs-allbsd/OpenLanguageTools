@@ -1768,21 +1768,25 @@ public class TMData extends PivotData {
 
     /** This method saves all unsaved TMSentences.
      */
-    public void saveAllTranslations(boolean autosave, boolean bFlagWriteProtection) throws NestableException {
+    public boolean saveAllTranslations(boolean autosave, boolean bFlagWriteProtection) throws NestableException {
         //  Create format wrapper.
         FormatWrapper formatWrapper = createFormatWrapper(originalDataType, globalVarManager);
 
+        boolean anySave = false;
         //save mini-tm and sentences
         for (int i = 0; i < tmsentences.length; i++) {
             if (bTMFlags[i] || tmsentences[i].isAutoTranslated()) {
                 //logger.finer("i="+i);
                 tmsentences[i].saveTranslation(bFlagWriteProtection, formatWrapper);
 
+                anySave = true;
+                
                 if (!autosave) {
                     bTMFlags[i] = false;
                 }
-            } /* else {
-             logger.finer("Not saving translation for "+i);
-            }*/}
+            } 
+        }
+        
+        return anySave;
     }
 }

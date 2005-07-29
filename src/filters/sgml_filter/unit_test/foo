@@ -1,3 +1,0 @@
-<LI><P>Verify that the disk drives are ready-enabled:
-        <svc window_help=Service::Disable::arrayDiskWin&run=1>
-        $DEV_NAME - $FRU.</a></P>

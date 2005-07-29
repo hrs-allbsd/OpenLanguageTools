@@ -167,12 +167,15 @@ public class Backend {
         try {
             boolean writeProtected = config.isBFlagWriteProtection();
 
-            tmpdata.saveAllTranslations(autosave, writeProtected);
-
-            //TODO get rid of target lang from MainFrame
-            //TODO Do we actually need to set the targ lang ??
-            //xp.setTargetLanguage(MainFrame.targetLan);
-            xp.saveToFile(newFile);
+            boolean anySave = tmpdata.saveAllTranslations(autosave, writeProtected);
+            
+            //if anySave while autosave ->save
+            //if !autosave save anyways
+            if( (autosave && anySave) || (!autosave) ){
+                xp.saveToFile(newFile,autosave);
+            }
+            else
+                logger.finer("No changes found will not save" );
 
             return true;
         } catch (NestableException ne) {

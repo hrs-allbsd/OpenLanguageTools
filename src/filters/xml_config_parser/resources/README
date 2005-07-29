@@ -1,4 +1,0 @@
-This directory contains all of the XML to  XLIFF configuration files
-registered by the XML Filter configuration manager. Do not edit the
-files in this directory, instead, edit the source files in ../xml-config
-and re-run the registration program.

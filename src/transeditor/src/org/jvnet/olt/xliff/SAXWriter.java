@@ -8,6 +8,7 @@ package org.jvnet.olt.xliff;
 import java.io.IOException;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -56,7 +57,7 @@ public class SAXWriter {
         this.version = v;
     }
 
-    public void write(java.io.Reader reader, java.io.Writer writer) throws IOException, SAXException {
+    public void write(java.io.Reader reader, java.io.Writer writer,boolean autosave) throws IOException, SAXException {
         writer.write("<?xml version=\"1.0\" ?>\n");
 
         if (version.isXLIFF10()) {
@@ -65,9 +66,14 @@ public class SAXWriter {
 
         XMLDumper dumper = new XMLDumper(writer);
 
+        logger.finest("About to save");
+        logger.finest("Source change set:"+srcChangeSet);
+        logger.finest("Target change set:"+tgtChangeSet);        
+        
+        
         Context ctx = new Context(dumper, version);
-        ctx.setSrcChangeSet(srcChangeSet);
-        ctx.setTgtChangeSet(tgtChangeSet);
+        ctx.setSrcChangeSet(autosave ? new HashMap(srcChangeSet) : srcChangeSet);
+        ctx.setTgtChangeSet(autosave ? new HashMap(tgtChangeSet) : tgtChangeSet);
         ctx.setTargetLang(targetLanguage);
         ctx.setTrackingComments(comments);
 
@@ -107,8 +113,13 @@ public class SAXWriter {
             //TODO add some
             throw new SAXException(pce);
         } finally {
-            srcChangeSet.clear();
-            tgtChangeSet.clear();
+            
+            logger.finest("Autosave:"+autosave);
+            logger.finest("Source change set (unless autosave should be clean):"+srcChangeSet);
+            logger.finest("Target change set (unless autosave should be clean):"+tgtChangeSet);        
+            
+            //srcChangeSet.clear();
+            //tgtChangeSet.clear();
             targetLanguage = null;
             comments = null;
         }
