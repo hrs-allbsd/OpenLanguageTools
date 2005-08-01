@@ -40,5 +40,5 @@ public interface Node {
   public int jjtGetNumChildren();
 
   /** Accept the visitor. **/
-  public Object jjtAccept(Segmenter_enVisitor visitor, Object data);
+  public Object jjtAccept(Segmenter_jaVisitor visitor, Object data);
 }

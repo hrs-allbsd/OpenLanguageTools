@@ -24,7 +24,7 @@ public class SegmentCollectionFactoryVisitor implements Segmenter_jaVisitor
     {
        	switch (node.getType()){
 
-	case Segmenter_enTreeConstants.JJTFORMATTING:
+	case Segmenter_jaTreeConstants.JJTFORMATTING:
 	    //do something with formatting info.
 	    // System.out.println ("Setting " + segmentcounter + " to contain "+ node.getNodeData());
 
@@ -46,7 +46,7 @@ public class SegmentCollectionFactoryVisitor implements Segmenter_jaVisitor
 	    //	case Segmenter_enTreeConstants.JJTFORMATTING:
 	    //System.out.println ("Formatting! : "+node.getNodeData());
 	    //break;
-	case Segmenter_enTreeConstants.JJTSEGMENT:
+	case Segmenter_jaTreeConstants.JJTSEGMENT:
 	    visitorcoll.add(node.getNodeData());
 	    segmentcounter++;
 	    break;

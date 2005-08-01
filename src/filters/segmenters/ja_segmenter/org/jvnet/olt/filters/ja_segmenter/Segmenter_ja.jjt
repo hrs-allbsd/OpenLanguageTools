@@ -35,7 +35,7 @@ package org.jvnet.olt.filters.ja_segmenter;
 // import java.io.*;
 
 
-public class Segmenter_en {
+public class Segmenter_ja {
 
   /**
    *  A static method to allow the SCCS version of the file to be read at 
@@ -43,7 +43,7 @@ public class Segmenter_en {
    */
   public static final String getVersionInfo()
   {
-    return "English Segmenter - version: 1.0";
+    return "Japanese Segmenter - version: 1.0";
   }
 
   protected boolean boolParsed = false;
@@ -67,7 +67,7 @@ public class Segmenter_en {
    *  @param  data    An object to be used as an aid to the tree walk.
    *  @exception Exception
    */
-  public void walkParseTree(Segmenter_enVisitor visitor, Object data) throws Exception
+  public void walkParseTree(Segmenter_jaVisitor visitor, Object data) throws Exception
   {
     if(boolParsed && (visitor != null))
     {
@@ -87,7 +87,7 @@ public class Segmenter_en {
   }
 }
 
-PARSER_END(Segmenter_en)
+PARSER_END(Segmenter_ja)
 
 TOKEN : { <numberdot: "\n" (" "| "\t" | "\f")* ("1." | "2." | "3." | "4." | "5." | "6." | "7." | "8.") >}
 TOKEN : {<SLASHNSPACE: (("\n" | "\r\n") ([" ","\t"])+) >}
