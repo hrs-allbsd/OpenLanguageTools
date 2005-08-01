@@ -86,6 +86,11 @@ public class SAXWriter {
         px.addHandler("/xliff/file/body/trans-unit/target", new TargetHandler(ctx));
         px.addHandler("/xliff/file/body/trans-unit/note", new NoteHandler(ctx, false));
 
+        px.addHandler("/xliff/file/body/group/trans-unit", new TransUnitHandler(ctx));
+        px.addHandler("/xliff/file/body/group/trans-unit/source", new SourceHandler(ctx));
+        px.addHandler("/xliff/file/body/group/trans-unit/target", new TargetHandler(ctx));
+        px.addHandler("/xliff/file/body/group/trans-unit/note", new NoteHandler(ctx, false));
+
         Map uriMapping = new HashMap();
         uriMapping.put("urn:oasis:names:tc:xliff:document:1.1", "");
         uriMapping.put("xml", "xml");
