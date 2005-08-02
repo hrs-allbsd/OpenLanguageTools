@@ -9,7 +9,7 @@
     <info>
         <appname>Open Language Tools XLIFF Filters</appname>
         <appversion>@VERSION@ </appversion>
-		<appsubpath>Open Language Tools/XLIFF Filters/@VERSION@</appsubpath>
+		<appsubpath>Open_Language_Tools/XLIFF_Filters/@VERSION@</appsubpath>
         <authors>
             <author name="Open Language Tools project" email="dev@open-language-tools.dev.java.net"/>
         </authors>
