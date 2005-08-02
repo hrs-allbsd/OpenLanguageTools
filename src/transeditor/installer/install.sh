@@ -9,4 +9,4 @@ fi
 
 echo "Using java in: $JAVA"
 	
-$JAVA -jar transeditor_v@VERSION_FLAT@_sol.jar
+$JAVA -jar transeditor_v@VERSION_FLAT@_unix.jar

@@ -4322,20 +4322,21 @@ OUTER2:
             return;
         }
 
-        String transId = backend.getConfig().getTranslatorID();
+        
 
         if (commentdlg == null) {
             commentdlg = new JCommentDialog(this);
-            commentdlg.setTranslatorId(transId);
         }
 
         String key = tmpdata.tmsentences[iSelRow].getTransUintID();
         String comment = tmpdata.getCommentsTrack().getComment(key);
-
-        commentdlg.init(JCommentDialog.COMMENT_SEGMENT, comment, iSelRow);
+        String transId = backend.getConfig().getTranslatorID();
+        commentdlg.init(JCommentDialog.COMMENT_SEGMENT, comment, iSelRow,transId);
 
         tmpdata.getCommentsTrack().setComment(key, commentdlg.getComment());
 
+        this.setBHasModified(commentdlg.needsSave());
+        
         AlignmentMain.testMain2.refreshIcon();
         this.setMenuState();
     }
@@ -4363,10 +4364,13 @@ OUTER2:
 
         String key = tmpdata.tmsentences[iSelRow].getTransUintID();
         String comment = tmpdata.getCommentsTrack().getComment(key);
+        String transId = backend.getConfig().getTranslatorID();
 
-        commentdlg.init(JCommentDialog.COMMENT_SEGMENT, comment, iSelRow);
+        commentdlg.init(JCommentDialog.COMMENT_SEGMENT, comment, iSelRow,transId);
         tmpdata.getCommentsTrack().setComment(key, commentdlg.getComment());
 
+        setBHasModified(commentdlg.needsSave());        
+        
         AlignmentMain.testMain2.refreshIcon();
         this.setMenuState();
     }
@@ -4409,9 +4413,12 @@ OUTER2:
 
         String key = "header";
         String comment = tmpdata.getCommentsTrack().getComment(key);
+        String transId = backend.getConfig().getTranslatorID();
 
-        commentdlg.init(JCommentDialog.COMMENT_FILE, comment, -1);
+        commentdlg.init(JCommentDialog.COMMENT_FILE, comment, -1, transId);
 
+        setBHasModified(commentdlg.needsSave());
+        
         tmpdata.getCommentsTrack().setComment(key, commentdlg.getComment());
     }
 
@@ -5276,8 +5283,17 @@ OUTER2:
                 editorHome = backend.getConfig().getHome().getAbsolutePath();
             }
 
-            proc = Runtime.getRuntime().exec(SpellCheckerAPI.getCommand(editorHome, dictLang));
+            proc = Runtime.getRuntime().exec(SpellCheckerAPI.getCommand(editorHome, dictLang,lang));
 
+            try{
+                int x = proc.exitValue();
+                logger.warning("Spellchecker process has died with exit code:"+x);
+            }
+            catch(IllegalThreadStateException ite){
+                //We IGNORE THIS EXCEPTION
+                logger.finer("The spellchecker process seems to be OK so far");
+            }
+            
             /*errorGobbler = new
             StreamGobbler(proc.getErrorStream(), "ERROR");
 
@@ -5372,10 +5388,12 @@ OUT:
                         int flag = -1;
                         resultString = null;
 
+                        logger.finest("Checking word:"+word);
                         SpellCheckerAPI.checkWord(pw, word);
 
+                        
                         resultString = SpellCheckerAPI.getResult(br);
-
+                        logger.finest("Result string:"+resultString);
                         if (resultString == null) {
                             break OUT;
                         }
@@ -5393,6 +5411,7 @@ OUT:
                                         suggestion.add(tokens2.nextToken().trim());
                                     }
                                 }
+                                logger.finest("Result suggestions:"+suggestion);
 
                                 PivotTextPane.wordInRowIndex = i;
                                 PivotTextPane.wordStart = offset + curP;

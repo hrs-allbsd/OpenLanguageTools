@@ -24,7 +24,6 @@ import org.jvnet.olt.xliff.XLIFFSentence;
  */
 public class SourceHandler extends BaseHandler {
     private Map srcChangeSet;
-    private XLIFFSentence currentSntnc;
     private boolean ignoreChars;
 
     /** Creates a new instance of SourceHandler */
@@ -35,36 +34,42 @@ public class SourceHandler extends BaseHandler {
 
     public void dispatch(org.jvnet.olt.xliff.handlers.Element element, boolean start) throws org.jvnet.olt.xliff.ReaderException {
         if ("source".equals(element.getQName())) {
-            if (start) {
-                String transUnitId = ctx.getCurrentTransId();
-
-                if (srcChangeSet.containsKey(transUnitId)) {
-                    currentSntnc = (XLIFFSentence)srcChangeSet.get(transUnitId);
-                }
-
-                if (ctx.getVersion().isXLIFF11()) {
-                    element.addNamespaceDeclaration(null, Constants.XLIFF_1_1_URI);
-                }
-            } else {
-                srcChangeSet.remove(ctx.getCurrentTransId());
-                currentSntnc = null;
+            ignoreChars = false;
+            
+            //end tag -- just dump out
+            if(!start){
+                writeElement(element, start);
+                return;
             }
 
-            ignoreChars = currentSntnc != null;
+            String transUnitId = ctx.getCurrentTransId();
 
-            writeElement(element, start);
+            //has sentence changed ? -- no
+            if (!srcChangeSet.containsKey(transUnitId)){
+                writeElement(element, true);
+                return;
+            }
+
+            //If the sntns has been changed write it out and forbid overwriting
+            XLIFFSentence currentSntnc = (XLIFFSentence)srcChangeSet.get(transUnitId);
+            
+            writeElement(element, true);
+            char[] ch = currentSntnc.getSentence().toCharArray();
+            writeChars(ch, 0, ch.length, false);
+            
+            srcChangeSet.remove(ctx.getCurrentTransId());
+            ignoreChars = true;
+        } else {
+            
+            //copy all mixed content unless we dumped the sentence already
+            if(!ignoreChars)
+                writeElement(element, start);
         }
     }
 
     public void dispatchChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws org.jvnet.olt.xliff.ReaderException {
-        if (currentSntnc != null) {
-            char[] ch = currentSntnc.getSentence().toCharArray();
-            writeChars(ch, 0, ch.length);
-            currentSntnc = null;
-        }
-
         if (!ignoreChars) {
-            writeChars(chars, start, length);
+            writeChars(chars, start, length);            
         }
     }
 
