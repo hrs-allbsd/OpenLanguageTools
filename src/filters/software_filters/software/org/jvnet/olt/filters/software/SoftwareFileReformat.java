@@ -247,6 +247,7 @@ public class SoftwareFileReformat {
                                     
                                     break;
                                 case MessageListGenerator.JAVA_PROPS:
+                                    indent=0;
                                     startSegment="";
                                     endSegment="\\\n";
                                     break;
