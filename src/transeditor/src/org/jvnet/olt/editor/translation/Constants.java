@@ -20,8 +20,8 @@ final public class Constants {
     //IMPORTANT: the @ VERSION @ token is replaced during build (target pre-compile) with 
     // the version number stored in build.local.properties.
     // To keep this file intact build.xml make a copy of this file to Constants.java_ 
-    // which then copied back to Constants.java
-    public static final String EDITOR_VERSION = "1.0";
+    // which then copied back to Constants.java after compilation
+    public static final String EDITOR_VERSION = "@VERSION@";
     public static final String TOOL_NAME = "Open Language Tools XLIFF Translation Editor, v" + EDITOR_VERSION;
     public static final String DOCTYPE_XLIFF_1_0 = "<!DOCTYPE xliff PUBLIC \"-//XLIFF//DTD XLIFF//EN\" \"http://www.oasis-open.org/committees/xliff/documents/xliff.dtd\">";
 

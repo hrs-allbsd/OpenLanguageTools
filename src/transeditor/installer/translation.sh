@@ -51,4 +51,4 @@ echo "Installation direcotry: $INSTALL_PATH"
 echo "Classpath: $CLASSPATH"
 
 		
-"$JAVA" -Xmx${MEMORY}M ${DEBUG} ${LOGGING} -classpath ${CLASSPATH} -Djava.library.path="${SUNTRANS_HOME}/spellchecker/lib" -Dsuntrans_home="${SUNTRANS_HOME}" org.jvnet.olt.editor.translation.TransEditor
+"$JAVA" -Xmx${MEMORY}M ${DEBUG} ${LOGGING} -classpath ${CLASSPATH} -Djava.library.path="${SUNTRANS_HOME}/spellchecker/lib" -Deditor_home="${SUNTRANS_HOME}" org.jvnet.olt.editor.translation.TransEditor

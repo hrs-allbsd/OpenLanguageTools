@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -17,6 +18,8 @@ import javax.swing.text.*;
 
 
 public class JCommentDialog extends JDialog implements DocumentListener, MouseListener, KeyListener {
+    private static final Logger logger = Logger.getLogger(JCommentDialog.class.getName());
+    
     public static final int COMMENT_SEGMENT = 0;
     public static final int COMMENT_FILE = 1;
     private JPopupMenu jPopupMenuComment = new JPopupMenu();
@@ -37,6 +40,9 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
     private JButton jButtonClose = new JButton();
     private String translatorId;
     private String comment;
+    private String originalComment;
+
+    private boolean needsSave;
 
     public JCommentDialog(Frame owner) throws HeadlessException {
         super(owner, "", true);
@@ -48,10 +54,10 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
         }
     }
 
-    public void setTranslatorId(String translatorId) {
+/*    public void setTranslatorId(String translatorId) {
         this.translatorId = translatorId;
     }
-
+*/
     private void jbInit() throws Exception {
         border1 = BorderFactory.createCompoundBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(142, 142, 142)), "Comment"), BorderFactory.createEmptyBorder(0, 1, 1, 1));
 
@@ -94,10 +100,10 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
         jButtonPanel.add(jButtonClose, null);
     }
 
-    public void init(int type, String comment, int rowNo) {
+    public void init(int type, String comment, int rowNo,String transId) {
         this.comment = comment;
-
-        String tmpComment = null;
+        this.originalComment = comment;
+        this.translatorId = transId;
 
         this.type = type;
         this.modified = false;
@@ -115,11 +121,15 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
 
         inSetProcess = false;
 
+        //needs save must be false before we do editting;
+        needsSave = false;
+
         this.pack();
         this.setSize(400, 300);
         this.setLocationRelativeTo(MainFrame.getAnInstance());
         this.setVisible(true);
 
+        
         /*
           String tmpComment = null;
 
@@ -160,10 +170,21 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
     }
 
     private void writeBackTheComment() {
-        if (modified) {
+        //if (modified) {
             String str = jTextPaneComment.getText();
             comment = ((str == null) || (str.trim().length() == 0)) ? null : str;
-        }
+            
+            if(comment == null && originalComment == null)
+                needsSave = false;
+            else if(comment != null && originalComment != null)
+                needsSave = ! comment.equals(originalComment);
+            else
+                needsSave = true;
+            
+            logger.finer("Orig comment:"+originalComment);
+            logger.finer("New  comment:"+ comment);
+            logger.finer("Needs save  :"+ needsSave);
+        //}
 
         /*        if(modified) {
                     String key = null;
@@ -292,6 +313,10 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
         } else if ((e.getKeyCode() == KeyEvent.VK_V) && (e.getModifiers() == KeyEvent.CTRL_MASK)) {
             textComponent.paste();
         }
+    }
+   
+    boolean needsSave(){
+        return needsSave;
     }
 }
 
