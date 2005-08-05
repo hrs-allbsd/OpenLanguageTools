@@ -1,4 +1,0 @@
-#!/bin/sh
-CLASSPATH=${TT_WS_ROOT}/build/tt-common.jar
-export CLASSPATH
-java com.sun.tt.filters.NonConformantSgmlDocFragmentParser.ViewStrings $1
