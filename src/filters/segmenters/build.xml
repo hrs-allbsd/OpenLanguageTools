@@ -17,8 +17,8 @@
 		<path location="it_segmenter"/>
 		<path location="sv_segmenter"/>
 		<path location="ja_segmenter"/>
-		<!-- path location="./segmenter_facade"-->
-		<path location="en_segmenter_facade"/> 
+		<path location="segmenter_facade"/>
+		<!-- <path location="en_segmenter_facade"/>  -->
 	</path>
 
 	<target name="pre-compile" depends="common.pre-compile">
