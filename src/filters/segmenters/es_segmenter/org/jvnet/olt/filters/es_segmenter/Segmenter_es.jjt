@@ -767,6 +767,7 @@ FF1A;FULLWIDTH COLON;Po;0;CS;<wide> 003A;;;;N;;;;;
 0589;ARMENIAN FULL STOP;Po;0;L;;;;;N;ARMENIAN PERIOD;;;;
 06D4;ARABIC FULL STOP;Po;0;AL;;;;;N;ARABIC PERIOD;;;;
 3002;IDEOGRAPHIC FULL STOP;Po;0;ON;;;;;N;IDEOGRAPHIC PERIOD;;;;
+30FB;KATAKANA MIDDLE DOT;Pc;0;ON;;;;;N;;;;;
 FF01;FULLWIDTH EXCLAMATION MARK;Po;0;ON;<wide> 0021;;;;N;;;;;
 FF0E;FULLWIDTH FULL STOP;Po;0;CS;<wide> 002E;;;;N;FULLWIDTH PERIOD;;;;
 FF0F;FULLWIDTH SOLIDUS;Po;0;ES;<wide> 002F;;;;N;FULLWIDTH SLASH;;;;
@@ -798,7 +799,7 @@ TOKEN :
 	       "\u0708","\u0709","\u1365","\u1366","\u1362","\u1804","\u20a1",
 	       "\uff1a",
 
-		"\u0589","\u06d4","\u3002","\uff01","\uff0e","\uff0f",
+		"\u0589","\u06d4","\u3002","\u30fb","\uff01","\uff0e","\uff0f",
 	       "\uff1f","\uff61","\ufe52","\ufe54","\ufe55","\ufe56","\ufe57",
 	       
 	       "\u06ea","\u06eb","\u06ec","\u0701","\u0702",
@@ -829,7 +830,7 @@ TOKEN :
 	     "\u0708","\u0709","\u1365","\u1366","\u1362","\u1804","\u20a1",
 	     "\uff1a",
 
-	     "\u0589","\u06d4","\u3002","\uff01","\uff0e","\uff0f",
+	     "\u0589","\u06d4","\u3002","\u30fb","\uff01","\uff0e","\uff0f",
 	     "\uff1f","\uff61","\ufe52","\ufe54","\ufe55","\ufe56","\ufe57",
 
              "\u06ea","\u06eb","\u06ec","\u0701","\u0702",
