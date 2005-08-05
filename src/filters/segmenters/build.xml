@@ -16,8 +16,9 @@
 		<path location="fr_segmenter"/>
 		<path location="it_segmenter"/>
 		<path location="sv_segmenter"/>
-		<!-- path location="./segmenter_facade"-->
-		<path location="en_segmenter_facade"/> 
+		<path location="ja_segmenter"/>
+		<path location="segmenter_facade"/>
+		<!-- <path location="en_segmenter_facade"/>  -->
 	</path>
 
 	<target name="pre-compile" depends="common.pre-compile">
@@ -63,7 +64,14 @@
 		<javacc target="sv_segmenter/org/jvnet/olt/filters/sv_segmenter/Segmenter_sv.jj"
 			outputdirectory="sv_segmenter/org/jvnet/olt/filters/sv_segmenter/"
 			javacchome="${javacchome}"/>
-		
+
+		<jjtree target="ja_segmenter/org/jvnet/olt/filters/ja_segmenter/Segmenter_ja.jjt"
+                        outputdirectory="ja_segmenter/org/jvnet/olt/filters/ja_segmenter/"
+                        javacchome="${javacchome}"/>
+		<javacc target="ja_segmenter/org/jvnet/olt/filters/ja_segmenter/Segmenter_ja.jj"
+			outputdirectory="ja_segmenter/org/jvnet/olt/filters/ja_segmenter/"
+			javacchome="${javacchome}"/>
+
 	</target>
 	
 </project>

@@ -1,6 +1,6 @@
 
 /*
- * Copyright  2005 Sun Microsystems, Inc. 
+ * Copyright  2005 Sun Microsystems, Inc.
  * All rights reserved Use is subject to license terms.
  *
  */
@@ -20,6 +20,7 @@ import org.jvnet.olt.filters.es_segmenter.*;
 import org.jvnet.olt.filters.fr_segmenter.*;
 import org.jvnet.olt.filters.it_segmenter.*;
 import org.jvnet.olt.filters.sv_segmenter.*;
+import org.jvnet.olt.filters.ja_segmenter.*;
 
 /**
  * SegmenterFacade is designed to take the pain away from dealing with different
@@ -47,6 +48,7 @@ public class SegmenterFacade implements SegmenterInterface {
     private static final int FR = 3;
     private static final int IT = 4;
     private static final int SV = 5;
+    private static final int JA = 6;
     
     /** Creates a new instance of SegmenterFacade */
     public SegmenterFacade(java.io.Reader reader, java.lang.String language) {
@@ -92,10 +94,12 @@ public class SegmenterFacade implements SegmenterInterface {
         languageMap.put("fr-CH",new Integer(FR));
         languageMap.put("fr-FR",new Integer(FR));
         languageMap.put("it",new Integer(IT));
-        languageMap.put("it-IT",new Integer(IT));        
+        languageMap.put("it-IT",new Integer(IT));
         languageMap.put("sv",new Integer(SV));
         languageMap.put("sv-FI",new Integer(SV));
         languageMap.put("sv-SE",new Integer(SV));
+        languageMap.put("ja", new Integer(JA));
+        languageMap.put("ja-JP", new Integer(JA));
         
         this.reader=reader;
         this.language=language;
@@ -118,7 +122,7 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_de parser_de = new  Segmenter_de(reader);
                 parser_de.parse();
                 org.jvnet.olt.filters.de_segmenter.SegmentCollectionFactoryVisitor segmentVisit_de =
-                new org.jvnet.olt.filters.de_segmenter.SegmentCollectionFactoryVisitor();
+                        new org.jvnet.olt.filters.de_segmenter.SegmentCollectionFactoryVisitor();
                 parser_de.walkParseTree(segmentVisit_de, null);
                 segments = segmentVisit_de.getCollection();
                 formattingMap = segmentVisit_de.getFormatting();
@@ -127,7 +131,7 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_es parser_es = new  Segmenter_es(reader);
                 parser_es.parse();
                 org.jvnet.olt.filters.es_segmenter.SegmentCollectionFactoryVisitor segmentVisit_es =
-                new org.jvnet.olt.filters.es_segmenter.SegmentCollectionFactoryVisitor();
+                        new org.jvnet.olt.filters.es_segmenter.SegmentCollectionFactoryVisitor();
                 parser_es.walkParseTree(segmentVisit_es, null);
                 segments = segmentVisit_es.getCollection();
                 formattingMap = segmentVisit_es.getFormatting();
@@ -136,7 +140,7 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_fr parser_fr = new  Segmenter_fr(reader);
                 parser_fr.parse();
                 org.jvnet.olt.filters.fr_segmenter.SegmentCollectionFactoryVisitor segmentVisit_fr =
-                new org.jvnet.olt.filters.fr_segmenter.SegmentCollectionFactoryVisitor();
+                        new org.jvnet.olt.filters.fr_segmenter.SegmentCollectionFactoryVisitor();
                 parser_fr.walkParseTree(segmentVisit_fr, null);
                 segments = segmentVisit_fr.getCollection();
                 formattingMap = segmentVisit_fr.getFormatting();
@@ -145,7 +149,7 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_it parser_it = new  Segmenter_it(reader);
                 parser_it.parse();
                 org.jvnet.olt.filters.it_segmenter.SegmentCollectionFactoryVisitor segmentVisit_it =
-                new org.jvnet.olt.filters.it_segmenter.SegmentCollectionFactoryVisitor();
+                        new org.jvnet.olt.filters.it_segmenter.SegmentCollectionFactoryVisitor();
                 parser_it.walkParseTree(segmentVisit_it, null);
                 segments = segmentVisit_it.getCollection();
                 formattingMap = segmentVisit_it.getFormatting();
@@ -154,17 +158,26 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_sv parser_sv = new Segmenter_sv(reader);
                 parser_sv.parse();
                 org.jvnet.olt.filters.sv_segmenter.SegmentCollectionFactoryVisitor segmentVisit_sv =
-                new org.jvnet.olt.filters.sv_segmenter.SegmentCollectionFactoryVisitor();
+                        new org.jvnet.olt.filters.sv_segmenter.SegmentCollectionFactoryVisitor();
                 parser_sv.walkParseTree(segmentVisit_sv, null);
                 segments = segmentVisit_sv.getCollection();
                 formattingMap = segmentVisit_sv.getFormatting();
                 break;
+            case JA:
+                Segmenter_ja parser_ja = new Segmenter_ja(reader);
+                parser_ja.parse();
+                org.jvnet.olt.filters.ja_segmenter.SegmentCollectionFactoryVisitor segmentVisit_ja =
+                        new org.jvnet.olt.filters.ja_segmenter.SegmentCollectionFactoryVisitor();
+                parser_ja.walkParseTree(segmentVisit_ja, null);
+                segments = segmentVisit_ja.getCollection();
+                formattingMap = segmentVisit_ja.getFormatting();
+                
             case EN:
             default:
                 Segmenter_en parser_en = new  Segmenter_en(reader);
                 parser_en.parse();
                 org.jvnet.olt.filters.en_segmenter.SegmentCollectionFactoryVisitor segmentVisit_en =
-                new org.jvnet.olt.filters.en_segmenter.SegmentCollectionFactoryVisitor();
+                        new org.jvnet.olt.filters.en_segmenter.SegmentCollectionFactoryVisitor();
                 parser_en.walkParseTree(segmentVisit_en, null);
                 segments = segmentVisit_en.getCollection();
                 formattingMap = segmentVisit_en.getFormatting();
@@ -193,7 +206,7 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_de parser_de = new  Segmenter_de(reader);
                 parser_de.parse();
                 org.jvnet.olt.filters.de_segmenter.SegmentStatsVisitor segmentVisit_de =
-                new org.jvnet.olt.filters.de_segmenter.SegmentStatsVisitor();
+                        new org.jvnet.olt.filters.de_segmenter.SegmentStatsVisitor();
                 parser_de.walkParseTree(segmentVisit_de, null);
                 words = segmentVisit_de.getWordList();
                 numbers = segmentVisit_de.getNumberList();
@@ -202,7 +215,7 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_es parser_es = new  Segmenter_es(reader);
                 parser_es.parse();
                 org.jvnet.olt.filters.es_segmenter.SegmentStatsVisitor segmentVisit_es =
-                new org.jvnet.olt.filters.es_segmenter.SegmentStatsVisitor();
+                        new org.jvnet.olt.filters.es_segmenter.SegmentStatsVisitor();
                 parser_es.walkParseTree(segmentVisit_es, null);
                 words = segmentVisit_es.getWordList();
                 numbers = segmentVisit_es.getNumberList();
@@ -211,7 +224,7 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_fr parser_fr = new  Segmenter_fr(reader);
                 parser_fr.parse();
                 org.jvnet.olt.filters.fr_segmenter.SegmentStatsVisitor segmentVisit_fr =
-                new org.jvnet.olt.filters.fr_segmenter.SegmentStatsVisitor();
+                        new org.jvnet.olt.filters.fr_segmenter.SegmentStatsVisitor();
                 parser_fr.walkParseTree(segmentVisit_fr, null);
                 words = segmentVisit_fr.getWordList();
                 numbers = segmentVisit_fr.getNumberList();
@@ -220,7 +233,7 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_it parser_it = new  Segmenter_it(reader);
                 parser_it.parse();
                 org.jvnet.olt.filters.it_segmenter.SegmentStatsVisitor segmentVisit_it =
-                new org.jvnet.olt.filters.it_segmenter.SegmentStatsVisitor();
+                        new org.jvnet.olt.filters.it_segmenter.SegmentStatsVisitor();
                 parser_it.walkParseTree(segmentVisit_it, null);
                 words = segmentVisit_it.getWordList();
                 numbers = segmentVisit_it.getNumberList();
@@ -229,17 +242,25 @@ public class SegmenterFacade implements SegmenterInterface {
                 Segmenter_sv parser_sv = new Segmenter_sv(reader);
                 parser_sv.parse();
                 org.jvnet.olt.filters.sv_segmenter.SegmentStatsVisitor segmentVisit_sv =
-                new org.jvnet.olt.filters.sv_segmenter.SegmentStatsVisitor();
+                        new org.jvnet.olt.filters.sv_segmenter.SegmentStatsVisitor();
                 parser_sv.walkParseTree(segmentVisit_sv, null);
                 words = segmentVisit_sv.getWordList();
                 numbers = segmentVisit_sv.getNumberList();
+                break;
+            case JA:
+                // different methods here to produce words and numbers list. We
+                // use Java's BreakIterator to give us a list of Japanese words
+                // instead of using each word() token from the parse tree.
+                JaSegmentStatsCreator stats = new JaSegmentStatsCreator(reader);
+                words = stats.getWordList();
+                numbers = stats.getNumberList();
                 break;
             case EN:
             default:
                 Segmenter_en parser_en = new  Segmenter_en(reader);
                 parser_en.parse();
                 org.jvnet.olt.filters.en_segmenter.SegmentStatsVisitor segmentVisit_en =
-                new org.jvnet.olt.filters.en_segmenter.SegmentStatsVisitor();
+                        new org.jvnet.olt.filters.en_segmenter.SegmentStatsVisitor();
                 parser_en.walkParseTree(segmentVisit_en, null);
                 words = segmentVisit_en.getWordList();
                 numbers = segmentVisit_en.getNumberList();
@@ -275,8 +296,8 @@ public class SegmenterFacade implements SegmenterInterface {
      * For the above example, our Map would have one entry :
      *  key  value
      *  1 =  " "
-     * 
-     */     
+     *
+     */
     public java.util.Map getFormatting() {
         return this.formattingMap;
     }
