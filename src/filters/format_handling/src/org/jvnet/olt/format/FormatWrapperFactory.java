@@ -66,9 +66,9 @@ public class FormatWrapperFactory {
         m_hashAvailableWrappers.put("JAVA", new Integer(JAVA));
         m_hashAvailableWrappers.put("PROPERTIES",new Integer(PROPERTIES));
         m_hashAvailableWrappers.put("JSP", new Integer(JSP));        
-	m_hashAvailableWrappers.put("DTD", new Integer(DTD));
+		m_hashAvailableWrappers.put("DTD", new Integer(DTD));
         
-        m_hashAvailableWrappers.put("STAROFFICE", new Integer(XML));
+        m_hashAvailableWrappers.put("STAROFFICE", new Integer(PLAINTEXT));
     }
     
     //    protected FormatWrapper getFormatWrapper(String type, GlobalVariableManager gvm) throws UnsupportedFormatException {
