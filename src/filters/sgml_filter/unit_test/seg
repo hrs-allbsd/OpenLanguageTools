@@ -1,4 +1,0 @@
-#!/bin/sh
-CLASSPATH=/space/timf/transtech-build
-export CLASSPATH
-java com.sun.tlis.filters.en_segmenter.ViewStrings $@
