@@ -391,8 +391,9 @@ public class XLIFFParser {
             throw ioec;
         }
     }
-    
-    public void saveToFile(File dstFile) throws NestableException {
+
+
+    public void saveToFile(File dstFile,boolean autosave) throws NestableException {
         try {
             prepareFile(dstFile);
             
@@ -407,9 +408,9 @@ public class XLIFFParser {
             //After saving the file we will delete the first temp file and declare the second one the
             //new temp file
             if (xlzZipFile != null) {
-                saveToXLZFile(xlzZipFile);
+                saveToXLZFile(xlzZipFile,autosave);
             } else {
-                saveToRegularFile(dstFile);
+                saveToRegularFile(dstFile,autosave);
             }
         } catch (IOException ioe) {
             throw new NestableException(ioe);
@@ -417,8 +418,9 @@ public class XLIFFParser {
             throw new NestableException(sae);
         }
     }
-    
-    private void saveToRegularFile(File destFile) throws IOException, SAXException {
+
+
+    private void saveToRegularFile(File destFile,boolean autosave) throws IOException, SAXException {
         java.io.Writer xwriter = null;
         java.io.Reader reader = null;
         java.io.Writer realWriter = null;
@@ -439,9 +441,9 @@ public class XLIFFParser {
             reader = new InputStreamReader(new FileInputStream(tempCopy), "UTF-8");
             
             realWriter = new MultiWriter(new java.io.Writer[] { tempCopyWriter, xwriter });
-            
+           
             writer.saveTargetLanguageCode(targetLang);
-            writer.write(reader, realWriter);
+            writer.write(reader, realWriter,autosave);
             
             tempCopy.delete();
             tempCopy = tempCopy2;
@@ -482,8 +484,9 @@ public class XLIFFParser {
             }
         }
     }
+
+    private void saveToXLZFile(XliffZipFileIO xlz,boolean autosave) throws IOException, SAXException {
     
-    private void saveToXLZFile(XliffZipFileIO xlz) throws IOException, SAXException {
         java.io.Writer realWriter = null;
         java.io.Writer xwriter = null;
         java.io.Reader reader = null;
@@ -506,9 +509,9 @@ public class XLIFFParser {
             tempCopyWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempCopy2), "UTF-8"));
             realWriter = new MultiWriter(new java.io.Writer[] { tempCopyWriter, xwriter });
             reader = new InputStreamReader(new FileInputStream(tempCopy), "UTF-8");
-            
+           
             writer.saveTargetLanguageCode(targetLang);
-            writer.write(reader, realWriter);
+            writer.write(reader, realWriter,autosave);
             
             realWriter.close();
             reader.close();
@@ -613,5 +616,5 @@ public class XLIFFParser {
         //  Delegate to the MrkContentTracker
         model.populate(gvm);
     }
-    
+
 }

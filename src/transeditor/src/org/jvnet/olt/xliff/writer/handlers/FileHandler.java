@@ -12,6 +12,7 @@
 package org.jvnet.olt.xliff.writer.handlers;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import org.jvnet.olt.xliff.ReaderException;
 import org.jvnet.olt.xliff.handlers.Element;
@@ -26,12 +27,11 @@ import org.xml.sax.helpers.AttributesImpl;
  * @author boris
  */
 public class FileHandler extends BaseHandler {
+    private static final Logger logger = Logger.getLogger(FileHandler.class.getName());
     String targetLanguage;
 
     public FileHandler(Context ctx) {
         super(ctx);
-
-        targetLanguage = ctx.getTargetLang();
     }
 
     public void dispatch(org.jvnet.olt.xliff.handlers.Element element, boolean start) throws ReaderException {
@@ -40,7 +40,10 @@ public class FileHandler extends BaseHandler {
         if (start) {
             Attributes attrs = element.getAttrs();
 
-            if ("file".equals(element.getLocalName()) && !targetLanguage.equals(attrs.getValue("target-language"))) {
+            targetLanguage = ctx.getTargetLang();
+            logger.finer("Target language="+targetLanguage);
+            
+            if ("file".equals(element.getLocalName()) && (targetLanguage == null || !targetLanguage.equals(attrs.getValue("target-language"))) ) {
                 AttributesImpl impl = new AttributesImpl(attrs);
                 setAttributeValue(impl, "target-language", targetLanguage);
 
