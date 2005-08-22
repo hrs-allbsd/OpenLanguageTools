@@ -61,8 +61,7 @@ public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.Segme
         dontSegmentSet.add("primary");
         dontSegmentSet.add("secondary");
         dontSegmentSet.add("ulink");
-                
-        dontSegmentSet.add("book");
+
         dontSegmentSet.add("author");
         dontSegmentSet.add("firstname");
         dontSegmentSet.add("surname");
