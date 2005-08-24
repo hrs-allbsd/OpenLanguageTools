@@ -751,7 +751,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             
             switch (tagState){
                 case NONSEGMENTABLE:
-                    Tag peeked = (Tag)openTagStack.peek();
                     if (!atInlineTag){
                         formatter.writeFormatting(nodeData);
                     } else {
