@@ -17,9 +17,7 @@ package org.jvnet.olt.xliff_back_converter;
 
 import java.io.*;
 import java.util.logging.*;
-import java.nio.charset.Charset;
-//import org.jvnet.olt.utilities.*;
-import java.nio.charset.IllegalCharsetNameException;
+import java.util.regex.Pattern;
 
 import org.xml.sax.*;
 
@@ -38,6 +36,7 @@ import org.xml.sax.*;
  */
 
 public class XliffSkeletonHandlerImpl implements XliffSkeletonHandler {
+
     
     /* The SegmentedFile object populated with trans-unit data */
     private SegmentedFile segmentedFile;
@@ -96,12 +95,16 @@ public class XliffSkeletonHandlerImpl implements XliffSkeletonHandler {
      */
     private boolean m_singleBytePunct;
     
+    //these patterns are used to match contents of a prcessinginstrucion
+    private Pattern p1 = Pattern.compile("<?Pub\\s+Tag\\s+atict:info");
+    private Pattern p2 = Pattern.compile("<?Pub\\s+Tag\\s+atict:user");
     /**
      * Constructor for the XliffSkeletonHandlerImpl object
      */
     public XliffSkeletonHandlerImpl() {
         writeTransStatus = false;
         m_singleBytePunct = false;
+        
     }
     
     /**
@@ -260,15 +263,30 @@ public class XliffSkeletonHandlerImpl implements XliffSkeletonHandler {
                 // specific. What should be done in this situation is to add a
                 // parameterized strategy to handle issues like this. Other likely
                 // uses of this mechanism would include writing XLIFF notes back to
-                // source files, as comments.
+                // source files, as comments.                
                 if(writeStatusProcInst) {
-                    //  Write the first proc. inst.
-                    String openingProcInst = "<?SunTrans translation type=" + transUnit.getTranslationStatus() + ">";
-                    result.write(openingProcInst);
-                    result.write(transUnit.getText());
-                    //  Write the first proc. inst.
-                    result.write("<?SunTrans /translation>");
-                } else {
+                    //this is another hack: if the text we print out contains both:                     
+                    // <?Pub Tag atict:info ....
+                    // <?Pub Tag atict:user ....
+                    // then it will not be enclosed in proc instruction
+					// Note: as alternative approach we could just look for '<?' (PI) inside
+				    // of text and then just skip	
+                    String text = transUnit.getText();
+                    
+                    boolean doProcInst = !( p1.matcher(text).find() && p2.matcher(text).find() );
+                
+                    logger.finest("doProcInst:"+doProcInst+" text:"+text);
+                    if(doProcInst){
+                        //  Write the first proc. inst.
+                        String openingProcInst = "<?SunTrans translation type=" + transUnit.getTranslationStatus() + ">";
+                        result.write(openingProcInst);
+                        result.write(transUnit.getText());
+                        //  Write the first proc. inst.
+                        result.write("<?SunTrans /translation>");
+                    }
+                    else
+                        result.write(transUnit.getText());
+                } else {                    
                     result.write(transUnit.getText());
                 }
                 
