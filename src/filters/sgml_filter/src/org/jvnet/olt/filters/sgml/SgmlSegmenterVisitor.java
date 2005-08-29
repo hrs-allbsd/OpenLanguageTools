@@ -684,11 +684,14 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 ignoredMarkedSectionNodes.add(simpleNode);
             }
         } else {
-            boolean translatablePcData = translatablePcData();
-            if (!translatablePcData){
-                tagState = NONTRANSLATABLE;
-                updateSegmentationState(tagState);
-                // have to be careful here, if we've content in any of our
+            boolean nonTranslatableBlockPcData = nonTranslatableBlockPcData();
+            // the question here, is do we write non translatable data inline
+            // or do we write it to the skeleton file ?
+            if (nonTranslatableBlockPcData && tagState == NONTRANSLATABLE){
+                /* no neeed to make a decision here!
+                 tagState = NONTRANSLATABLE;
+                updateSegmentationState(tagState);*/
+                // have to be careful, if we've content in any of our
                 // buffers, we need to write that into the main buffer and
                 // do segmentation if necessary.
                 buf.append(SgmlFilterHelper.insertSegmentationProtection(verbatimBuffer.toString(),"verbatim"));
@@ -699,9 +702,11 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 inlineNoSegBuffer = new StringBuffer();
                 inlineNoSegNoCountBuffer = new StringBuffer();
                 inlineNoTransBuffer = new StringBuffer();
+                inlineNoTransBuffer.append(nodeData);
                 if (buf.length()!=0){
                     doSentenceSegmentation(buf);
                 }
+                buf = new StringBuffer();
                 formatter.writeFormatting(nodeData);
             } else {
                 
@@ -1522,7 +1527,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
      * segmenter table implementations need to decide whether unknown tags
      * default to translatable or non-translatable contents.
      */
-    private boolean translatablePcData(){
+    private boolean nonTranslatableBlockPcData(){
         boolean translatable = segmenterTable.pcdataTranslatableByDefault();
         
         if (tagStack.size() > 0){
@@ -1531,9 +1536,10 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 String tag = top.getTagName();
                 String ns = top.getNamespaceID();
                 
-                if (!tagTable.tagMayContainPcdata(tag,ns)){
-                    // hit a block, stop here & make a decision-
-                    return segmenterTable.containsTranslatableText(tag,ns);
+                // we're only interested in pcdata contained in block tags
+                // if we see an inline tag, then the answer is immediately "no"
+                if (tagTable.tagMayContainPcdata(tag,ns)){
+                    return false;
                 }
                 if (!segmenterTable.containsTranslatableText(tag, ns)){
                     // stop here & make a decision
