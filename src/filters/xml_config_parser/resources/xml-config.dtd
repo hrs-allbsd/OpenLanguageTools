@@ -1,8 +1,16 @@
+<!-- 
+ Copyright  2005 Sun Microsystems, Inc.
+ All rights reserved Use is subject to license terms.
+ 
+-->
+
+
+
 <!-- =================================================================== -->
 <!-- DTD:      XML Configuration DTD                                        -->
 <!-- PURPOSE:  To define the elements and attributes for the SunTrans 2  -->
 <!--           XML file filter.                                          -->
-<!-- SYSTEM:   Part of the SunTrans 2 System, XML File Filter            -->
+<!-- SYSTEM:   Part of the Open Language Tools XML File Filter            -->
 <!-- WRITTEN:  2003/01/27 Brian Kidney, Translation Technology,          -->
 <!--           Sun Microsystems Inc.                                     -->
 <!-- =================================================================== -->
