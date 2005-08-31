@@ -140,7 +140,7 @@ void tagname() :
 void attlist() :
 {}
 {
-   ( ws() attname() eqls() quoted_value() )+   
+   ( ws() attname() (ws())? eqls() (ws())? quoted_value() )+   
 }
 
 
