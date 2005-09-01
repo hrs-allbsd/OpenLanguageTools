@@ -11,13 +11,12 @@
  * Created on August 8, 2002, 1:49 PM
  */
 package org.jvnet.olt.xliff_back_converter;
-
-import org.xml.sax.InputSource;
 import java.util.logging.*;
 import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.File;
 import java.io.FileReader;
+import junit.framework.TestCase;
 
 
 /**
@@ -27,7 +26,7 @@ import java.io.FileReader;
  * @author Brian Kidney
  * @version August 8, 2002
  */
-public class XliffParserTest {
+public class XliffParserTest extends TestCase {
 
     /* The Logger to be used */
     private static Logger logger =
@@ -39,6 +38,9 @@ public class XliffParserTest {
      */
     public XliffParserTest() { }
 
+    public void testParser() throws Exception {
+        fail("MODIFY THIS TEST TO WORK!");
+    }
 
     /**
      * @param argv The command line arguments

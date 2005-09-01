@@ -12,13 +12,14 @@ import java.util.logging.Logger;
 
 import java.io.*;
 
+import junit.framework.*;
 /**
  * A class to run and test the <code>XliffToTmxConverter</code>
  *
  * @author Brian Kidney
  * @created August 27, 2002
  */
-public class TransformerTest {
+public class TransformerTest extends TestCase{
 
     /*
      * The Logger to be used
@@ -33,6 +34,9 @@ public class TransformerTest {
     public TransformerTest() { }
 
 
+    public void testTransformer() throws Exception{
+        fail("modify this test to work!");
+    }
     /**
      * The main method to carry out the testing.
      *
