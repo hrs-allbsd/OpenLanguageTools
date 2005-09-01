@@ -92,7 +92,7 @@
 
     <!-- jars in lib/junit -->
     <path id="deps.junit">
-        <fileset dir="${common.basedir}/lib/junit">
+        <fileset dir="${common.basedir}/utilities/jars">
             <include name="**/*.jar"/>
         </fileset>
     </path>
@@ -182,34 +182,39 @@
 		<echo>*******************************************</echo>
 	</target>
 
+	<path id="common.test.classpath">
+		<path refid="test.classpath"/>
+                <pathelement location="${build.dir}"/>
+	</path>
+
     <!-- unittests targets -->
+    <!-- test.src fileset must be to contain all JAVA! files which are tests
+         test.classpath must be set
+    -->     
     <target name="test" depends="compile">
-		<mkdir dir="${build.dir}/junit-reports"/>
+        <mkdir dir="${build.dir}/junit-reports"/>
 
         <junit printsummary="yes" haltonfailure="no">
             <classpath>
-                <path location="${build.dir}" />
-<!-- test.classpath  must be set to make tests run-->
-				<path refid="test.classpath"/>
+                <path refid="common.test.classpath"/>
             </classpath>
-			<jvmarg value="-Xdebug"/>
-			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
+			
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
 
             <formatter type="xml"/>
 
             <batchtest fork="yes" todir="${build.dir}/junit-reports">
-                <fileset dir="src">
-                  <include name="**/*Test.java" />
-                </fileset>
+                <fileset refid="test.src"/>
             </batchtest>
         </junit>
 
-		<junitreport todir="${build.dir}/junit-reports">
-		  <fileset dir="${build.dir}/junit-reports">
-			<include name="TEST-*.xml"/>
-		  </fileset>
-		  <report format="frames" todir="${build.dir}/junit-reports/html"/>
-		</junitreport>
+        <junitreport todir="${build.dir}/junit-reports">
+          <fileset dir="${build.dir}/junit-reports">
+                <include name="TEST-*.xml"/>
+          </fileset>
+          <report format="frames" todir="${build.dir}/junit-reports/html"/>
+        </junitreport>
     </target>
 
     <!-- run it all -->
