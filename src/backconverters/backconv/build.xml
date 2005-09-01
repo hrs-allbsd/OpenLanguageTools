@@ -3,21 +3,22 @@
 <!-- this is a child build script -->
 
 <project name="back-convertors" basedir="." default="all">
-	<import file="../../../common.xml"/>
+    <import file="../../../common.xml"/>
 	
     <path id="build.classpath">
-		<path location="${build.dir}"/>
-		<path refid="deps.common.util"/>
-		<path refid="deps.filters"/>
-		<path refid="deps.formatters"/>
-	</path>
+        <path location="${build.dir}"/>
+        <path refid="deps.common.util"/>
+        <path refid="deps.filters"/>
+        <path refid="deps.formatters"/>
+        <path refid="deps.junit"/>
+    </path>
    
     <target name="pre-compile">
-	<mkdir dir="${build.dir}/resources"/>
-	<copy todir="${build.dir}/resources">
-		<fileset dir="resources"
-			includes="**/*.dtd" />
+        <mkdir dir="${build.dir}/resources"/>
+        <copy todir="${build.dir}/resources">
+            <fileset dir="resources"
+            includes="**/*.dtd" />
         </copy>
-   </target>
+    </target>
 
 </project>
