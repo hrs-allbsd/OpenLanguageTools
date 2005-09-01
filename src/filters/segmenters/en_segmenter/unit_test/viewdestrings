@@ -1,3 +1,0 @@
-#!/bin/sh
-
-java -Xmx128m com.sun.tlis.filters.de_segmenter.ViewStrings $*
