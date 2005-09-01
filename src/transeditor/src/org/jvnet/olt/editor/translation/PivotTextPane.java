@@ -502,6 +502,11 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         curCharString = "";
         select();
 
+        if(e.getKeyCode() == KeyEvent.VK_ENTER && !insertable){
+            e.consume();
+        }
+        
+        
         if (e.getKeyCode() == KeyEvent.VK_DELETE) {
             if (backwardDeletable == false) {
                 curCharString = DELETE;
@@ -726,7 +731,7 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         }
     }
 
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {        
         if (this.table == AlignmentMain.testMain2.tableView) { //Target
 
             if (isRowApproved()) {
