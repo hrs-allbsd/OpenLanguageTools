@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project basedir="." default="about" name="XLIFF-Back-converters">
-	<import file="../../common.xml"/>	
+<project basedir="." default="all" name="XLIFF-Back-converters">
+    <import file="../../common.xml"/>	
 	
     <property name="module.backconv.name" value="backconv"/>
+
+    <patternset id="test.pattern">
+        <include name="**/*Test.java"/>
+    </patternset>
+    
+    <fileset id="test.src" dir=".">
+        <include name="**/*Test.java"/>
+    </fileset>
     
     <target  name="clean" depends="init">
-      <delete dir="${build.dir}/${module.backconv.name}"/>
+        <delete dir="${build.dir}/${module.backconv.name}"/>
     </target>
 
-	<target name="dist">
-      <ant dir="xliff_tmx_converter">
-	  	<property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
-	  </ant>
-      <ant dir="backconv">
-	  	<property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
-	  </ant>
-	  
-      <jar destfile="${dest.dir}/backconv.jar" basedir="${build.dir}/${module.backconv.name}" includes="**/*.class, **/*.dtd"/>
-
-	</target>
+    <target name="compile" depends="init">
+        <ant dir="xliff_tmx_converter">
+            <property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
+        </ant>
+        <ant dir="backconv">
+            <property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
+        </ant>
+    </target>
+    
+    <target name="dist" depends="common.dist">
+        <jar destfile="${dest.dir}/backconv.jar" basedir="${build.dir}/${module.backconv.name}" includes="**/*.class, **/*.dtd"/>
+    </target>
 	
+    <target name="run" depends="dist">
+        <echo>${build.dir}/${module.backconv.name}</echo>
+        <java classname="org.jvnet.olt.backconv.BackConverter">
+            <classpath>
+                <path location="${build.dir}/${module.backconv.name}"/>
+            </classpath>                
+        </java>
+    </target>    
+    
     <target  name="all" depends="dist">
         <echo>Built all backconverters into ${build}</echo>
     </target>
