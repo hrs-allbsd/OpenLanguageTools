@@ -5,18 +5,6 @@
 	
     <property name="module.backconv.name" value="backconv"/>
 
-    <patternset id="test.pattern">
-        <include name="**/*Test.java"/>
-    </patternset>
-    
-    <fileset id="test.src" dir=".">
-        <include name="**/*Test.java"/>
-    </fileset>
-    
-    <target  name="clean" depends="init">
-        <delete dir="${build.dir}/${module.backconv.name}"/>
-    </target>
-
     <target name="compile" depends="init">
         <ant dir="xliff_tmx_converter">
             <property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
@@ -38,6 +26,26 @@
             </classpath>                
         </java>
     </target>    
+    
+    <target name="test" depends="compile">
+        <delete dir="${build.dir}/${module.backconv.name}"/>
+        <ant dir="xliff_tmx_converter" target="test">
+            <property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
+        </ant>
+        <ant dir="backconv"  target="test">
+            <property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
+        </ant>
+    </target>
+    
+    <target name="clean" depends="common.clean">
+        <ant dir="xliff_tmx_converter" target="clean">
+            <property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
+        </ant>
+        <ant dir="backconv"  target="clean">
+            <property name="build.dir" value="${build.dir}/${module.backconv.name}"/>
+        </ant>
+        
+    </target>
     
     <target  name="all" depends="dist">
         <echo>Built all backconverters into ${build}</echo>

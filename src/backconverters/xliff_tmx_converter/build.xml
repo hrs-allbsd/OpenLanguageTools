@@ -5,9 +5,17 @@
 <project name="xliff-tmx-converter" basedir="." default="all">
 	<import file="../../../common.xml"/>
 	
+    <path id="test.classpath">
+        <path location="${build.dir}"/> 
+    </path>
+    
+    <fileset id="test.src" dir="src">
+        <include name="**/*Test.java"/>
+    </fileset>
+    
     <path id="build.classpath">
 		<path location="${build.dir}"/>
 		<path location="deps.common.util"/>
-	</path>
+    </path>
 
 </project>
