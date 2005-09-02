@@ -39,6 +39,8 @@ public class JBackConverterProgressFrame extends JDialog implements Backconversi
     
     public JBackConverterProgressFrame(JDialog parent) {
         super(parent);
+        
+        setLocationRelativeTo(parent);
     }
     
     protected void dialogInit() {

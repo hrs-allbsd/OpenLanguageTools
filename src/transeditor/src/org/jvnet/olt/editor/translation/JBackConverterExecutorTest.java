@@ -7,9 +7,9 @@ package org.jvnet.olt.editor.translation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import junit.framework.TestCase;
+import org.jvnet.olt.editor.backconv.BackConversionOptions;
 
 
 /**
@@ -25,7 +25,9 @@ public class JBackConverterExecutorTest extends TestCase {
     }
 
     protected void setUp() throws Exception {
-        exec = new JBackConverterExecutor(false, "UTF-8", false);
+        BackConversionOptions opts = new BackConversionOptions();
+        opts.setWriteTransStatusToSGML(false);
+        exec = new JBackConverterExecutor(opts.createBackConverterProperties(), "UTF-8", false);
 
         tempFile = File.createTempFile("abc", "def");
     }

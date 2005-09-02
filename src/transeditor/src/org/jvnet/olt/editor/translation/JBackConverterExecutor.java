@@ -16,7 +16,9 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 import org.jvnet.olt.backconv.BackConverter;
+import org.jvnet.olt.editor.backconv.BackConversionOptions;
 import org.jvnet.olt.utilities.XliffZipFileIO;
+import org.jvnet.olt.xliff_back_converter.BackConverterProperties;
 import org.jvnet.olt.xliff_tmx_converter.XliffToTmxTransformer;
 import org.jvnet.olt.xliff_tmx_converter.XliffToTmxTransformerException;
 
@@ -38,12 +40,24 @@ public class JBackConverterExecutor {
     private boolean sourceValid;
     private boolean targetValid;
 
-    JBackConverterExecutor(boolean createTMXFile, String encoding, boolean status2SGML) {
+    private BackConverterProperties bcProps;
+    
+    JBackConverterExecutor(BackConverterProperties bcProps,String encoding,boolean createTMX){
+        this.createTMX = createTMX;
+        this.status2SGML = bcProps.getBooleanProperty(BackConverterProperties.PROP_SGML_WRITE_TRANS_STATUS);
+        
+        this.encoding = encoding;
+        this.bcProps = bcProps;
+        
+    }
+/* TODO remove */   
+/*
+ JBackConverterExecutor(boolean createTMXFile, String encoding, boolean status2SGML) {
         this.createTMX = createTMXFile;
         this.encoding = encoding;
         this.status2SGML = status2SGML;
     }
-
+*/
     public void setStatusCallback(BackconversionStatusCallback callback) {
         this.callback = callback;
     }
@@ -211,10 +225,11 @@ public class JBackConverterExecutor {
                         throw new UnsupportedOperationException("FrameMaker backconv not supported");
                     }
 
-                    org.jvnet.olt.util.ContentSource xlfDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/xliff.dtd");
-                    org.jvnet.olt.util.ContentSource sklDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/tt-xliff-skl.dtd");
+                    //TODO remove
+                    //org.jvnet.olt.util.ContentSource xlfDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/xliff.dtd");
+                    //org.jvnet.olt.util.ContentSource sklDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/tt-xliff-skl.dtd");
 
-                    xbc = new BackConverter(xlfDtdSource, sklDtdSource, logger);
+                    xbc = new BackConverter(bcProps);
 
                     String strSubDir = curFile.getAbsolutePath();
                     strSubDir = strSubDir.substring((int)(strSubDir.indexOf(fSrc.getAbsolutePath()) + fSrc.getAbsolutePath().length() + 1), strSubDir.length());
@@ -272,8 +287,9 @@ public class JBackConverterExecutor {
                 callback.conversionEnd();
             } else { // select single file
 
-                org.jvnet.olt.util.ContentSource xlfDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/xliff.dtd");
-                org.jvnet.olt.util.ContentSource sklDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/tt-xliff-skl.dtd");
+//TODO remove                
+//               org.jvnet.olt.util.ContentSource xlfDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/xliff.dtd");
+//               org.jvnet.olt.util.ContentSource sklDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/tt-xliff-skl.dtd");
 
                 callback.conversionStart(1);
                 callback.fileStarted(fSrc);
@@ -283,7 +299,7 @@ public class JBackConverterExecutor {
                         throw new UnsupportedOperationException("FrameMaker backconv not supported");
                     }
 
-                    xbc = new BackConverter(xlfDtdSource, sklDtdSource, logger);
+                    xbc = new BackConverter(bcProps);
 
                     xbc.backConvert(fSrc, fTarget.getAbsolutePath(), false, encoding, status2SGML);
 

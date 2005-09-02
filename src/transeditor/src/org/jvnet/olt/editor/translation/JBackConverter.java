@@ -5,25 +5,39 @@
  */
 package org.jvnet.olt.editor.translation;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Reader;
-
+import java.util.Map;
 import java.util.logging.Logger;
-
-import javax.swing.*;
-
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import org.jvnet.olt.editor.backconv.BackConversionOptions;
+import org.jvnet.olt.editor.backconv.GeneralOptionsPanel;
+import org.jvnet.olt.editor.backconv.SGMLOptionsPanel;
 import org.jvnet.olt.editor.model.CharacterEncoding;
 
 
 public class JBackConverter extends JDialog {
+    private static final Logger logger = Logger.getLogger(JBackConverter.class.getName());
+    
     private JFrame m_frame;
     private JPanel jPanelSrc; // = new JPanel();
     private JLabel jLabel1; // = new JLabel();
@@ -37,28 +51,39 @@ public class JBackConverter extends JDialog {
     private JButton jbtnExit; // = new JButton();
     private JButton jbtnConvert; // = new JButton();//true for file; false for dir;
     private JCheckBox jcbTMX; // = new JCheckBox();
-
-    //private String strCurrentPath = null;
+    private JTabbedPane tabbedPane;
+    private SGMLOptionsPanel sgmlOptions;
+    
+    //TODO change to somthing better
+    private BackConversionOptions options ;
+    
+//private String strCurrentPath = null;
     private File preselectedFile;
     private javax.swing.JCheckBox jcbTransState; // = new JCheckBox();;
 
-    public JBackConverter(JFrame m_fmInput, File preselectedFile) {
+    public JBackConverter(JFrame m_fmInput) {
         super(m_fmInput, true);
-
-        //strCurrentPath = preselectedFile.getAbsoluteFile();
-        this.preselectedFile = preselectedFile;
 
         m_frame = m_fmInput;
     }
 
+    public void setPreselectedFile(File f){
+        this.preselectedFile = f;
+        if(f != null){
+            jSrcFileName.setText(f.getAbsolutePath());
+            jTagFileName.setText(f.getParentFile().getAbsolutePath());
+        }
+    }
     protected void dialogInit() {
         super.dialogInit();
 
+        options = new BackConversionOptions();
+        
         GridBagConstraints gridBagConstraints;
 
         setTitle("Back Converter Dialog");
 
-        jcbTransState = new javax.swing.JCheckBox();
+        //jcbTransState = new javax.swing.JCheckBox();
         jComboBox1 = new JComboBox(CharacterEncoding.getCharacterEncodingList());
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -67,7 +92,7 @@ public class JBackConverter extends JDialog {
         jbtnTar = new javax.swing.JButton();
         jSrcFileName = new javax.swing.JTextField();
         jTagFileName = new javax.swing.JTextField();
-        jcbTMX = new javax.swing.JCheckBox();
+        //jcbTMX = new javax.swing.JCheckBox();
 
         JPanel jPanel2 = new javax.swing.JPanel();
         jbtnConvert = new javax.swing.JButton();
@@ -77,14 +102,14 @@ public class JBackConverter extends JDialog {
 
         getContentPane().setLayout(new GridBagLayout());
 
-        jcbTransState.setText("Write translation status into SGML files");
+/*        jcbTransState.setText("Write translation status into SGML files");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jcbTransState, gridBagConstraints);
-
+*/
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -173,7 +198,7 @@ public class JBackConverter extends JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jTagFileName, gridBagConstraints);
 
-        jcbTMX.setText("Create TMX File");
+        /*jcbTMX.setText("Create TMX File");
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -182,7 +207,7 @@ public class JBackConverter extends JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         gridBagConstraints.weighty = 0.5;
         getContentPane().add(jcbTMX, gridBagConstraints);
-
+        */
         jbtnConvert.setText("OK");
         jbtnConvert.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,17 +227,43 @@ public class JBackConverter extends JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jPanel2, gridBagConstraints);
 
-        if (preselectedFile != null) {
-            jSrcFileName.setText(preselectedFile.getAbsolutePath());
-        }
+        sgmlOptions = new SGMLOptionsPanel(options);
+        
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
+        tabbedPane.addTab("General", new GeneralOptionsPanel(options));
+        tabbedPane.addTab("SGML", sgmlOptions);
+        
+        JPanel tabPanel = new JPanel();
+        tabPanel.setLayout(new BorderLayout());
+        tabPanel.add(tabbedPane,BorderLayout.CENTER);
+        
+        tabPanel.setBorder(BorderFactory.createTitledBorder("Backconversion options"));
+        
+        JButton saveConfigButton = new JButton("Save config");
+        saveConfigButton.setEnabled(false);
+        JPanel saveCfgPanel = new JPanel(new BorderLayout());
+        saveCfgPanel.add(saveConfigButton,BorderLayout.EAST);
+              
+        tabPanel.add(saveCfgPanel,BorderLayout.SOUTH);
+        
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(tabPanel, gridBagConstraints);
 
+        
+        
         pack();
     }
 
@@ -239,11 +290,13 @@ public class JBackConverter extends JDialog {
 
             return;
         }
+        //TODO Change to pass Options to Executor
 
-        boolean bTmx = jcbTMX.isSelected();
-        boolean boolWriteTransStatus = jcbTransState.isSelected();
+        options.setEncoding(javaCharsetName);
+        boolean bTmx = options.isGenerateTMX();
+        boolean boolWriteTransStatus = options.isWriteTransStatusToSGML();
 
-        JBackConverterExecutor exec = new JBackConverterExecutor(bTmx, charsetString, boolWriteTransStatus);
+        JBackConverterExecutor exec = new JBackConverterExecutor(options.createBackConverterProperties(), charsetString,options.isGenerateTMX());
 
         try {
             exec.setSourceFile(strSource);
@@ -273,6 +326,10 @@ public class JBackConverter extends JDialog {
             return;
         }
 
+        
+        Map m = sgmlOptions.getUnicode2EntityMap();
+        logger.finest("Map:"+m);
+        
         JBackConverterProgressFrame progressFrame = new JBackConverterProgressFrame(this);
         progressFrame.setVisible(true);
 
@@ -349,15 +406,17 @@ public class JBackConverter extends JDialog {
     /** This method creates a Memento to store settings.
      */
     public JBackConverterSettings getDialogSettings() {
+        //TODO change to reflect the options
+        
         String source = jSrcFileName.getText();
         String targetDir = jTagFileName.getText();
         String encoding = (String)jComboBox1.getSelectedItem();
-        boolean createTmx = jcbTMX.isSelected();
-        boolean writeStatus = jcbTransState.isSelected();
+        boolean createTmx = options.isGenerateTMX();
+        boolean writeStatus = options.isWriteTransStatusToSGML();
 
         JBackConverterSettings settings = new JBackConverterSettings(source, targetDir, encoding, createTmx, writeStatus);
 
-        return settings;
+        return settings; 
     }
 
     //  The methods below set the values of various fields in the dialog box.
@@ -375,10 +434,10 @@ public class JBackConverter extends JDialog {
     }
 
     public void setCreateTmxCheckbox(boolean createTmx) {
-        jcbTMX.setSelected(createTmx);
+        //jcbTMX.setSelected(createTmx);
     }
 
     public void setWriteStatusCheckbox(boolean writeStatus) {
-        jcbTransState.setSelected(writeStatus);
+        //jcbTransState.setSelected(writeStatus);
     }
 }
