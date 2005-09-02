@@ -9,6 +9,7 @@ package org.jvnet.olt.xliff_back_converter.format.sgml;
 
 import org.jvnet.olt.xliff_back_converter.UnicodeReverse;
 import java.util.HashMap;
+import java.util.Map;
 
 public class SgmlUnicodeReverseImpl implements UnicodeReverse {
     HashMap entityMap;
@@ -1276,5 +1277,9 @@ public class SgmlUnicodeReverseImpl implements UnicodeReverse {
         entityMap.put(new Character('\u045F'),"dzcy");	// <!-- CYRILLIC SMALL LETTER DZHE -->
         entityMap.put(new Character('\u040F'),"DZcy");	// <!-- CYRILLIC CAPITAL LETTER DZHE -->
         
+    }
+    
+    public Map getMap(){
+        return new HashMap(entityMap);
     }
 }
