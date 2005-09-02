@@ -12,6 +12,8 @@
  */
 
 package org.jvnet.olt.xliff_back_converter.format.sgml;
+import java.util.Collections;
+import java.util.Map;
 import org.jvnet.olt.xliff_back_converter.*;
 /**
  *
@@ -19,9 +21,47 @@ import org.jvnet.olt.xliff_back_converter.*;
  */
 public class SgmlSpecificBackConverter implements SpecificBackConverter {
     
-    /** Creates a new instance of HtmlSpecificBackConverter */
-    public SgmlSpecificBackConverter() {
+    private BackConverterProperties properties;
+    
+    
+    class CustomMapping implements UnicodeReverse {
+        UnicodeReverse delegate;
+        Map incMap;
+        Map excMap;
         
+        CustomMapping(UnicodeReverse delegate,Map includeMap,Map excludeMap){
+            this.delegate = delegate;
+            this.incMap = includeMap;
+            this.excMap = excludeMap;
+            
+            if(this.incMap == null)
+                this.incMap = Collections.EMPTY_MAP;
+            if(this.excMap == null)
+                this.excMap = Collections.EMPTY_MAP;
+        }
+        
+        public String reverse(char uc) {
+            Character cc = new Character(uc);
+            
+            boolean exclude = false;
+            if(excMap.containsKey(cc))
+                exclude = true;
+            
+            if(incMap.containsKey(cc)){
+               return (String)incMap.get(cc); 
+            }
+            
+            if(exclude)
+                return null;
+            
+            return delegate.reverse(uc);
+        }
+        
+    }
+    
+    /** Creates a new instance of HtmlSpecificBackConverter */
+    public SgmlSpecificBackConverter(BackConverterProperties properties) {
+        this.properties = properties;
     }
     
     public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {
@@ -31,7 +71,10 @@ public class SgmlSpecificBackConverter implements SpecificBackConverter {
     public void convert(String filename, String lang, String encoding) throws SpecificBackConverterException {
         try {
             UnicodeReverse ur = new SgmlUnicodeReverseImpl();
-            UnicodeEntityBackConverter.fix(filename, ur, encoding);
+            
+            UnicodeReverse wrapper = new CustomMapping(ur,properties.getSGMLUnicode2EntityIncludeMap(),properties.getSGMLUnicode2EntityExcludeMap());
+            
+            UnicodeEntityBackConverter.fix(filename, wrapper, encoding);
             
             //
             //  This code is added as a fix for bug 5023094. In the case of 
