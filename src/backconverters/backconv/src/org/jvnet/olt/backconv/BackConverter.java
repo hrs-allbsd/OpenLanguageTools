@@ -24,13 +24,14 @@ import org.jvnet.olt.xliff_back_converter.XliffParser;
 import org.jvnet.olt.utilities.XliffZipFileIO;
 import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
-import java.util.Properties;
+import java.io.*;
 import java.util.logging.Logger;
 import java.util.zip.ZipException;
+import java.nio.charset.*;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import java.util.Properties;
 
 
 
@@ -52,16 +53,16 @@ import org.xml.sax.SAXException;
  * @author  jc73554
  */
 public class BackConverter {
-    
     protected final static int SO_XLIFF  = 0;
     protected final static int DEFAULT = 1;
     protected final static int FRAMEMAKER = 2;
     
     private ContentSource xliffDtd;
     private ContentSource sklDtd;
-    private Logger logger;
+    private Logger logger = Logger.getLogger(BackConverter.class.getName());
     
     private String fileType = "";
+    private BackConverterProperties props;
     
     /** Creates a new instance of BackConverter */
     public BackConverter(ContentSource xliffDtd, ContentSource sklDtd, Logger logger) {
@@ -77,6 +78,15 @@ public class BackConverter {
         } else {
             this.logger = logger;
         }
+
+        props = new BackConverterProperties();
+    }
+    
+    public BackConverter(BackConverterProperties props){
+        xliffDtd = new LoadableResourceContentSource("resources/xliff.dtd");
+        sklDtd = new LoadableResourceContentSource("resources/tt-xliff-skl.dtd");  
+        
+        this.props = props;
     }
     
     /** This method determines the original data type of the XLZ file. If the
@@ -116,11 +126,8 @@ public class BackConverter {
             }
         }
         catch(Exception ex) {
-            ex.printStackTrace(); //  Fixme: use the logger API
-            BackConverterException bcEx = new BackConverterException("Problem determining the file type: " + ex.getMessage());
-            bcEx.setStackTrace(ex.getStackTrace());
-            
-            throw bcEx;
+            logger.throwing(BackConverter.class.getName(),"determineOriginalFileName",ex);
+            throw new BackConverterException(ex);
         }
     }
     
@@ -151,6 +158,9 @@ public class BackConverter {
     }
     
     public boolean backConvert(File xlzFile, String dir, boolean getSource, String encoding, boolean writeTransStatus) throws BackConverterException {
+        //set the name of the file we're processing
+        props.setProperty(BackConverterProperties.PROP_GEN_XLZ_FILE_NAME,xlzFile.getAbsolutePath());
+            
         //  Determine the original file type
         int fileType = determineOriginalFileType(xlzFile);
         logger.finer("Datatype was " + fileType);
@@ -158,7 +168,7 @@ public class BackConverter {
         switch(fileType) { 
             case SO_XLIFF:
                 // return doStarOfficeBackConversion(xlzFile, dir, getSource, writeTransStatus);
-		System.out.println(" Not doing StarOffice Back Conversion !!");
+                logger.warning(" Not doing StarOffice Back Conversion !!");
             case FRAMEMAKER:  //  drop through: later Framemaker processing can be added here.
             case DEFAULT:     //  drop through
             default:
@@ -185,7 +195,7 @@ public class BackConverter {
             
             //  Initialize an XliffBackConverter
             XliffBackConverter xbc = new XliffBackConverter(xliffDTDReader, skeletonDTDReader, logger);
-            
+            xbc.setBackconverterProperties(props);
             xbc.backConvert(xlzFile, dir, getSource, encoding, writeTransStatus);
         }
         catch(IOException ioEx) {
@@ -199,8 +209,106 @@ public class BackConverter {
     public String getFileType(){
         return this.fileType;
     }
+  
+    static Properties checkArguments(String[] args) throws IllegalArgumentException{
+        if(args == null || args.length < 3)
+            throw new IllegalArgumentException();
+        
+        //check input file
+        File file = new File(args[0]);
+        if(!file.exists())
+            throw new IllegalArgumentException("file does not exit");
+        if(!file.isFile())
+            throw new IllegalArgumentException("file is not a regular file");
+        if(!file.canRead())
+            throw new IllegalArgumentException("file is not readable");
+                    
+        //check output dir
+        file = new File(args[1]);
+        if(!file.exists()){
+            boolean rv = file.mkdirs();
+            if(!rv)
+                throw new IllegalArgumentException("unable to create output dir");
+        }
+        
+        if(!file.isDirectory())
+            throw new IllegalArgumentException("dir is not dirctory");
+        
+        if(!file.canWrite()){
+            throw new IllegalArgumentException("dir is not writable");
+        }
+    
+        //encoding
+        try{
+            Charset.forName(args[2]);
+        }
+        catch (UnsupportedCharsetException ucse){
+            throw new IllegalArgumentException("unsupported charset");
+        }
+        catch (IllegalCharsetNameException icne){
+            throw new IllegalCharsetNameException("unknown charset");
+        }
+         
+        
+        //properties
+        Properties props = null;
+        if(args.length > 3){
+            String propsName = args[3];
+            
+            FileInputStream fis = null;
+            try{
+                fis = new FileInputStream(propsName);
+                props = new Properties();
+                props.load(fis);
+            }
+            catch (IOException ioe){
+                System.out.println("Error occured while opening properties"+ioe);
+                System.out.println("properties will not be used");
+            }
+            finally{
+                if(fis != null){
+                    try{
+                        fis.close();
+                    }
+                    catch (IOException ioe){
+                        ; //ignore
+                    }
+                }
+            }
+        }
+        
+        return props;
+    }
+    
+    static void usage(){
+        System.out.println("Available arguments: file dir encoding [properties]");
+        System.out.println("Where:");
+        System.out.println("file -- is path to .xlz file to backconvert");
+        System.out.println("dir -- output directory; the path to directory to which file will be backconverted"); 
+        System.out.println("encoding -- character encoding to use for .xlz -> original file transformation"); 
+        System.out.println("properties -- path to a properties file containing backconversion control properties");
+        System.out.println("");
+        System.out.println("All argument except to properties are mandatory");
+    }
     
     public static void main(java.lang.String[] args) {
+        Properties props;
+        
+        try{
+            props = checkArguments(args);
+        }
+        catch (IllegalArgumentException iae){
+            if(iae.getMessage() == null){
+                usage();
+            }
+            else{
+                System.out.println("Error encountered while parsing the arguments:");
+                System.out.println(iae.getMessage());
+            }
+            
+            System.exit(2);
+        }
+        
         try {
             String strXlzFile = args[0];
             String outputDir  = args[1];
