@@ -154,7 +154,8 @@
         
 		<jar jarfile="${installer.dir}/TransEditor.jar">
             <fileset dir="${build.dir}">
-                <include name="com/sun/gss/common/"/>
+			
+                <include name="org/jvnet/olt/editor/backconv/"/>
                 <include name="org/jvnet/olt/parsers/sgmltokens/"/>
                 <include name="org/jvnet/olt/util/"/>
                 <include name="org/jvnet/olt/io/"/>
@@ -187,7 +188,7 @@
                 <include name="org/jvnet/olt/laxparsers/software/"/>
                 <include name="org/jvnet/olt/parsers/MessageFormatParser/"/>
                 <include name="org/jvnet/olt/parsers/PrintfParser/"/>
-		<include name="org/jvnet/olt/parsers/XmlDocFragmentParser/"/>
+				<include name="org/jvnet/olt/parsers/XmlDocFragmentParser/"/>
                 <include name="org/jvnet/olt/so_back_converter/"/>
                 <include name="org/jvnet/olt/util/"/>
                 <include name="org/jvnet/olt/xliff/"/>
@@ -288,7 +289,8 @@
 			classpathref="run.classpath" 
 			fork="yes" 
                         dir="${installer.dir}"
-			classname="org.jvnet.olt.editor.translation.TransEditor">
+                        classname="org.jvnet.olt.editor.translation.TransEditor">
+<!--classname="org.jvnet.olt.editor.backconv.SGMLOptionsPanel" -->
 			<jvmarg value="-Xdebug"/>
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
 			<jvmarg value="-Xmx512M"/>                        
