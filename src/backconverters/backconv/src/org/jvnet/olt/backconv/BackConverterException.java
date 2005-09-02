@@ -30,5 +30,9 @@ public class BackConverterException extends Exception {
     public BackConverterException(String msg) {
         super(msg);
     }
+    
+    public BackConverterException(Throwable cause){
+        super(cause);
+    }
 }
 
