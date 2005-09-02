@@ -15,7 +15,8 @@
     
     <path id="build.classpath">
 		<path location="${build.dir}"/>
-		<path location="deps.common.util"/>
+		<path refid="deps.common.util"/>
+		<path refid="deps.junit"/>
     </path>
 
 </project>
