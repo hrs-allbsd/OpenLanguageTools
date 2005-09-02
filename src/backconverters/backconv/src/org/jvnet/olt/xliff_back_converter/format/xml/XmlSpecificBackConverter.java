@@ -42,8 +42,10 @@ public class XmlSpecificBackConverter implements SpecificBackConverter {
     
     private String datatype = "XML";
     
+    private BackConverterProperties properties;
     /** Creates a new instance of XmlSpecificBackConverter */
-    public XmlSpecificBackConverter() {
+    public XmlSpecificBackConverter(BackConverterProperties properties) {
+        this.properties = properties;
     }
     
     public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {

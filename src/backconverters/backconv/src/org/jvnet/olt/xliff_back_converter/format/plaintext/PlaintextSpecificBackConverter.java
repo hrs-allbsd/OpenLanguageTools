@@ -21,8 +21,10 @@ import java.io.*;
  */
 public class PlaintextSpecificBackConverter implements SpecificBackConverter {
     
+    private BackConverterProperties properties;
     /** Creates a new instance of PlaintextSpecificBackConverter */
-    public PlaintextSpecificBackConverter() {
+    public PlaintextSpecificBackConverter(BackConverterProperties properties) {
+        this.properties = properties;
     }
     
     public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {

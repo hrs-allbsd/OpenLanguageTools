@@ -37,6 +37,8 @@ public class XliffBackConverter {
         java.util.logging.Logger.getLogger("org.jvnet.olt.xliff_back_converter");
 
     private XliffBackConverterInfo backConverterInfo;
+    
+    private BackConverterProperties props = new BackConverterProperties();
 
 
     /**
@@ -56,6 +58,10 @@ public class XliffBackConverter {
         backConverterInfo = new XliffBackConverterInfo();
     }
 
+    public void setBackconverterProperties(BackConverterProperties props){
+        this.props = props;
+    }
+    
     /** This method is an overloaded version of the main backConvert method. It 
      * assumes that writing SGML processing instructions into the code is not 
      * necessary. It delegates to the other backConvert method.
@@ -96,14 +102,13 @@ public class XliffBackConverter {
          * Stores the properties required by the Back Converter - This is no
          * longer used, but may be used in the future.
          */
-        BackConverterProperties props = new BackConverterProperties();
+        //BackConverterProperties props = new BackConverterProperties();
 
         /*
          * Create the XliffHandler and XliffParser and send the XLIFF file
          * to the parser.
          */
         try {
-
             org.jvnet.olt.utilities.XliffZipFileIO xlzZipFile = new org.jvnet.olt.utilities.XliffZipFileIO(file);
             if (!xlzZipFile.hasSkeleton()){
                 throw new XliffBackConverterException("Unable to run the backconverter on this XLIFF  : it does not have a skeleton file associated with it.");
@@ -139,7 +144,7 @@ public class XliffBackConverter {
             segFile.getOriginalFilename();
             String lang = segFile.getTargetLanguage();
             //System.out.println("Datatype is " + datatype);
-            SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory();
+            SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory(props);
             SpecificBackConverter specific= fac.getSpecificBackConverter(datatype);
             specific.convert(dir+File.separator+segFile.getOriginalFilename(), lang, charSet, file.getAbsolutePath());
             

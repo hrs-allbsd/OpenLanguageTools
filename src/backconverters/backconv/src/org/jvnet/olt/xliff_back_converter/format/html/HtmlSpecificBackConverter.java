@@ -22,8 +22,10 @@ public class HtmlSpecificBackConverter implements SpecificBackConverter {
     
     private String datatype = "HTML";
     
+    private BackConverterProperties properties;
     /** Creates a new instance of HtmlSpecificBackConverter */
-    public HtmlSpecificBackConverter() {
+    public HtmlSpecificBackConverter(BackConverterProperties properties) {
+        this.properties = properties;
     }
     
     public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {

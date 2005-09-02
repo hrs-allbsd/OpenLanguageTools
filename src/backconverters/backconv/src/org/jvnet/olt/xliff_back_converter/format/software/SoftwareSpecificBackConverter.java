@@ -19,10 +19,10 @@ import org.jvnet.olt.xliff_back_converter.*;
  * @author  timf
  */
 public class SoftwareSpecificBackConverter implements SpecificBackConverter {
-    
+    private BackConverterProperties properties;
     /** Creates a new instance of HtmlSpecificBackConverter */
-    public SoftwareSpecificBackConverter() {
-        
+    public SoftwareSpecificBackConverter(BackConverterProperties properties) {
+        this.properties = properties;
     }
     
     public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {

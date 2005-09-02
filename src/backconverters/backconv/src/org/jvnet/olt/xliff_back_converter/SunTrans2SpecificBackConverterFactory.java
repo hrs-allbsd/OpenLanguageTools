@@ -37,8 +37,11 @@ public class SunTrans2SpecificBackConverterFactory implements SpecificBackConver
     
     private HashMap converters;
     
+    private BackConverterProperties properties;
     
-    public SunTrans2SpecificBackConverterFactory(){
+    public SunTrans2SpecificBackConverterFactory(BackConverterProperties properties){
+        this.properties = properties;
+        
         converters = new HashMap();
         converters.put("html", new Integer(HTML));
         converters.put("htm", new Integer(HTML));
@@ -65,15 +68,15 @@ public class SunTrans2SpecificBackConverterFactory implements SpecificBackConver
         } else {
             switch (type.intValue()){
                 case HTML:
-                    return new HtmlSpecificBackConverter();
+                    return new HtmlSpecificBackConverter(properties);
                 case SGML:
-                    return new SgmlSpecificBackConverter();
+                    return new SgmlSpecificBackConverter(properties);
                 case PLAINTEXT:
-                    return new PlaintextSpecificBackConverter();
+                    return new PlaintextSpecificBackConverter(properties);
                 case XML:
-                    return new XmlSpecificBackConverter();
+                    return new XmlSpecificBackConverter(properties);
                 case SOFTWARE:
-                    return new SoftwareSpecificBackConverter();
+                    return new SoftwareSpecificBackConverter(properties);
                     // other types go in here                    
                 default:
                     return new NullSpecificBackConverter();

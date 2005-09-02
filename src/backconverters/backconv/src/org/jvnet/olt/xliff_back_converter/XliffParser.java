@@ -76,7 +76,7 @@ public class XliffParser implements ContentHandler {
     private EntityResolver resolver;
 
     /* Properties required by the Back Converter */
-    private static BackConverterProperties props;
+    private BackConverterProperties props;
 
     /* Logging object */
     private static Logger logger;
