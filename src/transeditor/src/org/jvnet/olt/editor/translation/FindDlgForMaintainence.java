@@ -139,6 +139,9 @@ public class FindDlgForMaintainence extends JPanel {
     /**
      * forward radio button
      */
+    JRadioButton searchDownRadio = new JRadioButton("Search down",true);
+    JRadioButton searchUpRadio = new JRadioButton("Search up");
+    ButtonGroup buttonGroup = new ButtonGroup();
     /**
      * backward radio button
      */
@@ -150,7 +153,7 @@ public class FindDlgForMaintainence extends JPanel {
     /**
      * option,to search from strat of the document
      */
-    JCheckBox searchDirectionOption = new JCheckBox();
+    //JCheckBox searchDirectionOption = new JCheckBox();
 
     /**
      * option,to search with case sensitively
@@ -178,6 +181,7 @@ public class FindDlgForMaintainence extends JPanel {
     GridLayout gridLayout2 = new GridLayout();
     GridBagLayout gridBagLayout1 = new GridBagLayout();
 
+    JButton clearButton = new JButton();
     /**
      * constructor
      * construct its UI
@@ -231,7 +235,21 @@ public class FindDlgForMaintainence extends JPanel {
                     cancelButton_actionPerformed(e);
                 }
             });
-        replaceButton.setMaximumSize(new Dimension(120, 27));
+        
+        clearButton.setMaximumSize(new Dimension(120, 27));
+        clearButton.setMinimumSize(new Dimension(120, 27));
+        clearButton.setPreferredSize(new Dimension(120, 27));
+        clearButton.setToolTipText("Clea");
+        clearButton.setText("Clear All");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    findComboBox.setSelectedItem("");
+                    replaceComboBox.setSelectedItem("");
+                }
+            });  
+            
+            
+            replaceButton.setMaximumSize(new Dimension(120, 27));
         replaceButton.setMinimumSize(new Dimension(120, 27));
         replaceButton.setPreferredSize(new Dimension(120, 27));
         replaceButton.setToolTipText("Replace the current string");
@@ -289,8 +307,13 @@ public class FindDlgForMaintainence extends JPanel {
             });
         replaceComboBox.setToolTipText("Enter a word or string to replace ");
         caseOption.setToolTipText("Match case sensitivity");
-        searchDirectionOption.setToolTipText("search down");
-        searchDirectionOption.setSelected(true);
+        //searchDirectionOption.setToolTipText("search down");
+        //searchDirectionOption.setSelected(true);
+        //searchDirectionOption.setText("Down");
+        
+        buttonGroup.add(searchDownRadio);
+        buttonGroup.add(searchUpRadio);
+        
         actionPanel.setBounds(new Rectangle(248, 0, 144, 200));
         findSubPanel.setBounds(new Rectangle(4, 0, 244, 200));
 
@@ -299,7 +322,6 @@ public class FindDlgForMaintainence extends JPanel {
         findSubPanel.setMaximumSize(new Dimension(238, 159));
         findSubPanel.setMinimumSize(new Dimension(200, 200));
         findSubPanel.setPreferredSize(new Dimension(200, 200));
-        searchDirectionOption.setText("Down");
         gridLayout3.setColumns(1);
         gridLayout3.setRows(2);
         caseOption.setText("Match Case");
@@ -321,13 +343,17 @@ public class FindDlgForMaintainence extends JPanel {
         textPanel.add(replaceComboBox, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(11, 0, 8, 0), 37, 11));
         textPanel.add(findLabel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(7, 0, 0, 0), 13, 14));
         findSubPanel.add(optionPanel, null);
+        
+//        optionPanel.add(searchDirectionOption, null);
+        optionPanel.add(searchDownRadio,null);
+        optionPanel.add(searchUpRadio,null);
         optionPanel.add(caseOption, null);
-        optionPanel.add(searchDirectionOption, null);
-
+        
         this.add(actionPanel, null);
         actionPanel.add(findButton, null);
         actionPanel.add(replaceButton, null);
         actionPanel.add(replaceAllButton, null);
+        actionPanel.add(clearButton);
         actionPanel.add(cancelButton, null);
     }
 
@@ -359,8 +385,9 @@ public class FindDlgForMaintainence extends JPanel {
         }
 
         boolean caseFlag = caseOption.isSelected();
-        boolean forwardFlag = searchDirectionOption.isSelected();
-
+        //boolean forwardFlag = searchDirectionOption.isSelected();
+        boolean forwardFlag = searchDownRadio.isSelected();
+        
         return new Search(searchString, caseFlag, forwardFlag);
     }
 
@@ -1350,5 +1377,12 @@ public class FindDlgForMaintainence extends JPanel {
         p = null;
 
         return flag;
+    }
+    
+    public void setSearchOnly(boolean searchOnly){
+        replaceAllButton.setVisible(!searchOnly);
+        replaceButton.setVisible(!searchOnly);
+        replaceComboBox.setVisible(!searchOnly);
+        replaceLabel.setVisible(!searchOnly);
     }
 }

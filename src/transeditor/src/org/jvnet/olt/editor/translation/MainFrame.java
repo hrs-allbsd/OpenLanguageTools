@@ -275,6 +275,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     private JMenuItem jMenuTagVerify = new JMenuItem();
     private JMenuItem jMenuSpellCheck = new JMenuItem();
     private JMenuItem jMenuMaintainMiniTM = new JMenuItem();
+    private JMenuItem jMenuSearchMiniTM = new JMenuItem();
     private JMenuItem jMenuMergeMiniTM = new JMenuItem();
     private JMenuItem jMenuUpdateMiniTM = new JMenuItem();
     private JMenuItem jMenuConvert = new JMenuItem();
@@ -425,8 +426,10 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
      * varibales for maintain MiniTM Frame
      */
     JFrame maintainFrame = null;
+
     MiniTMAlignmentMain miniTMAlignment = null;
     JDialog findDlgForMaintain = null;
+    JDialog findDlgForSearch = null;
 
     /**
      * Merge MiniTM Frame
@@ -1932,6 +1935,17 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     jMenuMaintainMiniTM_actionPerformed(e);
                 }
             });
+            
+        jMenuSearchMiniTM.setToolTipText("Search mini-TM");
+        jMenuSearchMiniTM.setText("Search Mini-TM");
+        jMenuSearchMiniTM.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.ALT_MASK));
+        jMenuSearchMiniTM.setMnemonic('S');
+        jMenuSearchMiniTM.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    jMenuSearchMiniTM_actionPerformed(e);
+                }
+            });
+            
         jMenuMergeMiniTM.setToolTipText("Merge two or more mini-TMs");
         jMenuMergeMiniTM.setText("Merge Mini-TMs");
         jMenuMergeMiniTM.addActionListener(new ActionListener() {
@@ -2219,6 +2233,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         menuTools.add(jMenuUpdateMiniTM);
         menuTools.add(jMenuMaintainMiniTM);
         menuTools.add(jMenuMergeMiniTM);
+        menuTools.add(jMenuSearchMiniTM);        
         menuTools.addSeparator();
         menuTools.add(jMenuConvert);
         menuTools.add(jMenuSplitXliff);
@@ -2497,6 +2512,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         this.jMenuTagVerify.setEnabled(enable);
         this.jMenuSpellCheck.setEnabled(enable);
         this.jMenuUpdateMiniTM.setEnabled(enable);
+        this.jMenuSearchMiniTM.setEnabled(enable);
 
         this.jBtnTagVerify.setEnabled(enable);
         this.jBtnSpellCheck.setEnabled(enable);
@@ -5499,7 +5515,72 @@ OUT:
     void jMenuUpdateMiniTM_actionPerformed(ActionEvent e) {
         jBtnUpdateMiniTM_actionPerformed(null);
     }
+    void jMenuSearchMiniTM_actionPerformed(ActionEvent e){
+        final JFrame searchFrame = new JFrame("Search Mini-TM ");
+        searchFrame.getContentPane().setLayout(new BorderLayout());
 
+        if(miniTMAlignment == null){
+            miniTMAlignment = new MiniTMAlignmentMain();
+        }
+        miniTMAlignment.setReadOnly(true);
+        miniTMAlignment.data = getTMUnits();
+        miniTMAlignment.repaintSelf();
+
+        searchFrame.getContentPane().add(miniTMAlignment, BorderLayout.CENTER);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        JButton findButton = new JButton("Search");
+        findButton.setMnemonic('S');
+        findButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if (findDlgForMaintain == null) {
+                        findDlgForMaintain = new JDialog(searchFrame, "Search ...", false);
+                        findDlgForMaintain.getContentPane().setLayout(new BorderLayout());
+
+                        FindDlgForMaintainence findPanel = new FindDlgForMaintainence(findDlgForMaintain, backend);
+
+                        findDlgForMaintain.getContentPane().add(findPanel, "Center");
+                        findDlgForMaintain.setSize(400, 240);
+                        findDlgForMaintain.setResizable(true);
+                    }
+                    findDlgForMaintain.setLocationRelativeTo(searchFrame);
+                    findDlgForMaintain.setVisible(true);
+                    ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).init();
+                    ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).setSearchOnly(true);
+                }
+            });
+        panel.add(findButton);
+
+        JButton closeButton = new JButton("Close");
+        closeButton.setMnemonic('C');
+        closeButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    miniTMAlignment.stopEditing();
+                    searchFrame.setVisible(false);
+                    miniTMAlignment.setReadOnly(false);
+                }
+            });
+        panel.add(closeButton);
+        searchFrame.getContentPane().add(panel, BorderLayout.SOUTH);
+        searchFrame.setSize(800, 600);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = searchFrame.getSize();
+
+        if (frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+
+        if (frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+
+        searchFrame.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+        searchFrame.setVisible(true);
+ 
+    }
     void jMenuMaintainMiniTM_actionPerformed(ActionEvent e) {
         if (backend.hasCurrentFile()) {
             Toolkit.getDefaultToolkit().beep();
@@ -5514,8 +5595,9 @@ OUT:
             maintainFrame.getContentPane().setLayout(new BorderLayout());
 
             miniTMAlignment = new MiniTMAlignmentMain();
-            miniTMAlignment.data = getTMUnits();
-
+            miniTMAlignment.data = getTMUnits(); 
+            miniTMAlignment.setReadOnly(false);
+            
             if (miniTMAlignment.modifiedSegments != null) {
                 miniTMAlignment.modifiedSegments.clear();
             }
@@ -5543,6 +5625,8 @@ OUT:
                         findDlgForMaintain.setLocationRelativeTo(maintainFrame);
                         findDlgForMaintain.setVisible(true);
                         ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).init();
+                        ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).setSearchOnly(false);
+
                     }
                 });
             panel.add(findButton);
@@ -5619,6 +5703,9 @@ OUT:
                 maintainFrame.setVisible(true);
             }
         }
+        
+        miniTMAlignment.data = getTMUnits();   
+        miniTMAlignment.setReadOnly(false);
     }
 
     /**
@@ -5657,8 +5744,9 @@ OUT:
             }
         }
 
-        JBackConverter m_backConv = new JBackConverter(this, file);
-
+        JBackConverter m_backConv = new JBackConverter(this);
+        m_backConv.setPreselectedFile(file);
+        
         if (memento != null) {
             m_backConv.setDialogSettings(memento);
         }

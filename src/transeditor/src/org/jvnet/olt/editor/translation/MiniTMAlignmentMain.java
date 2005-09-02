@@ -39,6 +39,7 @@ public class MiniTMAlignmentMain extends JPanel {
     public static boolean bFlag = false;
     public static Vector modifiedSegments = new Vector();
 
+    private boolean  readOnly = true;
     /**
      * cellRender
      */
@@ -194,9 +195,13 @@ public class MiniTMAlignmentMain extends JPanel {
 
         public boolean isCellEditable(int row, int col) {
             return (col == 1) && !(row == ((3 * (row / 3)) + 2));
+            
         }
 
         public void setValueAt(Object value, int row, int col) {
+            if(readOnly)
+                return ;
+            
             if (col == 0) {
                 return;
             }
@@ -352,7 +357,7 @@ public class MiniTMAlignmentMain extends JPanel {
                 if (editPanes[row1 % (PivotTextRender1.ROW_COUNT)] == null) { //init
                     editPanes[row1 % (PivotTextRender1.ROW_COUNT)] = new MiniTMPivotTextPane(table, row1 % (PivotTextRender1.ROW_COUNT), 0, true);
                     p = editPanes[row1 % (PivotTextRender1.ROW_COUNT)];
-                    p.setBorder(null);
+                    p.setBorder(null);                    
                 } else {
                     p = editPanes[row1 % (PivotTextRender1.ROW_COUNT)];
 
@@ -539,7 +544,7 @@ public class MiniTMAlignmentMain extends JPanel {
             editor.addKeyListener(editor);
             editor.addMouseListener(editor);
             editor.addFocusListener(editor);
-            editor.setEditable(true);
+            editor.setEditable(!readOnly);
 
             return editor;
         }
@@ -830,5 +835,13 @@ public class MiniTMAlignmentMain extends JPanel {
         } else {
             Toolkit.getDefaultToolkit().beep();
         }
+    }
+    
+
+    public void setReadOnly(boolean readOnly){
+        this.readOnly = readOnly;
+        for(int i = 0; editPanes != null && i < editPanes.length; i++)
+            if(editPanes[i] != null)
+                editPanes[i].setEditable(!readOnly);
     }
 }
