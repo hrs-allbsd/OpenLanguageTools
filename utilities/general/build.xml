@@ -4,6 +4,14 @@
 <project name="general-utilities" basedir="." default="all">
 	<import file="../../common.xml"/>
 
-    <path id="build.classpath"/>
+	<fileset id="test.src" dir="src">
+		<include name="**/*Test.java"/>
+	</fileset>
+
+	<path id="test.classpath"/>
+
+    <path id="build.classpath">
+		<path refid="deps.junit"/>
+	</path>
     
 </project>
