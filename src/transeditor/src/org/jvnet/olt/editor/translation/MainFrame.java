@@ -760,8 +760,18 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         }
 
         public void done() {
+            MainFrame.this.repaintSelf();
             MainFrame.this.enableGUI();
+            
         }
+
+        public boolean propagateMiniTMMatches() {
+            int opt = JOptionPane.showConfirmDialog(MainFrame.this, 
+                    "100% matches were found in MiniTM for some of the untranslated segments in this file.\n Would you like to automatically translate these segments ?", "MiniTM matches found",JOptionPane.YES_NO_OPTION);
+            return opt == JOptionPane.YES_OPTION;
+        }
+        
+        
     }
 
     /**

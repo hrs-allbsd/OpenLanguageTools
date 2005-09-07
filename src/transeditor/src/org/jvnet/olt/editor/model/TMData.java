@@ -16,6 +16,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -37,6 +39,7 @@ import org.jvnet.olt.format.*;
 import org.jvnet.olt.io.HTMLEscapeFilterReader;
 import org.jvnet.olt.minitm.AlignedSegment;
 import org.jvnet.olt.minitm.MiniTM;
+import org.jvnet.olt.minitm.MiniTMException;
 import org.jvnet.olt.minitm.TMMatch;
 import org.jvnet.olt.xliff.TrackingComments;
 import org.jvnet.olt.xliff.TrackingGroup;
@@ -57,6 +60,8 @@ public class TMData extends PivotData {
     public static final int ERROR_TARGET_LANG_MISSING = 1;
     public TMSentence[] tmsentences;
 
+    //if any untranslated segment's texts were found as 100% macthes in MiniTM
+    private boolean hasMiniTMMatches;
     /**
      * whether or not the current file is modified, not including status
      */
@@ -164,7 +169,7 @@ public class TMData extends PivotData {
             tempMatches.removeAllElements();
 
             List listThisMatches = (List)xliffparser.getAltTransMatchInfo(transUnitId);
-
+            
             for (int i = 0; i < listThisMatches.size(); i++) {
                 Match m = (Match)listThisMatches.get(i);
 
@@ -187,6 +192,51 @@ public class TMData extends PivotData {
             matches = (Match[])tempMatches.toArray(new Match[0]);
 
             return true;
+        }
+        
+        
+        public boolean checkMiniTMMatch(){
+            if(translationStatus != UNTRANSLATED)
+                return false;
+            
+            try{
+                MiniTM miniTm = project.getMiniTM();        
+                TMMatch[] matches = miniTm.getMatchFor(source.getValue(), 100, -1);
+                return matches != null && matches.length > 0;
+            }
+            catch (MiniTMException mte){
+                logger.warning("Exception:"+mte);
+                logger.warning("I will continue as if nothing happend");
+                return false;
+                
+            }
+            
+        }
+        
+        public boolean populateFromMiniTM(){
+            try{
+                MiniTM miniTm = project.getMiniTM();        
+                TMMatch[] matches = miniTm.getMatchFor(source.getValue(), 100, -1);
+                logger.finest("Found "+(matches == null ? 0 : matches.length)+" mini-tm matches");
+                for(int i = 0;matches != null && i < matches.length;i++){
+                    logger.finest("Match "+i+":"+matches[i].getTranslation());
+
+                    if ((translationStatus == UNTRANSLATED) && (translationType != EXACT_TRANSLATION)) {
+                        //m.handleAsAppliedMatch(iSentenceID, EXACT_TRANSLATION, Match.EXACTAUTOMATCH);
+                        translation.setValue(matches[i].getTranslation().toString());
+                        translationStatus = EXACT_TRANSLATION;
+                        translationType = Match.EXACTAUTOMATCH;
+                        //TODO add action
+                        
+                        automodified = true;
+                    }
+                }                    
+            }
+            catch (MiniTMException e){
+                logger.finest("Exception:"+e);
+            }
+            
+            return automodified;
         }
 
         //modified by tony
@@ -813,6 +863,7 @@ public class TMData extends PivotData {
 
         int iError = 0;
 
+        hasMiniTMMatches = false;
         try {
             for (int i = 0; i < size; i++) {
                 iError = i;
@@ -824,6 +875,9 @@ public class TMData extends PivotData {
             for (int i = 0; i < size; i++) {
                 iError = i;
                 tmsentences[i].build();
+                
+                if(!hasMiniTMMatches)
+                    hasMiniTMMatches = tmsentences[i].checkMiniTMMatch();                
             }
         } finally {
             xliffparser.shutdown();
@@ -831,7 +885,22 @@ public class TMData extends PivotData {
 
         return true;
     }
-
+    
+    public boolean populateFromMiniTM(){
+        boolean needsSave = false;
+        for(int i = 0;i < tmsentences.length ;i++){
+            boolean populated = tmsentences[i].populateFromMiniTM();
+            
+            if(populated){
+                bTMFlags[i] = true;
+                bMiniTMFlags[i] = true;
+            }
+            needsSave = needsSave || populated;
+        }
+        
+        return needsSave;        
+    }
+    
     public void setTransProject(TransProject projectInput) {
         this.project = projectInput;
     }
@@ -1788,5 +1857,9 @@ public class TMData extends PivotData {
         }
         
         return anySave;
+    }
+    
+    public boolean getHasMiniTMMatches(){
+        return hasMiniTMMatches;
     }
 }

@@ -81,6 +81,11 @@ class OpenFileThread extends Thread {
                 }
             }
 
+            if(tmpdata.getHasMiniTMMatches() && post.propagateMiniTMMatches()){
+                if(tmpdata.populateFromMiniTM())
+                    tmpdata.saveAllTranslations(false,backend.getConfig().isBFlagWriteProtection());                
+            }
+            
             String srcLan = tmpdata.getSourceLanguageCode();
             String tgtLan = tmpdata.getTargetLanguageCode();
 
@@ -127,5 +132,7 @@ class OpenFileThread extends Thread {
         void exceptionThrown(Throwable t);
 
         void done();
+        
+        boolean propagateMiniTMMatches();
     }
 }
