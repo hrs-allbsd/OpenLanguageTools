@@ -42,7 +42,6 @@ public class BookFileSegmenterTable implements SegmenterTable {
         dontSegmentSet.add("primary");
         dontSegmentSet.add("secondary");
         
-        dontSegmentSet.add("book");
         dontSegmentSet.add("author");
         dontSegmentSet.add("firstname");
         dontSegmentSet.add("surname");
