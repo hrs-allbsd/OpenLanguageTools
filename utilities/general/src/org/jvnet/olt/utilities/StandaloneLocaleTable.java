@@ -128,85 +128,85 @@ public class StandaloneLocaleTable implements LocaleTable {
         localeMap.put("vi-VT","ISO-8859-1");
         
         //GNOME supported languages
-        localeMap.put("af_AF","UTF-8"); //Afrikaans
-        localeMap.put("am_AM","UTF-8"); //Amharic
-        localeMap.put("ang_ANG","UTF-8"); //Old English
+        localeMap.put("af-AF","UTF-8"); //Afrikaans
+        localeMap.put("am-AM","UTF-8"); //Amharic
+        localeMap.put("ang-ANG","UTF-8"); //Old English
         
-        localeMap.put("as_AS","UTF-8"); //Assamese
-        localeMap.put("az_AZ","UTF-8"); //Azerbaijani
-        localeMap.put("az_IR","UTF-8"); //Iranian Azerbaijani
-        localeMap.put("be_BE","UTF-8"); //Belarusian
-        localeMap.put("bg_BG","UTF-8"); //Bulgarian
-        localeMap.put("bn_BN","UTF-8"); //Bengali
-        localeMap.put("br_BR","UTF-8"); //Breton
-        localeMap.put("bs_BS","UTF-8"); //Bosnian
+        localeMap.put("as-AS","UTF-8"); //Assamese
+        localeMap.put("az-AZ","UTF-8"); //Azerbaijani
+        localeMap.put("az-IR","UTF-8"); //Iranian Azerbaijani
+        localeMap.put("be-BE","UTF-8"); //Belarusian
+        localeMap.put("bg-BG","UTF-8"); //Bulgarian
+        localeMap.put("bn-BN","UTF-8"); //Bengali
+        localeMap.put("br-BR","UTF-8"); //Breton
+        localeMap.put("bs-BS","UTF-8"); //Bosnian
         
-        localeMap.put("cy_CY","UTF-8"); //Welsh
+        localeMap.put("cy-CY","UTF-8"); //Welsh
         
-        localeMap.put("eo_EO","UTF-8"); //Esperanto
+        localeMap.put("eo-EO","UTF-8"); //Esperanto
         
-        localeMap.put("et_ET","UTF-8"); //Estonian
-        localeMap.put("eu_EU","UTF-8"); //Basque
-        localeMap.put("fa_FA","UTF-8"); //Persian
+        localeMap.put("et-ET","UTF-8"); //Estonian
+        localeMap.put("eu-EU","UTF-8"); //Basque
+        localeMap.put("fa-FA","UTF-8"); //Persian
         
-        localeMap.put("gl_GL","UTF-8"); //Galician
-        localeMap.put("gu_GU","UTF-8"); //Gujarati
+        localeMap.put("gl-GL","UTF-8"); //Galician
+        localeMap.put("gu-GU","UTF-8"); //Gujarati
         
-        localeMap.put("hr_HR","UTF-8"); //Croatian
+        localeMap.put("hr-HR","UTF-8"); //Croatian
         
-        localeMap.put("hy_HY","UTF-8"); //Armenian
-        localeMap.put("ia_IA","UTF-8"); //Interlingua
-        localeMap.put("id_ID","UTF-8"); //Indonesian
-        localeMap.put("is_IS","UTF-8"); //Icelandic
+        localeMap.put("hy-HY","UTF-8"); //Armenian
+        localeMap.put("ia-IA","UTF-8"); //Interlingua
+        localeMap.put("id-ID","UTF-8"); //Indonesian
+        localeMap.put("is-IS","UTF-8"); //Icelandic
         
-        localeMap.put("ka_KA","UTF-8"); //Georgian
-        localeMap.put("kn_KN","UTF-8"); //Kannada
+        localeMap.put("ka-KA","UTF-8"); //Georgian
+        localeMap.put("kn-KN","UTF-8"); //Kannada
         
-        localeMap.put("ku_KU","UTF-8"); //Kurdish
-        localeMap.put("li_LI","UTF-8"); //Limburgish
-        localeMap.put("lt_LT","UTF-8"); //Lithuanian
-        localeMap.put("lv_LV","UTF-8"); //Latvian
-        localeMap.put("mi_MI","UTF-8"); //Maori
-        localeMap.put("mk_MK","UTF-8"); //Macedonian
-        localeMap.put("ml_ML","UTF-8"); //Malayalam
-        localeMap.put("mn_MN","UTF-8"); //Mongolian
-        localeMap.put("mr_MR","UTF-8"); //Marathi
-        localeMap.put("ms_MS","UTF-8"); //Malay
-        localeMap.put("nb_NB","UTF-8"); //Norwegian Bookmal
-        localeMap.put("ne_NE","UTF-8"); //Nepali
+        localeMap.put("ku-KU","UTF-8"); //Kurdish
+        localeMap.put("li-LI","UTF-8"); //Limburgish
+        localeMap.put("lt-LT","UTF-8"); //Lithuanian
+        localeMap.put("lv-LV","UTF-8"); //Latvian
+        localeMap.put("mi-MI","UTF-8"); //Maori
+        localeMap.put("mk-MK","UTF-8"); //Macedonian
+        localeMap.put("ml-ML","UTF-8"); //Malayalam
+        localeMap.put("mn-MN","UTF-8"); //Mongolian
+        localeMap.put("mr-MR","UTF-8"); //Marathi
+        localeMap.put("ms-MS","UTF-8"); //Malay
+        localeMap.put("nb-NB","UTF-8"); //Norwegian Bookmal
+        localeMap.put("ne-NE","UTF-8"); //Nepali
         
-        localeMap.put("nn_NN","UTF-8"); //Norwegian Nynorsk
-        localeMap.put("nso_NSO","UTF-8"); //Northern Sotho
-        localeMap.put("or_OR","UTF-8"); //Oriya
-        localeMap.put("pa_PA","UTF-8"); //Punjabi
+        localeMap.put("nn-NN","UTF-8"); //Norwegian Nynorsk
+        localeMap.put("nso-NSO","UTF-8"); //Northern Sotho
+        localeMap.put("or-OR","UTF-8"); //Oriya
+        localeMap.put("pa-PA","UTF-8"); //Punjabi
         
-        localeMap.put("ro_RO","UTF-8"); //Romanian
+        localeMap.put("ro-RO","UTF-8"); //Romanian
         
-        localeMap.put("rw_RW","UTF-8"); //Kinyarwanda
+        localeMap.put("rw-RW","UTF-8"); //Kinyarwanda
         
-        localeMap.put("sl_SL","UTF-8"); //Slovenian
-        localeMap.put("sq_SQ","UTF-8"); //Albanian
-        localeMap.put("sr_SR","UTF-8"); //Serbian
-        localeMap.put("sr_CS","UTF-8"); //Serbian Jekavian
+        localeMap.put("sl-SL","UTF-8"); //Slovenian
+        localeMap.put("sq-SQ","UTF-8"); //Albanian
+        localeMap.put("sr-SR","UTF-8"); //Serbian
+        localeMap.put("sr-CS","UTF-8"); //Serbian Jekavian
         
-        localeMap.put("ta_TA","UTF-8"); //Tamil
-        localeMap.put("te_TE","UTF-8"); //Telugu
-        localeMap.put("tg_TG","UTF-8"); //Tajik
+        localeMap.put("ta-TA","UTF-8"); //Tamil
+        localeMap.put("te-TE","UTF-8"); //Telugu
+        localeMap.put("tg-TG","UTF-8"); //Tajik
         
-        localeMap.put("tk_TK","UTF-8"); //Turkmen
-        localeMap.put("tl_TL","UTF-8"); //Tagalog
+        localeMap.put("tk-TK","UTF-8"); //Turkmen
+        localeMap.put("tl-TL","UTF-8"); //Tagalog
         
-        localeMap.put("ug_UG","UTF-8"); //Uighur
+        localeMap.put("ug-UG","UTF-8"); //Uighur
         
-        localeMap.put("uz_UZ","UTF-8"); //Uzbek
-        localeMap.put("uz_LATN","UTF-8"); //Uzbek Latin Script
-        localeMap.put("vi_VI","UTF-8"); //Vietnamese
-        localeMap.put("wa_WA","UTF-8"); //Wallon
-        localeMap.put("xh_XH","UTF-8"); //Xhosa
-        localeMap.put("yi_YI","UTF-8"); //Yiddish
-        localeMap.put("yo_YO","UTF-8"); //Yoruba
+        localeMap.put("uz-UZ","UTF-8"); //Uzbek
+        localeMap.put("uz-LATN","UTF-8"); //Uzbek Latin Script
+        localeMap.put("vi-VI","UTF-8"); //Vietnamese
+        localeMap.put("wa-WA","UTF-8"); //Wallon
+        localeMap.put("xh-XH","UTF-8"); //Xhosa
+        localeMap.put("yi-YI","UTF-8"); //Yiddish
+        localeMap.put("yo-YO","UTF-8"); //Yoruba
         
-        localeMap.put("zu_ZU","UTF-8"); //Zulu
+        localeMap.put("zu-ZU","UTF-8"); //Zulu
         
         
         codesetSet.add("ASCII");
