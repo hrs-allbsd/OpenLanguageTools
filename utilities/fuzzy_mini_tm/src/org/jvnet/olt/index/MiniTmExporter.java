@@ -121,7 +121,7 @@ public class MiniTmExporter
 			     String targetLang)
     throws IOException
   {
-    writer.write("<?xml version=\"1.0\" encoding=\"utf8\" ?>\n");        
+    writer.write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n");        
     writer.write("<minitm name=\"" + tmName + "\" srclang=\"" + sourceLang + "\" tgtlang=\"" + targetLang + "\">\n");        
   }  
 
