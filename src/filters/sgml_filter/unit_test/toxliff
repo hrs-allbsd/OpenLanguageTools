@@ -1,8 +1,0 @@
-#!/bin/sh 
-CLASSPATH=../../format_handling/:$TT_WS_ROOT/build/filters:${TT_WS_ROOT}/utilities/jars/dtdparser121.jar:$TT_WS_ROOT/build/tt-common.jar
-xCLASSPATH=/space/timf/transtech-build:${TT_WS_ROOT}/utilities/jars/dtdparser121.jar
-export CLASSPATH
-xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=58000"
-
-
-java ${DEBUG} com.sun.tt.filters.sgml.docbook.DocbookToXliff $@

@@ -1,6 +1,0 @@
-#!/bin/sh
-
-CLASSPATH=../classes
-export CLASSPATH
-
-java -Xmx128M -classpath ${CLASSPATH} com.sun.tlis.filters.en_segmenter.ViewCollections $*
