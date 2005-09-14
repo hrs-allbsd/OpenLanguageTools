@@ -38,11 +38,15 @@ import org.jvnet.olt.editor.commands.RejectSegmentAndNextCommand;
 import org.jvnet.olt.editor.commands.RejectSegmentCommand;
 import org.jvnet.olt.editor.filesplit.XliffMergingController;
 import org.jvnet.olt.editor.filesplit.XliffSplittingController;
+import org.jvnet.olt.editor.minitm.TMXImporter;
 import org.jvnet.olt.editor.model.*;
 import org.jvnet.olt.editor.model.TMData.TMSentence;
 import org.jvnet.olt.editor.spellchecker.SpellCheckerAPI;
 import org.jvnet.olt.editor.translation.preview.FilePreviewPane;
 import org.jvnet.olt.editor.util.*;
+import org.jvnet.olt.fuzzy.basicsearch.BasicFuzzySearchMiniTM;
+import org.jvnet.olt.minitm.AlignedSegment;
+import org.jvnet.olt.minitm.MiniTM;
 import org.jvnet.olt.minitm.MiniTMException;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -5639,7 +5643,6 @@ OUT:
 
                     }
                 });
-            panel.add(findButton);
 
             JButton saveButton = new JButton("Save");
             saveButton.setMnemonic('S');
@@ -5649,7 +5652,6 @@ OUT:
                         backend.getProject().saveMaintainenceSegments(MiniTMAlignmentMain.data, MiniTMAlignmentMain.modifiedSegments);
                     }
                 });
-            panel.add(saveButton);
 
             JButton closeButton = new JButton("Close");
             closeButton.setMnemonic('C');
@@ -5680,7 +5682,92 @@ OUT:
                         maintainFrame.setVisible(false);
                     }
                 });
+            
+            JButton importFromTMX = new JButton("Import from TMX...");
+            importFromTMX.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser chooser = new JFileChooser();
+                    chooser.setAcceptAllFileFilterUsed(true);
+                    chooser.setMultiSelectionEnabled(false);
+                    chooser.setAcceptAllFileFilterUsed(false);
+                    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                    chooser.addChoosableFileFilter(new javax.swing.filechooser.FileFilter() {
+                        public String getDescription() {
+                            return "Translation Memory eXchange file (TMX)";
+                        }
+                        public boolean accept(File fileName){
+                            return fileName == null || fileName.isDirectory() || fileName.getName().toLowerCase().endsWith(".tmx");
+                        }
+                    });
+
+                    
+                    int rv = chooser.showDialog(MainFrame.this,"Select");
+                    
+                    if(rv == JFileChooser.CANCEL_OPTION)
+                        return;
+                    
+                    File tmxFile = chooser.getSelectedFile();
+                    
+                    TMXImporter tmxImporter = new TMXImporter();
+                    TransProject proj = backend.getProject();
+                    Configuration conf = backend.getConfig();
+                    
+                    LanguageMappingTable lmpt = LanguageMappingTable.getInstance();
+                    String srcLng = lmpt.reverseTranslateLangCode(proj.getSrcLang());
+                    String tgtLng = lmpt.reverseTranslateLangCode(proj.getTgtLang());
+                    
+                    logger.info("Project langs:"+proj.getSrcLang()+" -> "+proj.getTgtLang());
+                    logger.info("Translated langs:"+srcLng+" -> "+tgtLng);
+                    
+                    tmxImporter.setSrcLangShort(proj.getSrcLang());
+                    tmxImporter.setTgtLangShort(proj.getTgtLang());                    
+                    tmxImporter.setSrcLang(srcLng);
+                    tmxImporter.setTgtLang(tgtLng);
+                    tmxImporter.setTranslatorId(conf.getTranslatorID());
+                    
+                    File miniTMFile = proj.getMiniTMFile();
+                    File tmpFile = null;
+                    try{
+                        tmpFile = File.createTempFile("minitm",".mtm");
+
+                        MiniTM targetTM = backend.getProject().getMiniTM();
+                        tmxImporter.convertTMX2MTM(tmxFile,tmpFile);
+        
+                        MiniTM newTM = new BasicFuzzySearchMiniTM(
+                                tmpFile.getAbsolutePath(),
+                                false,
+                                "XXX",
+                                proj.getSrcLang(),
+                                proj.getTgtLang());
+                        
+                        AlignedSegment[] segs = newTM.getAllSegments();
+                        for(int i = 0; segs != null && i < segs.length;i++){
+                            targetTM.addNewSegment(segs[i]);
+                            
+                            MiniTMAlignmentMain.modifiedSegments.add(Integer.toString(i+MiniTMAlignmentMain.data.length));
+                        }
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(MainFrame.this,"An error occured while importing a TMX file:\n"+ex.getMessage(),"TMX import error",JOptionPane.ERROR_MESSAGE);
+                    }
+                    finally {
+                        if(tmpFile != null && !tmpFile.delete())
+                            logger.warning("Removal of "+tmpFile.getAbsolutePath()+" failed");
+                            
+                    }
+                    
+                    miniTMAlignment.data = getTMUnits(); 
+                    miniTMAlignment.repaintSelf2();
+                }
+                
+            });
+
+            panel.add(importFromTMX);
+			panel.add(new JPanel());
+            panel.add(saveButton);
+            panel.add(findButton);
             panel.add(closeButton);
+            
             maintainFrame.getContentPane().add(panel, BorderLayout.SOUTH);
             maintainFrame.setSize(800, 600);
 
