@@ -5,6 +5,7 @@
  */
 package org.jvnet.olt.editor.model;
 
+import java.io.File;
 import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +57,7 @@ public class TransProject {
     private String path;
     private String dataType;
 
+    private String fileName;
     //TODO -- why do we pass the directories ??? Isn't it always the same directory we use ?
 
     /**
@@ -94,17 +96,19 @@ public class TransProject {
 
         path = tmDir;
 
-        StringBuffer fileName = new StringBuffer(project).append("_").append(srcLan).append("_").append(tgtLan).append(".MTM");
+        fileName = path+ (new StringBuffer(project).append("_").append(srcLan).append("_").append(tgtLan).append(".MTM").toString() );
         knownTMTypes = new HashMap();
 
-        minitm = getNewMiniTM(path + fileName.toString(), true, project, srcLan, tgtLan, dataType);
+        
+        minitm = getNewMiniTM(fileName, true, project, srcLan, tgtLan, dataType);
     }
 
     // reload minitm from file - bug 4727575
     public void reloadMinitm() {
         try {
-            StringBuffer fileName = new StringBuffer(projectName).append("_").append(src).append("_").append(tgt).append(".MTM");
-            minitm = getNewMiniTM(path + fileName.toString(), true, projectName, src, tgt, this.dataType);
+            //StringBuffer fileName = new StringBuffer(projectName).append("_").append(src).append("_").append(tgt).append(".MTM");            
+            //minitm = getNewMiniTM(path + fileName.toString(), true, projectName, src, tgt, this.dataType);
+            minitm = getNewMiniTM(fileName, true, projectName, src, tgt, this.dataType);
         } catch (org.jvnet.olt.minitm.MiniTMException ex) {
             logger.throwing(getClass().getName(), "reloadMinitm()", ex);
             logger.severe("Exception:" + ex);
@@ -259,5 +263,10 @@ public class TransProject {
      */
     public String getEncodedName() {
         return projectName + "_" + src + "_" + tgt;
+    }
+    
+    public File getMiniTMFile(){
+        return new File(fileName);
+
     }
 }
