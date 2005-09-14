@@ -1,4 +1,4 @@
-
+r
 /*
  * Copyright  2005 Sun Microsystems, Inc.
  * All rights reserved Use is subject to license terms.
@@ -283,8 +283,8 @@ public class SgmlUnicodeReverseImpl implements UnicodeReverse {
         entityMap.put(new Character('\u2018'),"lsquo");
         entityMap.put(new Character('\u2019'),"rsquo");
         entityMap.put(new Character('\u201a'),"sbquo");
-        entityMap.put(new Character('\u201c'),"ldquo");
-        entityMap.put(new Character('\u201d'),"rdquo");
+        //entityMap.put(new Character('\u201c'),"ldquo");
+        //entityMap.put(new Character('\u201d'),"rdquo");
         entityMap.put(new Character('\u201e'),"bdquo");
         entityMap.put(new Character('\u2020'),"dagger");
         entityMap.put(new Character('\u2021'),"Dagger");
