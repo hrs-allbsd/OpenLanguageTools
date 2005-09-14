@@ -17,6 +17,7 @@ import java.util.logging.*;
  * <p>Title: Open Language Tools XLIFF Translation Editor</p>
  * <p>Description: This class is the definition of Mini-TM, it is used to get/save a fuzzy match from/into the MiniTM file. </p>
  * @version 1.0
+ * @deprecated
  */
 public class MiniTM {
     private static Logger logger = Logger.getLogger(MiniTM.class.getName());

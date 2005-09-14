@@ -5,6 +5,9 @@
  */
 package org.jvnet.olt.editor.minitm;
 
+/**
+ *@deprecated
+ */
 public class HashKey {
     public final static long getHashValue(String source) {
         long n = source.length();

@@ -9,6 +9,7 @@ package org.jvnet.olt.editor.minitm;
 /**
  * <p>Title: Open Language Tools XLIFF Translation Editor</p>
  * <p>Description: This class is the definition of TMUnit, which is an item saved/read in/from MiniTM file. </p>
+ * @deprecated
  */
 public class TMUnit {
     private String source;

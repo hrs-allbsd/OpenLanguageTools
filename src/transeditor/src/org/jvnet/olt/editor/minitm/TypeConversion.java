@@ -5,6 +5,10 @@
  */
 package org.jvnet.olt.editor.minitm;
 
+/**
+ * @deprecated
+ */
+
 public class TypeConversion {
     public static final boolean equals(byte[] a, byte[] b) {
         if (a.length != b.length) {
