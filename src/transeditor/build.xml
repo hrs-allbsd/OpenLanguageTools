@@ -26,6 +26,7 @@
     <path id="run.classpath">
         <path refid="build.classpath"/>
         <path location="${build.dir}"/>
+        <path location="${intaller.dir}"/>
     </path>
 
 	<!-- dependency tracking see init target-->
@@ -50,6 +51,7 @@
         <echo message="Using build directory ${build.dir}"/>
 		<mkdir dir="${editor.dest.dir}"/>
         <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.dir}/resources"/>
         <mkdir dir="${installer.dir}"/>
 		
 		<!-- we're really really REALLY lazy here. We'll build utilities,filters
@@ -85,8 +87,9 @@
 			overwrite="true"/>
 		<delete file="src/org/jvnet/olt/editor/translation/Constants.java_"/> 
 		
-        <copy todir="${build.dir}">
-            <fileset dir="./static"/>
+                
+        <copy todir="${build.dir}/resources">
+            <fileset dir="./static/resources"/>
         </copy>
         <copy todir="${build.dir}/resources">
             <fileset dir="${dtd.dir}">
@@ -188,7 +191,7 @@
                 <include name="org/jvnet/olt/laxparsers/software/"/>
                 <include name="org/jvnet/olt/parsers/MessageFormatParser/"/>
                 <include name="org/jvnet/olt/parsers/PrintfParser/"/>
-				<include name="org/jvnet/olt/parsers/XmlDocFragmentParser/"/>
+                <include name="org/jvnet/olt/parsers/XmlDocFragmentParser/"/>
                 <include name="org/jvnet/olt/so_back_converter/"/>
                 <include name="org/jvnet/olt/util/"/>
                 <include name="org/jvnet/olt/xliff/"/>
@@ -311,12 +314,15 @@
 	<property file="single-test.properties"/>
         <property name="junit.test.suspend" value="n"/>
         <junit printsummary="yes" haltonfailure="no" dir=".">
+            <classpath refid="test.classpath"/>
+<!--
             <classpath>
                 <path location="${build.dir}" />
                 <path refid="build.classpath"/>
                 <path location="."/>
                 <path location="test-data"/>
             </classpath>
+    -->
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=${junit.test.suspend},address=58000"/>
             <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
@@ -336,12 +342,14 @@
     <!-- we need to setup working dir and different classpath -->
     <target name="test" depends="pre-test,compile">
         <junit printsummary="yes" haltonfailure="no" dir=".">
-            <classpath>
+            <classpath refid="test.classpath"/>
+            <!--<classpath>
                 <path location="${build.dir}" />
                 <path refid="build.classpath"/>
                 <path location="."/>
                 <path location="test-data"/>
             </classpath>
+            -->
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
             <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
