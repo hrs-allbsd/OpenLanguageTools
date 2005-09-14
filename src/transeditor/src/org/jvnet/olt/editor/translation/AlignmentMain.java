@@ -231,6 +231,7 @@ public class AlignmentMain extends JPanel implements AdjustmentListener {
                     }
                 }
             } catch (Exception ex) {
+                logger.warning("Exception:"+ex);
             }
         }
 
