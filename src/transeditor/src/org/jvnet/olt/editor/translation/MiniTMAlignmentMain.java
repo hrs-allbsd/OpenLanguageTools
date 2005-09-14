@@ -686,6 +686,10 @@ public class MiniTMAlignmentMain extends JPanel {
         tableView.updateUI();
     }
 
+    public void repaintSelf2(){
+        tableView.tableChanged(new TableModelEvent(dataModel));
+    }
+    
     void stopEditing() {
         if (tableView.isEditing()) {
             tableView.getCellEditor(tableView.getEditingRow(), tableView.getEditingColumn()).stopCellEditing();
