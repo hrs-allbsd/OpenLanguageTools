@@ -99,6 +99,7 @@
                 <include name="xml.xsd"/>
                 <include name="datatypes.dtd"/>
                 <include name="XMLSchema.dtd"/>
+                <include name="tmx*.dtd"/>
             </fileset>
             <fileset dir="${tmx-conv.dir}/src/resource/">
                 <include name="xliff-tmx.xsl"/>
