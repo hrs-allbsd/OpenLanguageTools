@@ -346,58 +346,64 @@ public class XLIFFParser {
         //        }
     }
     
-    private void prepareFile(File fInput) throws IOException {
-        try {
-            if ((fInput == null) || sourceFile.equals(fInput)) {
-                return;
-            }
-            
-            boolean boolNoOpenedFile = (xlzZipFile == null);
-            boolean boolFlatXliffFile = fInput.getName().endsWith("xlf");
-            
-            //  Guard clause to ensure no attempt is made to write an XLZ file when
-            //  skeleton data does not exist.
-            if (boolNoOpenedFile && !boolFlatXliffFile) {
+    private XliffZipFileIO prepareFile(File fInput) throws IOException {
+        if ((fInput == null) || sourceFile.equals(fInput)) {
+            return xlzZipFile;
+        }
+
+        boolean boolNoOpenedFile = (xlzZipFile == null);
+        boolean boolFlatXliffFile = ! fInput.getName().endsWith("xlz");
+
+        //  Guard clause to ensure no attempt is made to write an XLZ file when
+        //  skeleton data does not exist.
+        if (boolNoOpenedFile && !boolFlatXliffFile) {
+            throw new MissingSklDataException("There is no skeleton data available to write an XLZ file.");
+        }
+
+        if (!boolFlatXliffFile) {
+            if (!xlzZipFile.hasSkeleton()) {
                 throw new MissingSklDataException("There is no skeleton data available to write an XLZ file.");
             }
-            
-            //if (boolFlatXliffFile) {
-            //    xlzZipFile = new XliffZipFileIO(fInput);
-                
-                //gWriter.setSaveAsFileWriter(xlzZipFile);
-            //} else {
-            if (!boolFlatXliffFile) {
-                if (!xlzZipFile.hasSkeleton()) {
-                    throw new MissingSklDataException("There is no skeleton data available to write an XLZ file.");
-                }
-                
-                //  Read in the Skeleton data
-                java.io.Reader sklReader = xlzZipFile.getSklReader();
-                
-                XliffZipFileIO xlzZipFileNew = new XliffZipFileIO(fInput);
-                java.io.Writer sklWriter = xlzZipFileNew.getSklWriter();
-                
-                int ch = 0;
-                
-                while ((ch = sklReader.read()) != -1) {
-                    sklWriter.write((char)ch);
-                }
-                
-                xlzZipFile = xlzZipFileNew;
-                
-                //gWriter.setSaveAsFileWriter(xlzZipFileNew);
+
+            //  Read in the Skeleton data
+            java.io.Reader sklReader = xlzZipFile.getSklReader();
+
+            XliffZipFileIO xlzZipFileNew = new XliffZipFileIO(fInput);
+            java.io.Writer sklWriter = xlzZipFileNew.getSklWriter();
+
+            int ch = 0;
+
+            while ((ch = sklReader.read()) != -1) {
+                sklWriter.write((char)ch);
             }
-        } catch (IOException ioec) {
-            throw ioec;
+
+           return xlzZipFileNew;
+
+            //gWriter.setSaveAsFileWriter(xlzZipFileNew);
         }
+        return null;
     }
 
-
     public void saveToFile(File dstFile,boolean autosave) throws NestableException {
+    
         try {
-            prepareFile(dstFile);
             
+            XliffZipFileIO xlz = xlzZipFile;
+            if(!dstFile.equals(sourceFile) && fileType == FILE_TYPE_XLZ){
+                xlz = prepareFile(dstFile);
+            }
+
             writer.saveComments(m_commentsTracking);
+                 
+            if(fileType == FILE_TYPE_XLZ){
+                saveToXLZFile(xlz,autosave);
+                if(!autosave)
+                    xlzZipFile = xlz;
+            }
+            else
+                saveToRegularFile(dstFile,autosave);
+            
+            
             
             //What we do here: when saving file we need to parse the original file and inject
             //the modified data into into the XML stream
@@ -407,18 +413,20 @@ public class XLIFFParser {
             //We also will create another temp file tempCopy2 where a copy of the new file will be stored.
             //After saving the file we will delete the first temp file and declare the second one the
             //new temp file
-            if (xlzZipFile != null) {
+           /*
+            if (xlz != null) {
                 saveToXLZFile(xlzZipFile,autosave);
+                xlzZipFile = xlz;
             } else {
                 saveToRegularFile(dstFile,autosave);
             }
+            */
         } catch (IOException ioe) {
             throw new NestableException(ioe);
         } catch (SAXException sae) {
             throw new NestableException(sae);
         }
     }
-
 
     private void saveToRegularFile(File destFile,boolean autosave) throws IOException, SAXException {
         java.io.Writer xwriter = null;
@@ -529,7 +537,7 @@ public class XLIFFParser {
                 }
             }
             
-            if (writer != null) {
+            if (xwriter != null) {
                 try {
                     xwriter.close();
                 } catch (IOException ioe) {
