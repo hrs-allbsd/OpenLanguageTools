@@ -304,15 +304,15 @@
 		
 	</target>
 
-   <target name="pre-test">
-   	<mkdir dir="${build.dir}/junit-reports"/>
+   <target name="xpre-test">
+        <mkdir dir="${build.dir}/junit-reports"/>
         <mkdir dir="${build.dir}/test-results"/>
     </target>
         
         	
-    <target name="test-single" depends="pre-test,compile">
+    <target name="xtest-single" depends="pre-test,compile">
 
-	<property file="single-test.properties"/>
+		<property file="single-test.properties"/>
         <property name="junit.test.suspend" value="n"/>
         <junit printsummary="yes" haltonfailure="no" dir=".">
             <classpath refid="test.classpath"/>
@@ -341,7 +341,7 @@
     </target>
 
     <!-- we need to setup working dir and different classpath -->
-    <target name="test" depends="pre-test,compile">
+    <target name="xtest" depends="pre-test,compile">
         <junit printsummary="yes" haltonfailure="no" dir=".">
             <classpath refid="test.classpath"/>
             <!--<classpath>
