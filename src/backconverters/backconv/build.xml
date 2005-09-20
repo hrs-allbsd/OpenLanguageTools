@@ -9,10 +9,11 @@
         <path location="${build.dir}"/> 
     </path>
     
+<!--	
     <fileset id="test.src" dir="src">
         <include name="**/*Test.java"/>
     </fileset>
-    
+-->    
 
     
     <path id="build.classpath">
