@@ -300,6 +300,7 @@
 			<jvmarg value="-Xmx512M"/>                        
                         <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
                         <sysproperty key="editor_home" value="${installer.dir}"/>
+                        <sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/>
 		</java>
 		
 	</target>
