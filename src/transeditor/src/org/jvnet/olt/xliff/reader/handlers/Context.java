@@ -248,11 +248,16 @@ public class Context implements XLIFFModel {
         if (currentAltTransUnit != null) {
             XLIFFBasicSentence srcSntnc = new XLIFFBasicSentence(contents, xmlLang);
             currentAltTransUnit.setSource(srcSntnc);
+	    
         } else {
             String theKey = currentTransUnit.getId().getStrId();
             XLIFFSentence m_temp = new XLIFFSentence(contents, xmlLang, theKey);
             groupZeroSource.put(theKey, m_temp);
 
+	    XLIFFSentence m_temp2 = new XLIFFSentence(contents, xmlLang, theKey,"untranslated:non-translated");
+            groupZeroTarget.put(theKey, m_temp2);
+
+	    
             currentTransUnit.setSource(m_temp);
         }
     }
