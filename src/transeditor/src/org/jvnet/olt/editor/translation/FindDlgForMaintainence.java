@@ -534,21 +534,22 @@ public class FindDlgForMaintainence extends JPanel {
             message[0] = scr;*/
                 String message = informationString;
                 
-                String[] options = { "Ok" };
-                int r = JOptionPane.showOptionDialog(this.getRootPane(), // the parent that the dialog blocks
-                        message, // the dialog message array
-                        "Warning", // the title of the dialog window
-                        JOptionPane.DEFAULT_OPTION, // option type
-                        JOptionPane.WARNING_MESSAGE, // message type
-                        null, // optional icon, use null to use the default icon
-                        options, // options string array, will be made into buttons
-                        options[0]);
-                
-                switch (r) {
-                    case 0: // ok
-                        break;
-                }
-                
+				try{
+					String[] options = { "Ok" };
+					int r = JOptionPane.showOptionDialog(this.getRootPane(), // the parent that the dialog blocks
+							message, // the dialog message array
+							"Warning", // the title of the dialog window
+							JOptionPane.DEFAULT_OPTION, // option type
+							JOptionPane.WARNING_MESSAGE, // message type
+							null, // optional icon, use null to use the default icon
+							options, // options string array, will be made into buttons
+							options[0]);
+					if(r == JOptionPane.CANCEL_OPTION || r == JOptionPane.CLOSED_OPTION)
+						return;
+				}
+				finally {
+					enableGUI();
+				}
                 return;
             }
             
