@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE tmx SYSTEM "tmx13.dtd">
+<tmx version="1.3">
+  <header creationtool="SunTrans 2 XLIFF To TMX Converter" creationtoolversion="Pre FCS" segtype="sentence" o-tmf="xliff" srclang="en-US" adminlang="en-US" datatype="SGML">
+    <prop type="SunTrans::DocFile">SCMHELP/819-4086/abstract.sgm</prop>
+  </header>
+  <body>
+    <tu tuid="a1">
+      <prop type="SunTrans::MessageKey">[SunTrans::Empty]</prop>
+      <tuv xml:lang="en-US">
+        <seg>
+          <it pos="end" x="1">1234</it>
+        </seg>
+      </tuv>
+      <tuv xml:lang="zh-CN">
+        <seg><it pos="end" x="1">4321<it pos="2">&lt;trademark&lt;</it></it></seg>
+      </tuv>
+    </tu>
+    <tu tuid="a2">
+      <prop type="SunTrans::MessageKey">[SunTrans::Empty]</prop>
+      <tuv xml:lang="en-US">
+        <seg>xyz</seg>
+      </tuv>
+      <tuv xml:lang="ja-JP">
+        <seg>UUU</seg>
+      </tuv>
+    </tu>
+  </body>
+</tmx>

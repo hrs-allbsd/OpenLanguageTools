@@ -134,4 +134,24 @@ public class TestSupport {
             }
         }
     }
+    
+    static public void catFile(File f) throws IOException{
+	Reader r = new FileReader(f);
+	try{
+	    LineNumberReader lnr = new LineNumberReader(r);
+	    
+	    int ln = 0;
+	    do{
+		String line = lnr.readLine();
+		if(line == null)
+		    break;
+		System.out.println(++ln+":"+line);
+	    }
+	    while(true);
+	}
+	finally {
+	    if(r != null)
+		r.close();
+	}
+    }
 }

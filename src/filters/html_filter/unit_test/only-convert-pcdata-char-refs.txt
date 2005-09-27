@@ -1,1 +1,0 @@
-This is an &uuml; u umlaut. This is <img src="a uuml &uuml; entity"> so there.
