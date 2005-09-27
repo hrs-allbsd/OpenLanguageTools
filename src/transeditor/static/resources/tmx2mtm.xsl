@@ -49,13 +49,28 @@
             <x><xsl:value-of select="count(tuv[@xml:lang=$srcLang]/seg)"/></x>
             <x><xsl:value-of select="count(tuv[@xml:lang=$tgtLang]/seg)"/></x>
         </DEBUG>
--->					
-        <xsl:if test="count(tuv[@xml:lang=$srcLang]/seg)>0 and count(tuv[@xml:lang=$tgtLang]/seg) > 0">
-            <entry>
-                <source><xsl:value-of  select="tuv[@xml:lang=$srcLang]/seg"/></source>
-                <translation><xsl:value-of select="tuv[@xml:lang=$tgtLang]/seg"/></translation>
-                <translatorId><xsl:value-of select="$userId"/></translatorId>
-            </entry>
-        </xsl:if>
+-->	
+        <DEBUG>
+            <x><xsl:value-of select="count(tuv[@lang=$srcLang]/seg)"/></x>
+            <x><xsl:value-of select="count(tuv[@lang=$tgtLang]/seg)"/></x>
+        </DEBUG>
+
+
+        <xsl:choose>
+            <xsl:when test="count(tuv[@xml:lang=$srcLang]/seg)>0 and count(tuv[@xml:lang=$tgtLang]/seg) > 0">
+                <entry>
+                    <source><xsl:value-of  select="tuv[@xml:lang=$srcLang]/seg"/></source>
+                    <translation><xsl:value-of select="tuv[@xml:lang=$tgtLang]/seg"/></translation>
+                    <translatorId><xsl:value-of select="$userId"/></translatorId>
+                </entry>
+            </xsl:when>
+            <xsl:when test="count(tuv[@lang=$srcLang]/seg)>0 and count(tuv[@lang=$tgtLang]/seg) > 0">
+                <entry>
+                    <source><xsl:value-of  select="tuv[@lang=$srcLang]/seg"/></source>
+                    <translation><xsl:value-of select="tuv[@lang=$tgtLang]/seg"/></translation>
+                    <translatorId><xsl:value-of select="$userId"/></translatorId>
+                </entry>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>
