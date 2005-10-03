@@ -49,11 +49,11 @@
             <x><xsl:value-of select="count(tuv[@xml:lang=$srcLang]/seg)"/></x>
             <x><xsl:value-of select="count(tuv[@xml:lang=$tgtLang]/seg)"/></x>
         </DEBUG>
--->	
         <DEBUG>
             <x><xsl:value-of select="count(tuv[@lang=$srcLang]/seg)"/></x>
             <x><xsl:value-of select="count(tuv[@lang=$tgtLang]/seg)"/></x>
         </DEBUG>
+-->	
 
 
         <xsl:choose>
