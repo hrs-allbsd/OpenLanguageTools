@@ -21,6 +21,20 @@
     <patternset id="src.pattern">
         <include name="**/*.java"/>
     </patternset>
+	
+	<!-- default test source files fileset; to exclude/include any tests
+		not in src with different name patter than *Test.java
+		override this fileset in your build.local.properties
+	-->
+	<fileset id="test.src" dir="src">
+		<patternset refid="test.src.pattern"/>
+	</fileset>
+	
+    <!-- default pattern for tests -->
+    <patternset id="test.src.pattern">
+        <include name="**/*Test.java"/>
+    </patternset>
+
 
     <!-- DEPENDENCIES DEFINITIONS
         The paths here are dependencies for targets. Each script that compiles
@@ -184,14 +198,20 @@
 
 	<path id="common.test.classpath">
 		<path refid="test.classpath"/>
-                <pathelement location="${build.dir}"/>
+        <pathelement location="${build.dir}"/>
 	</path>
 
     <!-- unittests targets -->
     <!-- test.src fileset must be to contain all JAVA! files which are tests
          test.classpath must be set
     -->     
-    <target name="test" depends="compile">
+	<target name="pre-test" depends="compile">
+		<mkdir dir="${build.dir}/junit-reports"/>
+        <mkdir dir="${build.dir}/test-results"/>
+	
+	</target>
+	
+    <target name="test" depends="pre-test">
         <mkdir dir="${build.dir}/junit-reports"/>
 
         <junit printsummary="yes" haltonfailure="no">
@@ -200,11 +220,15 @@
             </classpath>
 			
             <jvmarg value="-Xdebug"/>
-            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=${test.debug.suspend},address=${test.debug.port}"/>
+			<!-- support for transparent directories; see TestSupport class -->
+            <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
 
             <formatter type="xml"/>
 
-            <batchtest fork="yes" todir="${build.dir}/junit-reports">
+			<test fork="yes" todir="${build.dir}/junit-reports" name="${test.single.class}" if="do.single.test"/>
+
+            <batchtest fork="yes" todir="${build.dir}/junit-reports" unless="do.single.test">
                 <fileset refid="test.src"/>
             </batchtest>
         </junit>
@@ -216,6 +240,14 @@
           <report format="frames" todir="${build.dir}/junit-reports/html"/>
         </junitreport>
     </target>
+
+	<!-- test single unit test -->
+	<target name="test-single">
+		<fail unless="test.single.class">Set property test.single.class to the classname of file to run</fail>
+		<antcall target="test">
+			<param name="do.single.test" value="yes"/>
+		</antcall>
+	</target>
 
     <!-- run it all -->
 	<target name="all" depends="dist">

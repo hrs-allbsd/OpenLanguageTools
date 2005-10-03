@@ -33,7 +33,7 @@ public class XMLDumper {
     private int depth;
     private char[] buffer;
 
-    XMLDumper(java.io.Writer os) {
+    public XMLDumper(java.io.Writer os) {
         this.os = os;
 
         buffer = new char[3072];
