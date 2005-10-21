@@ -246,6 +246,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                     case TaggedMarkupNodeConstants.EOF:
                         processEOF(simpleNode);
                         break;
+                    case TaggedMarkupNodeConstants.INT_ENTITY:
                     case TaggedMarkupNodeConstants.DOCTYPE_BEGINNING:
                     /* In the future it could be useful to use this to dynamically
                      * configure the TagTable and SegmenterTable objects.
@@ -1309,33 +1310,29 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             result.append(sgmlSegmentCorrector.getTextAtBeginning());
             result.append(segment);
             result.append(sgmlSegmentCorrector.getTextAtEnd());
-            
+	    
             /* for debugging :
              * if (!segment.equals(result.toString())){
              *    System.out.println("fixTags Altered a segment :");
              *    System.out.println("original = " + segment);
              *    System.out.println("Fixed = " + result.toString());
             }*/
+	   
+            // remove empty tag in the beginning in case tag correction is done 
+            if(!result.toString().equals(segment.toString())) {
+                StringReader tagNormaliseReader = new StringReader(result.toString());
+                parser = new  NonConformantSgmlDocFragmentParser(tagNormaliseReader);
+                parser.parse();
+                SgmlSegmentNormaliserVisitor normaliser = new SgmlSegmentNormaliserVisitor(tagTable);
+                parser.walkParseTree(normaliser, null);
+                result = new StringBuffer(normaliser.getSegment());
+
+            }
         } catch (Throwable e){
             e.printStackTrace();
             throw new SgmlFilterException("Exception while correcting tags on "+ segment+ " - "+ e.getMessage());
-            
         }
-        
-        try {
-            // System.out.println("Normalising " + result.toString());
-            StringReader tagNormaliseReader = new StringReader(result.toString());
-            parser = new  NonConformantSgmlDocFragmentParser(tagNormaliseReader);
-            parser.parse();
-            SgmlSegmentNormaliserVisitor normaliser = new SgmlSegmentNormaliserVisitor(tagTable);
-            parser.walkParseTree(normaliser, null);
-            result = new StringBuffer(normaliser.getSegment());
-        } catch (java.lang.Exception e){
-            throw new SgmlFilterException("Exception while normalising tags : "+ e.getMessage());
-        }
-        
         return result.toString();
-        
     }
     
     
