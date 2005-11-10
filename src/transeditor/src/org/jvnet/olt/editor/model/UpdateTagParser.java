@@ -4,16 +4,9 @@
  *
  */
 package org.jvnet.olt.editor.model;
-
-import java.io.*;
-import java.io.StringReader;
-
-import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 import org.jvnet.olt.parsers.SgmlDocFragmentParser.*;
-
 
 /**
  * <p>Title: </p>
@@ -42,6 +35,14 @@ public class UpdateTagParser implements SgmlDocFragmentParserVisitor {
 
             int iPos = strSeg.indexOf(nodeData);
             ContentTag ct = new ContentTag(tagName, iIndex, iPos, nodeData);
+            vSimpleNode.add(ct);
+            iIndex++;
+
+            break;
+
+	case SgmlDocFragmentParserTreeConstants.JJTCLOSE_TAG:
+            iPos = strSeg.indexOf(nodeData);
+            ct = new ContentTag(tagName, iIndex, iPos, nodeData);
             vSimpleNode.add(ct);
             iIndex++;
 
