@@ -1,3 +1,0 @@
-#!/bin/sh
-
-java -Xmx128m org.jvnet.olt.filters.en_segmenter.ViewStrings $*

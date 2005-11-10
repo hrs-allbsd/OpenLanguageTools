@@ -429,7 +429,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     /**
      * varibales for maintain MiniTM Frame
      */
-    JFrame maintainFrame = null;
+    JDialog maintainFrame = null;
 
     MiniTMAlignmentMain miniTMAlignment = null;
     JDialog findDlgForMaintain = null;
@@ -5530,7 +5530,7 @@ OUT:
         jBtnUpdateMiniTM_actionPerformed(null);
     }
     void jMenuSearchMiniTM_actionPerformed(ActionEvent e){
-        final JFrame searchFrame = new JFrame("Search Mini-TM ");
+        final JDialog searchFrame = new JDialog(this,"Search Mini-TM ",true);
         searchFrame.getContentPane().setLayout(new BorderLayout());
 
         if(miniTMAlignment == null){
@@ -5549,20 +5549,20 @@ OUT:
         findButton.setMnemonic('S');
         findButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if (findDlgForMaintain == null) {
-                        findDlgForMaintain = new JDialog(searchFrame, "Search ...", false);
-                        findDlgForMaintain.getContentPane().setLayout(new BorderLayout());
+                    if (findDlgForSearch == null) {
+                        findDlgForSearch = new JDialog(searchFrame, "Search ...", true);
+                        findDlgForSearch.getContentPane().setLayout(new BorderLayout());
 
-                        FindDlgForMaintainence findPanel = new FindDlgForMaintainence(findDlgForMaintain, backend);
-
-                        findDlgForMaintain.getContentPane().add(findPanel, "Center");
-                        findDlgForMaintain.setSize(400, 240);
-                        findDlgForMaintain.setResizable(true);
+                        FindDlgForMaintainence findPanel = new FindDlgForMaintainence(findDlgForSearch, backend);
+			
+                        findDlgForSearch.getContentPane().add(findPanel, "Center");
+                        findDlgForSearch.setSize(400, 240);
+                        findDlgForSearch.setResizable(true);
                     }
-                    findDlgForMaintain.setLocationRelativeTo(searchFrame);
-                    findDlgForMaintain.setVisible(true);
-                    ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).init();
-                    ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).setSearchOnly(true);
+                    ((FindDlgForMaintainence)findDlgForSearch.getContentPane().getComponent(0)).init();
+                    ((FindDlgForMaintainence)findDlgForSearch.getContentPane().getComponent(0)).setSearchOnly(true);
+                    findDlgForSearch.setLocationRelativeTo(searchFrame);
+                    findDlgForSearch.setVisible(true);
                 }
             });
         panel.add(findButton);
@@ -5605,7 +5605,7 @@ OUT:
         }
 
         if (maintainFrame == null) {
-            maintainFrame = new JFrame("Mini-TM Maintain Tool");
+            maintainFrame = new JDialog(this,"Mini-TM Maintain Tool",true);
             maintainFrame.getContentPane().setLayout(new BorderLayout());
 
             miniTMAlignment = new MiniTMAlignmentMain();
@@ -5628,7 +5628,7 @@ OUT:
                         if (findDlgForMaintain == null) {
                             findDlgForMaintain = new JDialog(maintainFrame, "Search/Replace ...", false);
                             findDlgForMaintain.getContentPane().setLayout(new BorderLayout());
-
+			    
                             FindDlgForMaintainence findPanel = new FindDlgForMaintainence(findDlgForMaintain, backend);
 
                             findDlgForMaintain.getContentPane().add(findPanel, "Center");
@@ -5636,10 +5636,10 @@ OUT:
                             findDlgForMaintain.setResizable(true);
                         }
 
-                        findDlgForMaintain.setLocationRelativeTo(maintainFrame);
-                        findDlgForMaintain.setVisible(true);
                         ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).init();
                         ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).setSearchOnly(false);
+                        findDlgForMaintain.setLocationRelativeTo(maintainFrame);
+                        findDlgForMaintain.setVisible(true);
 
                     }
                 });
