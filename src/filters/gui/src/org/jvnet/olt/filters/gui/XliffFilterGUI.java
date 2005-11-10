@@ -407,7 +407,7 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
         //boolean configuredXmlStore = prefs.getBoolean("configured.xml.config", false);
         
         //if (!configuredXmlStore){
-/*
+
         try {
             XliffFilterFacade.updateXmlConfigRepository(resourcesDir+File.separator+"xml-config",
                     resourcesDir+File.separator+".xml-config-store",
@@ -417,8 +417,7 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
         } catch (XliffFilterFacadeException e){
             this.logger.log(Level.SEVERE,xliffFilterGUIMessages.getString("Problem_configuring_XML_filter!"),e);
         }
- */
-        //}
+
         return attribs;
     }
     
