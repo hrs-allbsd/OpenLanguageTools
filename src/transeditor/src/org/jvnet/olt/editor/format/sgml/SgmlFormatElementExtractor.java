@@ -11,6 +11,7 @@
 package org.jvnet.olt.editor.format.sgml;
 
 import java.io.StringReader;
+import java.util.logging.Logger;
 
 import org.jvnet.olt.editor.format.FormatElementExtractor;
 import org.jvnet.olt.editor.model.PivotBaseElement;
@@ -25,6 +26,8 @@ import org.jvnet.olt.parsers.tagged.SegmenterTable;
  * @author  jc73554
  */
 public class SgmlFormatElementExtractor implements FormatElementExtractor {
+    private static final Logger logger = Logger.getLogger(SgmlFormatElementExtractor.class.getName());
+    
     private GlobalVariableManager gvm;
     private SegmenterTable table;
 
@@ -37,6 +40,9 @@ public class SgmlFormatElementExtractor implements FormatElementExtractor {
     public PivotBaseElement[] extractBaseElements(String text) {
         StringReader reader = new StringReader(text);
 
+        //if(logger.isLoggable(Level.FINEST))
+        //  logger.finest("extractBaseElements from:"+text);
+	
         //  Create parser
         LaxSgmlDocFragmentParser parser = new LaxSgmlDocFragmentParser(reader);
 
@@ -57,13 +63,23 @@ public class SgmlFormatElementExtractor implements FormatElementExtractor {
             //  Do stuff here 
             ex.printStackTrace();
         }
-
-        return visitor.getBaseElements();
+	
+        PivotBaseElement[] elems = visitor.getBaseElements();
+        /*
+        if(logger.isLoggable(Level.FINEST)){
+            for (int i = 0; i < elems.length; i++) {
+                logger.finest("Elem "+i+":"+elems[i].toString());
+            }
+        }
+         */
+        return elems;
     }
 
     public String extractText(String formattedText) {
         StringReader reader = new StringReader(formattedText);
 
+	logger.finest("Extract text from:"+formattedText);
+	
         //  Create parser
         LaxSgmlDocFragmentParser parser = new LaxSgmlDocFragmentParser(reader);
 
@@ -94,6 +110,7 @@ public class SgmlFormatElementExtractor implements FormatElementExtractor {
         //  Create parser
         LaxSgmlDocFragmentParser parser = new LaxSgmlDocFragmentParser(reader);
 
+	logger.finest("Extracting from:"+formattedText);
         //  Parse input text
         try {
             parser.parse();
