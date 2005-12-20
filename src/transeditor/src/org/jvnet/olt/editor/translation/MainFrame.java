@@ -709,31 +709,46 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 return;
             }
 
-            
-            
-            if(exce instanceof NestableException){
-                String msg = defaultMsg;
-                NestableException ne = (NestableException)exce;
-                Throwable th2 = ne.getCause();
+            if(exce instanceof FormattingException){
+                FormattingException fe = (FormattingException)exce;
+
+                int sentNum = fe.getSegmentNumber()+1; //zero based
                 
-                if(th2 instanceof SAXException){
-                    SAXParseException sxe = (SAXParseException)th2;
-                    msg = "The file is not well-formed XML document.\nError occured at line "+
-                            sxe.getLineNumber()+" column:"+sxe.getColumnNumber()+
-                            "\nError message:"+sxe.getMessage();
-                    
-                    
-                }
-                if(th2 instanceof IOException){
-                    msg = "An input/output error occured:\n"+th2.getMessage();
-                }
-                if(th2 instanceof ZipException){
-                    msg = "The xlz file seems to be corrupted:\n"+th2.getMessage();
-                }
+                String msg = "A formatting error has occured while saving the sentnce\n";
+                msg += "Please check if the formatting is correct and all tags are properly closed\n";
+                msg += "If this message appears AFTER automatic 100% match propagation from MiniTM at the start of the application\n";
+                msg += "please also check the 100% match in your miniTM for this sentence ("+sentNum+")\n";        
+                msg += "Segment number:"+sentNum+"\n";
+                msg += "Sentence:"+fe.getSentence();
                 
                 JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                
                 return;
             }
+            else
+                if(exce instanceof NestableException){
+                    String msg = defaultMsg;
+                    NestableException ne = (NestableException)exce;
+                    Throwable th2 = ne.getCause();
+
+                    if(th2 instanceof SAXException){
+                        SAXParseException sxe = (SAXParseException)th2;
+                        msg = "The file is not well-formed XML document.\nError occured at line "+
+                                sxe.getLineNumber()+" column:"+sxe.getColumnNumber()+
+                                "\nError message:"+sxe.getMessage();
+
+
+                    }
+                    if(th2 instanceof IOException){
+                        msg = "An input/output error occured:\n"+th2.getMessage();
+                    }
+                    if(th2 instanceof ZipException){
+                        msg = "The xlz file seems to be corrupted:\n"+th2.getMessage();
+                    }
+
+                    JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
             
             exce.printStackTrace();
 
@@ -5742,8 +5757,6 @@ OUT:
                         
                         AlignedSegment[] segs = newTM.getAllSegments();
                         for(int i = 0; segs != null && i < segs.length;i++){
-                            targetTM.addNewSegment(segs[i]);
-                            
                             MiniTMAlignmentMain.modifiedSegments.add(Integer.toString(i+MiniTMAlignmentMain.data.length));
                         }
                     }
