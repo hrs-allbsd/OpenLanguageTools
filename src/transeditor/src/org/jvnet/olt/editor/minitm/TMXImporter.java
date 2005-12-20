@@ -9,14 +9,17 @@
  */
 
 package org.jvnet.olt.editor.minitm;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.Writer;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
@@ -61,12 +64,13 @@ public class TMXImporter {
     }
     
     void doConvert(File tmxFile,File mtmTargetFile) throws IOException,SAXException {
-	InputStream fis = null;
-	InputStream templeate = null;
-	OutputStream out = null;
+	Reader fr = null;
+	Reader templeate = null;
+	Writer out = null;
 	
 	try{
-	    fis = new FileInputStream(tmxFile);
+	    fr = new BufferedReader(new FileReader(tmxFile));
+            
 
 	    XMLReader reader = XMLReaderFactory.createXMLReader();
 
@@ -78,7 +82,7 @@ public class TMXImporter {
 		}
 	    });
 
-	    Source source = new SAXSource(reader,new InputSource(fis));
+	    Source source = new SAXSource(reader,new InputSource(fr));
 	    
 	    templeate = template();
 	    if(templeate == null)
@@ -96,21 +100,21 @@ public class TMXImporter {
 	    
 	    //Source source = constructSource(fis);
 	    
-	    out = new FileOutputStream(mtmTargetFile);
+	    out = new FileWriter(mtmTargetFile);
 	    
-	    Writer[] writers = new Writer[]{ new OutputStreamWriter(out),new PrintWriter(System.out)};
+	    Writer[] writers = new Writer[]{ out,new PrintWriter(System.out)};
 	    
 	    tr.transform(source,new StreamResult(new MultiWriter(writers)));
 	    
 	    out.close();
-	    fis.close();
+	    fr.close();
 	    templeate.close();
 	} catch (TransformerException te){
 	    throw new SAXException(te);
 	} finally {
-	    if(fis != null){
+	    if(fr != null){
 		try{
-		    fis.close();
+		    fr.close();
 		} catch (IOException ioe){
 		    ;
 		}
@@ -144,8 +148,9 @@ public class TMXImporter {
 	this.tgtLang = tgtLang;
     }
     
-    InputStream template(){
-	return getClass().getClassLoader().getResourceAsStream("resources/tmx2mtm.xsl");
+    Reader template(){
+        InputStream is = getClass().getClassLoader().getResourceAsStream("resources/tmx2mtm.xsl");
+	return new InputStreamReader(is);
     }
     
     public void setSrcLangShort(String srcLangShort) {
