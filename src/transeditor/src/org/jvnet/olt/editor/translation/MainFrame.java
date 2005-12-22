@@ -5757,6 +5757,8 @@ OUT:
                         
                         AlignedSegment[] segs = newTM.getAllSegments();
                         for(int i = 0; segs != null && i < segs.length;i++){
+                            targetTM.addNewSegment(segs[i]);
+                            
                             MiniTMAlignmentMain.modifiedSegments.add(Integer.toString(i+MiniTMAlignmentMain.data.length));
                         }
                     }
