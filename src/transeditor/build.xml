@@ -130,6 +130,7 @@
         <mkdir dir="${installer.dir}/mini-tm"/>
         <mkdir dir="${installer.dir}/downloads/"/>
         <mkdir dir="${installer.dir}/classes"/>
+        <mkdir dir="${installer.dir}/samples"/>
 
         <copy file="${dest.dir}/backconv.jar" verbose="true" tofile="${installer.dir}/classes/XliffBackConverter.jar"/>
         <copy file="${dest.dir}/utilities-fuzzytm.jar" verbose="true" tofile="${installer.dir}/classes/fuzzytm.jar"/>
@@ -149,6 +150,9 @@
 		</copy>
 		
 		<copy todir="${installer.dir}" verbose="true" file="static/resources/LICENSE.txt"/>
+		<copy todir="${installer.dir}/samples" verbose="true">
+			<fileset dir="samples"/>
+		</copy>
 	
         <chmod file="${installer.dir}/translation.sh" perm="ugo+rx"/>
 
