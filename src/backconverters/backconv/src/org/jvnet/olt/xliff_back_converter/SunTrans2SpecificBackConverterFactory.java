@@ -16,7 +16,6 @@ package org.jvnet.olt.xliff_back_converter;
 
 import org.jvnet.olt.xliff_back_converter.format.html.HtmlSpecificBackConverter;
 import org.jvnet.olt.xliff_back_converter.format.sgml.SgmlSpecificBackConverter;
-import org.jvnet.olt.xliff_back_converter.format.plaintext.PlaintextSpecificBackConverter;
 import org.jvnet.olt.xliff_back_converter.format.xml.XmlSpecificBackConverter;
 import org.jvnet.olt.xliff_back_converter.format.software.SoftwareSpecificBackConverter;
 
@@ -71,8 +70,6 @@ public class SunTrans2SpecificBackConverterFactory implements SpecificBackConver
                     return new HtmlSpecificBackConverter(properties);
                 case SGML:
                     return new SgmlSpecificBackConverter(properties);
-                case PLAINTEXT:
-                    return new PlaintextSpecificBackConverter(properties);
                 case XML:
                     return new XmlSpecificBackConverter(properties);
                 case SOFTWARE:
