@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="properties tmx converter">
+    <import file="../../common.xml"/>
+
+    <target depends="init" name="compile">
+        <javac classpath="${build.classpath}" debug="true" destdir="${build}" srcdir="src">
+        	<classpath>
+			<pathelement path="${classpath}"/>
+                	<pathelement location="."/>
+                	<fileset dir="../jars">
+                        	<include name="**/*.jar"/>
+                	</fileset>
+		</classpath>
+	</javac>
+    </target>
+
+</project>

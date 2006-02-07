@@ -50,6 +50,9 @@
 	<ant dir="xml_tag_parser" >
             <property name="build.dir" value="${build.dir}/${module.utils.editor.name}"/>
         </ant>
+        <ant dir="properties_tmx_converter" >
+            <property name="build.dir" value="${build.dir}/${module.utils.name}"/>
+        </ant>
         <ant dir="dtd_doc_fragment" >
             <property name="build.dir" value="${build.dir}/${module.utils.editor.name}"/>
         </ant>
