@@ -1,33 +1,50 @@
-
 /*
  * Copyright  2005 Sun Microsystems, Inc. 
  * All rights reserved Use is subject to license terms.
  *
  */
 
-/*
- * TestVisitor.java
- *
- * Created on May 14, 2003, 11:26 AM
- */
-
 package org.jvnet.olt.parsers.SgmlDocFragmentParser;
 
-import org.jvnet.olt.parsers.tagged.*;
+import java.util.Map;
+import java.util.Iterator;
+
 /**
- *
- * @author  timf
+ * Visitor used by junit framework to test the SgmlDocFragmentParser
  */
-public class TestVisitor implements org.jvnet.olt.parsers.tagged.TaggedMarkupVisitor {
+public class TestVisitor implements SgmlDocFragmentParserVisitor
+{
+
+  StringBuffer result = null;
+  
+  public TestVisitor() {
+      result = new StringBuffer();
+  }
     
-    /** Creates a new instance of TestVisitor */
-    public TestVisitor() {
-    }
-    
-    public Object visit(TaggedMarkupNode node, Object data) {
-        System.out.println(node+" : "+node.getNodeData());
-        System.out.println("msflag = "+node.getMarkedSectFlag());
+  public Object visit(SimpleNode node, Object data)
+  {
+    if("".equals(node.getTagName())) {
         return data;
     }
     
+    result.append("Name: ").append(node.getTagName()).append("\n");
+    Map map = node.getAttribs();
+    
+    result.append("Attribs: ");
+    Iterator it = map.keySet().iterator();
+    while(it.hasNext()) {
+        String name = (String)it.next();
+        String value = (String)map.get(name);
+        result.append(" ").append(name).append("=").append(value);
+    }
+    result.append("\n");
+    
+    result.append("Data: ").append(node.getNodeData()).append("\n");
+    return data;
+  }
+  
+  public String getResult() {
+      return result.toString();
+  }
+  
 }

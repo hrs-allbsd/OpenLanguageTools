@@ -6,6 +6,13 @@
     <!-- load common.xml to make sure we have the same deliverables dir -->
     <import file="../common.xml"/>
 
+    <path id="test.classpath">
+        <path location="${common.basedir}/utilities/jars/junit.jar"/>
+        <path refid="deps.common.util"/>
+        <path location="${build.dir}" />
+        <path location="test-data"/>
+    </path>
+    
     <property name="module.utils.name" value="utilities"/>
     <property name="module.utils.editor.name" value="utilities"/>
     <property name="module.utils.editor.fuzzytm.name" value="utilities_fuzzytm"/>
@@ -117,13 +124,60 @@
     </target>
 	
     <target name="clean">
-		<remove dir="${build.dir}/{module.utils.name}"/>
-		<remove dir="${build.dir}/{module.utils.editor.name}"/>
-		<remove dir="${dest.dir}/tt-common.jar"/>
+		<delete dir="${build.dir}/{module.utils.name}"/>
+		<delete dir="${build.dir}/{module.utils.editor.name}"/>
+		<delete dir="${dest.dir}/tt-common.jar"/>
+    </target>
+    
+    
+    <!-- setup directories for test result -->
+    <target name="pre-test">
+   	<mkdir dir="${build.dir}/junit-reports"/>
+        <mkdir dir="${build.dir}/test-results"/>
+    </target>
+    
+    <!-- start just a single test -->
+    <target name="test-single" depends="pre-test,dist">
+
+	<property file="single-test.properties"/>
+        <property name="junit.test.suspend" value="n"/>
+        
+        <junit printsummary="yes" haltonfailure="no" dir=".">
+            <classpath refid="test.classpath"/>
+            <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>            
+            <formatter type="xml"/>
+            <test name="${junit.test.class}" fork="yes" todir="${build.dir}/junit-reports"/>
+        </junit>
+        
+	<junitreport todir="${build.dir}/junit-reports">
+            <fileset dir="${build.dir}/junit-reports">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${build.dir}/junit-reports/html"/>
+	</junitreport>
     </target>
 
-    <target name="test">
-		<!-- TODO delegate to all for test builds -->
+    <!-- we need to setup working dir and different classpath -->
+    <target name="test" depends="pre-test,dist">
+    
+        <junit printsummary="yes" haltonfailure="no" dir="/tmp">
+            <classpath refid="test.classpath"/>
+            <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
+            <formatter type="xml"/>
+            <batchtest fork="yes" todir="${build.dir}/junit-reports">
+                <fileset dir="${build.dir}/utilities">
+                  <include name="**/*Test.class" />
+                </fileset>
+            </batchtest>
+        </junit>
+        
+	<junitreport todir="${build.dir}/junit-reports">
+            <fileset dir="${build.dir}/junit-reports">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${build.dir}/junit-reports/html"/>
+        </junitreport>
+        
     </target>
 
     <target name="all" depends="dist"/>

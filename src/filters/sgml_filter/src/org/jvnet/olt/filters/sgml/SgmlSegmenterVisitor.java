@@ -343,7 +343,21 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                         // we need to decide how to handle the open tag, and transition into a
                         // different tag state. For non-empty tags, it's a bit simpler.
                         // NonSegmentableNonWordCountable
-                        if (segmenterTable.dontSegmentOrCountInsideTag(tagName,namespaceID)){
+                        
+                        /*
+                         * This sentence allow to use attributes to decide if to segment/count a tag.
+                         * Currently it supports only sgml. We can remove the code if attributes handling
+                         * will be added to other tagged markup filters
+                         */
+                        boolean dontSegmentOrCount = true;
+                        if(segmenterTable.getClass().getName().contains("DocbookSegmenterTable")) {
+                            Map tagAttributes  = ((org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode)simpleNode).getAttribs();
+                            dontSegmentOrCount = ((org.jvnet.olt.filters.sgml.docbook.DocbookSegmenterTable)segmenterTable).dontSegmentOrCountInsideTag(tagName,namespaceID,tagAttributes);
+                        } else {
+                            dontSegmentOrCount = segmenterTable.dontSegmentOrCountInsideTag(tagName,namespaceID);
+                        }
+                        
+                        if (dontSegmentOrCount) {
                             inlineNoSegNoCountBuffer.append(nodeData);
                             if (!tagTable.tagEmpty(tagName,namespaceID) && !simpleNode.isEmptyTag()){
                                 // if it's not an empty tag, we want to protect the entire tag contents
@@ -1222,6 +1236,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             if (formatting.containsKey(new Integer(counter))){
                 String s = (String)formatting.get(new Integer(counter));
                 if (s.length() != 0){
+		    System.out.println("!!!-1 buf: " + buf + " writing whitespaces: " + (String)formatting.get(new Integer(counter)));
                     formatter.writeMidSegmentFormatting((String)formatting.get(new Integer(counter)));
                 }
                 // remove that object from the formatting map (since it's been dealt with)
@@ -1237,6 +1252,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 // now remove the leading and trailing spaces and write them as mid-segment formatting
                 String s = SgmlFilterHelper.getLeadingWhitespace(result);
                 if (s.length() != 0){
+		    System.out.println("!!!-2 buf: " + buf + " writing whitespaces: " + s);
                     formatter.writeMidSegmentFormatting(s);
                     result = SgmlFilterHelper.stripLeadingWhitespace(result);
                 }
@@ -1257,6 +1273,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 }
                 
                 if (trailing.length() != 0){
+		    System.out.println("!!!-3 buf: " + buf + " writing whitespaces: " + trailing);
                     formatter.writeMidSegmentFormatting(trailing);
                 }
             }
@@ -1271,6 +1288,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
         while (it.hasNext()){
             Integer i = (Integer) it.next();
             String s = (String)formatting.get(i);
+	    System.out.println("!!!-4 buf: " + buf + " writing whitespaces: " + s);
             formatter.writeMidSegmentFormatting(s);
         }
         return fixedSegments;
