@@ -88,7 +88,7 @@ public class AttributeCountNonConformantSgmlDocFragmentVisitor implements NonCon
             // get the segmentable text and segment it if necessary
             String namespace = ns;
             Set nsSet = null;
-            if (nameSpaceMap != null){
+            if (nameSpaceMap != null && nameSpaceMap.size()>0){
                 nsSet = nameSpaceMap.entrySet();
                 Iterator nsIterator = nsSet.iterator();
                 while (nsIterator.hasNext()){
@@ -97,7 +97,7 @@ public class AttributeCountNonConformantSgmlDocFragmentVisitor implements NonCon
                     
                     // get the list of segmentable attributes for this namespace
                     List attrList = segmenterTable.getAttrList(tagName, namespace);
-                    
+		    
                     Iterator it = attrList.iterator();
                     while (it.hasNext()){
                         String attrName = (String)it.next();
