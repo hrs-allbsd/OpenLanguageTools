@@ -1236,7 +1236,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             if (formatting.containsKey(new Integer(counter))){
                 String s = (String)formatting.get(new Integer(counter));
                 if (s.length() != 0){
-		    System.out.println("!!!-1 buf: " + buf + " writing whitespaces: " + (String)formatting.get(new Integer(counter)));
                     formatter.writeMidSegmentFormatting((String)formatting.get(new Integer(counter)));
                 }
                 // remove that object from the formatting map (since it's been dealt with)
@@ -1252,7 +1251,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 // now remove the leading and trailing spaces and write them as mid-segment formatting
                 String s = SgmlFilterHelper.getLeadingWhitespace(result);
                 if (s.length() != 0){
-		    System.out.println("!!!-2 buf: " + buf + " writing whitespaces: " + s);
                     formatter.writeMidSegmentFormatting(s);
                     result = SgmlFilterHelper.stripLeadingWhitespace(result);
                 }
@@ -1273,7 +1271,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 }
                 
                 if (trailing.length() != 0){
-		    System.out.println("!!!-3 buf: " + buf + " writing whitespaces: " + trailing);
                     formatter.writeMidSegmentFormatting(trailing);
                 }
             }
@@ -1288,7 +1285,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
         while (it.hasNext()){
             Integer i = (Integer) it.next();
             String s = (String)formatting.get(i);
-	    System.out.println("!!!-4 buf: " + buf + " writing whitespaces: " + s);
             formatter.writeMidSegmentFormatting(s);
         }
         return fixedSegments;
