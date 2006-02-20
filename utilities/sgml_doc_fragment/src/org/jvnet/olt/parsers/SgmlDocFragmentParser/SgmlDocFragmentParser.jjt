@@ -264,7 +264,7 @@ TOKEN :
 
 <TAG, ATTNAME> TOKEN:
 {
-	<TAGC:          ">" 					>   : DEFAULT
+	<TAGC:          ">" | "/>"                                                  >   : DEFAULT
 }
 
 
