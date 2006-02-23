@@ -7,6 +7,7 @@
 	
     <path id="build.classpath">
 		<path location="${build.dir}"/>
+		<path refid="deps.junit"/>
 	</path>
         
         <path id="src.dirs">
