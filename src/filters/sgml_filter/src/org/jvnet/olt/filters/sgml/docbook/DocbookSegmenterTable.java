@@ -582,7 +582,7 @@ public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.Segme
             String attName = attToken.trim();
             String attValue = "";
             
-            if(attName.contains("=")) {
+            if(attName.indexOf("=")>-1) {
                 String[] attParts = attToken.split("=");
                 attName = attParts[0].trim();
                 attValue = attParts[1].trim();
