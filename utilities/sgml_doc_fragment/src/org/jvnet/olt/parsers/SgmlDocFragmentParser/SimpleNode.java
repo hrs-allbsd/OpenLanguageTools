@@ -10,8 +10,6 @@
 package org.jvnet.olt.parsers.SgmlDocFragmentParser;
 import org.jvnet.olt.parsers.tagged.TaggedMarkupNode;
 import org.jvnet.olt.parsers.tagged.TaggedMarkupVisitor;
-import java.util.Map;
-import java.util.Hashtable;
 public class SimpleNode 
 implements Node, TaggedMarkupNode
 {
@@ -26,7 +24,6 @@ implements Node, TaggedMarkupNode
 
   protected String m_tagName = "";
   protected String m_markedSectFlag = "";
-  protected Map attribs = null;
   protected boolean hasAttribute = false;
 
   protected int m_beginLine   = -1;
@@ -215,30 +212,6 @@ implements Node, TaggedMarkupNode
 
   public boolean hasAttribute(){
 	return hasAttribute;
-  }
-
-  /**
-   * Add an attribute to the node
-   * @param attName name of the attribute
-   * @param attVal value of the attribute
-   */
-  protected void addAttrib(String attName,String attVal) {
-        setHasAttribute(true);
-        if(attribs==null) {
-            attribs = new Hashtable();
-        }
-        attribs.put(attName,attVal);
-  }
-
-  /**
-   * Return map of attributes
-   * @return Map that store key as name of the attribute and value as value of the attribute
-   */
-  public Map getAttribs() {
-        if(attribs==null) {
-            attribs = new Hashtable();
-        }
-	return attribs;
   }
  
   /* setting prefix and schema are no-ops for the sgml parser, but since

@@ -255,35 +255,32 @@ TOKEN :
 <TAG>
 TOKEN :
 {
-	<WS:            (["\r","\n","\b","\f"," ","\t"])+      	>
-|       <#ALPHA:	["a"-"z","A"-"Z","_","-","."]		>
-|	<#NUM:		["0"-"9"]				>
-|	<#ALPHANUM:	<ALPHA> | <NUM>				>        
-|       <TAGNAME:       <ALPHA> ( <ALPHANUM> )*         	>   : ATTNAME
-}
-
-<TAG, ATTNAME> TOKEN:
-{
-	<TAGC:          ">" | "/>"                                                  >   : DEFAULT
+        <#ALPHA:	["a"-"z","A"-"Z","_","-","."]	>
+|	<#NUM:		["0"-"9"]			>
+|	<#ALPHANUM:	<ALPHA> | <NUM>			>        
+|       <TAGNAME:       <ALPHA> ( <ALPHANUM> )*         >   : ATTLIST 
 }
 
 
-<ATTNAME>
+<TAG, ATTLIST>
 TOKEN :
 {
-        <ATT_WS:        ["\r","\n","\b","\f"," ","\t"]			>
-|	<ATT_NAME:      ( ["a"-"z","A"-"Z","0"-"9","-","_","."] )+	>
-|       <ATT_EQ:        "=" | ( <WS> ) * "=" ( <WS> )*			>    : ATTRVAL
+    <TAGC:		">"				>	: DEFAULT
 }
 
-<ATTRVAL>
-TOKEN:
+<TAG, ATTLIST>
+TOKEN :
 {
-        <ATT_VAL:        "'" ( ~["'"]  )* "'"
-|      "\"" ( ~["\""] )* "\""
-|      ( ~[">","\"","'"," ","\t","\n","\r"] )+ 				>    : ATTNAME
+    <WS:		(["\r","\n","\b","\f"," ","\t"])+	>
 }
-					  
+
+<ATTLIST> TOKEN :
+{  <#STRING_LIT: ("'" ( ~["'"] )* "'") | ("\"" ( ~["\""] )* "\"")  >
+|  <ATTRIBS:       (  <STRING_LIT> | ~[ ">", "\"", "'" ] )+    >
+}
+
+
+
 
 //  Productions
 void file() :
@@ -619,31 +616,18 @@ void tag() :
 void open_tag() :
 {
   Token t;
-  String s = "";
-  String attName = "";
+  String s = "";  
 }
 {
   (
     t=<STAGO> { s += t.image; }
     (t=<WS> {s+=t.image;})?
     t=<TAGNAME>  { s += t.image; jjtThis.setTagName(t.image); }
+    (t=<WS> {s+=t.image;})?
 
-    // parsing tag attributes
-    (t=<ATT_WS> {s+=t.image;})*
-
-    ( t=<ATT_NAME> { s += t.image; attName = t.image; jjtThis.addAttrib(attName,""); }
-        (
-            t=<ATT_EQ>  { s +=t.image; } t=<ATT_VAL> { s +=t.image; jjtThis.addAttrib(attName,t.image); }
-        )?
-        ( LOOKAHEAD(2) ( t=<ATT_WS> )+ { s += t.image; }
-            t=<ATT_NAME> { s += t.image; attName = t.image; jjtThis.addAttrib(attName,""); }
-            (
-                t=<ATT_EQ>  { s +=t.image; } t=<ATT_VAL> { s +=t.image; jjtThis.addAttrib(attName,t.image); }
-            )? 
-        )*
-    )?
-
-    (t=<ATT_WS> {s+=t.image;})*
+    ( t=<ATTRIBS>  { s += t.image; jjtThis.setHasAttribute(true); } 
+     (t=<WS> {s +=t.image; })?
+    )*
 
     t=<TAGC> { s += t.image; }    
   )

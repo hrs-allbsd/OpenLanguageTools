@@ -7,12 +7,6 @@
 	
     <path id="build.classpath">
 		<path location="${build.dir}"/>
-		<path refid="deps.junit"/>
-	</path>
-        
-        <path id="src.dirs">
-		<path location="src"/>
-                <path location="src-test"/>
 	</path>
 
 	<!-- are dependencies built ? -->

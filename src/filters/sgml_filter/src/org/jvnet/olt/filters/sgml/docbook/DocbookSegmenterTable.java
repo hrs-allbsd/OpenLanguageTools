@@ -16,9 +16,6 @@ import org.jvnet.olt.alignment.*;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.StringTokenizer;
 
 /**
  *
@@ -26,7 +23,7 @@ import java.util.StringTokenizer;
  */
 public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.SegmenterTable {
     private HashSet dontSegmentSet;
-    private HashMap dontSegmentOrCountMap;
+    private HashSet dontSegmentOrCountSet;
     private HashSet dontTranslateSet;
     private HashMap hasTranslatableAttrMap;
     private HashMap segmentLevelMap;
@@ -37,7 +34,7 @@ public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.Segme
     /** Creates a new instance of HtmlSegmenterTable */
     public DocbookSegmenterTable() {
         dontSegmentSet = new HashSet();
-        dontSegmentOrCountMap = new HashMap();
+        dontSegmentOrCountSet = new HashSet();
         dontTranslateSet = new HashSet();
         hasTranslatableAttrMap = new HashMap();
         segmentLevelMap = new HashMap();
@@ -84,39 +81,18 @@ public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.Segme
         dontSegmentSet.add("publishername");
         
         dontSegmentSet.add("funcsynopsisinfo");
+        // these are non-segmentable non countable tags that are inline
         
-        /* 
-         * Here is map of non-segmentable non countable tags that are inline.
-         * 
-         * If the tag name is included in the map then segment will not be segmented
-         * and counted.
-         *
-         * Additionaly we can use attributes to make the propert decission
-         *
-         *  Following rules are used:
-         *
-         *  1) attributes has to be delimited by semicolon
-         *  2) attribute start with + then attribute has to be included in attribute list
-         *  3) attribute start with - then attribute has not be included in attribute list
-         *
-         *  Here are simple examples:
-         *  "-type=custom-text" - we will dont segment tag if attribute 'type' with value 'custom-text' IS NOT INCLUDED in attribute list
-         *  "+street"           - we will dont segment tag if attribute 'street' IS INCLUDED in the attribute list
-         *  "+street;-image"    - we will dont segment tag if attribute 'street' IS INCLUDED in the attribute list
-         *                          AND
-         *                        attribute image IS NOT INCLUDED in the attribute list
-         *
-         *  The attribute parser is simple we don't care about colons and spaces in attributes list.
-         */
-        dontSegmentOrCountMap.put("programlisting","");
-        dontSegmentOrCountMap.put("screen","");
-        dontSegmentOrCountMap.put("filename","");
-        dontSegmentOrCountMap.put("command","");
-        dontSegmentOrCountMap.put("computeroutput","");
-        dontSegmentOrCountMap.put("trademark","");
-        dontSegmentOrCountMap.put("userinput","");
-        dontSegmentOrCountMap.put("replaceable","");
-        dontSegmentOrCountMap.put("olink","-type=custom-text");
+        dontSegmentOrCountSet.add("programlisting");
+        dontSegmentOrCountSet.add("screen");
+        dontSegmentOrCountSet.add("filename");
+        dontSegmentOrCountSet.add("command");
+        dontSegmentOrCountSet.add("computeroutput");
+        dontSegmentOrCountSet.add("trademark");
+        dontSegmentOrCountSet.add("userinput");
+        dontSegmentOrCountSet.add("replaceable");
+        dontSegmentOrCountSet.add("olink");
+
         
         dontTranslateSet.add("comment");
         dontTranslateSet.add("remark");
@@ -514,118 +490,13 @@ public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.Segme
         return containsTranslatableText(tag);
     }
     
-    /**
-     * Make decision if the tag is non-segmentable and non-countable
-     *
-     * @param tagname name of the tag to check
-     * @return true if the tag is non-segmentable and non-countable
-     */
     public boolean dontSegmentOrCountInsideTag(String tagname) {
-        return dontSegmentOrCountMap.containsKey(tagname.toLowerCase());
+        return dontSegmentOrCountSet.contains(tagname.toLowerCase());
     }
     
-    /**
-     * Make decision if the tag is non-segmentable and non-countable
-     *
-     * @param tagname name of the tag to check
-     * @param namespaceID to use
-     *
-     * @return true if the tag is non-segmentable and non-countable
-     */
+    
     public boolean dontSegmentOrCountInsideTag(String tagname, String namespaceID) {
         return dontSegmentOrCountInsideTag(tagname);
-    }
-    
-    /**
-     * Make decision if the tag is non-segmentable and non-countable
-     *
-     * @param tagname name of the tag to check
-     * @param namespaceID to use
-     * @param tagAttributesMap map that contains all tag attributes
-     *
-     * @return true if the tag is non-segmentable and non-countable
-     */
-    public boolean dontSegmentOrCountInsideTag(String tagname, String namespaceID, Map tagAttributesMap) {
-        
-        if(!dontSegmentOrCountMap.containsKey(tagname)) {
-            return false;
-        }
-        
-        /**
-         * Additionaly we can use attributes to make the right decission
-         *
-         *  Following rules are used:
-         *
-         *  1) attributes has to be delimited by semicolon
-         *  2) attribute start with + then attribute has to be included in attribute list
-         *  3) attribute start with - then attribute has not be included in attribute list
-         *
-         *  Here are simple examples:
-         *  "-type=custom-text" - we will dont segment tag if attribute 'type' with value 'custom-text' IS NOT INCLUDED in attribute list
-         *  "+street"           - we will dont segment tag if attribute 'street' IS INCLUDED in the attribute list
-         *  "+street;-image"    - we will dont segment tag if attribute 'street' IS INCLUDED in the attribute list
-         *                          AND
-         *                        attribute image IS NOT INCLUDED in the attribute list
-         *
-         *  The parser is simple we don't care about colons and spaces in attributes list.
-         */
-        
-        boolean result = true;
-        
-        // tokenize attribute list
-        StringTokenizer attribs = new StringTokenizer((String)dontSegmentOrCountMap.get(tagname),";");
-        while(attribs.hasMoreTokens()) {
-            
-            // parse attribute parts
-            String attToken = attribs.nextToken().trim();
-            String attSign = "";
-            String attName = attToken.trim();
-            String attValue = "";
-            
-            if(attName.indexOf("=")>-1) {
-                String[] attParts = attToken.split("=");
-                attName = attParts[0].trim();
-                attValue = attParts[1].trim();
-            }
-            
-            // get out the sign
-            attSign = attName.substring(0,1);
-            attName = attName.substring(1);
-            
-            // convert all attributes to lower case
-            Map lowerCaseAttributes = new HashMap();
-            Iterator it = tagAttributesMap.keySet().iterator();
-            while(it.hasNext()) {
-                String key = (String)it.next();
-                String value = (String)tagAttributesMap.get(key);
-                lowerCaseAttributes.put(key.toLowerCase(),value.toLowerCase());
-            }
-            
-            // get the value of attribute from tag
-            String tagAttValue = null;
-            if(lowerCaseAttributes.get(attName)!=null) {
-                tagAttValue = (String)lowerCaseAttributes.get(attName);
-                // remove attributes colons
-                if(tagAttValue.matches("^[\",\'].*?[\",\']$")) tagAttValue = tagAttValue.substring(1, tagAttValue.length() - 1);
-            }
-            System.out.println("!!! " + attSign + attName + " = " + attValue + " = " + tagAttValue);
-            
-            
-            // do the decision
-            if(attSign.equals("-")) {
-                if(tagAttValue!=null && (tagAttValue.equals(attValue) || "".equals(attValue))) {
-                    result = false;
-                    break;
-                }
-            } else {
-                if(tagAttValue==null || (!tagAttValue.equals(attValue) && !"".equals(attValue))) {
-                    result = false;
-                    break;
-                }
-            }
-        }
-        
-        return result;
     }
 
     public boolean includeCommentsInTranslatableSection(String tag) {
