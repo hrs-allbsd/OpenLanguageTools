@@ -211,6 +211,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
      */
     public Object visit(TaggedMarkupNode simpleNode, Object obj) {
         try {
+            
             String tagName = simpleNode.getTagName();
             String namespaceID = simpleNode.getNamespaceID();
             String nodeData = simpleNode.getNodeData();
@@ -343,7 +344,21 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                         // we need to decide how to handle the open tag, and transition into a
                         // different tag state. For non-empty tags, it's a bit simpler.
                         // NonSegmentableNonWordCountable
-                        if (segmenterTable.dontSegmentOrCountInsideTag(tagName,namespaceID)){
+                        
+                        /*
+                         * This sentence allow to use attributes to decide if to segment/count a tag.
+                         * Currently it supports only sgml. We can remove the code if attributes handling
+                         * will be added to other tagged markup filters
+                         */
+                        boolean dontSegmentOrCount = true;
+                        if(segmenterTable.getClass().getName().indexOf("DocbookSegmenterTable")>-1) {
+                            Map tagAttributes  = ((org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode)simpleNode).getAttribs();
+                            dontSegmentOrCount = ((org.jvnet.olt.filters.sgml.docbook.DocbookSegmenterTable)segmenterTable).dontSegmentOrCountInsideTag(tagName,namespaceID,tagAttributes);
+                        } else {
+                            dontSegmentOrCount = segmenterTable.dontSegmentOrCountInsideTag(tagName,namespaceID);
+                        }
+                        
+                        if (dontSegmentOrCount) {
                             inlineNoSegNoCountBuffer.append(nodeData);
                             if (!tagTable.tagEmpty(tagName,namespaceID) && !simpleNode.isEmptyTag()){
                                 // if it's not an empty tag, we want to protect the entire tag contents
@@ -1205,8 +1220,19 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             throw new SgmlFilterException("Caught an exception doing sentence segmentation " + e.getMessage());
         }
         
-        tmpSegments = segmenterFacade.getSegments();
-        formatting = segmenterFacade.getFormatting();
+        // get current tag name
+        String currentTagName = null;
+        if(tagList.size()>0) {
+            currentTagName = ((Tag)tagList.get(tagList.size()-1)).getName();
+        }
+        
+        // do not touch javascript content here
+        if (currentTagName != null && segmenterTable.includeCommentsInTranslatableSection(currentTagName)) {
+            tmpSegments.add(buf.toString());
+        } else {
+            tmpSegments = segmenterFacade.getSegments();
+            formatting = segmenterFacade.getFormatting();
+        }
         
         /*
          * At this point, I need to "clean up" the segments I've got - that is,
@@ -1292,7 +1318,6 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
      * @throws SgmlFilterException if some error was enountered while fixing tags.
      */
     protected String fixTags(String segment, List closedOnLastRun) throws SgmlFilterException{
-        
         
         StringBuffer result= new StringBuffer();
         StringReader tagFixReader = new StringReader(segment);
