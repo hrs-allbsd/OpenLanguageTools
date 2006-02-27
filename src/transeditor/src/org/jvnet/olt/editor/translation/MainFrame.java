@@ -429,7 +429,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     /**
      * varibales for maintain MiniTM Frame
      */
-    JFrame maintainFrame = null;
+    JDialog maintainFrame = null;
 
     MiniTMAlignmentMain miniTMAlignment = null;
     JDialog findDlgForMaintain = null;
@@ -709,31 +709,46 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 return;
             }
 
-            
-            
-            if(exce instanceof NestableException){
-                String msg = defaultMsg;
-                NestableException ne = (NestableException)exce;
-                Throwable th2 = ne.getCause();
+            if(exce instanceof FormattingException){
+                FormattingException fe = (FormattingException)exce;
+
+                int sentNum = fe.getSegmentNumber()+1; //zero based
                 
-                if(th2 instanceof SAXException){
-                    SAXParseException sxe = (SAXParseException)th2;
-                    msg = "The file is not well-formed XML document.\nError occured at line "+
-                            sxe.getLineNumber()+" column:"+sxe.getColumnNumber()+
-                            "\nError message:"+sxe.getMessage();
-                    
-                    
-                }
-                if(th2 instanceof IOException){
-                    msg = "An input/output error occured:\n"+th2.getMessage();
-                }
-                if(th2 instanceof ZipException){
-                    msg = "The xlz file seems to be corrupted:\n"+th2.getMessage();
-                }
+                String msg = "A formatting error has occured while saving the sentnce\n";
+                msg += "Please check if the formatting is correct and all tags are properly closed\n";
+                msg += "If this message appears AFTER automatic 100% match propagation from MiniTM at the start of the application\n";
+                msg += "please also check the 100% match in your miniTM for this sentence ("+sentNum+")\n";        
+                msg += "Segment number:"+sentNum+"\n";
+                msg += "Sentence:"+fe.getSentence();
                 
                 JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                
                 return;
             }
+            else
+                if(exce instanceof NestableException){
+                    String msg = defaultMsg;
+                    NestableException ne = (NestableException)exce;
+                    Throwable th2 = ne.getCause();
+
+                    if(th2 instanceof SAXException){
+                        SAXParseException sxe = (SAXParseException)th2;
+                        msg = "The file is not well-formed XML document.\nError occured at line "+
+                                sxe.getLineNumber()+" column:"+sxe.getColumnNumber()+
+                                "\nError message:"+sxe.getMessage();
+
+
+                    }
+                    if(th2 instanceof IOException){
+                        msg = "An input/output error occured:\n"+th2.getMessage();
+                    }
+                    if(th2 instanceof ZipException){
+                        msg = "The xlz file seems to be corrupted:\n"+th2.getMessage();
+                    }
+
+                    JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
             
             exce.printStackTrace();
 
@@ -5530,7 +5545,7 @@ OUT:
         jBtnUpdateMiniTM_actionPerformed(null);
     }
     void jMenuSearchMiniTM_actionPerformed(ActionEvent e){
-        final JFrame searchFrame = new JFrame("Search Mini-TM ");
+        final JDialog searchFrame = new JDialog(this,"Search Mini-TM ",true);
         searchFrame.getContentPane().setLayout(new BorderLayout());
 
         if(miniTMAlignment == null){
@@ -5549,20 +5564,20 @@ OUT:
         findButton.setMnemonic('S');
         findButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if (findDlgForMaintain == null) {
-                        findDlgForMaintain = new JDialog(searchFrame, "Search ...", false);
-                        findDlgForMaintain.getContentPane().setLayout(new BorderLayout());
+                    if (findDlgForSearch == null) {
+                        findDlgForSearch = new JDialog(searchFrame, "Search ...", true);
+                        findDlgForSearch.getContentPane().setLayout(new BorderLayout());
 
-                        FindDlgForMaintainence findPanel = new FindDlgForMaintainence(findDlgForMaintain, backend);
-
-                        findDlgForMaintain.getContentPane().add(findPanel, "Center");
-                        findDlgForMaintain.setSize(400, 240);
-                        findDlgForMaintain.setResizable(true);
+                        FindDlgForMaintainence findPanel = new FindDlgForMaintainence(findDlgForSearch, backend);
+			
+                        findDlgForSearch.getContentPane().add(findPanel, "Center");
+                        findDlgForSearch.setSize(400, 240);
+                        findDlgForSearch.setResizable(true);
                     }
-                    findDlgForMaintain.setLocationRelativeTo(searchFrame);
-                    findDlgForMaintain.setVisible(true);
-                    ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).init();
-                    ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).setSearchOnly(true);
+                    ((FindDlgForMaintainence)findDlgForSearch.getContentPane().getComponent(0)).init();
+                    ((FindDlgForMaintainence)findDlgForSearch.getContentPane().getComponent(0)).setSearchOnly(true);
+                    findDlgForSearch.setLocationRelativeTo(searchFrame);
+                    findDlgForSearch.setVisible(true);
                 }
             });
         panel.add(findButton);
@@ -5605,7 +5620,7 @@ OUT:
         }
 
         if (maintainFrame == null) {
-            maintainFrame = new JFrame("Mini-TM Maintain Tool");
+            maintainFrame = new JDialog(this,"Mini-TM Maintain Tool",true);
             maintainFrame.getContentPane().setLayout(new BorderLayout());
 
             miniTMAlignment = new MiniTMAlignmentMain();
@@ -5628,7 +5643,7 @@ OUT:
                         if (findDlgForMaintain == null) {
                             findDlgForMaintain = new JDialog(maintainFrame, "Search/Replace ...", false);
                             findDlgForMaintain.getContentPane().setLayout(new BorderLayout());
-
+			    
                             FindDlgForMaintainence findPanel = new FindDlgForMaintainence(findDlgForMaintain, backend);
 
                             findDlgForMaintain.getContentPane().add(findPanel, "Center");
@@ -5636,10 +5651,10 @@ OUT:
                             findDlgForMaintain.setResizable(true);
                         }
 
-                        findDlgForMaintain.setLocationRelativeTo(maintainFrame);
-                        findDlgForMaintain.setVisible(true);
                         ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).init();
                         ((FindDlgForMaintainence)findDlgForMaintain.getContentPane().getComponent(0)).setSearchOnly(false);
+                        findDlgForMaintain.setLocationRelativeTo(maintainFrame);
+                        findDlgForMaintain.setVisible(true);
 
                     }
                 });

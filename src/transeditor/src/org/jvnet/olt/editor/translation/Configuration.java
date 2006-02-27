@@ -297,7 +297,7 @@ public class Configuration {
 
         Preferences optNode = prefs.node(PREFS_NODE_OPTS);
 
-        bFlagTagUpdate = optNode.getBoolean("TagUpdate", true);
+        bFlagTagUpdate = optNode.getBoolean("TagUpdate", false);
         bFlagTagProtection = optNode.getBoolean("TagProtection", true);
         tagProtection = bFlagTagProtection;
         bFlagSynScrolling = optNode.getBoolean("SynScrolling", true);
