@@ -267,7 +267,7 @@ TOKEN : { <EXTENSION: ("(")?
 			   ".pcx" | ".pds" | ".pgm" | ".pic" | ".pict" | ".pit" |
 			   ".pm" | ".pnt" | ".pol" | ".pp" | ".ppm" | ".psid" |
 			   ".ras" | ".RAX" | ".RAW" | ".rgb" | ".rmi" | ".rle" |
-			   ".ROL" | ".s3m" | ".scx" | ".sdn" | ".sea" | ".sf" |
+			   ".ROL" | ".rpm" | ".s3m" | ".scx" | ".sdn" | ".sea" | ".sf" |
 			   ".sgi" | ".shar" | ".shg" | ".SHK" | ".snd" | ".sqz" |
 			   ".stm" | ".tdo" | ".TGA" | ".uc2" | ".ul" | ".UTL" |
 			   ".uue" | ".uud" | ".vic" | ".vik" | ".vis" | ".voc" |
