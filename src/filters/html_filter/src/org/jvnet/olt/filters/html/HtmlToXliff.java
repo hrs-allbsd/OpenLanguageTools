@@ -94,6 +94,7 @@ public class HtmlToXliff {
                 parser.walkParseTree(sgmlSegmenterVisitor, null);
             
             } catch (Throwable t){ // bad exception handling here, but it's just sample code
+		logger.log(Level.SEVERE,t.getMessage(),t);
                 throw new SgmlFilterException("Problem parsing html file "+filename+" "+t.getMessage());
             }
             

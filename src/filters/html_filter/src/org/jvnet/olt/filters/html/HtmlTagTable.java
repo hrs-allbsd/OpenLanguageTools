@@ -72,6 +72,7 @@ public class HtmlTagTable implements org.jvnet.olt.parsers.tagged.TagTable {
         pcdataSet.add("script");
         //pcdataSet.add("style");
         pcdataSet.add("option");
+        emptySet.add("input");
         pcdataSet.add("img");
         pcdataSet.add("area");
         pcdataSet.add("link");
@@ -86,6 +87,7 @@ public class HtmlTagTable implements org.jvnet.olt.parsers.tagged.TagTable {
         emptySet.add("hr");
         emptySet.add("option");
         emptySet.add("img");
+        emptySet.add("input");
         emptySet.add("area");
         emptySet.add("link");
         emptySet.add("suntransxmlfilter");
