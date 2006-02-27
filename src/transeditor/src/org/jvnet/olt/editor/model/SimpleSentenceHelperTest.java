@@ -116,6 +116,13 @@ public class SimpleSentenceHelperTest extends TestCase{
 	
     }
     
+    public void testNoTags() throws Exception {
+	String rv = SimpleSentenceHelper.formatTranslation("<?Pub UDT ?>","The <u>sky</u> is <i>blue</i>","Der Himmel ist <b>blau</b>.");
+
+        System.out.println("rvx:"+rv);
+        
+        assertEquals("Der Himmel ist blau.",rv);
+    }
     
     
 }
