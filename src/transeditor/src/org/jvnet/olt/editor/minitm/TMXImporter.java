@@ -11,9 +11,8 @@
 package org.jvnet.olt.editor.minitm;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -69,9 +69,8 @@ public class TMXImporter {
 	Writer out = null;
 	
 	try{
-	    fr = new BufferedReader(new FileReader(tmxFile));
+            fr = new BufferedReader(new InputStreamReader(new FileInputStream(tmxFile),Charset.forName("UTF-8")));
             
-
 	    XMLReader reader = XMLReaderFactory.createXMLReader();
 
 	    reader.setEntityResolver(new EntityResolver() {
@@ -100,7 +99,7 @@ public class TMXImporter {
 	    
 	    //Source source = constructSource(fis);
 	    
-	    out = new FileWriter(mtmTargetFile);
+	    out = new OutputStreamWriter(new FileOutputStream(mtmTargetFile),"UTF-8");
 	    
 	    Writer[] writers = new Writer[]{ out,new PrintWriter(System.out)};
 	    
@@ -148,9 +147,9 @@ public class TMXImporter {
 	this.tgtLang = tgtLang;
     }
     
-    Reader template(){
+    Reader template() throws IOException{
         InputStream is = getClass().getClassLoader().getResourceAsStream("resources/tmx2mtm.xsl");
-	return new InputStreamReader(is);
+	return new InputStreamReader(is,"UTF-8");
     }
     
     public void setSrcLangShort(String srcLangShort) {
