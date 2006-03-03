@@ -44,8 +44,27 @@ public class SimpleSentenceHelperTest extends TestCase{
 	List l = SimpleSentenceHelper.buildTagHolders(pt);
 	assertNotNull(l);
 	assertEquals(4,l.size());
+        
+        assertEquals("b",((SimpleSentenceHelper.TagHolder)l.get(0)).element.getTagName());
+        assertEquals("i",((SimpleSentenceHelper.TagHolder)l.get(1)).element.getTagName());
+        assertEquals("i",((SimpleSentenceHelper.TagHolder)l.get(2)).element.getTagName());
+        
     }
 
+    public void testTagHoldersDepths() throws Exception {
+	String s = "aaa<b>cc<i>dd</i>ee</b>ff";
+
+        PivotText pt = new PivotText(s,true);
+	
+	List l = SimpleSentenceHelper.buildTagHolders(pt);
+
+        assertEquals(1,((SimpleSentenceHelper.TagHolder)l.get(0)).getDepth() );
+        assertEquals(2,((SimpleSentenceHelper.TagHolder)l.get(1)).getDepth() );
+        assertEquals(2,((SimpleSentenceHelper.TagHolder)l.get(2)).getDepth() );
+        assertEquals(1,((SimpleSentenceHelper.TagHolder)l.get(3)).getDepth() );
+        
+    }
+    
     /*
     public void testWithFormatting2() throws Exception{
 	String s =        "On the login screen, click on the <guilabel>Language</guilabel>icon.";
@@ -81,7 +100,7 @@ public class SimpleSentenceHelperTest extends TestCase{
     }
     public void testSample2() throws Exception {
 	String rv = SimpleSentenceHelper.formatTranslation("The sky is blue","The sky is <b>blue</b>","Der Himmel ist <b>blau</b>.");
-	System.out.println("rv:"+rv);
+	System.out.println("testSample2:"+rv);
 	assertEquals(rv,"Der Himmel ist blau.");
     }
     public void testSample3() throws Exception {
@@ -124,5 +143,23 @@ public class SimpleSentenceHelperTest extends TestCase{
         assertEquals("Der Himmel ist blau.",rv);
     }
     
-    
+    public void testError1() throws Exception{
+        /*String s1 = "When a user logs in and then invokes <olink targetdocent=\"REFMAN1M\" localinfo=\"su-1m\"><citerefentry><refentrytitle>su</refentrytitle>"+
+                "<manvolnum>1M</manvolnum></citerefentry></olink> to become"+
+                " super-user or another user, <command>passwd</command> changes the original user's password, not the password of the super-user or the new user.";
+        String s2 = "???????????<olink targetdocent=\"REFMAN1M-JA\" localinfo=\"su-1m\"><citerefentry><refentrytitle>" +
+                    "su</refentrytitle><manvolnum>1M</manvolnum></citerefentry></olink> ?????????????????????????????"+
+                "<command>passwd</command> ???????????????????????????????????????????????";
+	*/
+        String s1 = "<a x=\"1\">aa<b>cc</b></a>dddd";
+        String s2 = "<a x=\"2\">aa<b>cc</b></a>dddd";
+        
+        String rv = SimpleSentenceHelper.formatTranslation(s1,s1,s2);
+        System.out.println("s1:"+s1);
+        System.out.println("s2:"+s2);
+        
+        System.out.println("rv:"+rv);
+        
+        assertEquals("aa<b>cc</b>dddd<a x=\"1\"></a>",rv);
+    }
 }

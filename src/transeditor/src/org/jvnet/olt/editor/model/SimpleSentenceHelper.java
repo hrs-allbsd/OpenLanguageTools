@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
+import java.util.ListIterator;
 import java.util.logging.Logger;
 
 /**
@@ -32,14 +32,19 @@ public class SimpleSentenceHelper {
     static class TagHolder {
 	public final PivotBaseElement element;
 	public final ContentTag tag;
-	
-	
+	public final boolean closingTag;
+        
+        
+	private int depth;
+        private TagHolder closingTagHolder;
+        
 	TagHolder(PivotBaseElement element,ContentTag tag){
 	    if(element == null || tag == null)
 		throw new NullPointerException();
 	    
 	    this.element = element;
 	    this.tag = tag;
+            this.closingTag = element.getContent().trim().startsWith("</");
 	}
 	
 	
@@ -57,8 +62,26 @@ public class SimpleSentenceHelper {
 	    
 	    return false;
 	}
+
+        public String toString() {
+            return "TagHolder:["+element+"]["+tag+"]";
+        }
 	
-	
+	boolean isClosingTag(){
+            return closingTag;
+        }
+        
+        public int getDepth(){
+            return depth;
+        }
+        
+        public void setDepth(int depth){
+            this.depth = depth;
+        }
+        
+        public TagHolder getClosingTag(){
+            return closingTagHolder;
+        }
     }
     
     /** Creates a new instance of SimpleSentenceHelper */
@@ -97,7 +120,8 @@ public class SimpleSentenceHelper {
 		//remove from source tags so that at the end we have all tags
 		// from source that need to be added to target
 		// remove from target so that only those to remove are left
-		if(srcTag.tag.compare(tgtTag.tag) == ContentTag.COMPARE_TAGS_EQUAL){
+                int cmp = srcTag.tag.compare(tgtTag.tag);
+		if(cmp == ContentTag.COMPARE_TAGS_EQUAL){
 		    tagsToKeep.add(tgtTag);
 		    i.remove();
 		    j.remove();
@@ -109,7 +133,7 @@ public class SimpleSentenceHelper {
 	
 	List pivots = new LinkedList(Arrays.asList(oldTarget.elements()));
 	
-	removeRedundantTags(pivots,tgtTags);
+	removeRedundantTags(pivots,tgtTags,srcTags);
 	addExtraTags(pivots,srcTags);
 	
 	String result = buildResult(pivots);
@@ -120,13 +144,23 @@ public class SimpleSentenceHelper {
     /**
      * modifies pivots !
      */
-    static void removeRedundantTags(List pivots,List targetTags){
-	for (Iterator i = targetTags.iterator(); i.hasNext();) {
+    static void removeRedundantTags(List pivots,List targetTags,List extraTags){
+        
+        for (Iterator i = targetTags.iterator(); i.hasNext();) {
 	    TagHolder hldr = (TagHolder) i.next();
-	    
-	    pivots.remove(hldr.element);
+
+            pivots.remove(hldr.element);
+
+            TagHolder closer = hldr.getClosingTag();            
+            if(closer != null){
+                pivots.remove(closer.element);
+             
+                if(!targetTags.contains(closer))
+                    extraTags.add(closer);
+            }
 	    
 	}
+        
     }
     
     static void addExtraTags(List pivots, List extraTags) {
@@ -152,7 +186,7 @@ public class SimpleSentenceHelper {
 	ContentTag[] ctags = pivot.ct;
 	
 	if(ctags.length == 0)
-	    return Collections.EMPTY_LIST;
+	    return rv;
 	
 	PivotBaseElement[] elems = pivot.elements();
 	
@@ -169,7 +203,54 @@ public class SimpleSentenceHelper {
 	    }
 	    offset += elems[i].getVisibleLength();
 	}
-	
+        calculateDepths(rv);
+        connectTags(rv);
+        
 	return rv;
+    }
+    
+    static private void calculateDepths(List rv){
+        int depth = 0;
+	//calculate depths;
+        for (Iterator i = rv.iterator(); i.hasNext();) {
+            TagHolder th = (TagHolder) i.next();
+            
+            if(!th.isClosingTag())
+                depth++;
+            
+            th.setDepth(depth);
+
+            if(th.isClosingTag())
+                depth--;
+            
+        }
+        
+    }
+    
+    static private void connectTags(List rv){
+        for (ListIterator i1 = rv.listIterator(); i1.hasNext();) {
+            TagHolder th1 = (TagHolder) i1.next();
+            
+            int depth = th1.getDepth();
+            
+            for (ListIterator i2 = rv.listIterator(i1.nextIndex()); i2.hasNext();) {
+                TagHolder th2 = (TagHolder) i2.next();
+                
+                if(!th2.isClosingTag())
+                    continue;
+                
+                if(th2.getDepth() < depth)
+                    break;
+
+                if(th2.getDepth() == depth &&
+                   th2.element.getTagName().equals(th1.element.getTagName())){
+
+                    th1.closingTagHolder = th2;
+                    break;
+                }
+            }
+        }
+                        
+        
     }
 }

@@ -22,8 +22,8 @@ public class SimpleSentence {
         value = convertSpecialCharacters(s);
     }
 
-    public SimpleSentence(String s, String matchSrc, String matchT) {
-        value = SimpleSentenceHelper.formatTranslation(s, matchSrc, matchT,true);
+    public SimpleSentence(String s, String matchSrc, String matchT, boolean updateTags) {
+        value = SimpleSentenceHelper.formatTranslation(s, matchSrc, matchT,updateTags);
 	logger.finest("SimpleSentence");
 	logger.finest("s       :"+s);
 	logger.finest("matchSrc:"+matchSrc);
