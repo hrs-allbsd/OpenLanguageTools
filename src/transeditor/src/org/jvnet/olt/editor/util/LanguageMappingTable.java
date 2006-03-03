@@ -85,148 +85,148 @@ public class LanguageMappingTable {
         mappingTable.put("nl","NL");
 
         //GNOME supported langs
-        mappingTable.put("af_af", "AF"); //Afrikaans
+        mappingTable.put("af-af", "AF"); //Afrikaans
         mappingTable.put("af", "AF"); //Afrikaans
-        mappingTable.put("am_am", "AM"); //Amharic
+        mappingTable.put("am-am", "AM"); //Amharic
         mappingTable.put("am", "AM"); //Amharic
-        mappingTable.put("ang_ang", "AE"); //Old English
+        mappingTable.put("ang-ang", "AE"); //Old English
 
-        mappingTable.put("as_as", "AS"); //Assamese
+        mappingTable.put("as-as", "AS"); //Assamese
         mappingTable.put("as", "AS"); //Assamese
-        mappingTable.put("az_az", "AZ"); //Azerbaijani
-        mappingTable.put("az_ir", "AI"); //Iranian Azerbaijani
+        mappingTable.put("az-az", "AZ"); //Azerbaijani
+        mappingTable.put("az-ir", "AI"); //Iranian Azerbaijani
         mappingTable.put("az", "AZ"); //Azerbaijani
-        mappingTable.put("be_be", "BE"); //Belarusian
+        mappingTable.put("be-be", "BE"); //Belarusian
         mappingTable.put("be", "BE"); //Belarusian
-        mappingTable.put("bg_bg", "BG"); //Bulgarian
+        mappingTable.put("bg-bg", "BG"); //Bulgarian
         mappingTable.put("bg", "BG"); //Bulgarian
-        mappingTable.put("bn_bn", "BN"); //Bengali
+        mappingTable.put("bn-bn", "BN"); //Bengali
         mappingTable.put("bn", "BN"); //Bengali
-        mappingTable.put("br_br", "BR"); //Breton
+        mappingTable.put("br-br", "BR"); //Breton
         mappingTable.put("br", "BR"); //Breton
-        mappingTable.put("bs_bs", "BS"); //Bosnian
+        mappingTable.put("bs-bs", "BS"); //Bosnian
         mappingTable.put("bs", "BS"); //Bosnian
 
-        mappingTable.put("cy_cy", "CY"); //Welsh
+        mappingTable.put("cy-cy", "CY"); //Welsh
         mappingTable.put("cy", "CY"); //Welsh
 
-        mappingTable.put("en_au", "AU"); //Australian English
-        mappingTable.put("en_ca", "CD"); //Canadian English
-        mappingTable.put("en_gb", "GB"); //British English
-        mappingTable.put("eo_eo", "EO"); //Esperanto
+        mappingTable.put("en-au", "AU"); //Australian English
+        mappingTable.put("en-ca", "CD"); //Canadian English
+        mappingTable.put("en-gb", "GB"); //British English
+        mappingTable.put("eo-eo", "EO"); //Esperanto
 
-        mappingTable.put("et_et", "ET"); //Estonian
+        mappingTable.put("et-et", "ET"); //Estonian
         mappingTable.put("et", "ET"); //Estonian
-        mappingTable.put("eu_eu", "EU"); //Basque
+        mappingTable.put("eu-eu", "EU"); //Basque
         mappingTable.put("eu", "EU"); //Basque
-        mappingTable.put("eu_eu", "EU"); //Basque
-        mappingTable.put("fi_fi", "FI"); //Finnish
+        mappingTable.put("eu-eu", "EU"); //Basque
+        mappingTable.put("fi-fi", "FI"); //Finnish
         mappingTable.put("fi", "FI"); //Finnish
 
-        mappingTable.put("ga_ie", "GA"); //Irish Gaelic
-        mappingTable.put("ga_ga", "GA"); //Irish Gaelic
+        mappingTable.put("ga-ie", "GA"); //Irish Gaelic
+        mappingTable.put("ga-ga", "GA"); //Irish Gaelic
         mappingTable.put("ga", "GA"); //Irish Gaelic
 
-        mappingTable.put("gl_gl", "GL"); //Galician
+        mappingTable.put("gl-gl", "GL"); //Galician
         mappingTable.put("gl", "GL"); //Galician
-        mappingTable.put("gu_gu", "GU"); //Gujarati
+        mappingTable.put("gu-gu", "GU"); //Gujarati
         mappingTable.put("gu", "GU"); //Gujarati
 
-        mappingTable.put("hr_hr", "HR"); //Croatian
+        mappingTable.put("hr-hr", "HR"); //Croatian
         mappingTable.put("hr", "HR"); //Croatian
 
-        mappingTable.put("hy_hy", "HY"); //Armenian
+        mappingTable.put("hy-hy", "HY"); //Armenian
         mappingTable.put("hy", "HY"); //Armenian
-        mappingTable.put("ia_ia", "IA"); //Interlingua
+        mappingTable.put("ia-ia", "IA"); //Interlingua
         mappingTable.put("ia", "IA"); //Interlingua
-        mappingTable.put("id_id", "ID"); //Indonesian
+        mappingTable.put("id-id", "ID"); //Indonesian
         mappingTable.put("id", "ID"); //Indonesian
-        mappingTable.put("is_is", "IS"); //Icelandic
+        mappingTable.put("is-is", "IS"); //Icelandic
         mappingTable.put("is", "IS"); //Icelandic
 
-        mappingTable.put("ka_ka", "KA"); //Georgian
+        mappingTable.put("ka-ka", "KA"); //Georgian
         mappingTable.put("ka", "KA"); //Georgian
-        mappingTable.put("kn_kn", "KN"); //Kannada
+        mappingTable.put("kn-kn", "KN"); //Kannada
         mappingTable.put("kn", "KN"); //Kannada
 
-        mappingTable.put("ku_ku", "KU"); //Kurdish
+        mappingTable.put("ku-ku", "KU"); //Kurdish
         mappingTable.put("ku", "KU"); //Kurdish
-        mappingTable.put("li_li", "LI"); //Limburgish
+        mappingTable.put("li-li", "LI"); //Limburgish
         mappingTable.put("li", "LI"); //Limburgish
-        mappingTable.put("lt_lt", "LT"); //Lithuanian
+        mappingTable.put("lt-lt", "LT"); //Lithuanian
         mappingTable.put("lt", "LT"); //Lithuanian
-        mappingTable.put("lv_lv", "LV"); //Latvian
+        mappingTable.put("lv-lv", "LV"); //Latvian
         mappingTable.put("lv", "LV"); //Latvian
-        mappingTable.put("mi_mi", "MI"); //Maori
+        mappingTable.put("mi-mi", "MI"); //Maori
         mappingTable.put("mi", "MI"); //Maori
-        mappingTable.put("mk_mk", "MK"); //Macedonian
+        mappingTable.put("mk-mk", "MK"); //Macedonian
         mappingTable.put("mk", "MK"); //Macedonian
-        mappingTable.put("ml_ml", "ML"); //Malayalam
+        mappingTable.put("ml-ml", "ML"); //Malayalam
         mappingTable.put("ml", "ML"); //Malayalam
-        mappingTable.put("mn_mn", "MN"); //Mongolian
+        mappingTable.put("mn-mn", "MN"); //Mongolian
         mappingTable.put("mn", "MN"); //Mongolian
-        mappingTable.put("mr_mr", "MR"); //Marathi
+        mappingTable.put("mr-mr", "MR"); //Marathi
         mappingTable.put("mr", "MR"); //Marathi
-        mappingTable.put("ms_ms", "MS"); //Malay
+        mappingTable.put("ms-ms", "MS"); //Malay
         mappingTable.put("ms", "MS"); //Malay
-        mappingTable.put("nb_nb", "NB"); //Norwegian Bookmal
+        mappingTable.put("nb-nb", "NB"); //Norwegian Bookmal
         mappingTable.put("nb", "NB"); //Norwegian Bookmal
-        mappingTable.put("ne_ne", "NE"); //Nepali
+        mappingTable.put("ne-ne", "NE"); //Nepali
         mappingTable.put("ne", "NE"); //Nepali
 
-        mappingTable.put("nn_nn", "NN"); //Norwegian Nynorsk
+        mappingTable.put("nn-nn", "NN"); //Norwegian Nynorsk
         mappingTable.put("nn", "NN"); //Norwegian Nynorsk
-        mappingTable.put("nso_nso", "NS"); //Northern Sotho
+        mappingTable.put("nso-nso", "NS"); //Northern Sotho
         mappingTable.put("nso", "NS"); //Northern Sotho
-        mappingTable.put("or_or", "OR"); //Oriya
+        mappingTable.put("or-or", "OR"); //Oriya
         mappingTable.put("or", "OR"); //Oriya
-        mappingTable.put("pa_pa", "PA"); //Punjabi
+        mappingTable.put("pa-pa", "PA"); //Punjabi
         mappingTable.put("pa", "PA"); //Punjabi
 
-        mappingTable.put("ro_ro", "RO"); //Romanian
+        mappingTable.put("ro-ro", "RO"); //Romanian
         mappingTable.put("ro", "RO"); //Romanian
 
-        mappingTable.put("rw_rw", "RW"); //Kinyarwanda
+        mappingTable.put("rw-rw", "RW"); //Kinyarwanda
         mappingTable.put("rw", "RW"); //Kinyarwanda
 
-        mappingTable.put("sl_sl", "SL"); //Slovenian
+        mappingTable.put("sl-sl", "SL"); //Slovenian
         mappingTable.put("sl", "SL"); //Slovenian
-        mappingTable.put("sq_sq", "SQ"); //Albanian
+        mappingTable.put("sq-sq", "SQ"); //Albanian
         mappingTable.put("sq", "SQ"); //Albanian
-        mappingTable.put("sr_sr", "SR"); //Serbian
-        mappingTable.put("sr_cs", "SJ"); //Serbian Jekavian
+        mappingTable.put("sr-sr", "SR"); //Serbian
+        mappingTable.put("sr-cs", "SJ"); //Serbian Jekavian
         mappingTable.put("sr", "SR"); //Serbian
 
-        mappingTable.put("ta_ta", "TA"); //Tamil
+        mappingTable.put("ta-ta", "TA"); //Tamil
         mappingTable.put("ta", "TA"); //Tamil
-        mappingTable.put("te_te", "TE"); //Telugu
+        mappingTable.put("te-te", "TE"); //Telugu
         mappingTable.put("te", "TE"); //Telugu
-        mappingTable.put("tg_tg", "TG"); //Tajik
+        mappingTable.put("tg-tg", "TG"); //Tajik
         mappingTable.put("tg", "TG"); //Tajik
 
-        mappingTable.put("tk_tk", "TK"); //Turkmen
+        mappingTable.put("tk-tk", "TK"); //Turkmen
         mappingTable.put("tk", "TK"); //Turkmen
-        mappingTable.put("tl_tl", "TL"); //Tagalog
+        mappingTable.put("tl-tl", "TL"); //Tagalog
         mappingTable.put("tl", "TL"); //Tagalog
 
-        mappingTable.put("ug_ug", "UG"); //Uighur
+        mappingTable.put("ug-ug", "UG"); //Uighur
         mappingTable.put("ug", "UG"); //Uighur
 
-        mappingTable.put("uz_uz", "UZ"); //Uzbek
-        mappingTable.put("uz_latn", "UL"); //Uzbek Latin Script
+        mappingTable.put("uz-uz", "UZ"); //Uzbek
+        mappingTable.put("uz-latn", "UL"); //Uzbek Latin Script
         mappingTable.put("uz", "UZ"); //Uzbek
-        mappingTable.put("vi_vn", "VI"); //Vietnamese
+        mappingTable.put("vi-vn", "VI"); //Vietnamese
         mappingTable.put("vi", "VI"); //Vietnamese
-        mappingTable.put("wa_wa", "WA"); //Wallon
+        mappingTable.put("wa-wa", "WA"); //Wallon
         mappingTable.put("wa", "WA"); //Wallon
-        mappingTable.put("xh_xh", "XH"); //Xhosa
+        mappingTable.put("xh-xh", "XH"); //Xhosa
         mappingTable.put("xh", "XH"); //Xhosa
-        mappingTable.put("yi_yi", "YI"); //Yiddish
+        mappingTable.put("yi-yi", "YI"); //Yiddish
         mappingTable.put("yi", "YI"); //Yiddish
-        mappingTable.put("yo_yo", "YO"); //Yoruba
+        mappingTable.put("yo-yo", "YO"); //Yoruba
         mappingTable.put("yo", "YO"); //Yoruba
 
-        mappingTable.put("zu_zu", "ZU"); //Zulu
+        mappingTable.put("zu-zu", "ZU"); //Zulu
         mappingTable.put("zu", "ZU"); //Zulu
     }
 
@@ -267,8 +267,8 @@ public class LanguageMappingTable {
      * mapped to the short code   <br>
      * Example:<br>
      * <pre>
-     * for EN return en_GB<b>
-     * for US return en_US<br>
+     * for EN return en-GB<b>
+     * for US return en-US<br>
      * </pre>
      *
      * <p>

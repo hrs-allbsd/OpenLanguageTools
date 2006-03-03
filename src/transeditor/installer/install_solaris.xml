@@ -59,5 +59,11 @@
             </fileset>
             <executable stage="never" targetfile="$INSTALL_PATH/spellchecker/bin/aspell" os="unix"/>
         </pack>
+		<pack name="Sample XLIFF files" required="no" preselected="yes">
+            <description>This component sample XLIFF files</description>
+            <fileset dir="samples/" targetdir="$INSTALL_PATH/samples/"> 
+                <include name="**/*"/>
+            </fileset>
+		</pack>
     </packs>
 </installation>

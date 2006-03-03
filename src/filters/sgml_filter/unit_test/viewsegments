@@ -1,3 +1,0 @@
-#!/bin/sh
-CLASSPATH=..:/space/timf/transtech-build/
-java -cp $CLASSPATH com.sun.tt.filters.sgml.ViewSgmlSegments $@
