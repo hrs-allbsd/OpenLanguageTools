@@ -116,6 +116,9 @@
         <ant dir="tmx_aml_converter" >
             <property name="build.dir" value="${build.dir}/${module.utils.name}"/>
         </ant>
+        <ant dir="xliff_tools" >
+            <property name="build.dir" value="${build.dir}/${module.utils.editor.name}"/>
+        </ant>
 		<jar destfile="${dest.dir}/tt-common.jar">
 			<zipfileset dir="${build.dir}/${module.utils.name}">
 				<include name="**/*.class"/>
