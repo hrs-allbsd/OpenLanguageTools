@@ -84,6 +84,7 @@ public class DocbookSegmenterTable implements org.jvnet.olt.parsers.tagged.Segme
         dontSegmentSet.add("publishername");
         
         dontSegmentSet.add("funcsynopsisinfo");
+        dontSegmentSet.add("arg");
         
         /* 
          * Here is map of non-segmentable non countable tags that are inline.

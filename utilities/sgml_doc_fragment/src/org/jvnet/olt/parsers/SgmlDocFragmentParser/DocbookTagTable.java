@@ -28,7 +28,6 @@ public class DocbookTagTable implements TagTable
     hashPcdata.put("address","address");
     hashPcdata.put("alt","alt");
     hashPcdata.put("application","application");
-    hashPcdata.put("arg","arg");
     hashPcdata.put("artpagenums","artpagenums");
     hashPcdata.put("attribution","attribution");
     hashPcdata.put("authorinitials","authorinitials");
@@ -201,6 +200,7 @@ public class DocbookTagTable implements TagTable
     hashVerbatim.put("literallayout", "literallayout");
     hashVerbatim.put("synopsis","synopsis");
     hashVerbatim.put("screenshot","screenshot");
+    hashVerbatim.put("arg","arg");
 
     //  "EMPTY" tags
     hashEmpty = new HashMap();
