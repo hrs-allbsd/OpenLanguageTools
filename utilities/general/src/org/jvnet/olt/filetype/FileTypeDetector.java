@@ -30,6 +30,7 @@ public class FileTypeDetector {
     public static final int ULA = 15;
     public static final int MIF = 16;
     public static final int ART = 17;
+    public static final int CSS = 18;
     
     // File extension expression to file type mapping
     private static List filetypes = null;
@@ -151,6 +152,11 @@ public class FileTypeDetector {
             fileType.addExtension("svg");
             fileType.addExtension("xpm");
             fileType.addExtension("rs");
+            filetypes.add(fileType);
+
+            //CSS
+            fileType = new BasicFileType(CSS,"Cascading Style Sheets");
+            fileType.addExtension("css");
             filetypes.add(fileType);
         }
         return filetypes;
