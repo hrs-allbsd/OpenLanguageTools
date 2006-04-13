@@ -117,8 +117,12 @@ public class XliffBackConverter {
             Reader xliffFile = xlzZipFile.getXliffReader();
             Reader skeletonFile = xlzZipFile.getSklReader();
 
+            String encUTF8 = "UTF-8";
+
+            //XliffSkeletonHandlerImpl skeletonHandlerImpl = new
+            //    XliffSkeletonHandlerImpl( logger, props, dir, charSet, writeTransStatus);
             XliffSkeletonHandlerImpl skeletonHandlerImpl = new
-                XliffSkeletonHandlerImpl( logger, props, dir, charSet, writeTransStatus);
+                XliffSkeletonHandlerImpl( logger, props, dir, encUTF8, writeTransStatus);
             XliffSkeletonHandler skeletonHandler = skeletonHandlerImpl;
 
             XliffSkeletonParser skeletonParser =
@@ -146,8 +150,15 @@ public class XliffBackConverter {
             //System.out.println("Datatype is " + datatype);
             SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory(props);
             SpecificBackConverter specific= fac.getSpecificBackConverter(datatype);
-            specific.convert(dir+File.separator+segFile.getOriginalFilename(), lang, charSet, file.getAbsolutePath());
-            
+
+            //backconvert
+            String convertee = dir+File.separator+segFile.getOriginalFilename();
+            //specific.convert(convertee, lang, charSet, file.getAbsolutePath());
+            specific.convert(convertee, lang, encUTF8, file.getAbsolutePath());
+
+            //recode to native encoding (if needed)
+            SpecificBackConverter recoder = new RecodingSpecificBackconverter();
+            recoder.convert(convertee, lang, charSet, file.getAbsolutePath());
             
             
         } catch (java.util.zip.ZipException ex) {
