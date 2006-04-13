@@ -83,7 +83,8 @@ class Unicode2EntTableModel implements TableModel {
         if(rowIndex > items.size() || columnIndex > 2)
             return;
         Unicode2Ent ent = (Unicode2Ent)items.get(rowIndex);
-        
+        targetMap.remove(ent.getChr());
+
         logger.finest("Set value:"+aValue+" "+aValue.getClass().getName());
         switch (columnIndex) {
             case 0:
