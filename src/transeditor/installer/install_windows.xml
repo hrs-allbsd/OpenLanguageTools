@@ -12,6 +12,7 @@
         <authors>
             <author name="Open Language Tools" email="dev@open-language-tools.dev.java.net"/>
         </authors>
+		<javaversion>1.5,1.6</javaversion>
         <url>https://open-language-tools.dev.java.net</url>
     </info>
     
