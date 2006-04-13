@@ -88,7 +88,7 @@ public class Backend {
     public void openFile(File f) throws IOException {
     }
     
-    public boolean saveFile() {
+    public boolean saveFile() throws NestableException {
         //        if(!bHasModified)
         //            return false;
         for (int i = 0; i < tmpdata.tmsentences.length; i++) {
@@ -130,7 +130,7 @@ public class Backend {
         return true;
     }
     
-    public boolean saveFileToTemp() {
+    public boolean saveFileToTemp() throws NestableException {
         if (currentFile == null) {
             logger.warning("currentFile is null while doing autosave; file will not be saved");
             
@@ -144,7 +144,7 @@ public class Backend {
         return doSaveFile(tempFile, true);
     }
     
-    public boolean saveFileTo(File newFile) {
+    public boolean saveFileTo(File newFile) throws NestableException {
         boolean rv = doSaveFile(newFile, false);
         if(!newFile.equals(currentFile)){
             currentFile = newFile;
@@ -152,7 +152,8 @@ public class Backend {
         return rv;
     }
     
-    private boolean doSaveFile(File newFile, boolean autosave) throws IllegalStateException {
+    private boolean doSaveFile(File newFile, boolean autosave)
+        throws IllegalStateException,NestableException {
         if ((newFile == null) || (tmpdata == null)) {
             return false;
         }
@@ -188,7 +189,7 @@ public class Backend {
             logger.throwing(getClass().getName(), "saveFileTo", ne);
             logger.severe("Exception:" + ne);
             
-            return false;
+            throw ne;
         } finally{
             synchronized(this){
                 logger.finest("Will toggle save in progress off");

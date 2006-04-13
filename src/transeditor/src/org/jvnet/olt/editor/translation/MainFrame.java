@@ -506,6 +506,19 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
     //end of spellchecker
 
+    static int OPERATION_UNKNOWN = 0;
+    static int OPERATION_LOAD = 1;
+    static int OPERATION_SAVE = 2;
+    static int OPERATION_SAVE_TO_TEMP = 3;
+
+    static String[] opLabels = new String[]{
+        null,
+        "loading",
+        "saving",
+        "saving to temporary",
+        
+    };
+
     /**
      * spellchecker functions
      */
@@ -698,80 +711,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         }
 
         public void exceptionThrown(Throwable exce) {
-            String defaultMsg =  "An unknown error occured while opening this file.\n" + 
-                    "Please copy the text in editor console and send it to\n" + 
-                    "dev@open-language-tools.dev.java.net along with a copy\n" + 
-                    "of the source file.";
-            
-            if (exce instanceof java.lang.OutOfMemoryError) {
-                JOptionPane.showMessageDialog(MainFrame.this, "The application was not able to allocate enough memory while opening the XLIFF file." + "\n Please consult the user manual on how to increase the amount of available application memory.", "Not Enough Memory", JOptionPane.OK_OPTION);
-
-                return;
-            }
-
-            if(exce instanceof FormattingException){
-                FormattingException fe = (FormattingException)exce;
-
-                int sentNum = fe.getSegmentNumber()+1; //zero based
-                
-                String msg = "A formatting error has occured while saving the sentnce\n";
-                msg += "Please check if the formatting is correct and all tags are properly closed\n";
-                msg += "If this message appears AFTER automatic 100% match propagation from MiniTM at the start of the application\n";
-                msg += "please also check the 100% match in your miniTM for this sentence ("+sentNum+")\n";        
-                msg += "Segment number:"+sentNum+"\n";
-                msg += "Sentence:"+fe.getSentence();
-                
-                JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
-                
-                return;
-            }
-            else
-                if(exce instanceof NestableException){
-                    String msg = defaultMsg;
-                    NestableException ne = (NestableException)exce;
-                    Throwable th2 = ne.getCause();
-
-                    if(th2 instanceof SAXException){
-                        SAXParseException sxe = (SAXParseException)th2;
-                        msg = "The file is not well-formed XML document.\nError occured at line "+
-                                sxe.getLineNumber()+" column:"+sxe.getColumnNumber()+
-                                "\nError message:"+sxe.getMessage();
-
-
-                    }
-                    if(th2 instanceof IOException){
-                        msg = "An input/output error occured:\n"+th2.getMessage();
-                    }
-                    if(th2 instanceof ZipException){
-                        msg = "The xlz file seems to be corrupted:\n"+th2.getMessage();
-                    }
-
-                    JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            
-            exce.printStackTrace();
-
-            //TODO review the exception handling below; right now it's turned off
-            
-            if (exce.getMessage() != null && false) {
-                Toolkit.getDefaultToolkit().beep();
-
-                //TODO  this is thrown by Languages.getFlagPath() ouch !
-                if (exce.getMessage().equals("LanguageError")) {
-                    JOptionPane.showMessageDialog(MainFrame.this, "Invalid .xlz file - language(s) error", "Error", JOptionPane.ERROR_MESSAGE);
-                //TODO thrown by XLIFF parser when zip is broken
-                } else if (exce.getMessage().equals("xlzFileInvalid")) {
-                    JOptionPane.showMessageDialog(MainFrame.this, "Invalid .xlz file.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (exce.getMessage().indexOf("Open Language Tools Exception") != -1) {
-                //TODO generic NestableException
-                    JOptionPane.showMessageDialog(MainFrame.this, "There is a fatal error when opening the file.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(MainFrame.this, "Open failed, please check the file which you opened.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(MainFrame.this, defaultMsg+"\nError message:"+exce.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            MainFrame.this.exceptionThrown(exce,OPERATION_LOAD);
         }
 
         public void buildMethodFailed() {
@@ -1079,7 +1019,10 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
                 try{
                     backend.saveFileToTemp();
-                }                
+                }
+                catch (NestableException ne){
+                    logger.warning(ne.toString());
+                }
                 finally {
                     m_timer.restart();
                     enableGUI();
@@ -2737,17 +2680,18 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             if (iRet == JOptionPane.CANCEL_OPTION) {
                 return false;
             } else if (iRet == JOptionPane.YES_OPTION) {
-                if (!backend.saveFile()) {
-                    //JOptionPane.showMessageDialog(this,"Failed To Save the Current File","Failed to Save",JOptionPane.OK_OPTION);
-                    saveFileFailed();
 
+                try{
+                    backend.saveFile();
+                }
+                catch (NestableException ne){
+                    exceptionThrown(ne,OPERATION_LOAD);
                     return false;
                 }
 
                 // bug 4821917 || if cancel the "Open File" dialog, "xp" and "tmpdata" can not be setup to "null"
                 this.setBHasModified(false);
-            } else {
-            }
+            } 
         }
 
         if (backend.getProject() == null) {
@@ -2840,9 +2784,12 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             if (iRet == JOptionPane.CANCEL_OPTION) {
                 return false;
             } else if (iRet == JOptionPane.YES_OPTION) {
-                if (!backend.saveFile()) {
+                try{
+                    backend.saveFile();
+                }
+                catch (NestableException ne){
                     //JOptionPane.showMessageDialog(this,"Failed To Save the Current File","Failed to Save",JOptionPane.OK_OPTION);
-                    saveFileFailed();
+                    exceptionThrown(ne,OPERATION_SAVE);
 
                     return false;
                 }
@@ -3111,8 +3058,11 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             }
 
             if (iRet == JOptionPane.OK_OPTION) {
-                if (!backend.saveFile()) {
-                    saveFileFailed();
+                try{
+                    backend.saveFile();
+                }
+                catch (NestableException ne){
+                    exceptionThrown(ne,OPERATION_SAVE);
 
                     //JOptionPane.showMessageDialog(this,"Failed To Save the Current File","Failed to Save",JOptionPane.OK_OPTION);
                     return 0;
@@ -6002,8 +5952,11 @@ OUT:
                     m_timer.stop();
                 }
 
-                if (!backend.saveFileToTemp()) {
-                    logger.warning("Auto save failed");
+                try{
+                    backend.saveFileToTemp();
+                }
+                catch (NestableException ne){
+                    logger.warning("Auto save failed:"+ne);
                 }
 
                 bSafeExit = false;
@@ -6639,10 +6592,15 @@ OUT:
         return sb.toString();
     }
 
-    void saveFileFailed() {
+    /*
+    void saveFileFailed(Throwable t) {
         JOptionPane.showMessageDialog(this, "Unknown error occured while saving the file.\n" + "Please copy the text in editor console and send it to\n" + "dev@open-language-tools.dev.java.net along with a copy of\n" + "the file.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    void saveFileFailed() {
+        JOptionPane.showMessageDialog(this, "Unknown error occured while saving the file.\n" + "Please copy the text in editor console and send it to\n" + "dev@open-language-tools.dev.java.net along with a copy of\n" + "the file.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+*/
     /** Aks user to save file if modified.
      *
      * @return flase if cancelled or save failed. Otherwise true
@@ -6655,8 +6613,11 @@ OUT:
                 return false;
             }
 
-            if (!backend.saveFile()) {
-                saveFileFailed();
+            try{
+                backend.saveFile();
+            }
+            catch (NestableException ne){
+                exceptionThrown(ne,OPERATION_SAVE);
 
                 return false;
             }
@@ -6677,5 +6638,72 @@ OUT:
         }
 
         backend.tryToOpenFile(fileToOpen, new PostHandler());
+    }
+
+    void exceptionThrown(Throwable exce,int operation) {
+        String op = null;
+
+        if(operation < opLabels.length)
+            op = opLabels[operation];
+
+        String defaultMsg =  "An unknown error occured ";
+        if(op != null){
+            defaultMsg += "while " +op+ " file.\n";
+         }
+
+        defaultMsg += "Please copy the text in editor console and send it to\n" +
+            "dev@open-language-tools.dev.java.net along with a copy\n" + 
+            "of the source file.";
+
+        if (exce instanceof java.lang.OutOfMemoryError) {
+            JOptionPane.showMessageDialog(MainFrame.this, "The application was not able to allocate enough memory while opening the XLIFF file." + "\n Please consult the user manual on how to increase the amount of available application memory.", "Not Enough Memory", JOptionPane.OK_OPTION);
+
+            return;
+        }
+
+        if(exce instanceof FormattingException){
+            FormattingException fe = (FormattingException)exce;
+
+            int sentNum = fe.getSegmentNumber()+1; //zero based
+
+            String msg = "A formatting error has occured while saving the sentnce\n";
+            msg += "Please check if the formatting is correct and all tags are properly closed\n";
+            msg += "If this message appears AFTER automatic 100% match propagation from MiniTM at the start of the application\n";
+            msg += "please also check the 100% match in your miniTM for this sentence ("+sentNum+")\n";        
+            msg += "Segment number:"+sentNum+"\n";
+            msg += "Sentence:"+fe.getSentence();
+
+            JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+        else
+            if(exce instanceof NestableException){
+                String msg = defaultMsg;
+                NestableException ne = (NestableException)exce;
+                Throwable th2 = ne.getCause();
+
+                if(th2 instanceof SAXException){
+                    SAXParseException sxe = (SAXParseException)th2;
+                    msg = "The file is not well-formed XML document.\nError occured at line "+
+                            sxe.getLineNumber()+" column:"+sxe.getColumnNumber()+
+                            "\nError message:"+sxe.getMessage();
+
+
+                }
+                if(th2 instanceof IOException){
+                    msg = "An input/output error occured:\n"+th2.getMessage();
+                }
+                if(th2 instanceof ZipException){
+                    msg = "The xlz file seems to be corrupted:\n"+th2.getMessage();
+                }
+
+                JOptionPane.showMessageDialog(MainFrame.this, msg, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        logger.severe(exce == null ? "Exception is not available" : exce.toString());
+        JOptionPane.showMessageDialog(this, defaultMsg+"\nError message:"+exce.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        
     }
 }
