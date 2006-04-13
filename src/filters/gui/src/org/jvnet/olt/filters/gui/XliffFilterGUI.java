@@ -418,7 +418,6 @@ public class XliffFilterGUI extends javax.swing.JFrame implements DropTargetList
             this.logger.log(Level.SEVERE,xliffFilterGUIMessages.getString("Problem_configuring_XML_filter!"),e);
         }
 
-        //}
         return attribs;
     }
     

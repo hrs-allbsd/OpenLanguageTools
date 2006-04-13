@@ -19,7 +19,6 @@ import org.jvnet.olt.filters.segmenters.formatters.SegmenterFormatter;
 import org.jvnet.olt.filters.segmenters.formatters.SegmenterFormatterException;
 import org.jvnet.olt.filters.sgml.visitors.*;
 import org.jvnet.olt.alignment.Segment;
-import org.jvnet.olt.filters.sgml.docbook.DocbookSegmenterTable;
 import org.jvnet.olt.format.*;
 import java.io.*;
 import java.util.*;
@@ -352,7 +351,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                          * will be added to other tagged markup filters
                          */
                         boolean dontSegmentOrCount = true;
-                        if(segmenterTable instanceof DocbookSegmenterTable) {
+                        if(segmenterTable.getClass().getName().indexOf("DocbookSegmenterTable")>-1) {
                             Map tagAttributes  = ((org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode)simpleNode).getAttribs();
                             dontSegmentOrCount = ((org.jvnet.olt.filters.sgml.docbook.DocbookSegmenterTable)segmenterTable).dontSegmentOrCountInsideTag(tagName,namespaceID,tagAttributes);
                         } else {
