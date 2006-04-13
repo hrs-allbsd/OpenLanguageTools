@@ -43,11 +43,11 @@ public class SimpleSentence {
             if (SgmlCharacter.isEntityUnicode(ch)) {
 
                 //skip quotes to make sure they display as quotes
-		if(ch == '\u201D' || //ldquo
-                   ch == '\u201C' || //rdquo
-                   ch == '\u2018' || //rsquor
+		if(ch == '\u201D' || //rdquo
+                   ch == '\u201C' || //ldquo
+                   ch == '\u2018' || //lsquo
                    ch == '\u2019' || //rsquo
-                   ch == '\u201E' ){   //ldquor
+                   ch == '\u201E' ){   //bdquo
                     i++;
                     continue;
                 }		
