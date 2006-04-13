@@ -23,7 +23,9 @@ public class UnicodeEntityBackConverter {
     public static void fix(String filename, UnicodeReverse ur, String charset) throws IOException{
             
             BufferedReader reader = new BufferedReader(new
-            	InputStreamReader(new FileInputStream(filename), charset));
+            	InputStreamReader(new FileInputStream(filename), "UTF-8"));
+//            BufferedReader reader = new BufferedReader(new
+//            	InputStreamReader(new FileInputStream(filename), charset));
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(
             	new FileOutputStream(filename+".bak"),charset));
             
