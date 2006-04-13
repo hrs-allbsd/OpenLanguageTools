@@ -33,7 +33,6 @@ public class DocbookTagTable implements TagTable {
         pcdataSet.add("address");
         pcdataSet.add("alt");
         pcdataSet.add("application");
-        pcdataSet.add("arg");
         pcdataSet.add("artpagenums");
         pcdataSet.add("attribution");
         pcdataSet.add("authorinitials");
@@ -202,7 +201,6 @@ public class DocbookTagTable implements TagTable {
         // sections may contain translatbale text (but they're dontsegment)
         pcdataSet.add("screen");
         pcdataSet.add("programlisting");
-        pcdataSet.add("literallayout");
         
         pcdataSet.add("filename");
         pcdataSet.add("command");
@@ -243,6 +241,7 @@ public class DocbookTagTable implements TagTable {
         verbatimSet.add("programlistingco");
         verbatimSet.add("literallayout");
         verbatimSet.add("screenshot");
+        verbatimSet.add("arg");
         
         //  "EMPTY" tags
         emptySet = new HashSet();
