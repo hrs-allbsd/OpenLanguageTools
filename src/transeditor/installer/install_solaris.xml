@@ -13,6 +13,7 @@
         <authors>
             <author name="Open Language Tools project" email="dev@open-language-tools.dev.java.net"/>
         </authors>
+		<javaversion>1.5,1.6</javaversion>
         <url>https://open-language-tools.dev.java.net</url>
     </info>
     
@@ -59,5 +60,11 @@
             </fileset>
             <executable stage="never" targetfile="$INSTALL_PATH/spellchecker/bin/aspell" os="unix"/>
         </pack>
+		<pack name="Sample XLIFF files" required="no" preselected="yes">
+            <description>This component sample XLIFF files</description>
+            <fileset dir="samples/" targetdir="$INSTALL_PATH/samples/"> 
+                <include name="**/*"/>
+            </fileset>
+		</pack>
     </packs>
 </installation>

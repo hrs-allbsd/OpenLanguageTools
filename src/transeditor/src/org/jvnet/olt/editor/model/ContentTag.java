@@ -14,6 +14,12 @@ import java.util.List;
  * @version 1.0
  */
 public class ContentTag {
+    public static final int COMPARE_TAGS_EQUAL = 0;
+    public static final int COMPARE_TAGS_EQUAL_ATTRIBUTES_DIFF = 1;
+    public static final int COMPARE_TAGS_NOT_EQUAL = -1;
+    
+    
+    
     public String strTagName;
     public int iIndex;
     public int iPos;
@@ -64,4 +70,10 @@ public class ContentTag {
             return -1;
         }
     }
+
+    public String toString() {
+	return "ContentTag: name:"+strTagName+" idx:"+iIndex+" pos:"+iPos+" text:"+strText+" attr:"+strAttribute;
+    }
+    
+    
 }

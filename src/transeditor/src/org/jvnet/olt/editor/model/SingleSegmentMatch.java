@@ -74,6 +74,7 @@ public class SingleSegmentMatch extends Match {
             oldType = (tms.getTranslationStatus() * 10) + tms.getTranslationType();
         }
 
+        boolean updateTags = Backend.instance().getConfig().isBFlagTagUpdate();
         /**
          * Apply match
          */
@@ -81,7 +82,7 @@ public class SingleSegmentMatch extends Match {
             tms.setTranslation(this.getMatchTranslation());
             tms.setAutoTranslated(true);
         } else {
-            SimpleSentence s = new SimpleSentence(tms.getSource(), this.getLRDS(), this.getLRDT());
+            SimpleSentence s = new SimpleSentence(tms.getSource(), this.getLRDS(), this.getLRDT(), updateTags);
             tms.setTranslation(s.getValue());
             tms.setAutoTranslated(false);
         }

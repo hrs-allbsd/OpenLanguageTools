@@ -33,8 +33,12 @@ public class XLIFFEntityResolver implements EntityResolver {
         schemas.put(new SchemaLocator("datatypes", "datatypes.dtd"), "/resources/datatypes.dtd");
         schemas.put(new SchemaLocator(null , "datatypes.dtd"), "/resources/datatypes.dtd");
         
+        schemas.put(new SchemaLocator(null, "tmx11.dtd"),"/resources/tmx11.dtd");
+        schemas.put(new SchemaLocator(null, "tmx12.dtd"),"/resources/tmx12.dtd");
         schemas.put(new SchemaLocator(null, "tmx13.dtd"),"/resources/tmx13.dtd");
-        schemas.put(new SchemaLocator("-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN", "tmx13.dtd"),"/resources/tmx13.dtd");
+        schemas.put(new SchemaLocator(null, "tmx14.dtd"),"/resources/tmx14.dtd");
+		
+		schemas.put(new SchemaLocator("-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN", "tmx13.dtd"),"/resources/tmx13.dtd");
     }
 
     static private XLIFFEntityResolver instance = new XLIFFEntityResolver();
@@ -53,8 +57,19 @@ public class XLIFFEntityResolver implements EntityResolver {
             systemId = "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd";
         }
         
+        if(systemId.endsWith("/tmx14.dtd")){
+            systemId = "tmx14.dtd";
+        }
         if(systemId.endsWith("/tmx13.dtd")){
             systemId = "tmx13.dtd";
+        }
+		
+        if(systemId.endsWith("/tmx12.dtd")){
+            systemId = "tmx12.dtd";
+        }
+
+		if(systemId.endsWith("/tmx11.dtd")){
+            systemId = "tmx11.dtd";
         }
         
         if (systemId.endsWith("/XMLSchema.dtd")) {

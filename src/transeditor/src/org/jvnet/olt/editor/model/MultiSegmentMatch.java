@@ -118,12 +118,15 @@ public class MultiSegmentMatch extends Match {
             /**
              * Apply match
              */
+            
+            boolean updateTags = backend.getConfig().isBFlagTagUpdate();
+            
             if (i == 0) {
                 if (iMatchQuality >= 100) {
                     tms.setTranslation(getMatchTranslation());
                     tms.setAutoTranslated(true);
                 } else {
-                    SimpleSentence s = new SimpleSentence(theSource.toString(), this.getLRDS(), this.getLRDT());
+                    SimpleSentence s = new SimpleSentence(theSource.toString(), this.getLRDS(), this.getLRDT(), updateTags);
                     tms.setTranslation(s.getValue());
                     tms.setAutoTranslated(false);
                 }
