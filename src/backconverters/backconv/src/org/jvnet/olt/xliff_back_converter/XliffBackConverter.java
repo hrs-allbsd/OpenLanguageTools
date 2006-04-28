@@ -8,6 +8,8 @@
 package org.jvnet.olt.xliff_back_converter;
 
 import java.io.*;
+import java.util.Properties;
+import org.jvnet.olt.utilities.XliffZipFileIO;
 
 /**
  * The XliffBackConverter is resonsible for converting Xliff files back into
@@ -114,52 +116,99 @@ public class XliffBackConverter {
                 throw new XliffBackConverterException("Unable to run the backconverter on this XLIFF  : it does not have a skeleton file associated with it.");
             }
             
-            Reader xliffFile = xlzZipFile.getXliffReader();
-            Reader skeletonFile = xlzZipFile.getSklReader();
-
+            Reader xliffFile    = null;
+            Reader skeletonFile = null;
+            XliffHandlerImpl handlerImpl = null;
             String encUTF8 = "UTF-8";
 
-            //XliffSkeletonHandlerImpl skeletonHandlerImpl = new
-            //    XliffSkeletonHandlerImpl( logger, props, dir, charSet, writeTransStatus);
-            XliffSkeletonHandlerImpl skeletonHandlerImpl = new
-                XliffSkeletonHandlerImpl( logger, props, dir, encUTF8, writeTransStatus);
-            XliffSkeletonHandler skeletonHandler = skeletonHandlerImpl;
+            try{
+                xliffFile    = xlzZipFile.getXliffReader();
+                skeletonFile = xlzZipFile.getSklReader();
 
-            XliffSkeletonParser skeletonParser =
-                new XliffSkeletonParser(skeletonHandler, null, logger,
-                props, skeletonDTD);
 
-            XliffHandlerImpl handlerImpl =
-                new XliffHandlerImpl(logger, props, skeletonParser,
-                skeletonFile, skeletonHandlerImpl, getSource,
-                backConverterInfo);
-            XliffHandler handler = handlerImpl;
 
-            XliffParser parser =
-                new XliffParser(handler, null, logger, props, xliffDTD);
+                //XliffSkeletonHandlerImpl skeletonHandlerImpl = new
+                //    XliffSkeletonHandlerImpl( logger, props, dir, charSet, writeTransStatus);
+                XliffSkeletonHandlerImpl skeletonHandlerImpl = new
+                    XliffSkeletonHandlerImpl( logger, props, dir, encUTF8, writeTransStatus);
+                XliffSkeletonHandler skeletonHandler = skeletonHandlerImpl;
 
-            parser.parse(new org.xml.sax.InputSource(xliffFile));
-            xliffFile.close();
-            skeletonFile.close();
-            
+                XliffSkeletonParser skeletonParser =
+                    new XliffSkeletonParser(skeletonHandler, null, logger,
+                    props, skeletonDTD);
+
+                handlerImpl =
+                    new XliffHandlerImpl(logger, props, skeletonParser,
+                    skeletonFile, skeletonHandlerImpl, getSource,
+                    backConverterInfo);
+                XliffHandler handler = handlerImpl;
+
+                XliffParser parser =
+                    new XliffParser(handler, null, logger, props, xliffDTD);
+
+                parser.parse(new org.xml.sax.InputSource(xliffFile));
+            }
+            finally {
+                if(xliffFile != null)
+                    xliffFile.close();
+                if(skeletonFile != null)
+                    skeletonFile.close();
+            }
+
             SegmentedFile segFile = handlerImpl.getSegmentedFile();
             this.segmentedFile = segFile;
             String datatype = segFile.getDatatype();
             segFile.getOriginalFilename();
             String lang = segFile.getTargetLanguage();
             //System.out.println("Datatype is " + datatype);
-            SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory(props);
-            SpecificBackConverter specific= fac.getSpecificBackConverter(datatype);
+            
+             SunTrans2SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory();
+
+             //check for OpenOffice content
+            {
+                XliffZipFileIO xlz = xlzZipFile;
+                if (xlz.hasWorkflowProperties()){
+                    Properties props = xlz.getWorkflowProperties();
+                    if(props != null){
+                        String type = props.getProperty("xmltype");
+                        if(type != null)
+                            datatype = type;
+                    }
+                }
+            }
+            //backconvert
+            //String convertee = dir+File.separator+segFile.getOriginalFilename();
+            File convertee = new File(dir,segFile.getOriginalFilename());
+
+            //SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory(props);
+            SpecificBackconverterBase specific= fac.getSpecificBackConverter(datatype);
+            specific.setEncoding(encUTF8);
+            specific.setLang(lang);
+            specific.setDataType(datatype);
+            specific.setOriginalXlzFile(file);
+//            specific.setFilename(convertee);
+            logger.info("props:"+props);
+            specific.setProps(props);
 
             //backconvert
-            String convertee = dir+File.separator+segFile.getOriginalFilename();
+            //String convertee = dir+File.separator+segFile.getOriginalFilename();
             //specific.convert(convertee, lang, charSet, file.getAbsolutePath());
-            specific.convert(convertee, lang, encUTF8, file.getAbsolutePath());
+            specific.convert(convertee);
 
-            //recode to native encoding (if needed)
-            SpecificBackConverter recoder = new RecodingSpecificBackconverter();
-            recoder.convert(convertee, lang, charSet, file.getAbsolutePath());
-            
+            //if the result is *NOT* a binary file then do recoding
+            if(!specific.isBinaryFormat()){
+                //recode to native encoding (if needed)
+                SpecificBackconverterBase recoder = new RecodingSpecificBackconverter();
+                recoder.setEncoding(charSet);
+                recoder.setLang(lang);
+                recoder.setDataType(datatype);
+                recoder.setOriginalXlzFile(file);
+                //recoder.setFilename(convertee);
+                recoder.setProps(props);
+                
+                //recoder.convert(convertee, lang, charSet, file.getAbsolutePath());
+                recoder.convert(convertee);
+            }            
             
         } catch (java.util.zip.ZipException ex) {
             logger.log(java.util.logging.Level.SEVERE, "ZipException - unable to read xlz " +

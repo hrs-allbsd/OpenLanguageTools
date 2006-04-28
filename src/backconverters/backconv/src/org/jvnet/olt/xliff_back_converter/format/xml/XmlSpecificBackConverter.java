@@ -38,18 +38,25 @@ import java.util.Properties;
  *
  * @author  timf
  */
-public class XmlSpecificBackConverter implements SpecificBackConverter {
-    
-    private String datatype = "XML";
-    
-    private BackConverterProperties properties;
+public class XmlSpecificBackConverter extends  SpecificBackconverterBase{    
     /** Creates a new instance of XmlSpecificBackConverter */
+
+    public XmlSpecificBackConverter() {
+    }
+/*
     public XmlSpecificBackConverter(BackConverterProperties properties) {
         this.properties = properties;
     }
-    
-    public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {
-        
+  */  
+//    public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {
+    public void convert(File file) throws SpecificBackConverterException {
+        try {
+            XmlEncodingTagController.fixEncodingTag(file.getAbsolutePath(), encoding);
+        } catch (java.io.IOException e){
+            throw new SpecificBackConverterException("Error fixing XML encoding declaration : " +e.getMessage());
+        }
+    }
+/*
         try {
             if (originalXlzFilename != null){
                 XliffZipFileIO xlz = new XliffZipFileIO(new File(originalXlzFilename));
@@ -89,5 +96,5 @@ public class XmlSpecificBackConverter implements SpecificBackConverter {
             throw new SpecificBackConverterException("Error fixing XML encoding declaration : " +e.getMessage());
         }
     }
-    
+*/    
 }

@@ -19,26 +19,27 @@ import java.io.*;
  *
  * @author  timf
  */
-public class PlaintextSpecificBackConverter implements SpecificBackConverter {
+public class PlaintextSpecificBackConverter extends SpecificBackconverterBase{
     
     private BackConverterProperties properties;
     /** Creates a new instance of PlaintextSpecificBackConverter */
     public PlaintextSpecificBackConverter(BackConverterProperties properties) {
         this.properties = properties;
     }
-    
+/*
     public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {
         convert(filename, lang, encoding);
     }
-    
-    public void convert(String filename, String lang, String encoding) throws SpecificBackConverterException {
+*/
+    //public void convert(String filename, String lang, String encoding) throws SpecificBackConverterException {
+    public void convert(File file) throws SpecificBackConverterException {
         try {
             //System.out.println("Trying to do plaintext specific back conversion ! on " + filename+ " with encoding" + encoding);
             InputStreamReader reader = new InputStreamReader(
-                    new FileInputStream(filename),encoding);
+                    new FileInputStream(file),encoding);
             BufferedReader bufr = new BufferedReader(reader);
             
-            File tmp = new File(filename+".st2-temp");
+            File tmp = new File(file.getAbsolutePath()+".st2-temp");
             //System.out.println("Writing tmp file " + tmp.getCanonicalPath());
             OutputStreamWriter writer = new OutputStreamWriter(
                     new FileOutputStream(tmp),encoding);
@@ -53,7 +54,7 @@ public class PlaintextSpecificBackConverter implements SpecificBackConverter {
             bufw.flush();
             bufw.close();
             bufr.close();
-            if (!tmp.renameTo(new File(filename))){
+            if (!tmp.renameTo(file)){
                 System.out.println("Warning : Couldn't rename output file ! " + tmp + " contains correct file.");
             }
             
