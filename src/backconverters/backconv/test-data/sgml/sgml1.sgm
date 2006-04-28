@@ -1,0 +1,103 @@
+<!-- Fragment document type declaration subset:
+ArborText, Inc., 1988-2003, v.4002
+<!DOCTYPE BOOK PUBLIC "-//Sun Microsystems//DTD SolBook 3.0//EN" [
+<!ENTITY platformnote SYSTEM "platformnote.sgm">
+<!ENTITY oe-os "OS">
+<!ENTITY releaseNumber "10">
+<!ENTITY release "Solaris 10">
+<!ENTITY flashproductname "Solaris Flash">
+<!ENTITY sundocs SYSTEM "sundocs.sgm">
+<!ENTITY typeconv SYSTEM "typeconv.sgm">
+]>
+--><?Pub UDT _bookmark _target> <?Pub CX book(title()bookinfo()><preface id="PREFACE-1"><?Pub Tag atict:info tracking="on" ref="0"><?Pub Tag atict:user
+    user="lynnet" fullname="Meda Beda"><?Pub Tag atict:user user="meda" fullname="Meda Beda"><title> インタフェー </title>
+<highlights>
+<para> propri&eacute;t&eacute; &agrave;  インタフェー  インタフェー  Ger&auml;tegruppe  从群集配置  从群集配置  从群集配置  从群集配置  propri&eacute;t&eacute; &agrave;  インタフェー  propri&eacute;t&eacute; &agrave;  インタフェー  インタフェー  从群集配置  从群集配置  インタフェー  Ger&auml;tegruppe  インタフェー  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave; </para>
+<para> propri&eacute;t&eacute; &agrave; </para> Ger&auml;tegruppe  从群集配置 </highlights>
+<sect1 id="PREFACE-9"><title id="PREFACE-2"> インタフェー </title>
+<para> Ger&auml;tegruppe  从群集配置  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe </para>
+<itemizedlist>
+<listitem><para> propri&eacute;t&eacute; &agrave; </para></listitem>
+<listitem><para> 从群集配置 </para></listitem>
+</itemizedlist>
+</sect1>
+<sect1 id="PREFACE-5"><title> propri&eacute;t&eacute; &agrave; </title>
+<para> Ger&auml;tegruppe  从群集配置  从群集配置  Ger&auml;tegruppe  Ger&auml;tegruppe  从群集配置  インタフェー  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave; </para>
+<table frame="TOPBOT" pgwide="1" id="PREFACE-TBL-3"><title> 从群集配置 </title>
+<tgroup cols="2" colsep="0" rowsep="0"><colspec colname="COLUMN2" colwidth="160*">
+<colspec colname="COLUMN3" colwidth="191*">
+<thead>
+<row rowsep="1">
+<entry>
+<para> Ger&auml;tegruppe </para></entry>
+<entry>
+<para> Ger&auml;tegruppe </para></entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry rowsep="0">
+<para> Ger&auml;tegruppe  インタフェー  インタフェー  propri&eacute;t&eacute; &agrave;  インタフェー  インタフェー  インタフェー  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave;  从群集配置  Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave; </para></entry>
+<entry rowsep="0">
+<para> インタフェー </para>
+</entry>
+</row>
+<row>
+<entry rowsep="0">
+<para> 从群集配置  インタフェー  インタフェー  从群集配置  Ger&auml;tegruppe  インタフェー  propri&eacute;t&eacute; &agrave;  インタフェー  Ger&auml;tegruppe  从群集配置  インタフェー  propri&eacute;t&eacute; &agrave;  从群集配置 </para></entry>
+<entry rowsep="0">
+<para> インタフェー </para></entry>
+</row>
+<row>
+<entry rowsep="0">
+<para> 从群集配置  インタフェー  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  从群集配置  从群集配置  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave;  从群集配置  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe </para></entry>
+<entry rowsep="0">
+<para> 从群集配置  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  インタフェー  从群集配置  インタフェー  Ger&auml;tegruppe  Ger&auml;tegruppe  Ger&auml;tegruppe  从群集配置 </para></entry>
+</row>
+<row>
+<entry>
+<para> Ger&auml;tegruppe  从群集配置  propri&eacute;t&eacute; &agrave;  从群集配置  インタフェー  从群集配置  propri&eacute;t&eacute; &agrave;  インタフェー  インタフェー  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  Ger&auml;tegruppe  インタフェー </para></entry>
+<entry>
+<para> インタフェー  インタフェー  propri&eacute;t&eacute; &agrave; </para></entry>
+</row>
+<row>
+<entry>
+<para> propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  从群集配置  从群集配置  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  インタフェー  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave;  インタフェー  从群集配置 </para> propri&eacute;t&eacute; &agrave;  インタフェー  インタフェー </entry>
+<entry>
+<para> Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe </para></entry>
+</row>
+<row rowsep="1">
+<entry rowsep="0">
+<para> インタフェー  Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave;  从群集配置  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  从群集配置  Ger&auml;tegruppe  从群集配置  从群集配置  インタフェー  propri&eacute;t&eacute; &agrave;  从群集配置  从群集配置  Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave;  从群集配置  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  インタフェー </para>
+</entry>
+<entry rowsep="0">
+<para> Ger&auml;tegruppe </para></entry>
+</row>
+<row>
+<entry>
+<para> propri&eacute;t&eacute; &agrave;  从群集配置  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave;  Ger&auml;tegruppe  インタフェー  インタフェー </para></entry>
+<entry>
+<para> インタフェー </para></entry>
+</row>
+<row>
+<entry>
+<para> 从群集配置  Ger&auml;tegruppe  Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave;  インタフェー  インタフェー  propri&eacute;t&eacute; &agrave;  propri&eacute;t&eacute; &agrave; </para></entry>
+<entry>
+<para> propri&eacute;t&eacute; &agrave; </para></entry>
+</row>
+<row>
+<entry>
+<para> インタフェー  从群集配置  从群集配置  インタフェー  Ger&auml;tegruppe  Ger&auml;tegruppe  Ger&auml;tegruppe  Ger&auml;tegruppe </para></entry>
+<entry>
+<para> 从群集配置  从群集配置  从群集配置  インタフェー  从群集配置 </para></entry>
+</row>
+<row rowsep="0">
+<entry>
+<para> インタフェー  インタフェー  インタフェー  インタフェー  Ger&auml;tegruppe  从群集配置  Ger&auml;tegruppe  propri&eacute;t&eacute; &agrave; </para></entry>
+<entry>
+<para> インタフェー </para></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</sect1> インタフェー  インタフェー  Ger&auml;tegruppe  从群集配置  インタフェー </preface> <?Pub *0000005576 0>

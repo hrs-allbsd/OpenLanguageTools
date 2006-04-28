@@ -6,9 +6,12 @@
     <import file="../../../common.xml"/>
 
     <path id="test.classpath">
-        <path location="${build.dir}"/> 
+        <path location="${build.dir}"/>
+        <path refid="deps.utilities"/>
+        <path refid="deps.filters"/> 
     </path>
-    
+
+
 <!--	
     <fileset id="test.src" dir="src">
         <include name="**/*Test.java"/>
@@ -22,6 +25,7 @@
         <path refid="deps.filters"/>
         <path refid="deps.formatters"/>
         <path refid="deps.junit"/>
+        <path location="."/>
     </path>
    
     <target name="pre-compile">
