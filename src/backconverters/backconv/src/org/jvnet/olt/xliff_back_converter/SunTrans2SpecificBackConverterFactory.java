@@ -20,6 +20,7 @@ import org.jvnet.olt.xliff_back_converter.format.xml.XmlSpecificBackConverter;
 import org.jvnet.olt.xliff_back_converter.format.software.SoftwareSpecificBackConverter;
 
 import java.util.HashMap;
+import org.jvnet.olt.xliff_back_converter.format.xml.ooo.OpenOfficeSpecificBackConverter;
 /**
  *
  * @author  timf
@@ -31,15 +32,14 @@ public class SunTrans2SpecificBackConverterFactory implements SpecificBackConver
     private static final int SGML = 1;
     private static final int PLAINTEXT = 2;
     private static final int XML = 3;
-    
     private static final int SOFTWARE = 4;
+    //Open Office
+    private static final int OPENOFFICE = 5;
+    
     
     private HashMap converters;
     
-    private BackConverterProperties properties;
-    
-    public SunTrans2SpecificBackConverterFactory(BackConverterProperties properties){
-        this.properties = properties;
+    public SunTrans2SpecificBackConverterFactory(){
         
         converters = new HashMap();
         converters.put("html", new Integer(HTML));
@@ -57,24 +57,36 @@ public class SunTrans2SpecificBackConverterFactory implements SpecificBackConver
         // we don't have one for JSP just yet - probably
         // should use the html one, not sure.
         
+        //OpenOffice stuff: these strings actually come from workflow.properties
+        converters.put("openoffice.org writer", new Integer(OPENOFFICE));
+        converters.put("openoffice.org impress", new Integer(OPENOFFICE));
+        converters.put("openoffice.org calc", new Integer(OPENOFFICE));
+        converters.put("open document format text", new Integer(OPENOFFICE));
+        converters.put("open document format spreadsheet", new Integer(OPENOFFICE));
+        converters.put("open document format graphics", new Integer(OPENOFFICE));
+        converters.put("open document format presentation", new Integer(OPENOFFICE));
+        
+        
     }
     
     
-    public SpecificBackConverter getSpecificBackConverter(String datatype) {
+    public SpecificBackconverterBase getSpecificBackConverter(String datatype) {
         Integer type = (Integer)converters.get(datatype.toLowerCase());
         if (type == null){
             return new NullSpecificBackConverter();
         } else {
             switch (type.intValue()){
                 case HTML:
-                    return new HtmlSpecificBackConverter(properties);
+                    return new HtmlSpecificBackConverter();
                 case SGML:
-                    return new SgmlSpecificBackConverter(properties);
+                    return new SgmlSpecificBackConverter();
                 case XML:
-                    return new XmlSpecificBackConverter(properties);
+                    return new XmlSpecificBackConverter();
                 case SOFTWARE:
-                    return new SoftwareSpecificBackConverter(properties);
-                    // other types go in here                    
+                    return new SoftwareSpecificBackConverter();
+                case OPENOFFICE:
+                    return new OpenOfficeSpecificBackConverter();
+                    // other types go in here 
                 default:
                     return new NullSpecificBackConverter();
             }
