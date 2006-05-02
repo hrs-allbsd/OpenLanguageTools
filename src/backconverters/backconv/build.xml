@@ -8,7 +8,7 @@
     <path id="test.classpath">
         <path location="${build.dir}"/> 
     </path>
-    
+   
     <fileset id="test.src" dir="src">
         <include name="**/*Test.java"/>
     </fileset>
@@ -21,6 +21,7 @@
         <path refid="deps.filters"/>
         <path refid="deps.formatters"/>
         <path refid="deps.junit"/>
+        <path refid="deps.dom4j"/>
     </path>
    
     <target name="pre-compile">
@@ -29,6 +30,12 @@
             <fileset dir="resources"
             includes="**/*.dtd" />
         </copy>
+        <delete>
+            <fileset dir="src/org/jvnet/olt/soxliff_backconv/util" includes="*.java"/>
+        </delete>
+        <javacc target="src/org/jvnet/olt/soxliff_backconv/util/AddEscapeChars.jj" outputdirectory="src/org/jvnet/olt/soxliff_backconv/util" javacchome="${javacchome}" />
+        <javacc target="src/org/jvnet/olt/soxliff_backconv/util/RemoveTagProtection.jj" outputdirectory="src/org/jvnet/olt/soxliff_backconv/util" javacchome="${javacchome}" />
+
     </target>
 
 </project>

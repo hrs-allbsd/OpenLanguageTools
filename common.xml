@@ -97,6 +97,11 @@
         </fileset>
     </path>
 
+    <!-- dom4j dependecies -->
+    <path id="deps.dom4j">
+		<fileset dir="${common.basedir}/utilities/jars" includes="dom4j-161.jar"/>
+    </path>
+
 	<!-- common classpath; include build.dir -->
 	<path id="common.build.classpath">
 		<path refid="build.classpath"/>

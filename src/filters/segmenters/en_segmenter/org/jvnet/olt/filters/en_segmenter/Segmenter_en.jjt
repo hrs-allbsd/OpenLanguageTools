@@ -271,7 +271,7 @@ TOKEN : { <EXTENSION: ("(")?
 			   ".sgi" | ".shar" | ".shg" | ".SHK" | ".snd" | ".sqz" |
 			   ".stm" | ".tdo" | ".TGA" | ".uc2" | ".ul" | ".UTL" |
 			   ".uue" | ".uud" | ".vic" | ".vik" | ".vis" | ".voc" |
-			   ".WAV" | ".WMF" | ".XBM" | ".xm" | ".xpm" | ".XWD" |
+			   ".WAV" | ".WMF" | ".XBM" | ".xhp" | ".xm" | ".xpm" | ".XWD" |
 			   ".Y" | ".yuv" | ".zoo" | ".zw" | ".x" | ".y" | ".X"
                            // .x and .y are actually not filename extensions, but
                            // often appear as part of version numbers (eg.
