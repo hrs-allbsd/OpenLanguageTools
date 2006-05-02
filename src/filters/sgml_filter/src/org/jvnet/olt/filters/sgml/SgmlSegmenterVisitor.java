@@ -275,6 +275,9 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                     case TaggedMarkupNodeConstants.ENTITY_DECL:
                         processEntityDecl(simpleNode);
                         break;
+                    case TaggedMarkupNodeConstants.NOTATION_DECL:
+                        processNotationDecl(simpleNode);
+                        break;
                         
                     case TaggedMarkupNodeConstants.PROCESSING_INST:
                         processProcessingInst(simpleNode);
@@ -818,7 +821,19 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             writeEntityDecl(val, simpleNode.getNodeData());
         }
     }
-    
+
+    protected void processNotationDecl(TaggedMarkupNode simpleNode) throws SegmenterFormatterException, IOException {
+        if (!markedSectionStack.empty()){
+            if (inIncludedMarkedSection()){
+                includedMarkedSectionNodes.add(simpleNode);
+            } else {
+                ignoredMarkedSectionNodes.add(simpleNode);
+            }
+        } else {
+            formatter.writeFormatting(simpleNode.getNodeData());
+        }
+    }
+
 // simply save the entire marked section, either in the ignored
 // buffer, or the included buffer, and deal with it later.
     protected void processMarkedSectTag(TaggedMarkupNode simpleNode) throws SegmenterFormatterException, IOException{
@@ -1384,7 +1399,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             }
         }
     }
-    
+   
 // don't know if we need this anymore...
     private void removeTagsFromList(List nodeList){
         Iterator it = nodeList.iterator();
