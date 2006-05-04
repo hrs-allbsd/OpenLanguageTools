@@ -44,6 +44,7 @@ public class FormatWrapperFactory {
     private static final int JAVA = 8;
     private static final int JSP = 9;
     private static final int DTD = 10;
+    private static final int STAROFFICE = 11;
     
     private Map m_hashAvailableWrappers;
     
@@ -66,9 +67,8 @@ public class FormatWrapperFactory {
         m_hashAvailableWrappers.put("JAVA", new Integer(JAVA));
         m_hashAvailableWrappers.put("PROPERTIES",new Integer(PROPERTIES));
         m_hashAvailableWrappers.put("JSP", new Integer(JSP));        
-		m_hashAvailableWrappers.put("DTD", new Integer(DTD));
-        
-        m_hashAvailableWrappers.put("STAROFFICE", new Integer(PLAINTEXT));
+        m_hashAvailableWrappers.put("DTD", new Integer(DTD));
+        m_hashAvailableWrappers.put("STAROFFICE", new Integer(STAROFFICE));
     }
     
     //    protected FormatWrapper getFormatWrapper(String type, GlobalVariableManager gvm) throws UnsupportedFormatException {
@@ -107,6 +107,7 @@ public class FormatWrapperFactory {
                     ex = new SgmlFormatWrapper(gvm, localTagTable, localSegmenterTable);
                     
                     return ex;   //  No drop through                  
+                case STAROFFICE:
                 case XML:
                     // If we're getting html or sgml, we already know the tag tables,
                     // so we use them. For xml, if we're wrapping the original source
