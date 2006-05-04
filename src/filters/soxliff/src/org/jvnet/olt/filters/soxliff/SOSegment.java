@@ -57,7 +57,7 @@ public class SOSegment {
     /**
      * Creates and returns a copy of SOSegment object
      */
-    public SOSegment clone() {
+    public Object clone() {
         SOSegment newSegment = new SOSegment(source);
         newSegment.setTarget(getTarget());
         

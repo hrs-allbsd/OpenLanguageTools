@@ -134,10 +134,10 @@ public class ParserVisitor extends VisitorSupport {
                     Iterator it = subSegments.iterator();
                     int segmentCounter = 1;
                     while(it.hasNext()) {
-                        SOSegment subSegment = segment.clone();
+                        SOSegment subSegment = (SOSegment)segment.clone();
                         
                         String subSource = (String)it.next();
-                        String subFormat = (String)subFormatting.get(segmentCounter);
+                        String subFormat = (String)subFormatting.get(new Integer(segmentCounter));
                         if (subFormat == null){
                             subFormat="";
                         }
