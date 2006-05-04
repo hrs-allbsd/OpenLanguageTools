@@ -45,6 +45,21 @@ public class XmlToXliff {
     private static String dummyDTDFile = "";
     private XmlIdentifier xmlIdent = null;
     
+    private TagTable xmlTagTable = null;
+    private SegmenterTable xmlSegmenterTable = null;
+
+    /**
+     * Empty constructor. Construct just object. Call convert or existsXmlFilter   * methods later
+     */
+    public XmlToXliff() {
+        this.guid = null;
+        try {
+            dummyDTDFile = getDummyDTDFile();
+        } catch(NamingException e) {
+            System.err.println("Cannot find dummy dtd file..: " + e.getMessage());
+        }
+    }
+    
     /**
      * This code converts from Xml to xliff - it's really a static frontend
      * to the xmlparser and hides the actual writing of xliff and skl files
@@ -77,65 +92,8 @@ public class XmlToXliff {
     public void convert(String directory, String filename,
     String language, String encoding,
     Logger logger, XmlIdentifier id ) throws XmlParseException, IOException{
-        this.xmlIdent = null;
-        XmlIdentifier xmlIdentifier = id;
-        if (id == null){
-            Reader reader = new InputStreamReader(new BufferedInputStream
-                        (new FileInputStream(filename)),encoding);
-            xmlIdentifier = this.getXmlIdentifier(reader, logger);
-        }
-        // System.out.println("xmlIdentifier is " + xmlIdentifier);
-        TagTable xmlTagTable = null;
-        SegmenterTable xmlSegmenterTable = null;
-        // save a copy of this
-        this.xmlIdent = xmlIdentifier;
         
-        Collection configCollection = XmlConfigManager.getXmlConfigCollection(xmlIdentifier, logger);
-        Iterator configIterator = configCollection.iterator();
-        
-        if(xmlIdentifier.getNamespaceList().isEmpty()) {
-            if (configIterator.hasNext()){
-                XmlConfig xmlConfig = (XmlConfig) configIterator.next();
-                try {
-                    logger.log(Level.CONFIG, "Using xml filter configuration " + XmlConfigManager.getXmlConfigName(xmlConfig));
-                } catch (XmlConfigNamingException e){
-                    logger.log(Level.CONFIG,"Naming exception trying to get real name for xml config object",e);
-                }
-                try {
-                    xmlTagTable = new XmlTagTable(xmlConfig);
-                    xmlSegmenterTable = new XmlSegmenterTable(xmlConfig);
-                } catch (XmlFilterException e){
-                    logger.log(Level.CONFIG, "Null xml config used for non-namespace xml configuration",e);
-                    xmlTagTable = null;
-                    xmlSegmenterTable = null;
-                }
-            }
-        } else {
-            HashMap configMap = new HashMap();
-            
-            while(configIterator.hasNext()) {
-                XmlConfig xmlConfig = (XmlConfig) configIterator.next();
-                try {
-                    logger.log(Level.CONFIG, "Using xml filter configuration " + XmlConfigManager.getXmlConfigName(xmlConfig));
-                } catch (XmlConfigNamingException e){
-                    logger.log(Level.CONFIG,"Naming exception trying to get real name for xml config object",e);
-                }
-                if(xmlConfig !=null && !xmlConfig.getNamespace().equals("")) {
-                    configMap.put(xmlConfig.getNamespace(), xmlConfig);
-                }
-            }
-            try {
-                xmlTagTable = new XmlTagTable(configMap);
-                xmlSegmenterTable = new XmlSegmenterTable(configMap);
-            } catch (XmlFilterException e){
-                logger.log(Level.CONFIG, "Null xml config map used for namespaced xml configuration",e);
-                xmlTagTable = null;
-                xmlSegmenterTable = null;
-            }
-        }
-        // finally, check to see if we've got stuff from the above,
-        // otherwise, make appropriate noises
-        if (xmlTagTable == null || xmlSegmenterTable == null){
+        if (!existsXmlFilter(filename,encoding,logger, id )){
             throw new XmlParseException("No XML Filter configuration files were found on the "+
             "server for this type of XML.\n Please submit configuration files for this XML file type.");
             // we used to just issue a warning, and use default behaviour, but this
@@ -207,6 +165,88 @@ public class XmlToXliff {
         
         
     }
+    
+    /**
+     * Check whenever we have usefull xml configuration for the specific file
+     *
+     * @param filename to validate
+     * @param encoding of the file
+     * @param logger for standard logging
+     * @param id identifies the xml file
+     *
+     * @throws XmlParseException
+     * @throws IOException
+     */
+    public boolean existsXmlFilter(String filename, String encoding,
+            Logger logger, XmlIdentifier id ) throws XmlParseException, IOException {
+        
+        boolean result = false;
+        this.xmlIdent = null;
+        
+        XmlIdentifier xmlIdentifier = id;
+        
+        if (id == null){
+            Reader reader = new InputStreamReader(new BufferedInputStream
+                    (new FileInputStream(filename)),encoding);
+            xmlIdentifier = this.getXmlIdentifier(reader, logger);
+        }
+        // System.out.println("xmlIdentifier is " + xmlIdentifier);
+        xmlTagTable = null;
+        xmlSegmenterTable = null;
+        // save a copy of this
+        this.xmlIdent = xmlIdentifier;
+        
+        Collection configCollection = XmlConfigManager.getXmlConfigCollection(xmlIdentifier, logger);
+        Iterator configIterator = configCollection.iterator();
+        
+        if(xmlIdentifier.getNamespaceList().isEmpty()) {
+            if (configIterator.hasNext()){
+                XmlConfig xmlConfig = (XmlConfig) configIterator.next();
+                try {
+                    logger.log(Level.CONFIG, "Using xml filter configuration " + XmlConfigManager.getXmlConfigName(xmlConfig));
+                } catch (XmlConfigNamingException e){
+                    logger.log(Level.CONFIG,"Naming exception trying to get real name for xml config object",e);
+                }
+                try {
+                    xmlTagTable = new XmlTagTable(xmlConfig);
+                    xmlSegmenterTable = new XmlSegmenterTable(xmlConfig);
+                } catch (XmlFilterException e){
+                    logger.log(Level.CONFIG, "Null xml config used for non-namespace xml configuration",e);
+                    xmlTagTable = null;
+                    xmlSegmenterTable = null;
+                }
+            }
+        } else {
+            HashMap configMap = new HashMap();
+            
+            while(configIterator.hasNext()) {
+                XmlConfig xmlConfig = (XmlConfig) configIterator.next();
+                try {
+                    logger.log(Level.CONFIG, "Using xml filter configuration " + XmlConfigManager.getXmlConfigName(xmlConfig));
+                } catch (XmlConfigNamingException e){
+                    logger.log(Level.CONFIG,"Naming exception trying to get real name for xml config object",e);
+                }
+                if(xmlConfig !=null && !xmlConfig.getNamespace().equals("")) {
+                    configMap.put(xmlConfig.getNamespace(), xmlConfig);
+                }
+            }
+            try {
+                xmlTagTable = new XmlTagTable(configMap);
+                xmlSegmenterTable = new XmlSegmenterTable(configMap);
+            } catch (XmlFilterException e){
+                logger.log(Level.CONFIG, "Null xml config map used for namespaced xml configuration",e);
+                xmlTagTable = null;
+                xmlSegmenterTable = null;
+            }
+        }
+        
+        if (xmlTagTable != null && xmlSegmenterTable != null) {
+            result = true;
+        }
+        
+        return result;
+    }
+    
     
     private void parseXmlForXliff(Reader reader, String language, String sourceFileName, Writer xliffWriter, Writer sklWriter,
     org.jvnet.olt.parsers.tagged.TagTable table, SegmenterTable segmenterTable) throws XmlFilterException {
