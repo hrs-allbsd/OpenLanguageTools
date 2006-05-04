@@ -7,7 +7,7 @@
 
 package org.jvnet.olt.filters.soxliff;
 
-import filters.segmenter_formatters.src.org.jvnet.olt.filters.segmenters.formatters.XliffContextValue;
+import org.jvnet.olt.filters.segmenters.formatters.XliffContextValue;
 import java.io.*;
 import java.util.*;
 import org.jvnet.olt.filters.sgml.SgmlFilterHelper;
