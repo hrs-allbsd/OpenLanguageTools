@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.PrintStream;
+import java.io.FileOutputStream;
 import junit.framework.TestCase;
 
 
@@ -49,12 +50,12 @@ public class FileTypeDetectorTest extends TestCase {
 
     
     public void testAdvancedDetection() throws IOException{
-        PrintStream ps = new PrintStream(htmlFile);
+        PrintStream ps = new PrintStream(new FileOutputStream(htmlFile));
         ps.print("\n<html>\n<body>\n</body>\n</html>\n");
         ps.close();
         assertEquals(FileTypeDetector.detectFileType(htmlFile).intValue(),FileTypeDetector.HTML);
         
-        ps = new PrintStream(xmlFile);
+        ps = new PrintStream(new FileOutputStream(xmlFile));
         ps.print("\n<?xml version='1.0' encoding='UTF-8'?>\n<some>\n</some>\n");
         ps.close();
         assertEquals(FileTypeDetector.detectFileType(xmlFile).intValue(),FileTypeDetector.XML);
