@@ -14,7 +14,7 @@
 package org.jvnet.olt.filters.segmenters.formatters;
 
 
-import filters.segmenter_formatters.src.org.jvnet.olt.filters.segmenters.formatters.XliffContextValue;
+import org.jvnet.olt.filters.segmenters.formatters.XliffContextValue;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
