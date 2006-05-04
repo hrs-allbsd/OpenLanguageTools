@@ -34,6 +34,7 @@ public class FormatComparer {
         m_hashAvailableExtractors.put("HTML", new Integer(BLAML));
         m_hashAvailableExtractors.put("SGML", new Integer(BLAML));
         m_hashAvailableExtractors.put("XML", new Integer(BLAML));
+        m_hashAvailableExtractors.put("STAROFFICE", new Integer(BLAML));
         m_hashAvailableExtractors.put("JSP", new Integer(BROKENML));
         m_hashAvailableExtractors.put("PLAINTEXT", new Integer(PLAINTEXT));
         
