@@ -707,7 +707,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             boolean nonTranslatableBlockPcData = nonTranslatableBlockPcData();
             // the question here, is do we write non translatable data inline
             // or do we write it to the skeleton file ?
-            if (nonTranslatableBlockPcData && tagState == NONTRANSLATABLE){
+            if (!nonTranslatableBlockPcData && tagState == NONTRANSLATABLE){
                 /* no neeed to make a decision here!
                  tagState = NONTRANSLATABLE;
                 updateSegmentationState(tagState);*/
@@ -722,10 +722,10 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 inlineNoSegBuffer = new StringBuffer();
                 inlineNoSegNoCountBuffer = new StringBuffer();
                 inlineNoTransBuffer = new StringBuffer();
-                inlineNoTransBuffer.append(nodeData);
                 if (buf.length()!=0){
                     doSentenceSegmentation(buf);
                 }
+
                 buf = new StringBuffer();
                 formatter.writeFormatting(nodeData);
             } else {
