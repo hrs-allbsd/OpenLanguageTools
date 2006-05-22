@@ -8,7 +8,7 @@
  *
  * Created on March 4, 2005, 2:41 PM
  */
-package org.jvnet.olt.editor.util;
+package org.jvnet.olt.util;
 
 import java.io.File;
 import java.io.FileReader;

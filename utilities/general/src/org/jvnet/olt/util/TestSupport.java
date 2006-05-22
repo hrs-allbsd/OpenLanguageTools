@@ -8,7 +8,7 @@
  *
  * Created on February 28, 2005, 8:23 PM
  */
-package org.jvnet.olt.editor.util;
+package org.jvnet.olt.util;
 
 import java.io.File;
 import java.io.FileReader;
@@ -32,22 +32,37 @@ public class TestSupport {
     }
 
     /** compare files line by line.
-     *
-     *  If files are not identical will throw IllegalStateException.
+     *  Whitespace is *not* ignored
      */
     static public void compareFiles(File f, File f2) throws IOException {
+        compareFiles(f,f2,false);
+    }
+    /** compare files line by line.
+     *
+     *  If files are not identical will throw IllegalStateException.
+     *  If ignoreWhiteSpace is true, lines are trimmed before they're compared
+     */
+    static public void compareFiles(File f, File f2,boolean ignoreWhiteSpace) throws IOException {
         LineNumberReader lnr1 = new LineNumberReader(new FileReader(f));
         LineNumberReader lnr2 = new LineNumberReader(new FileReader(f2));
 
+        int ln = 0;
         do {
+            ++ln;
+
             String line = lnr1.readLine();
             String line2 = lnr2.readLine();
 
+            
             if ((line == null) && (line2 == null)) {
                 return;
             }
+            if(ignoreWhiteSpace){
+                line = line.trim();
+                line2 = line2.trim();
+            }
 
-            Assert.assertEquals(line, line2);
+            Assert.assertEquals(f+" vs. "+f2+" line: "+ln,line, line2);
         } while (true);
     }
 
@@ -133,5 +148,25 @@ public class TestSupport {
                 lnr.close();
             }
         }
+    }
+    
+    static public void catFile(File f) throws IOException{
+	Reader r = new FileReader(f);
+	try{
+	    LineNumberReader lnr = new LineNumberReader(r);
+	    
+	    int ln = 0;
+	    do{
+		String line = lnr.readLine();
+		if(line == null)
+		    break;
+		System.out.println(++ln+":"+line);
+	    }
+	    while(true);
+	}
+	finally {
+	    if(r != null)
+		r.close();
+	}
     }
 }
