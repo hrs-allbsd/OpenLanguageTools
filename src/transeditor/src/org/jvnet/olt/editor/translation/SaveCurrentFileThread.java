@@ -10,6 +10,7 @@
  */
 package org.jvnet.olt.editor.translation;
 
+import com.sun.corba.se.spi.orb.Operation;
 import java.awt.Cursor;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+import org.jvnet.olt.editor.util.NestableException;
 
 
 /**
@@ -55,21 +57,21 @@ public class SaveCurrentFileThread implements Runnable {
         AlignmentMain.testMain1.stopEditing();
         AlignmentMain.testMain2.stopEditing();
 
-        if (!backend.saveFile()) {
-            mainFrame.saveFileFailed();
-
-            //JOptionPane.showMessageDialog(mainFrame,"Failed to Save the Current File","Failed to Save",JOptionPane.OK_OPTION);
-            mainFrame.setBHasModified(true); //  Re-enable the save options.
+        try{
+            backend.saveFile();
+        }
+        catch (NestableException ne){
+           mainFrame.exceptionThrown(ne,MainFrame.OPERATION_SAVE);
+           mainFrame.setBHasModified(true); //  Re-enable the save options.
 
             //How about reenabling the UI?
             mainFrame.testAndToggleSemaphore(true);
             mainFrame.enableGUI();
 
             return;
-        } else {
-            mainFrame.setBHasModified(false);
         }
 
+        mainFrame.setBHasModified(false);
         mainFrame.resetFileHistory();
 
         /** asume the part below should not be run in separate thread;
