@@ -1,0 +1,257 @@
+ 从群集配置  Gerätegruppe  从群集配置 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY author1 " インタフェー " >
+  <!ENTITY author2 " propriété à " >
+  <!ENTITY publisher " propriété à " >
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion " propriété à " >
+  <!ENTITY manrevision " Gerätegruppe " >
+  <!ENTITY date " propriété à " >
+  <!ENTITY app " propriété à  propriété à  从群集配置  从群集配置  从群集配置  propriété à  インタフェー " >
+  <!ENTITY appname " propriété à " >
+]><!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.GNOME.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Jan 30, 2002
+  
+--><!-- =============Document Header ============================= -->
+
+
+
+<article id="index" lang="en"><!-- please do not change the id; for translations, change lang to --><!-- appropriate code -->
+
+
+  <articleinfo> Gerätegruppe  Gerätegruppe  インタフェー  从群集配置  从群集配置  Gerätegruppe  从群集配置  从群集配置  propriété à  从群集配置  インタフェー  从群集配置  从群集配置  从群集配置  Gerätegruppe  インタフェー  propriété à  Gerätegruppe  Gerätegruppe  インタフェー  propriété à  从群集配置  从群集配置  从群集配置  propriété à  从群集配置  从群集配置  从群集配置  インタフェー  propriété à  从群集配置  propriété à  从群集配置  从群集配置  インタフェー  propriété à  从群集配置  propriété à  propriété à  インタフェー  インタフェー  インタフェー  propriété à  インタフェー  Gerätegruppe  Gerätegruppe  インタフェー  propriété à  Gerätegruppe  インタフェー  从群集配置  从群集配置  从群集配置  インタフェー  Gerätegruppe  Gerätegruppe  从群集配置  propriété à  インタフェー  Gerätegruppe  从群集配置  propriété à  インタフェー  インタフェー <authorgroup> 
+		<author> Gerätegruppe  Gerätegruppe  从群集配置  propriété à  从群集配置  Gerätegruppe  propriété à  インタフェー  propriété à  从群集配置  从群集配置  Gerätegruppe  Gerätegruppe  propriété à  propriété à  从群集配置  propriété à  インタフェー  从群集配置  インタフェー  インタフェー  从群集配置  propriété à  从群集配置  propriété à  Gerätegruppe  Gerätegruppe  インタフェー  Gerätegruppe  インタフェー  Gerätegruppe  インタフェー  从群集配置  propriété à </author><!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+        <firstname>Latin</firstname>
+        <surname>Translator 1</surname>
+        <affiliation>
+          <orgname>Latin Translation Team</orgname>
+          <address> <email>translator@gnome.org</email> </address>
+        </affiliation>
+        <contrib>Latin translation</contrib>
+      </othercredit>
+-->
+
+
+
+	 </authorgroup><!-- According to GNU FDL, revision history is mandatory if you are --><!-- modifying/reusing someone else's document.  If not, you can omit it. -->
+
+
+
+
+
+	 <revhistory><!-- Remember to remove the &manrevision; entity from the revision entries other
+   than the current revision. -->
+
+   		<revision> インタフェー  Gerätegruppe  propriété à  propriété à  インタフェー  从群集配置  Gerätegruppe  propriété à  propriété à  从群集配置  propriété à  Gerätegruppe  propriété à  从群集配置  インタフェー  Gerätegruppe  インタフェー  propriété à  propriété à <revdescription> 
+			 <para role="author"> インタフェー  インタフェー  Gerätegruppe  从群集配置 </para>
+			 <para role="publisher"> インタフェー  Gerätegruppe </para>
+		  </revdescription>
+		</revision>
+	 </revhistory> 从群集配置  propriété à  Gerätegruppe  Gerätegruppe  从群集配置  インタフェー  propriété à  Gerätegruppe  インタフェー  propriété à  Gerätegruppe  从群集配置  インタフェー  インタフェー  Gerätegruppe  インタフェー  从群集配置 <legalnotice> 从群集配置  从群集配置  从群集配置  インタフェー  Gerätegruppe  从群集配置  インタフェー <para> propriété à  Gerätegruppe  propriété à  propriété à  propriété à  propriété à  インタフェー  propriété à  propriété à </para><!-- Translators may also add here feedback address for translations -->
+
+	 </legalnotice>
+  </articleinfo><!-- ============= Document Body ============================= --><!-- ============= Introduction ============================== --> 从群集配置  propriété à  从群集配置  Gerätegruppe  インタフェー  Gerätegruppe  インタフェー  インタフェー  propriété à  インタフェー  从群集配置  从群集配置  从群集配置  インタフェー  インタフェー  从群集配置  インタフェー  propriété à  从群集配置  从群集配置  从群集配置  从群集配置  从群集配置  从群集配置  インタフェー  Gerätegruppe  从群集配置 <sect1 id="fsexam-intro"> インタフェー  propriété à  从群集配置  Gerätegruppe  Gerätegruppe  从群集配置  Gerätegruppe <para> propriété à  从群集配置 </para>
+       <note>
+         <para> propriété à  从群集配置 </para>
+       </note>
+  </sect1><!-- ============= Getting Started =========================== -->
+
+
+  <sect1 id="fsexam-getting-started"><!-- ============= To Start fsexam ============================ --> インタフェー  Gerätegruppe  propriété à  Gerätegruppe  propriété à  propriété à  Gerätegruppe <sect2 id="fsexam-to-start"> propriété à  Gerätegruppe  インタフェー  从群集配置  Gerätegruppe  从群集配置  从群集配置  从群集配置  propriété à <para> Gerätegruppe  Gerätegruppe  从群集配置 </para>
+                <variablelist>
+                <varlistentry> 从群集配置  インタフェー  Gerätegruppe  インタフェー  propriété à  从群集配置  Gerätegruppe <listitem>
+                <para> 从群集配置  インタフェー  インタフェー  Gerätegruppe  Gerätegruppe  インタフェー  インタフェー  インタフェー  Gerätegruppe  インタフェー  Gerätegruppe  インタフェー  Gerätegruppe  propriété à  インタフェー  propriété à  propriété à  インタフェー  从群集配置  从群集配置  propriété à  从群集配置  propriété à  propriété à  Gerätegruppe  インタフェー  从群集配置  从群集配置  インタフェー  从群集配置  从群集配置  インタフェー  propriété à  从群集配置  Gerätegruppe  Gerätegruppe  インタフェー </para>
+                </listitem>
+                </varlistentry>
+                <varlistentry> インタフェー  propriété à  インタフェー  インタフェー  インタフェー  Gerätegruppe  propriété à <listitem>
+                <para> Gerätegruppe  从群集配置  Gerätegruppe  从群集配置  Gerätegruppe  从群集配置  Gerätegruppe  从群集配置 </para>
+                </listitem>
+                </varlistentry>
+                </variablelist>
+	</sect2>
+
+        <sect2 id="fsexam-when-you-start"> 从群集配置  从群集配置  propriété à  インタフェー  Gerätegruppe  インタフェー  Gerätegruppe  propriété à  从群集配置 <para> インタフェー  propriété à  Gerätegruppe </para>
+
+                <figure id="fsexam-window"> Gerätegruppe  propriété à  从群集配置  从群集配置  从群集配置  Gerätegruppe  从群集配置  インタフェー <screenshot>
+                         <mediaobject>
+                                <imageobject>
+                                  <imagedata fileref="figures/fsexam.png" format="PNG"/>
+                                         </imageobject>
+                                <textobject> propriété à  propriété à  propriété à  Gerätegruppe  Gerätegruppe  从群集配置  从群集配置 </textobject>
+                        </mediaobject>
+                  </screenshot>
+                </figure>
+
+                <para> propriété à  propriété à  インタフェー </para>
+                <variablelist>
+                  <varlistentry> 从群集配置  インタフェー  从群集配置  インタフェー  从群集配置  Gerätegruppe  propriété à <listitem>
+                                <para> インタフェー  インタフェー  从群集配置 </para>
+                         </listitem>
+                  </varlistentry>
+                  <varlistentry> propriété à  从群集配置  从群集配置  インタフェー  从群集配置  propriété à  propriété à <listitem>
+                                <para> propriété à </para>
+                         </listitem>
+                  </varlistentry>
+                  <varlistentry> インタフェー  インタフェー  Gerätegruppe  propriété à  インタフェー  propriété à  propriété à <listitem>
+                                <para> propriété à  propriété à  Gerätegruppe </para>
+                         </listitem>
+                  </varlistentry>
+                </variablelist>
+                <para> Gerätegruppe  Gerätegruppe  Gerätegruppe  インタフェー </para>
+
+      <para> propriété à </para>
+         </sect2>
+  </sect1><!-- ================ Usage ================================ -->
+
+
+  <sect1 id="fsexam-usage"><!-- ============= To Open a File ======================== --> propriété à  propriété à  Gerätegruppe  从群集配置  从群集配置  从群集配置  インタフェー <sect2 id="fsexam-select"> 从群集配置  从群集配置  propriété à  从群集配置  Gerätegruppe  インタフェー  インタフェー <para> Gerätegruppe  Gerätegruppe  インタフェー  从群集配置  インタフェー  从群集配置  从群集配置  Gerätegruppe  Gerätegruppe  Gerätegruppe  propriété à  从群集配置  Gerätegruppe  propriété à  Gerätegruppe  Gerätegruppe  Gerätegruppe  インタフェー  Gerätegruppe  从群集配置  从群集配置  从群集配置 </para>
+		<para> Gerätegruppe </para>
+	 </sect2><!-- ============= To Apply by name  ================================ -->
+
+
+	 <sect2 id="fsexam-convert-filename"> インタフェー  Gerätegruppe  Gerätegruppe  从群集配置  从群集配置  Gerätegruppe  インタフェー <para> propriété à </para>
+                <orderedlist>
+                  <listitem>
+                    <para> インタフェー  Gerätegruppe  インタフェー  インタフェー  Gerätegruppe </para>
+                  </listitem>
+                  <listitem>
+                    <para> インタフェー  propriété à  インタフェー  propriété à  propriété à  propriété à  インタフェー  Gerätegruppe  Gerätegruppe  Gerätegruppe  从群集配置  propriété à  インタフェー  propriété à  Gerätegruppe  propriété à  从群集配置  インタフェー  从群集配置  インタフェー  从群集配置  propriété à </para>
+                    <para> インタフェー  インタフェー  Gerätegruppe  propriété à  propriété à  从群集配置  インタフェー  propriété à  从群集配置  インタフェー  Gerätegruppe  インタフェー  Gerätegruppe  Gerätegruppe  インタフェー  インタフェー  propriété à  Gerätegruppe  インタフェー  propriété à  インタフェー  propriété à </para>
+                    <para> Gerätegruppe  从群集配置  Gerätegruppe  インタフェー  propriété à  Gerätegruppe  从群集配置  propriété à  从群集配置  Gerätegruppe  propriété à </para>
+                  </listitem>
+                  <listitem>
+                    <para> 从群集配置  インタフェー  propriété à  从群集配置  从群集配置  Gerätegruppe  インタフェー  インタフェー  propriété à </para>
+                  </listitem>
+                </orderedlist>
+		<para> 从群集配置  propriété à  インタフェー  从群集配置 </para>
+		<para> インタフェー </para>
+	 </sect2><!-- ============= To Apply by content  ================================ -->
+
+
+
+	 <sect2 id="fsexam-convert-contents"> 从群集配置  从群集配置  Gerätegruppe  インタフェー  Gerätegruppe  从群集配置  propriété à <para> インタフェー </para>
+                <orderedlist>
+                  <listitem>
+                    <para> Gerätegruppe  Gerätegruppe  propriété à  从群集配置  Gerätegruppe </para>
+                  </listitem>
+                  <listitem>
+                    <para> propriété à  从群集配置  インタフェー  从群集配置  Gerätegruppe  Gerätegruppe  propriété à  インタフェー  从群集配置  propriété à  从群集配置  Gerätegruppe  インタフェー  インタフェー  从群集配置  propriété à  从群集配置  インタフェー  Gerätegruppe  Gerätegruppe  インタフェー  从群集配置 </para>
+                    <para> Gerätegruppe  Gerätegruppe  propriété à  从群集配置  インタフェー  Gerätegruppe  インタフェー  インタフェー  インタフェー </para>
+                  </listitem>
+                  <listitem>
+                    <para> インタフェー  propriété à  Gerätegruppe  propriété à  インタフェー  从群集配置  Gerätegruppe  インタフェー  propriété à </para>
+                    <para> Gerätegruppe  propriété à  Gerätegruppe  propriété à  Gerätegruppe  propriété à  インタフェー  propriété à  从群集配置 </para>
+                  </listitem>
+                </orderedlist>
+		<para> 从群集配置  propriété à  インタフェー  从群集配置  propriété à  インタフェー  インタフェー  インタフェー  Gerätegruppe  propriété à  インタフェー  propriété à  インタフェー  Gerätegruppe  propriété à  インタフェー  Gerätegruppe </para>
+		<para> Gerätegruppe </para>
+		<note>
+		  <para> 从群集配置  从群集配置  Gerätegruppe  インタフェー  インタフェー  Gerätegruppe  インタフェー  propriété à  propriété à  从群集配置  从群集配置  propriété à  从群集配置  Gerätegruppe  Gerätegruppe  从群集配置  Gerätegruppe  インタフェー  从群集配置  从群集配置  从群集配置  propriété à  从群集配置  Gerätegruppe  从群集配置  propriété à  Gerätegruppe  从群集配置  从群集配置  从群集配置  propriété à </para>
+		</note>
+	 </sect2><!-- ============= To Peek content  ================================ -->
+
+
+
+	 <sect2 id="fsexam-preview-contents"> propriété à  インタフェー  Gerätegruppe  インタフェー  Gerätegruppe  インタフェー  propriété à <para> Gerätegruppe </para>
+                <orderedlist>
+                  <listitem>
+                    <para> propriété à  Gerätegruppe  インタフェー  インタフェー  Gerätegruppe </para>
+                  </listitem>
+                  <listitem>
+                    <para> propriété à  Gerätegruppe  从群集配置  从群集配置  インタフェー  インタフェー  インタフェー  インタフェー  propriété à  Gerätegruppe  Gerätegruppe  Gerätegruppe  インタフェー  propriété à  从群集配置  インタフェー  インタフェー  Gerätegruppe  从群集配置  propriété à  propriété à  从群集配置 </para>
+                  </listitem>
+                </orderedlist>
+		<para> propriété à  インタフェー  从群集配置  从群集配置 </para>
+		<para> Gerätegruppe </para>
+	 </sect2><!-- ============== To Undo a Conversion  ====================== -->
+
+
+	 <sect2 id="fsexam-undo-conversion"> Gerätegruppe  从群集配置  propriété à  インタフェー  从群集配置  Gerätegruppe  Gerätegruppe <para> 从群集配置  Gerätegruppe  从群集配置  从群集配置  从群集配置  从群集配置  propriété à  インタフェー  propriété à  インタフェー  Gerätegruppe  インタフェー  インタフェー  从群集配置  Gerätegruppe  从群集配置  从群集配置  Gerätegruppe  从群集配置  インタフェー  インタフェー  propriété à </para>
+	 </sect2><!-- ============== To Restore the Original File  ====================== -->
+
+
+
+	 <sect2 id="fsexam-restore-file"> Gerätegruppe  インタフェー  propriété à  propriété à  从群集配置  インタフェー  インタフェー <para> 从群集配置 </para>
+                <orderedlist>
+                  <listitem>
+                    <para> インタフェー  Gerätegruppe  propriété à  从群集配置  Gerätegruppe </para>
+                  </listitem>
+                  <listitem>
+                    <para> Gerätegruppe  propriété à  Gerätegruppe  propriété à  インタフェー  propriété à  インタフェー  从群集配置  インタフェー  propriété à  インタフェー  propriété à  propriété à  インタフェー  Gerätegruppe  propriété à  Gerätegruppe  从群集配置  インタフェー  Gerätegruppe  propriété à  从群集配置 </para>
+                  </listitem>
+                </orderedlist>
+		<para> Gerätegruppe  propriété à </para>
+	 </sect2><!-- ============= To Display Report Pane =================== -->
+
+
+	 <sect2 id="fsexam-report-pane"> インタフェー  propriété à  propriété à  从群集配置  从群集配置  Gerätegruppe  从群集配置 <para> インタフェー  Gerätegruppe  propriété à  从群集配置  propriété à  インタフェー  インタフェー  インタフェー  インタフェー  Gerätegruppe  从群集配置  インタフェー  インタフェー  Gerätegruppe  propriété à  从群集配置  从群集配置  インタフェー  propriété à  Gerätegruppe  インタフェー  Gerätegruppe </para>
+		<para> Gerätegruppe </para>
+		<para> 从群集配置  从群集配置  从群集配置  从群集配置  propriété à  从群集配置  从群集配置  propriété à  从群集配置  インタフェー  インタフェー  propriété à  Gerätegruppe  Gerätegruppe  propriété à  从群集配置  propriété à  从群集配置  インタフェー </para>
+                <informaltable frame="all">
+                  <tgroup cols="2" colsep="1" rowsep="1">
+                    <colspec colname="COLSPEC0" colwidth="50*"/>
+                    <colspec colname="COLSPEC1" colwidth="50*"/>
+                    <thead>
+                      <row valign="top">
+                        <entry colname="COLSPEC0">
+                          <para> 从群集配置  propriété à  propriété à  propriété à  Gerätegruppe  propriété à  インタフェー  Gerätegruppe  インタフェー </para></entry>
+                        <entry colname="COLSPEC1">
+                          <para> propriété à </para></entry>
+                      </row>
+                    </thead>
+                    <tbody>
+                      <row valign="top">
+                        <entry><para> propriété à  从群集配置 </para></entry>
+                        <entry><para> 从群集配置 </para></entry>
+                      </row>
+                      <row valign="top">
+                        <entry><para> インタフェー  Gerätegruppe </para></entry>
+                        <entry><para> propriété à </para></entry>
+                      </row>
+                      <row valign="top">
+                        <entry><para> propriété à  propriété à </para></entry>
+                        <entry><para> Gerätegruppe </para></entry>
+                      </row>
+                      <row valign="top">
+                        <entry><para> Gerätegruppe  propriété à </para></entry>
+                        <entry><para> propriété à </para></entry>
+                      </row>
+                      <row valign="top">
+                        <entry><para> 从群集配置  インタフェー </para></entry>
+                        <entry><para> propriété à </para></entry>
+                      </row>
+                    </tbody>
+                  </tgroup>
+                </informaltable>
+
+                    <para> 从群集配置  Gerätegruppe  从群集配置  インタフェー  インタフェー  从群集配置  从群集配置  Gerätegruppe  从群集配置  从群集配置  从群集配置  Gerätegruppe  propriété à  propriété à  从群集配置  Gerätegruppe  propriété à  propriété à  propriété à  Gerätegruppe  从群集配置  propriété à </para>
+	 </sect2>
+  </sect1><!-- ============= Preferences ============================= -->
+
+
+
+  <sect1 id="fsexam-prefs"> 从群集配置  インタフェー  从群集配置  从群集配置  propriété à  Gerätegruppe  propriété à <para> 从群集配置  从群集配置  propriété à  Gerätegruppe  propriété à  インタフェー  Gerätegruppe  インタフェー  从群集配置  Gerätegruppe  propriété à  从群集配置  从群集配置  インタフェー  从群集配置  从群集配置  propriété à  propriété à  インタフェー  propriété à  从群集配置  インタフェー  propriété à  从群集配置  インタフェー  Gerätegruppe  Gerätegruppe  从群集配置  インタフェー  インタフェー  propriété à  从群集配置  Gerätegruppe </para>
+	 
+        <variablelist>
+          <varlistentry> 从群集配置  Gerätegruppe  インタフェー  Gerätegruppe  从群集配置  インタフェー  从群集配置  インタフェー  インタフェー  propriété à  Gerätegruppe  propriété à  propriété à  propriété à <listitem>
+                  <para> 从群集配置  从群集配置  从群集配置  从群集配置  propriété à  propriété à  从群集配置  Gerätegruppe  インタフェー  Gerätegruppe  从群集配置 </para>
+                  <note><para> propriété à  从群集配置 </para></note>
+            </listitem>
+          </varlistentry> 
+          <varlistentry> インタフェー  Gerätegruppe  从群集配置  Gerätegruppe  从群集配置  propriété à  从群集配置  インタフェー  Gerätegruppe  propriété à  インタフェー  从群集配置  インタフェー  propriété à <listitem>
+                  <para> インタフェー  Gerätegruppe  Gerätegruppe  propriété à  Gerätegruppe  propriété à  Gerätegruppe  インタフェー  从群集配置  从群集配置  インタフェー  インタフェー  propriété à  propriété à  propriété à  从群集配置  Gerätegruppe  インタフェー  从群集配置  从群集配置  インタフェー  propriété à  从群集配置  Gerätegruppe  インタフェー  Gerätegruppe  Gerätegruppe  インタフェー  Gerätegruppe  インタフェー  インタフェー  インタフェー  propriété à  インタフェー </para>
+            </listitem>
+          </varlistentry> 
+          <varlistentry> propriété à  从群集配置  Gerätegruppe  从群集配置  インタフェー  propriété à  propriété à  Gerätegruppe  从群集配置  从群集配置  Gerätegruppe  Gerätegruppe  从群集配置  propriété à <listitem>
+                  <para> propriété à  propriété à  インタフェー  从群集配置  propriété à  Gerätegruppe  propriété à  Gerätegruppe  インタフェー  インタフェー  propriété à  propriété à  Gerätegruppe  从群集配置  インタフェー  propriété à  propriété à  从群集配置  Gerätegruppe  propriété à </para>
+            </listitem>
+          </varlistentry> 
+        </variablelist>
+  </sect1>
+</article>

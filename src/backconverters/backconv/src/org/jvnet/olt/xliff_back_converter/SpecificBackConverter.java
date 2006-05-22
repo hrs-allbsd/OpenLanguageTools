@@ -13,6 +13,8 @@
 
 package org.jvnet.olt.xliff_back_converter;
 
+import java.io.File;
+
 /**
  * This interface allows us to take particular actions
  * based on the different needs of different formats. This is
@@ -21,7 +23,15 @@ package org.jvnet.olt.xliff_back_converter;
  * @author  timf
  */
 public interface SpecificBackConverter {
-    
+
+    /** convert file
+     *
+     * The implementors must make sure the modified file is copied
+     * over the original file (represented by the 'file' param)
+     *
+     * For more details see #SpecificBackconverterBase
+     */
+    public void convert(File file) throws SpecificBackConverterException;
     /*
      * This allows us to write format specific actions to take place after the
      * .xlz file has processed to produce an original file.
@@ -30,7 +40,7 @@ public interface SpecificBackConverter {
      * @param encoding The encoding which the file is written in
      * @param lang The language of the translated document (RFC 3066, please)
      */
-    void convert(String filename, String lang, String encoding) throws SpecificBackConverterException;
+//    void convert(String filename, String lang, String encoding) throws SpecificBackConverterException;
     
     /*
      * This interface is building upon the original one, only this time, we have an
@@ -47,6 +57,6 @@ public interface SpecificBackConverter {
      * @param lang The language of the translated document (RFC 3066, please)
      * @param originalXlzFilename The absolute path of the XLZ file that was backconverted
      */
-    void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException;
+//    void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException;
     
 }

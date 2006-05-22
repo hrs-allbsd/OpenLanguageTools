@@ -12,6 +12,7 @@
  */
 
 package org.jvnet.olt.xliff_back_converter.format.sgml;
+import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 import org.jvnet.olt.xliff_back_converter.*;
@@ -19,9 +20,9 @@ import org.jvnet.olt.xliff_back_converter.*;
  *
  * @author  timf
  */
-public class SgmlSpecificBackConverter implements SpecificBackConverter {
+public class SgmlSpecificBackConverter extends  SpecificBackconverterBase{
     
-    private BackConverterProperties properties;
+    //private BackConverterProperties properties;
     
     
     class CustomMapping implements UnicodeReverse {
@@ -58,23 +59,32 @@ public class SgmlSpecificBackConverter implements SpecificBackConverter {
         }
         
     }
-    
+
+    public SgmlSpecificBackConverter(){
+        super();
+    }
+
     /** Creates a new instance of HtmlSpecificBackConverter */
+/*
     public SgmlSpecificBackConverter(BackConverterProperties properties) {
         this.properties = properties;
     }
-    
+  */
+    /*
     public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {
         convert(filename, lang, encoding);
     }
     
     public void convert(String filename, String lang, String encoding) throws SpecificBackConverterException {
+     */
+    public void convert(File file) throws SpecificBackConverterException {
         try {
             UnicodeReverse ur = new SgmlUnicodeReverseImpl();
             
-            UnicodeReverse wrapper = new CustomMapping(ur,properties.getSGMLUnicode2EntityIncludeMap(),properties.getSGMLUnicode2EntityExcludeMap());
+            System.out.println("props:"+props);
+            UnicodeReverse wrapper = new CustomMapping(ur,props.getSGMLUnicode2EntityIncludeMap(),props.getSGMLUnicode2EntityExcludeMap());
             
-            UnicodeEntityBackConverter.fix(filename, wrapper, encoding);
+            UnicodeEntityBackConverter.fix(file.getAbsolutePath(), wrapper, encoding);
             
             //
             //  This code is added as a fix for bug 5023094. In the case of 
@@ -85,7 +95,7 @@ public class SgmlSpecificBackConverter implements SpecificBackConverter {
             //
             if(lang.toLowerCase().equals("ja-jp")) {
                 WavyDashConverter wdc = new WavyDashConverter();
-                wdc.convertFile(filename, encoding);
+                wdc.convertFile(file.getAbsolutePath(), encoding);
             }
             //  End fix.
         } 

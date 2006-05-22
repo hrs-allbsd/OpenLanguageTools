@@ -20,23 +20,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-
-import org.jvnet.olt.xliff_back_converter.format.xml.XmlBackConversionCommand;
-import org.jvnet.olt.xliff_back_converter.format.xml.XmlBackConversionCommandException;
-
+import org.jvnet.olt.xliff_back_converter.SpecificBackconverterBase;
+import org.jvnet.olt.xliff_back_converter.SpecificBackConverterException;
 
 /**
  * This class does backconversion of XLIFF files that represent OpenOffice.org
@@ -74,14 +66,39 @@ import org.jvnet.olt.xliff_back_converter.format.xml.XmlBackConversionCommandExc
  *
  * @author timf
  */
-public class OpenOfficeXmlBackConversionCommand implements XmlBackConversionCommand {
+public class OpenOfficeSpecificBackConverter extends SpecificBackconverterBase {
+    private static final Logger logger = Logger.getLogger(OpenOfficeSpecificBackConverter.class.getName());
     
-    private String extension = "";
-    
+    private String extension;
+
+    private static Map typeMap = Collections.synchronizedMap(new HashMap() );
+
+    static {
+        typeMap.put("OpenOffice.org Writer", "sxw");
+        typeMap.put("OpenOffice.org Calc","sxc");
+        typeMap.put("OpenOffice.org Impress","sxi");
+        
+        typeMap.put("Open Document Format Text", "odt");
+        typeMap.put("Open Document Format Spreadsheet", "ods");
+        typeMap.put("Open Document Format Graphics", "odg");
+        typeMap.put("Open Document Format Presentation", "odp");
+    }
+
+    public OpenOfficeSpecificBackConverter(){
+        super();
+
+
+    }
+/*
+    public OpenOfficeSpecificBackConverter(BackConverterProperties props){
+        //do nothing
+    }
+*/
     /** Creates a new instance of Open OfficeXmlBackConversionCommand 
       @param oooExtension the extension of the OpenOffice.org file (eg. sxi, sxw or sxc)
      */
-    public OpenOfficeXmlBackConversionCommand(String xmlType) {
+/*
+    public OpenOfficeSpecificBackConverter(String xmlType) {
         Map typeMap = new HashMap();
         typeMap.put("OpenOffice.org Writer", "sxw");
         typeMap.put("OpenOffice.org Calc","sxc");
@@ -97,27 +114,34 @@ public class OpenOfficeXmlBackConversionCommand implements XmlBackConversionComm
             this.extension="unknown";
         }
     }
-    
+*/
     /**
      * Does XLZ to OpenOffice.org & OpenDocument conversion. We assume that all of the required
      * styles.xml, meta.xml, etc. are already present in the xlz archive.
      */
-    public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws XmlBackConversionCommandException  {
+//    public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException  {
+    public void convert(File file) throws SpecificBackConverterException  {
+        extension = (String)typeMap.get(dataType);
+        if(extension == null){
+            extension = "unknown";
+            logger.warning("Unable to determin extension setting to \""+extension+"\"");
+        }
+
         try {
-            File xmlFile = new File(filename);
-            File xlzFile = new File(originalXlzFilename);
+            File xmlFile = file;
+            File xlzFile = originalXlzFile;
             String prefix = xlzFile.getName().replaceAll("."+this.extension+".xlz","");
             
             if (prefix.equals(xlzFile.getName())){
                 // the files are named incorrectly
-                throw new XmlBackConversionCommandException("Input XLZ file "+xlzFile.getAbsolutePath()+
+                throw new SpecificBackConverterException("Input XLZ file "+xlzFile.getAbsolutePath()+
                         " is incorrectly named, expecting [something]."+extension+".xlz");
             }
             String dir = xmlFile.getParent();
             File renamedXMLFile = new File(dir+File.separatorChar+"content.xml");
             boolean renamed = xmlFile.renameTo(renamedXMLFile);
             if (!renamed){
-                throw new XmlBackConversionCommandException("Unable to rename input XML file "
+                throw new SpecificBackConverterException("Unable to rename input XML file "
                         +xmlFile.getAbsolutePath()+" to content.xml for inclusion in the OOo/OpenDocument archive");
             }
             
@@ -133,7 +157,7 @@ public class OpenOfficeXmlBackConversionCommand implements XmlBackConversionComm
             
             
         } catch (java.io.IOException e){
-            throw new XmlBackConversionCommandException("IO Exception thrown while recreating OOo/OpenDocument archive from "+originalXlzFilename+" " +
+            throw new SpecificBackConverterException("IO Exception thrown while recreating OOo/OpenDocument archive from "+originalXlzFile+" " +
                     " : "+e.getMessage());
         }
         
@@ -208,5 +232,19 @@ public class OpenOfficeXmlBackConversionCommand implements XmlBackConversionComm
         }
         is.close();
         os.close();
-    }    
+    }
+/*
+    public void convert(String filename, String lang, String encoding) throws SpecificBackConverterException {
+        this.convert(filename,lang,encoding,null);
+    }
+*/
+    /** result of this backconversion is binary file
+     *
+     */
+    public boolean isBinaryFormat() {
+        return true;
+    }
+
+
+
 }

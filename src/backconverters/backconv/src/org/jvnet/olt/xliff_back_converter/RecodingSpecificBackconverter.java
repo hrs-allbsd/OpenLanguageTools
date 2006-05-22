@@ -25,65 +25,56 @@ import java.io.Writer;
  *
  * @author boris
  */
-public class RecodingSpecificBackconverter implements SpecificBackConverter{
+public class RecodingSpecificBackconverter extends  SpecificBackconverterBase{
     
     /** Creates a new instance of RecodingSpecificBackconverter */
     public RecodingSpecificBackconverter() {
     }
 
-    public void convert(String filename, String lang, String encoding) throws SpecificBackConverterException {
-        convert(filename,lang,encoding,null);
-    }
-
-    public void convert(String filename, String lang, String encoding, String originalXlzFilename) throws SpecificBackConverterException {
-        File oldFile = new File(filename+".tr");
-        File newFile = new File(filename);
-
+    public void convert(File file) throws SpecificBackConverterException {
+        File oldFile = new File(file.getAbsolutePath()+".tr");
+        File newFile = file;
+        
         if(! newFile.renameTo(oldFile))
             throw new SpecificBackConverterException("unable to rename file:"+newFile+" to "+oldFile);
-
+        
         Writer w = null;
         Reader r = null;
-
+        
         try{
-
+            
             w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newFile),encoding));
             r = new BufferedReader(new InputStreamReader(new FileInputStream(oldFile),"UTF-8"));
-
-
+            
+            
             char[] buffer = new char[1024];
             do{
                 int count = r.read(buffer);
                 if(count == -1)
                     break;
-
+                
                 w.write(buffer,0,count);
             }
             while(true);
-        }
-        catch (UnsupportedEncodingException uee){
+        } catch (UnsupportedEncodingException uee){
             throw  new SpecificBackConverterException(uee.toString());
-        }
-        catch (IOException ioe){
+        } catch (IOException ioe){
             throw new SpecificBackConverterException(ioe.toString());
-        }
-        finally {
+        } finally {
             if(w != null)
                 try{
                     w.close();
-                }
-                catch (IOException ioe){
+                } catch (IOException ioe){
                     ; //ignore
                 }
-
+            
             if(r != null)
                 try{
                     r.close();
-                }
-                catch (IOException ioe){
+                } catch (IOException ioe){
                     ; //ignore
                 }
-
+            
             oldFile.delete();
         }
     }

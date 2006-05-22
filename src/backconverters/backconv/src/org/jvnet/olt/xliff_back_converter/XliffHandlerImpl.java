@@ -270,14 +270,43 @@ public class XliffHandlerImpl implements XliffHandler {
         segmentedFile = segmentedFileImpl;
 
         logger.log(Level.FINEST, "original filename = " + meta.getValue("original"));
-        
+
+	boolean overwrite = props.getBooleanProperty(BackConverterProperties.PROP_GEN_OVERWRITE_FILES);
+
         String fileName = null;
         if(props.getBooleanProperty(BackConverterProperties.PROP_GEN_PREFER_XLZ_NAME)){
             fileName = meta.getValue("original");
+            if(!overwrite){
+		String xlzFileName = props.getProperty(BackConverterProperties.PROP_GEN_XLZ_FILE_NAME);
+
+		File noExtFile = FileUtils.stripExtension(new File(xlzFileName),".xlz");
+		
+		File origFile = new File(fileName);
+		
+		File combinedFile = new File(noExtFile.getParent(),origFile.getName());
+		
+		
+                File uniqueFile = FileUtils.ensureUniqueFile(combinedFile); 
+
+		fileName = uniqueFile.getPath();
+		    
+	    }		
+/*		
+		//We do some equilibristic here:
+		//1. the 'original' name may (does) contain path with directories
+		//2. the file is being saved ignoring the path but using only the name
+		//What we do here: strip the filename, make it unique (because we 
+		// *expect* it to be saved to the same dir
+		File origFile = new File(fileName);
+		File path = origFile.getParentFile();
+		
+                File uniqueFile = FileUtils.ensureUniqueFile(new File(origFile.getName())); 
+                fileName = new File(path,uniqueFile.getName()).getPath();
+            }
+ */
         }
         else{
             String fname = props.getProperty(BackConverterProperties.PROP_GEN_XLZ_FILE_NAME);
-            boolean overwrite = props.getBooleanProperty(BackConverterProperties.PROP_GEN_OVERWRITE_FILES);
             
             File noExtFile = FileUtils.stripExtension(new File(fname),".xlz");
             //if overwriting file, then we don't care much about the name
