@@ -12,6 +12,7 @@
         <authors>
             <author name="Open Language Tools" email="dev@open-language-tools.dev.java.net"/>
         </authors>
+		<javaversion>1.5,1.6</javaversion>
         <url>https://open-language-tools.dev.java.net</url>
     </info>
     
@@ -85,6 +86,12 @@
             <depends packname="Spellchecker"/>
             <file src="spellchecker-win/spellchecker/dict/aspell/swedish" targetdir="$INSTALL_PATH/spellchecker/dict/aspell/"/> 
         </pack>
+		<pack name="Sample XLIFF files" required="no" preselected="yes">
+            <description>This component sample XLIFF files</description>
+            <fileset dir="samples/" targetdir="$INSTALL_PATH/samples/"> 
+                <include name="**/*"/>
+            </fileset>
+		</pack>
     </packs>
     <native type="izpack" name="ShellLink.dll"/>
 
