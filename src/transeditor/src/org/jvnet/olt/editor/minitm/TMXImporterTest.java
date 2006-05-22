@@ -18,7 +18,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 import junit.framework.TestCase;
-import org.jvnet.olt.editor.util.TestSupport;
+import org.jvnet.olt.util.TestSupport;
 import org.jvnet.olt.xliff.XLIFFEntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;

@@ -24,7 +24,7 @@ import java.util.zip.ZipFile;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import org.jvnet.olt.editor.util.FileUtils;
+import org.jvnet.olt.util.FileUtils;
 import org.jvnet.olt.editor.util.LanguageMappingTable;
 import org.jvnet.olt.editor.util.MultiWriter;
 import org.jvnet.olt.editor.util.NestableException;

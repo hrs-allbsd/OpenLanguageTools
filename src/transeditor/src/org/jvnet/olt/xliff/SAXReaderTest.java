@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 
 import org.jvnet.olt.editor.model.Match;
 import org.jvnet.olt.editor.model.MatchAttributes;
-import org.jvnet.olt.editor.util.TestSupport;
+import org.jvnet.olt.util.TestSupport;
 import org.jvnet.olt.xliff.reader.handlers.Context;
 
 

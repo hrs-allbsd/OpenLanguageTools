@@ -20,8 +20,9 @@ import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
 import org.jvnet.olt.editor.model.*;
-import org.jvnet.olt.editor.util.FileUtils;
+import org.jvnet.olt.util.FileUtils;
 import org.jvnet.olt.editor.util.NestableException;
+import org.jvnet.olt.util.FileUtils;
 import org.jvnet.olt.xliff.*;
 
 

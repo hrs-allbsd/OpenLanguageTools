@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 import junit.framework.TestCase;
+import org.jvnet.olt.util.TestSupport;
 
 
 /*
