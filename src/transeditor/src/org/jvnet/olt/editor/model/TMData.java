@@ -16,8 +16,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -757,10 +755,11 @@ public class TMData extends PivotData {
 
                     xliffparser.m_xlfSrcSentences[iSentenceID].setSentence(wrappedSource);
                     xliffparser.saveSourceSegment(xliffparser.m_xlfSrcSentences[iSentenceID]);
-                } catch (InvalidFormattingException ex) {
+                } catch (Throwable ex) {
                     logger.throwing(getClass().getName(), "saveTranslation", ex);
-                    logger.severe("An error was encountered when trying to mark up the formatting in the source string:" + iSentenceID + " value = " + source.getValue());
-                    throw new NestableException(ex);
+                    String msg = "An error was encountered when trying to mark up the formatting in the source string:" + iSentenceID + " value = " + source.getValue();
+                    logger.severe(msg);
+                    throw new FormattingException(msg,ex);
                 }
 
                 /*                catch(NestableException ne) {
@@ -771,7 +770,9 @@ public class TMData extends PivotData {
 
             //  Wrap formatting in the target
             try {
-                String wrappedTarget = formatWrapper.wrapFormatting(translation.getValue());
+                
+                String value = translation.getValue();
+                String wrappedTarget = formatWrapper.wrapFormatting(value);
 
                 //  Put in an extra space at the end for non asian languages if
                 //  it is present in the source and missing in the target.
@@ -788,12 +789,13 @@ public class TMData extends PivotData {
                 xliffparser.m_xlfTgtSentences[iSentenceID].setSentence(wrappedTarget);
                 xliffparser.m_xlfTgtSentences[iSentenceID].setTranslationState(combineTranslationState());
                 xliffparser.saveTargetSegment(xliffparser.m_xlfTgtSentences[iSentenceID]);
-            } catch (InvalidFormattingException ex) {
+            
+            } catch (Throwable ex) {
                 logger.throwing(getClass().getName(), "saveTranslation", ex);
-                logger.severe("An error was encountered when trying to mark up the formatting in the target string:" + iSentenceID + " value = " + translation.getValue());
-                throw new NestableException(ex);
+                String msg = "An error was encountered when trying to mark up the formatting in the target string";
+                logger.severe(msg);
+                throw new FormattingException(msg,ex,translation.getValue(),iSentenceID );
             }
-
             /*            catch(NestableException ne) {
                             ne.printStackTrace();
                         }
@@ -889,7 +891,8 @@ public class TMData extends PivotData {
     public boolean populateFromMiniTM(){
         boolean needsSave = false;
         for(int i = 0;i < tmsentences.length ;i++){
-            boolean populated = tmsentences[i].populateFromMiniTM();
+            logger.finest("Populating segments:"+i+" "+tmsentences[i].getTransUintID());
+	    boolean populated = tmsentences[i].populateFromMiniTM();
             
             if(populated){
                 bTMFlags[i] = true;
