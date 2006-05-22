@@ -130,6 +130,7 @@
         <mkdir dir="${installer.dir}/mini-tm"/>
         <mkdir dir="${installer.dir}/downloads/"/>
         <mkdir dir="${installer.dir}/classes"/>
+        <mkdir dir="${installer.dir}/samples"/>
 
         <copy file="${dest.dir}/backconv.jar" verbose="true" tofile="${installer.dir}/classes/XliffBackConverter.jar"/>
         <copy file="${dest.dir}/utilities-fuzzytm.jar" verbose="true" tofile="${installer.dir}/classes/fuzzytm.jar"/>
@@ -150,6 +151,9 @@
 		</copy>
 		
 		<copy todir="${installer.dir}" verbose="true" file="static/resources/LICENSE.txt"/>
+		<copy todir="${installer.dir}/samples" verbose="true">
+			<fileset dir="samples"/>
+		</copy>
 	
         <chmod file="${installer.dir}/translation.sh" perm="ugo+rx"/>
 
@@ -301,19 +305,20 @@
 			<jvmarg value="-Xmx512M"/>                        
                         <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
                         <sysproperty key="editor_home" value="${installer.dir}"/>
+                        <sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/>
 		</java>
 		
 	</target>
 
-   <target name="pre-test">
-   	<mkdir dir="${build.dir}/junit-reports"/>
+   <target name="xpre-test">
+        <mkdir dir="${build.dir}/junit-reports"/>
         <mkdir dir="${build.dir}/test-results"/>
     </target>
         
         	
-    <target name="test-single" depends="pre-test,compile">
+    <target name="xtest-single" depends="pre-test,compile">
 
-	<property file="single-test.properties"/>
+		<property file="single-test.properties"/>
         <property name="junit.test.suspend" value="n"/>
         <junit printsummary="yes" haltonfailure="no" dir=".">
             <classpath refid="test.classpath"/>
@@ -342,7 +347,7 @@
     </target>
 
     <!-- we need to setup working dir and different classpath -->
-    <target name="test" depends="pre-test,compile">
+    <target name="xtest" depends="pre-test,compile">
         <junit printsummary="yes" haltonfailure="no" dir=".">
             <classpath refid="test.classpath"/>
             <!--<classpath>
