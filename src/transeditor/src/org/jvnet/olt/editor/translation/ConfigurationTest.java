@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
-import org.jvnet.olt.editor.util.TestSupport;
+import org.jvnet.olt.util.TestSupport;
 
 
 /**
