@@ -38,5 +38,10 @@ public class NestableException extends Exception {
     public NestableException(Throwable aException) {
         super(aException);
     }
+    
+    public NestableException(String msg,Throwable aException) {
+        super(msg,aException);
+    }
+    
 
 }
