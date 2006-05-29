@@ -14,6 +14,7 @@ import org.jvnet.olt.editor.format.sgml.SgmlFormatElementExtractor;
 import org.jvnet.olt.editor.format.swmsg.SwMsgElementExtractor;
 import org.jvnet.olt.format.GlobalVariableManager;
 import org.jvnet.olt.parsers.tagged.SegmenterTable;
+import org.jvnet.olt.format.soxliff.SOXliffFormatExtractor;
 
 
 /**
@@ -31,6 +32,8 @@ public class FormatElementExtractorFactory {
     private static final int PROPERTIES = 14;
     private static final int PLAINTEXT = 15;
     private static final int DTD = 16;
+    private static final int STAROFFICE = 17;
+    
     private java.util.Map validFormatsHash;
 
     /** Creates a new instance of FormatExtractorFactory */
@@ -49,7 +52,7 @@ public class FormatElementExtractorFactory {
 
         validFormatsHash.put("PLAINTEXT", new Integer(PLAINTEXT));
         
-        validFormatsHash.put("STAROFFICE", new Integer(XML));
+        validFormatsHash.put("STAROFFICE", new Integer(STAROFFICE));
         
     }
 
@@ -81,6 +84,7 @@ public class FormatElementExtractorFactory {
 
             return extractor;
 
+        case STAROFFICE:
         case XML:
 
             //  Rely on basic defaults for the time being.
@@ -88,7 +92,7 @@ public class FormatElementExtractorFactory {
             extractor = new SgmlFormatElementExtractor(gvm, table);
 
             return extractor;
-
+            
         case JSP:
             table = new org.jvnet.olt.filters.jsp.JspSegmenterTable();
             extractor = new SgmlFormatElementExtractor(gvm, table);

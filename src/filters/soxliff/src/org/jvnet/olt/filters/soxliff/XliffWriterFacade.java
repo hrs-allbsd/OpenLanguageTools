@@ -41,7 +41,7 @@ public class XliffWriterFacade {
         this.sourceLanguage = sourceLanguage;
         xlzIO = new XliffZipFileIO(xlzFile);
         try {
-            wrapper = new FormatWrapperFactory().createFormatWrapper("XML", new EntityManager());
+            wrapper = new FormatWrapperFactory().createFormatWrapper("STAROFFICE", new EntityManager());
         } catch(UnsupportedFormatException e) {
             throw new SegmenterFormatterException("Cannot create formatWrapper: " + e.getMessage());
         }
@@ -71,7 +71,12 @@ public class XliffWriterFacade {
     public void writeSegment(SOSegment segment) throws SegmenterFormatterException {
         
         String source = segment.getSource();
-        int wordCount = SgmlFilterHelper.wordCount(source,sourceLanguage);
+        int wordCount = 0;
+        try {
+            wordCount = SgmlFilterHelper.wordCount(source,sourceLanguage);
+        } catch(Throwable t) {
+            System.err.println("Cannot get correct wordcount: " + t.getMessage());
+        }
         String target  = segment.getTarget();
         
         // write context informations

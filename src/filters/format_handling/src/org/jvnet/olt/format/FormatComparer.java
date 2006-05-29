@@ -14,6 +14,7 @@ import org.jvnet.olt.format.plaintext.PlainTextFormatExtractor;
 import org.jvnet.olt.format.GlobalVariableManager;
 import org.jvnet.olt.format.sgml.SgmlFormatExtractor;
 import org.jvnet.olt.format.brokensgml.BrokenSgmlFormatExtractor;
+import org.jvnet.olt.format.soxliff.SOXliffFormatExtractor;
 import org.jvnet.olt.format.printf.PrintfFormatExtractor;
 import org.jvnet.olt.format.messageformat.MessageFormatExtractor;
 
@@ -27,6 +28,7 @@ public class FormatComparer {
     private static final int PRINTF=2;
     private static final int MESSAGEFORMAT=3;
     private static final int BROKENML=4;
+    private static final int SOXLIFF=5;
     
     public FormatComparer() {
         m_hashExtractors = new HashMap();
@@ -34,7 +36,6 @@ public class FormatComparer {
         m_hashAvailableExtractors.put("HTML", new Integer(BLAML));
         m_hashAvailableExtractors.put("SGML", new Integer(BLAML));
         m_hashAvailableExtractors.put("XML", new Integer(BLAML));
-        m_hashAvailableExtractors.put("STAROFFICE", new Integer(BLAML));
         m_hashAvailableExtractors.put("JSP", new Integer(BROKENML));
         m_hashAvailableExtractors.put("PLAINTEXT", new Integer(PLAINTEXT));
         
@@ -43,6 +44,7 @@ public class FormatComparer {
         m_hashAvailableExtractors.put("PROPERTIES", new Integer(MESSAGEFORMAT));
         m_hashAvailableExtractors.put("JAVA", new Integer(MESSAGEFORMAT));
         m_hashAvailableExtractors.put("DTD", new Integer(MESSAGEFORMAT));
+        m_hashAvailableExtractors.put("STAROFFICE", new Integer(SOXLIFF));
         
     }
     
@@ -145,6 +147,10 @@ public class FormatComparer {
                     return ex;
                 case BROKENML:
                     ex = new BrokenSgmlFormatExtractor();
+                    m_hashExtractors.put(type, ex);
+                    return ex;
+                case SOXLIFF:
+                    ex = new SOXliffFormatExtractor();
                     m_hashExtractors.put(type, ex);
                     return ex;
                 default:

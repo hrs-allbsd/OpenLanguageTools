@@ -90,14 +90,22 @@ public class ParserVisitor extends VisitorSupport {
                 // subsegment source
                 StringReader reader = new StringReader(source);
                 SegmenterFacade facade = new SegmenterFacade(reader, "en-US");
+
+                List subSegments = null;
+                Map subFormatting = null;
+              
+                // don't subsegment
+                
+                /* 
                 try {
                     facade.parse();
-                } catch (java.lang.Exception e){
-                    throw new RuntimeException("Cannot segment: " + source + " :"+e.getMessage(),e);
+                    subSegments = facade.getSegments();
+                    subFormatting = facade.getFormatting();
+                } catch (Throwable t) {
+                    System.err.println("Cannot segment: " + source + " :"+t.getMessage());
                 }
-                List subSegments = facade.getSegments();
-                Map subFormatting = facade.getFormatting();
-                
+                */
+
                 // get target
                 String target  = element.elementText(XLIFF_TARGET);
                 
@@ -128,7 +136,7 @@ public class ParserVisitor extends VisitorSupport {
                 
                 // write segment
                 
-                if(subSegments.size()>1 && isCorrectFormatting(subSegments)) {
+                if(subSegments!=null && subSegments.size()>1 && isCorrectFormatting(subSegments)) {
                     
                     // do not write target if source is segmented
                     Iterator it = subSegments.iterator();

@@ -61,6 +61,7 @@ public class SOXliffToXliff {
             
             writer.close();
         } catch(Throwable t) {
+            t.printStackTrace(System.err);
             throw new SOXliffException("SOXliff Error: " + t.getMessage(),t);
         }
     }
