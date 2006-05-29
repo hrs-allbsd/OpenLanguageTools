@@ -354,12 +354,11 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                          * Currently it supports only sgml. We can remove the code if attributes handling
                          * will be added to other tagged markup filters
                          */
-                        boolean dontSegmentOrCount = true;
-                        if(segmenterTable instanceof DocbookSegmenterTable) {
-                            Map tagAttributes  = ((org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode)simpleNode).getAttribs();
-                            dontSegmentOrCount = ((org.jvnet.olt.filters.sgml.docbook.DocbookSegmenterTable)segmenterTable).dontSegmentOrCountInsideTag(tagName,namespaceID,tagAttributes);
-                        } else {
-                            dontSegmentOrCount = segmenterTable.dontSegmentOrCountInsideTag(tagName,namespaceID);
+                        boolean dontSegmentOrCount = segmenterTable.dontSegmentOrCountInsideTag(tagName,namespaceID);
+
+                        if(segmenterTable instanceof DocbookSegmenterTable && simpleNode instanceof org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode) {
+                            Map tagAttributes = ((org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode)simpleNode).getAttribs();
+                            dontSegmentOrCount = ((DocbookSegmenterTable)segmenterTable).dontSegmentOrCountInsideTag(tagName,namespaceID,tagAttributes);
                         }
                         
                         if (dontSegmentOrCount) {
