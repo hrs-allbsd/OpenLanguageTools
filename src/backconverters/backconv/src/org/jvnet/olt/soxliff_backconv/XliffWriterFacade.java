@@ -14,6 +14,7 @@ import org.dom4j.*;
 import org.dom4j.dom.DOMDocumentType;
 import org.dom4j.io.*;
 import org.jvnet.olt.soxliff_backconv.util.*;
+import org.jvnet.olt.io.*;
 
 /**
  * Create StarOffice xliff file and writes translated segment
@@ -50,6 +51,7 @@ public class XliffWriterFacade {
     private static final String XLIFF_TARGET_STATE_ATT = "state";
     private static final String XLIFF_TARGET_STATE_VALUE = "non-translated:translated";
     
+    private Map entityConversionMap = null;
     
     private String fileName = "";
     private String targetLanguage = "";
@@ -107,7 +109,7 @@ public class XliffWriterFacade {
      *
      * @throws ParseException
      */
-    public void addTranslationUnit(String id,String source,String target) throws ParseException {
+    public void addTranslationUnit(String id,String source,String target) throws ParseException,IOException {
         // first segment
         if("".equals(lastId)) {
             lastId = id;
@@ -135,17 +137,17 @@ public class XliffWriterFacade {
      *
      * @throws ParseException
      */
-    private void flushSegment() throws ParseException {
+    private void flushSegment() throws ParseException,IOException {
         Element transUnit = body.addElement(XLIFF_TRANSUNIT_TAG);
         transUnit.addAttribute(XLIFF_TRANSUNIT_ID_ATT,lastId);
         
         Element src    = transUnit.addElement(XLIFF_SOURCE_TAG);
-        src.setText(AddEscapeChars.convert(source.toString()));
+        src.setText(wrapXmlEntities(AddEscapeChars.convert(source.toString())));
         
         Element tgt    = transUnit.addElement(XLIFF_TARGET_TAG);
         tgt.addAttribute(XLIFF_TARGET_STATE_ATT,XLIFF_TARGET_STATE_VALUE);
         tgt.addAttribute(XLIFF_TARGET_LANG_ATT,targetLanguage);
-        tgt.setText(AddEscapeChars.convert(target.toString()));
+        tgt.setText(wrapXmlEntities(AddEscapeChars.convert(target.toString())));
     }
     
     /**
@@ -160,11 +162,51 @@ public class XliffWriterFacade {
             outformat.setEncoding("UTF-8");
             
             XMLWriter writer = new XMLWriter(new FileOutputStream(new File(fileName)), outformat);
+            writer.setEscapeText(false);
             writer.write(document);
             writer.flush();
         } catch(Throwable t) {
             throw new SOXliffBackException(t.getMessage(),t);
         }
     }
+    
+    /**
+     * wrap characters used in XML with entities
+     *
+     * @param text that need to be converted
+     *
+     * @return wrapped text
+     *
+     * @throws IOException if the conversion fail
+     */
+    private String wrapXmlEntities(String text) throws IOException {
+        
+        // set up entity conversion map table
+        if(entityConversionMap == null) {
+            entityConversionMap = new HashMap();
+            
+            entityConversionMap.put(new Character('&'), "&amp;");
+            entityConversionMap.put(new Character('<'), "&lt;");
+            entityConversionMap.put(new Character('>'), "&gt;");
+            entityConversionMap.put(new Character('"'),  "&quot;");
+            entityConversionMap.put(new Character('\''),"&apos;");
+            
+        }
+        
+        // convert the input
+        StringReader stringReader = new StringReader(text);
+        EntityConversionFilterReader reader = new EntityConversionFilterReader(stringReader);
+        reader.setEntityMap(entityConversionMap);
+        
+        BufferedReader buf = new BufferedReader(reader);
+        StringWriter writer= new StringWriter();
+        int i;
+        while ((i = buf.read()) != -1){
+            writer.write(i);
+        }
+        return writer.toString();
+        
+    }
+
     
 }
