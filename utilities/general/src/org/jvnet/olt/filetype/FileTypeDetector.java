@@ -32,6 +32,8 @@ public class FileTypeDetector {
     public static final int ART = 17;
     public static final int CSS = 18;
     public static final int STAROFFICE = 19;
+    public static final int XMLSOL = 20;
+    public static final int BOOKXMLSOL = 21;
     
     // File extension expression to file type mapping
     private static List filetypes = null;
@@ -78,6 +80,18 @@ public class FileTypeDetector {
             fileType.addExtension("\\d{1}[a-zA-Z]*");
             fileType.setRegExpContent("<!ENTITY.*?>");
             
+            filetypes.add(fileType);
+            
+            //XML SOLBOOK
+            fileType = new XSOLFileType(XMLSOL,"XML SOLBOOK file");
+            fileType.addExtension("xml");
+            fileType.setRegExpContent("<\\?Fm Document");
+            filetypes.add(fileType);
+            
+            //BOOK XML SOLBOOK
+            fileType = new XSOLFileType(BOOKXMLSOL,"BOOK file of XML SOLBOOK document");
+            fileType.addExtension("book.xml");
+            fileType.setRegExpContent("<!DOCTYPE book");
             filetypes.add(fileType);
             
             //BOOK
