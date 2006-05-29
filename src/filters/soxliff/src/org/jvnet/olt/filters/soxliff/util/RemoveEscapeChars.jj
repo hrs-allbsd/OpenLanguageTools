@@ -22,13 +22,15 @@ PARSER_BEGIN(RemoveEscapeChars)
 
 package org.jvnet.olt.filters.soxliff.util;
 
+import java.io.*;
+
 public class RemoveEscapeChars {
   
   private StringBuffer result = new StringBuffer("");
 
   public static String convert(String text) throws ParseException {
-
-    RemoveEscapeChars t = new RemoveEscapeChars(new java.io.StringBufferInputStream(text));
+ 
+    RemoveEscapeChars t = new RemoveEscapeChars(new StringReader(text));
     t.Start();
     return t.result.toString();
 
