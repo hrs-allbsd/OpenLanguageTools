@@ -22,14 +22,14 @@ public class RemoveTagProtection {
   
   private StringBuffer result = new StringBuffer("");
 
-  public static InputStream convert(InputStream inputStream) throws ParseException {
-    RemoveTagProtection t = new RemoveTagProtection(inputStream);
+  public static Reader convert(Reader reader) throws ParseException {
+    RemoveTagProtection t = new RemoveTagProtection(reader);
     t.Start();
-    return new StringBufferInputStream(t.result.toString());
+    return new StringReader(t.result.toString());
   }
 
   public static String convert(String input) throws ParseException {
-    RemoveTagProtection t = new RemoveTagProtection(new StringBufferInputStream(input));
+    RemoveTagProtection t = new RemoveTagProtection(new StringReader(input));
     t.Start();
     return t.result.toString();
   }
@@ -66,6 +66,8 @@ void Start() :
      t=<OTHER>  { result.append(t.image); }
      |
      t="<" { result.append(t.image); }
+     |
+     t=<WS> { result.append(t.image); }
   )+
   <EOF>
 }
