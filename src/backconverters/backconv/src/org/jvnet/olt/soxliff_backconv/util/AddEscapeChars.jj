@@ -27,7 +27,7 @@ public class AddEscapeChars {
 
   public static String convert(String text) throws ParseException {
 
-    AddEscapeChars t = new AddEscapeChars(new java.io.StringBufferInputStream(text));
+    AddEscapeChars t = new AddEscapeChars(new java.io.StringReader(text));
 
     t.Start();
 
@@ -103,6 +103,8 @@ void Start() :
          t=<TAG_OPEN> { result.append(t.image); }
          |
          t=<DEFAULT_OTHER>  { result.append(t.image); }
+         |
+         t=<WS> { result.append(t.image); }
      )
   )+
   <EOF>
