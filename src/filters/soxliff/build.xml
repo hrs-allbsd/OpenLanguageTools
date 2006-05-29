@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<project name="soxliff" basedir="." default="all">
+
+    <import file="../../../common.xml"/>
+
+    <path id="build.classpath">
+        <path location="${build.dir}"/>
+        <path refid="deps.common.util"/>
+        <path refid="deps.dom4j"/>
+    </path>
+	
+    <target name="compile" depends="pre-compile,local-deps,common.compile">
+    </target>
+
+    <target name="pre-compile" depends="common.pre-compile">
+        <delete quiet="true">
+            <fileset dir="src/org/jvnet/olt/filters/soxliff/util" includes="*.java"/>
+        </delete>
+        <javacc target="src/org/jvnet/olt/filters/soxliff/util/RemoveEscapeChars.jj" outputdirectory="src/org/jvnet/olt/filters/soxliff/util" javacchome="${javacchome}"/>
+    </target>
+
+    <target name="local-deps" unless="do.build.deps">
+        <ant dir="../segmenter_formatters">
+            <property name="build.dir" value="${build.dir}"/>
+        </ant>
+        <ant dir="../format_handling">
+            <property name="build.dir" value="${build.dir}"/>
+        </ant>
+    </target>
+
+</project>

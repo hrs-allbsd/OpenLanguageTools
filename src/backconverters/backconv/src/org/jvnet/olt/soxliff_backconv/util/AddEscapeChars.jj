@@ -1,0 +1,131 @@
+/**
+ * Add escape characters to StarOffice tags
+ *
+ * Here is an example of the modification
+ *
+ * Input string:    <tag param1="value1" param2="value2">text</tag>
+ * Output String: \<tag param1=\"value1\" param2=\"value2\"\>text\</tag\>
+ * 
+ */
+
+options{
+   //NODE_PACKAGE = "org.jvnet.olt.soxliff_backconv";
+   LOOKAHEAD = 1;
+   FORCE_LA_CHECK = true;
+   STATIC = false;
+   UNICODE_INPUT = true;
+}
+
+
+PARSER_BEGIN(AddEscapeChars)
+
+package org.jvnet.olt.soxliff_backconv;
+
+public class AddEscapeChars {
+  
+  private StringBuffer result = new StringBuffer("");
+
+  public static String convert(String text) throws ParseException {
+
+    AddEscapeChars t = new AddEscapeChars(new java.io.StringReader(text));
+
+    t.Start();
+
+    return t.result.toString();
+  }
+
+  public static void main(String[] args) throws ParseException {
+
+     if(args.length!=1) {
+        System.err.println("AddEscapeChars <string_to_convert>");
+        System.exit(1);
+     }
+
+     System.out.println(convert(args[0]));
+  }
+
+}
+
+PARSER_END(AddEscapeChars)
+
+<DEFAULT> TOKEN :
+{
+  < WS: (" "|"\t"|"\n"|"\f"|"\b"|"\r") >
+|
+  < TAG_OPEN: "<" >
+|
+  < SUPPORTED_TAG:   "ahelp"
+                   | "alt"
+                   | "bookmark_value"
+                   | "br"
+                   | "caption"
+                   | "caseinline"
+                   | "comment"
+                   | "defaultinline"
+                   | "embedvar"
+                   | "emph"
+                   | "image"
+                   | "item"
+                   | "link"
+                   | "object"
+                   | "switchinline"
+                   | "variable" >
+|
+  < TAG_START: <TAG_OPEN> ((<WS>)+)? <SUPPORTED_TAG>
+               |
+               <TAG_OPEN> ((<WS>)+)? "/" ((<WS>)+)? <SUPPORTED_TAG> > : TAG
+|
+  < DEFAULT_OTHER: (~["<"])+ >
+
+}
+
+<TAG> TOKEN :
+{
+  < TAG_STOP: ">" > : DEFAULT
+|
+  < TAG_OTHER: (~[">","\"","\'"])+ >
+|
+  <ATT_VAL:     "'" ( ~["'"]  )* "'"
+                |
+                "\"" ( ~["\""] )* "\"" >
+}
+
+void Start() : 
+{
+    Token t;
+}
+{
+  (
+     LOOKAHEAD(10) Tag()
+     |
+     (
+         LOOKAHEAD(1)
+         t=<TAG_OPEN> { result.append(t.image); }
+         |
+         t=<DEFAULT_OTHER>  { result.append(t.image); }
+         |
+         t=<WS> { result.append(t.image); }
+     )
+  )+
+  <EOF>
+}
+
+
+void Tag() :
+{
+   Token t;
+}
+{
+    t=<TAG_START> { result.append("\\").append(t.image); }
+    (
+        t=<TAG_OTHER> { result.append(t.image); }
+        |
+        t=<ATT_VAL> {
+	     String q = t.image.substring(0,1);
+	     String c = t.image.substring(1,t.image.length()-1);
+	     result.append("\\").append(q).append(c).append("\\").append(q);
+        }
+    )*
+    t=<TAG_STOP>  { result.append("\\").append(t.image); }
+}
+

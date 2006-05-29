@@ -1,0 +1,74 @@
+/**
+ * Removes xliff tag protection tags from an InputStream or from a String
+ *
+ */
+
+options{
+   //NODE_PACKAGE = "org.jvnet.olt.soxliff_backconv";
+   LOOKAHEAD = 1;
+   FORCE_LA_CHECK = true;
+   STATIC = false;
+   UNICODE_INPUT = true;
+}
+
+
+PARSER_BEGIN(RemoveTagProtection)
+
+package org.jvnet.olt.soxliff_backconv;
+
+import java.io.*;
+
+public class RemoveTagProtection {
+  
+  private StringBuffer result = new StringBuffer("");
+
+  public static Reader convert(Reader reader) throws ParseException {
+    RemoveTagProtection t = new RemoveTagProtection(reader);
+    t.Start();
+    return new StringReader(t.result.toString());
+  }
+
+  public static String convert(String input) throws ParseException {
+    RemoveTagProtection t = new RemoveTagProtection(new StringReader(input));
+    t.Start();
+    return t.result.toString();
+  }
+
+}
+
+PARSER_END(RemoveTagProtection)
+
+<DEFAULT> TOKEN :
+{
+  < WS: (" "|"\t"|"\n"|"\f"|"\b"|"\r") >
+|
+  < SUPPORTED_TAG:   "bpt"
+                   | "ept"
+                   | "it"
+  >
+|
+  < TAG: ("<" ((<WS>)+)? <SUPPORTED_TAG> ( ("/")? ">" | (<WS>)+ ("/")?  (<WS>)+ ">" | (<WS>)+ (~[">"])+ ">") )
+               |
+         ("<" ((<WS>)+)? "/" ((<WS>)+)? <SUPPORTED_TAG> ( ">" | (<WS>)+ ">" | (<WS>)+ (~[">"])+ ">")) >
+|
+  < OTHER: (~["<"])+ >
+
+}
+
+void Start() : 
+{
+    Token t;
+}
+{
+  (
+     LOOKAHEAD(10) <TAG>
+     |
+     t=<OTHER>  { result.append(t.image); }
+     |
+     t="<" { result.append(t.image); }
+     |
+     t=<WS> { result.append(t.image); }
+  )+
+  <EOF>
+}
+
