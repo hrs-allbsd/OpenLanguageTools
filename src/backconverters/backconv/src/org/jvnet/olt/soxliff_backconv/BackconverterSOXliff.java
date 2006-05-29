@@ -59,10 +59,10 @@ public class BackconverterSOXliff {
             SAXReader xmlReader = new SAXReader();
             xmlReader.setEntityResolver(resolver);
             
-            InputStream contentInputStream = zipFile.getInputStream(content);
+            InputStream zipIs = zipFile.getInputStream(content);
             
             // remove tag protection from OLT xliff
-            InputStream removed = RemoveTagProtection.convert(contentInputStream);
+            Reader removed = RemoveTagProtection.convert(new InputStreamReader(zipIs,"UTF-8"));
             Document doc = xmlReader.read(removed);
             
             
