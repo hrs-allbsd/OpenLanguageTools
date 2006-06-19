@@ -4,6 +4,7 @@
 <p><small>
     <a href="#philosophy">Philosophy</a> |
     <a href="#releases">Releases</a> | 
+    <a href="#bugs">Report a bug</a> | 
     <a href="#help">How you can help</a> | 
     <a href="#license">License</a> |
     <a href="http://open-language-tools.dev.java.net/open-language-tools-FAQ.html">
@@ -94,8 +95,6 @@ and the XLIFF Filter GUI :
 </blockquote>
 
 <br/>
-
-
 <!-- Nothing to release yet --><a name="releases"></a>
 <h3>Releases</h3>
 
@@ -125,6 +124,40 @@ already fixed your issue.
 </p>
 
 <br/>
+
+<h3><a name="bugs"></a>Report a bug</h3>
+
+If you encounter any problems related to the functionality of the
+filters or the the editor, please let us know on our <a href="mailto:users@open-language-tools.dev.java.net">alias</a>.
+<a href="mailto:users@open-language-tools.dev.java.net?&body=Operating system:%0aJDK Version: %0aWhat were the last actions before error ?%0aDescription of the bug:%0a%0a%0a%0a">alias</a>
+If it is possible please provide us with the following information:<br>
+
+<ul>
+
+  <li>Version and type of Operating System and locale (for example: Windows XP, Windows 2000, Solaris nevada etc.)</li>
+  <li>Version of JDK you're using</li>
+  <li>MiniTM file (if it's possible). <a href="#MiniTM_location">Where is the MiniTM</a> ?</li>
+  <li>The .xlz file causing problems.</li>
+  <li>The list of most recent actions, like: opened file, edited segment 26, saved ... etc</li>
+
+</ul>
+
+<br>
+<h4><a name="MiniTM_location"></a>MiniTM location</h4>
+The mini TM file is located in your user home in directory .xliffeditor and mini-tm. The file name format is following:<br>
+<pre><br>&lt;PROJECT&gt;_&lt;SRCLANG&gt;_&lt;TGTLANG&gt;.MTM</pre>
+Where:<br>
+<ul>
+  <li>PROJECT &nbsp;is the name of the project</li>
+  <li>SRCLANG is the source language of the project</li>
+  <li>TGTLANF is the target language of the project</li>
+</ul>
+For user bob, project ABCD from en-US to fr-FR would be in the following directory on Windows:<br>
+<pre>C:\Documents and Settings\bob\.xliffeditor\mini-tm\ABCD_EN_FR.MTM</pre>
+on Unix it would be in this directory:<br>
+<pre>/home/bob/.xliffeditor/mini-tm/ABCD_EN_FR.MTM</pre>
+<br>
+
 <!-- Why would people want to work on the Open Language Tools project ? -->
 <a name="help"></a>
 <h3>Call for help !</h3>
