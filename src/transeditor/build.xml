@@ -26,7 +26,7 @@
     <path id="run.classpath">
         <path refid="build.classpath"/>
         <path location="${build.dir}"/>
-        <path location="${intaller.dir}"/>
+        <path location="${installer.dir}"/>
     </path>
 
 	<!-- dependency tracking see init target-->
@@ -88,9 +88,17 @@
 		<delete file="src/org/jvnet/olt/editor/translation/Constants.java_"/> 
 		
                 
-        <copy todir="${build.dir}/resources">
+        <copy todir="${build.dir}/resources" verbose="true">
             <fileset dir="./static/resources"/>
         </copy>
+        
+        <echo>Build dir: ${build.dir}</echo>
+        <copy todir="${build.dir}" verbose="true" overwrite="true">
+            <fileset dir="src">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+        
         <copy todir="${build.dir}/resources">
             <fileset dir="${dtd.dir}">
                 <include name="xliff.dtd"/>
@@ -562,6 +570,5 @@
            <property name="uploaded.file.description" value="XLIFF Filters 1.1 Release Candidate 1 Windows"/>
         </ant>
      </target>
-
 
 </project>
