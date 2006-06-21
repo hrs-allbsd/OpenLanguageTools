@@ -1,5 +1,0 @@
-#!/bin/sh
-CLASSPATH=${TT_WS_ROOT}/build/filters:${TT_WS_ROOT}/build/utilities:/space/timf/transtech/utilities/jars/dtdparser121.jar
-export CLASSPATH
-xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=58000"
-java ${DEBUG} com.sun.tt.filters.book.Book $@

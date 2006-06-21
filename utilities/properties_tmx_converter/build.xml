@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." default="all" name="properties tmx converter">
-    <import file="../../common.xml"/>
-
-	<path id="build.classpath">
-		<path refid="deps.dom4j"/>
-	</path>
-
-</project>
