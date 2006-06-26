@@ -179,6 +179,7 @@
                                     leveraged_95 CDATA #REQUIRED
                                     leveraged_85 CDATA #REQUIRED
                                     leveraged_75 CDATA #REQUIRED
+                                    leveraged_less_75 CDATA #REQUIRED
                                     repetitions CDATA #REQUIRED
                                     encoding CDATA #IMPLIED
  
