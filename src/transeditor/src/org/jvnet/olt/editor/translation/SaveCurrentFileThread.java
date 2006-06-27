@@ -14,6 +14,7 @@ import com.sun.corba.se.spi.orb.Operation;
 import java.awt.Cursor;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import java.util.logging.Logger;
 
@@ -29,6 +30,7 @@ public class SaveCurrentFileThread implements Runnable {
     private static final Logger logger = Logger.getLogger(SaveCurrentFileThread.class.getName());
     private MainFrame mainFrame;
     private Backend backend;
+    private ResourceBundle bundle = ResourceBundle.getBundle(SaveCurrentFileThread.class.getName());
 
     /** Creates a new instance of SaveCurrentFileThread */
     public SaveCurrentFileThread(MainFrame mainFrame, Backend backend) {
@@ -42,7 +44,7 @@ public class SaveCurrentFileThread implements Runnable {
 
         //  Raise semaphore
         if (!mainFrame.testAndToggleSemaphore(false)) {
-            JOptionPane.showMessageDialog(mainFrame, "<html>There is currently a Save operation taking place.<br> Please wait until the current save has finished before trying to save again.", "Save In Progress", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(mainFrame, bundle.getString("<html>There_is_currently_a_Save_operation_taking_place.<br>_Please_wait_until_the_current_save_has_finished_before_trying_to_save_again."), bundle.getString("Save_In_Progress"), JOptionPane.ERROR_MESSAGE);
 
             //  display error message
             return;
@@ -97,6 +99,6 @@ public class SaveCurrentFileThread implements Runnable {
         //  Give the GUI back to the user.
         mainFrame.setCursor(Cursor.getDefaultCursor());
         mainFrame.enableGUI();
-        JOptionPane.showMessageDialog(mainFrame, "The Current File Saved successfully.", "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(mainFrame, bundle.getString("The_Current_File_Saved_successfully."), bundle.getString("Save_Successful"), JOptionPane.INFORMATION_MESSAGE);
     }
 }

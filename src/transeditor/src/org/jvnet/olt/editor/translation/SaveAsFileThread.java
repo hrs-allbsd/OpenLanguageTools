@@ -13,6 +13,7 @@ package org.jvnet.olt.editor.translation;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import java.util.logging.Logger;
 
@@ -32,6 +33,8 @@ public class SaveAsFileThread implements Runnable {
     private static final Logger logger = Logger.getLogger(SaveAsFileThread.class.getName());
     private MainFrame frame;
     private Backend backend;
+    private ResourceBundle bundle = ResourceBundle.getBundle(SaveAsFileThread.class.getName());
+
 
     /** Creates a new instance of SaveAsFileThread */
     public SaveAsFileThread(MainFrame mainFrame, Backend backend) {
@@ -42,7 +45,7 @@ public class SaveAsFileThread implements Runnable {
     public void run() {
         //  Raise a semaphore
         if (!frame.testAndToggleSemaphore(false)) {
-            JOptionPane.showMessageDialog(frame, "<html>There is currently a Save operation taking place.<br> Please wait until the current save has finished before trying to save again.", "Save In Progress", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, bundle.getString("<html>There_is_currently_a_Save_operation_taking_place.<br>_Please_wait_until_the_current_save_has_finished_before_trying_to_save_again."), bundle.getString("Save_In_Progress"), JOptionPane.ERROR_MESSAGE);
 
             //  display error message
             return;
@@ -54,7 +57,7 @@ public class SaveAsFileThread implements Runnable {
         AlignmentMain.testMain2.stopEditing();
 
         Object[] message = new Object[2];
-        message[0] = "Please select a .xlz or .xlf file to open:";
+        message[0] = bundle.getString("Please_select_a_.xlz_or_.xlf_file_to_open:");
 
         JFileChooser f = new JFileChooser();
         f.setMultiSelectionEnabled(false);
@@ -83,10 +86,10 @@ public class SaveAsFileThread implements Runnable {
         f.setSelectedFile(curFile);
         
         message[1] = f;
-        String[] options = { "OK", "Cancel" };
+        String[] options = { bundle.getString("OK"), bundle.getString("Cancel") };
 
         File fSaveAsFile = null;
-        int result = f.showDialog(frame, "Save As");
+        int result = f.showDialog(frame, bundle.getString("Save_As"));
 
         switch (result) {
         case JFileChooser.APPROVE_OPTION: // ok
@@ -121,7 +124,7 @@ public class SaveAsFileThread implements Runnable {
             File xFile = new File(fSaveAsFile.getAbsolutePath());
 
             if (!frame.copyFile(curFile, fSaveAsFile)) {
-                JOptionPane.showMessageDialog(frame, "Failed to Save the target File", "Failed to Save", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(frame, bundle.getString("Failed_to_Save_the_target_File"), bundle.getString("Failed_to_Save"), JOptionPane.OK_OPTION);
 
                 break;
             }
@@ -131,7 +134,7 @@ public class SaveAsFileThread implements Runnable {
                 frame.setTitle(Constants.TOOL_NAME + " - " + frame.backend.getProject().getProjectName() + "-" + fSaveAsFile.getAbsolutePath());
             }
             catch (NestableException ne){
-                JOptionPane.showMessageDialog(frame, "Failed to Save As the Current File", "Failed to Save", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(frame, bundle.getString("Failed_to_Save_As_the_Current_File"), bundle.getString("Failed_to_Save"), JOptionPane.OK_OPTION);
             }
             break;
         case JFileChooser.CANCEL_OPTION: // cancel
@@ -173,6 +176,6 @@ public class SaveAsFileThread implements Runnable {
 
         //  Give the interface back to the user
         frame.enableGUI();
-        JOptionPane.showMessageDialog(frame, "The Current File Saved successfully as '" + curFile + "'.", "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame, bundle.getString("The_Current_File_Saved_successfully_as_'") + curFile + "'.", bundle.getString("Save_Successful"), JOptionPane.INFORMATION_MESSAGE);
     }
 }

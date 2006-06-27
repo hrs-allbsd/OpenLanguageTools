@@ -22,6 +22,7 @@ import org.jvnet.olt.editor.model.*;
 
 
 public class SelectSegmentAlignment extends JPanel {
+    private ResourceBundle bundle = ResourceBundle.getBundle(SelectSegmentAlignment.class.getName());    
     public static int iSentenceCount;
     public static MiniTMPivotTextPane[] editPanes = new MiniTMPivotTextPane[PivotTextRender1.ROW_COUNT * 2];
 
@@ -122,7 +123,7 @@ public class SelectSegmentAlignment extends JPanel {
      * table model
      */
     class SelectMiniTMTableModel implements TableModel {
-        String[] header = { "translator", "source", "translation" };
+        String[] header = { bundle.getString("translator"), bundle.getString("source"), bundle.getString("translation") };
 
         public int getRowCount() {
             if (data == null) {

@@ -11,6 +11,7 @@
 package org.jvnet.olt.editor.translation;
 
 import java.io.File;
+import java.util.ResourceBundle;
 
 import javax.swing.filechooser.FileFilter;
 
@@ -22,6 +23,7 @@ import javax.swing.filechooser.FileFilter;
  * @deprecated See OpenFileFilters
  */
 public class XLIFFOpenFilter extends FileFilter {
+    private ResourceBundle bundle = ResourceBundle.getBundle(XLIFFOpenFilter.class.getName());    
     String tmExtension = "xlf";
 
     public boolean accept(File f) {
@@ -56,6 +58,6 @@ public class XLIFFOpenFilter extends FileFilter {
     }
 
     public String getDescription() {
-        return "XLIFF Files(.xlf)";
+        return bundle.getString("XLIFF_Files(.xlf)");
     }
 }

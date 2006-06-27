@@ -7,6 +7,7 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ResourceBundle;
 
 import java.util.Vector;
 
@@ -17,6 +18,8 @@ import org.jvnet.olt.editor.model.TMData;
 
 
 public class SpellCheckerDIALOG extends JDialog implements ListSelectionListener {
+    private ResourceBundle bundle = ResourceBundle.getBundle(SpellCheckerDIALOG.class.getName());
+    
     public static JTextField errorTextField = new JTextField();
     public static int retValue = -1;
     public static int diff = 0;
@@ -41,7 +44,7 @@ public class SpellCheckerDIALOG extends JDialog implements ListSelectionListener
     Backend backend;
 
     public SpellCheckerDIALOG(MainFrame frame, Backend backend) { //,PivotTextPane textPane,int index) {
-        super(frame, "Spelling Checker", true);
+        super(frame, ResourceBundle.getBundle(SpellCheckerDIALOG.class.getName()).getString("Spelling_Checker"), true);
 
         this.backend = backend;
 
@@ -74,7 +77,7 @@ public class SpellCheckerDIALOG extends JDialog implements ListSelectionListener
     }
 
     public void setLan(String lan) {
-        setTitle("Spelling Checker - " + lan);
+        setTitle(bundle.getString("Spelling_Checker_-_") + lan);
     }
 
     /**
@@ -91,21 +94,21 @@ public class SpellCheckerDIALOG extends JDialog implements ListSelectionListener
     private void jbInit() throws Exception {
         this.getContentPane().setLayout(borderLayout1);
         cancelButton.setMnemonic('E');
-        cancelButton.setText("Cancel");
+        cancelButton.setText(bundle.getString("Cancel"));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     cancelButton_actionPerformed(e);
                 }
             });
         changeButton.setMnemonic('C');
-        changeButton.setText("Change");
+        changeButton.setText(bundle.getString("Change"));
         changeButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     changeButton_actionPerformed(e);
                 }
             });
         ignoreButton.setMnemonic('I');
-        ignoreButton.setText("Ignore");
+        ignoreButton.setText(bundle.getString("Ignore"));
         ignoreButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     ignoreButton_actionPerformed(e);
@@ -113,13 +116,13 @@ public class SpellCheckerDIALOG extends JDialog implements ListSelectionListener
             });
         centerPanel.setLayout(null);
         errorLabel.setForeground(Color.black);
-        errorLabel.setText("Not in dictionary:");
+        errorLabel.setText(bundle.getString("Not_in_dictionary:"));
         errorLabel.setBounds(new Rectangle(4, 5, 167, 27));
         errorTextField.setToolTipText("");
-        errorTextField.setText("Helo");
+        errorTextField.setText(bundle.getString("Helo"));
         errorTextField.setBounds(new Rectangle(4, 34, 318, 31));
         addButton.setMnemonic('A');
-        addButton.setText("Add");
+        addButton.setText(bundle.getString("Add"));
         addButton.setBounds(new Rectangle(329, 34, 66, 31));
         addButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -127,12 +130,12 @@ public class SpellCheckerDIALOG extends JDialog implements ListSelectionListener
                 }
             });
         suggestionLabel.setForeground(Color.black);
-        suggestionLabel.setText("Suggestions:");
+        suggestionLabel.setText(bundle.getString("Suggestions:"));
         suggestionLabel.setBounds(new Rectangle(4, 70, 160, 24));
         suggestionList.addListSelectionListener(this);
         scr.setBounds(new Rectangle(4, 95, 390, 140));
         ignoreAllButton.setMnemonic('n');
-        ignoreAllButton.setText("Ignore All");
+        ignoreAllButton.setText(bundle.getString("Ignore_All"));
         ignoreAllButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     ignoreAllButton_actionPerformed(e);

@@ -12,6 +12,7 @@
  */
 
 package org.jvnet.olt.editor.translation;
+import java.util.ResourceBundle;
 import org.jvnet.olt.xliff.TrackingSourceContext;
 
 import java.util.Map;
@@ -29,6 +30,7 @@ import javax.swing.text.html.HTMLDocument;
  * @author  timf
  */
 public class SourceContextFrame extends javax.swing.JFrame {
+    private ResourceBundle bundle = ResourceBundle.getBundle(SourceContextFrame.class.getName());
     
     /** Creates new form SourceContextFrame */
     public SourceContextFrame() {
@@ -50,8 +52,8 @@ public class SourceContextFrame extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBorder(new javax.swing.border.TitledBorder(new javax.swing.border.EtchedBorder(), "Source Text Context Information"));
-        jPanel1.setToolTipText("Context information describing the source language string currently selected.");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), bundle.getString("Source_Text_Context_Information")));
+        jPanel1.setToolTipText(bundle.getString("Context_information_describing_the_source_language_string_currently_selected."));
         jPanel1.setAutoscrolls(true);
         jPanel1.setName("");
         jPanel1.setPreferredSize(new java.awt.Dimension(250, 180));
@@ -64,8 +66,7 @@ public class SourceContextFrame extends javax.swing.JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
-    }
-    // </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
     
     /**
      * @param args the command line arguments
