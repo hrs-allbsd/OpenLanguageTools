@@ -77,6 +77,7 @@ public class FileTypeDetector {
             fileType = new BasicFileType(SGML,"Standard Generalized Markup Language (SGML)");
             fileType.addExtension("sgm");
             fileType.addExtension("sgml");
+            fileType.addExtension("ent");
             fileType.addExtension("\\d{1}[a-zA-Z]*");
             fileType.setRegExpContent("<!ENTITY.*?>");
             
