@@ -7,9 +7,6 @@
 
  	<property name="module.filters.name" value="filters"/>
 
-	<property name="build.version" value="1.2alpha"/>
-    <property name="build.version.flat" value="1_2alpha"/>
-
     <property name="module.filters.editor.name" value="filters"/>
 
 	<target name="dist.editor" if="do.build.editor">
@@ -119,20 +116,16 @@
        <ant dir="staroffice_filter">
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
 		</ant>
-        <ant dir="csv_filter">
-            <property name="build.dir" value="${build.dir}/${module.filters.name}"/>
-        </ant>
-        <ant dir="soxliff">
-            <property name="build.dir" value="${build.dir}/${module.filters.name}"/>
-        </ant>
-
-        <ant dir="gui" target="compile">
+	<ant dir="csv_filter">
+			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
+	</ant>
+	<ant dir="gui" target="compile">
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
 		</ant>
 	   
         <jar destfile="${dest.dir}/filters.jar" basedir="${build.dir}/${module.filters.name}" includes="**/*.class **/*.properties"/>
 
-        <ant dir="gui" target="dist">
+	<ant dir="gui" target="dist">
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
         </ant>
 

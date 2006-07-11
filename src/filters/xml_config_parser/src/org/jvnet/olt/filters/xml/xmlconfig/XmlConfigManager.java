@@ -203,6 +203,7 @@ public class XmlConfigManager {
                 } else {
                     logger.log(Level.INFO,"XmlConfig " + SYSTEM_ID_PREFIX + systemID + " not found");
                 }
+                return configList;
             } catch(NullPointerException ex) {
                 logger.log(Level.INFO,"XmlConfig " + SYSTEM_ID_PREFIX + systemID + " not found");
             }
@@ -216,6 +217,7 @@ public class XmlConfigManager {
                 } else {
                     logger.log(Level.INFO,"XmlConfig " + PUBLIC_ID_PREFIX + publicID + " not found");
                 }
+                return configList;
             } catch(NullPointerException ex) {
                 logger.log(Level.INFO,"XmlConfig " + PUBLIC_ID_PREFIX + publicID + " not found");
             }
@@ -229,6 +231,7 @@ public class XmlConfigManager {
                 } else {
                     logger.log(Level.INFO,"XmlConfig " + SCHEMA_LOCATION_PREFIX + schemaLocation + " not found");
                 }
+                return configList;
             } catch(NullPointerException ex) {
                 logger.log(Level.INFO,"XmlConfig " + SCHEMA_LOCATION_PREFIX + schemaLocation + " not found");
             }
@@ -242,6 +245,7 @@ public class XmlConfigManager {
                 } else {
                     logger.log(Level.INFO,"XmlConfig " + NO_NAMESPACE_SCHEMA_LOCATION_PREFIX + noNamespaceSchemaLocation + " not found");
                 }
+                return configList;
             } catch(NullPointerException ex) {
                 logger.log(Level.INFO,"XmlConfig " + NO_NAMESPACE_SCHEMA_LOCATION_PREFIX + noNamespaceSchemaLocation + " not found");
             }

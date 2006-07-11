@@ -91,13 +91,6 @@ public class NonConformantSgmlDocFragmentParser
 PARSER_END(NonConformantSgmlDocFragmentParser)
 
 
-TOKEN_MGR_DECLS : {
-
-    int commentsDepth;
-
-}
-
-
 //  Tokens
 
 /* JSP tags */
@@ -138,19 +131,15 @@ TOKEN :
   <SUBSET_COMMENT: "-->" > : IN_INTERNAL_SUBSET
 }
 
-<DEFAULT,IN_COMMENT>
 MORE :
 {
-  "<!--" { commentsDepth=commentsDepth+1; } : IN_COMMENT
+  "<!--" : IN_COMMENT
 }
 
 <IN_COMMENT>
 TOKEN :
 {
-  <COMMENT: "--" ( " " | "\t" | "\n" | "\f" | "\b" | "\r")* ">" > {
-	commentsDepth=commentsDepth-1;
-	SwitchTo( commentsDepth<1 ? DEFAULT : IN_COMMENT );
-  }
+  <COMMENT: "--" ( " " | "\t" | "\n" | "\f" | "\b" | "\r")* ">" > : DEFAULT
 }
 
 /*  Processing Instructions */

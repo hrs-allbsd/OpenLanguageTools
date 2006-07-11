@@ -32,7 +32,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import java.util.Properties;
-import org.jvnet.olt.soxliff_backconv.*;
 
 
 
@@ -100,10 +99,7 @@ public class BackConverter {
         try {
             //  Read the XLZ file. Get the data type by parsing the XLIFF content.
             XliffZipFileIO xlzFile = new XliffZipFileIO(file);
-
-            if("STAROFFICE".equalsIgnoreCase(getOriginalDatatype(xlzFile))) { return SO_XLIFF; }
-            
-            if(!"XML".equalsIgnoreCase(getOriginalDatatype(xlzFile))) { return DEFAULT; }
+            if( !wasOriginalDataTypeXml(xlzFile) ) { return DEFAULT; }
             logger.finest("Original data type was XML.");
             
             //  If the original data type was XML, look for a workflow properties
@@ -135,19 +131,10 @@ public class BackConverter {
         }
     }
     
-    /** 
-     * This method parses the Xliff content file return original data type
-     *
-     * @param xlzFile file to analyze
-     *
-     * @return String that represent original datatype
-     *
-     * @throws ZipException
-     * @throws IOException
-     * @throws SAXException
-     * @throws ParserConfigurationException
+    /** This method parses the Xliff content file and determines if the original
+     * file type was XML or not. Note: this may intoduce a small performance hit.
      */
-    protected String getOriginalDatatype(XliffZipFileIO xlzFile) throws ZipException, IOException, SAXException, ParserConfigurationException {
+    protected boolean wasOriginalDataTypeXml(XliffZipFileIO xlzFile) throws ZipException, IOException, SAXException, ParserConfigurationException {
         //  Parse the file using on of the Xliff parsers 
         BackConverterProperties props = new BackConverterProperties();
         XliffEntityResolver entityResolver = new XliffEntityResolver(logger, xliffDtd.getReader());
@@ -160,7 +147,7 @@ public class BackConverter {
         
         String originalType = handler.getOriginalType();
         
-        return originalType;
+        return originalType.equalsIgnoreCase("XML");
     }
     
     /** This is a convenience method for back conversion without writing translation 
@@ -180,7 +167,8 @@ public class BackConverter {
         
         switch(fileType) { 
             case SO_XLIFF:
-                return doStarOfficeBackConversion(xlzFile, dir, getSource, writeTransStatus);
+                // return doStarOfficeBackConversion(xlzFile, dir, getSource, writeTransStatus);
+                logger.warning(" Not doing StarOffice Back Conversion !!");
             case FRAMEMAKER:  //  drop through: later Framemaker processing can be added here.
             case DEFAULT:     //  drop through
             default:
@@ -190,12 +178,11 @@ public class BackConverter {
     
     protected boolean doStarOfficeBackConversion(File xlzFile, String dir, boolean getSource, boolean writeTransStatus) throws BackConverterException {
         logger.fine("Doing StarOffice Xliff back conversion.");
-      
-        try {
-            BackconverterSOXliff.backconvert(xlzFile,dir);
-        } catch(SOXliffBackException e) {
-            throw new BackConverterException(e.getMessage());
-        }
+        
+        //  Create a StarOfficeBackConverter
+        // StarOfficeBackConverter sobc = new StarOfficeBackConverter(xliffDtd, sklDtd, logger);
+
+        // sobc.backConvert(xlzFile, dir, getSource);
                 
         return true;
     }

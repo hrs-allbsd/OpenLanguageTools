@@ -38,7 +38,6 @@ import org.jvnet.olt.filters.xml.*;
 import org.jvnet.olt.format.GlobalVariableManager;
 import org.jvnet.olt.filters.xml.xmlconfig.XmlConfigManager;
 import org.jvnet.olt.filters.xml.xmlconfig.XmlIdentifier;
-import org.jvnet.olt.filters.soxliff.*;
 
 
 /**
@@ -74,7 +73,6 @@ public class XliffFilterFacade {
     public static final int FRAME = 12;
     public static final int DTD = 13;
     public static final int OPENOFFICE = 14;
-    public static final int STAROFFICE_XLIFF = 15;
     
     
     private static Map typeMap;
@@ -121,8 +119,6 @@ public class XliffFilterFacade {
         typeMap.put("ods", new Integer(OPENOFFICE));
         typeMap.put("odg", new Integer(OPENOFFICE));
         typeMap.put("odp",new Integer(OPENOFFICE));
-        
-        typeMap.put("xliff", new Integer(STAROFFICE_XLIFF));
         
         //logger.log(Level.FINE,"Initialising xml config manager");
         // need a better way of doing this.
@@ -220,9 +216,6 @@ public class XliffFilterFacade {
                 break;
             case OPENOFFICE:
                 processOpenOffice(file, attributes, logger, language, encoding);
-                break;
-            case STAROFFICE_XLIFF:
-                processStarOfficeXliff(file,attributes,logger,language);
                 break;
             case XML:
             default:
@@ -621,16 +614,6 @@ public class XliffFilterFacade {
         }
     }
     
-    /**
-     * Try to convert StarOffice Xliff filter to OLT Xliff
-     */
-    private void processStarOfficeXliff(File file,Map attributes, Logger logger, String language) throws XliffFilterFacadeException {
-        try {
-            SOXliffToXliff.convert(file,language);
-        } catch (SOXliffException e) {
-            throw new XliffFilterFacadeException(e.getMessage());
-        }
-    }
     
     /**
      * This is a the way we determine encoding - we pass in the user-supplied encoding.

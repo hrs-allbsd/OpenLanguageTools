@@ -14,10 +14,6 @@
 package org.jvnet.olt.filters.segmenters.formatters;
 
 
-import org.jvnet.olt.filters.segmenters.formatters.XliffContextValue;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import org.jvnet.olt.format.*;
 import org.jvnet.olt.format.GlobalVariableManager;
 
@@ -34,10 +30,6 @@ import java.io.File;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.StringTokenizer;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 
 /**
  *
@@ -54,7 +46,6 @@ public class XliffSegmenterFormatter implements SegmenterFormatter {
     private String dataType;
     private String msgid;
     private String context;
-    private List    contextList;
     private String sourceFilename;
     
     // the translation that should be written out for this segment
@@ -282,15 +273,12 @@ public class XliffSegmenterFormatter implements SegmenterFormatter {
                 "      </context-group>\n");
                 this.msgid="";
             }
-            if(contextList!=null && contextList.size()>0) {
-                xliffWriter.write("     <context-group name=\"context info\">\n");
-                Iterator it = contextList.iterator();
-                while(it.hasNext()) {
-                    XliffContextValue context = (XliffContextValue)it.next();
-                    xliffWriter.write("          <context context-type=\"" + context.getContextType() + "\">" + context.getContextValue() + "</context>\n");
-                }
-                xliffWriter.write("      </context-group>\n");
-                contextList = null;
+            if (context.length() != 0){
+                xliffWriter.write("     <context-group name=\"context info\">\n"+
+                // for xliff 1.1 we need to have type="record" in here - for now, we use context-type
+                "          <context context-type=\"record\">"+context+"</context>\n"+
+                "      </context-group>\n");
+                this.context="";
             }
             xliffWriter.write("    </trans-unit>\n");
         } catch (java.io.IOException e){
@@ -432,28 +420,9 @@ public class XliffSegmenterFormatter implements SegmenterFormatter {
     
     public void writeContext(String context) throws SegmenterFormatterException {
         try {
-            if(contextList == null) {
-                contextList = Collections.synchronizedList(new ArrayList());
-            }
-            contextList.add(new XliffContextValue("record",wrapXMLChars(context)));
+            this.context=this.context+"\n"+wrapXMLChars(context);
         } catch (java.io.IOException e){
             throw new SegmenterFormatterException("Problem wrapping "+ context+ " "+e.getMessage());
         }
     }
-    
-    public void writeContext(List contextToAdd) throws SegmenterFormatterException {
-        if(contextList == null) {
-            contextList = Collections.synchronizedList(new ArrayList());
-        }
-        Iterator it = contextToAdd.iterator();
-        while(it.hasNext()) {
-            XliffContextValue context = (XliffContextValue)it.next();
-            try {
-                contextList.add(new XliffContextValue(context.getContextType(),wrapXMLChars(context.getContextValue())));
-            } catch(java.io.IOException e) {
-                throw new SegmenterFormatterException("Problem wrapping "+ context+ " "+e.getMessage());
-            }
-        }
-    }
-    
 }

@@ -162,7 +162,7 @@ public class XliffBackConverter {
             String lang = segFile.getTargetLanguage();
             //System.out.println("Datatype is " + datatype);
             
-            SunTrans2SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory();
+             SunTrans2SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory();
 
              //check for OpenOffice content
             {
@@ -209,7 +209,7 @@ public class XliffBackConverter {
                 //recoder.convert(convertee, lang, charSet, file.getAbsolutePath());
                 recoder.convert(convertee);
             }            
-           
+            
         } catch (java.util.zip.ZipException ex) {
             logger.log(java.util.logging.Level.SEVERE, "ZipException - unable to read xlz " +
                 "file", ex);

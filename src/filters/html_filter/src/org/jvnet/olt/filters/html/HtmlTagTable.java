@@ -76,7 +76,6 @@ public class HtmlTagTable implements org.jvnet.olt.parsers.tagged.TagTable {
         pcdataSet.add("img");
         pcdataSet.add("area");
         pcdataSet.add("link");
-        pcdataSet.add("param");
         
         // not sure abuot this tag
         //pcdataSet.add("input");
@@ -92,7 +91,6 @@ public class HtmlTagTable implements org.jvnet.olt.parsers.tagged.TagTable {
         emptySet.add("area");
         emptySet.add("link");
         emptySet.add("suntransxmlfilter");
-        emptySet.add("param");
     }
     
     public boolean tagMayContainPcdata(String tagName) {

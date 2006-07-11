@@ -28,7 +28,7 @@ public class HtmlSegmenterTable implements org.jvnet.olt.parsers.tagged.Segmente
     private HashMap hasTranslatableAttrMap;
     private HashMap segmentLevelMap;
     private HashMap entityMap;
-    private ArrayList attrList;
+    private ArrayList imgAttrList;
     
     
     /** Creates a new instance of HtmlSegmenterTable */
@@ -46,13 +46,9 @@ public class HtmlSegmenterTable implements org.jvnet.olt.parsers.tagged.Segmente
         dontSegmentSet.add("caption");
         
         
-        attrList = new ArrayList();
-        attrList.add("alt");
-        hasTranslatableAttrMap.put("img",attrList);
-        
-        attrList = new ArrayList();
-        attrList.add("value");
-        hasTranslatableAttrMap.put("input",attrList);
+        imgAttrList = new ArrayList();
+        imgAttrList.add("alt");
+        hasTranslatableAttrMap.put("img",imgAttrList);
         
         segmentLevelMap.put("html", new Integer(Segment.HARDSECTION));
         segmentLevelMap.put("head", new Integer(Segment.HARDSECTION));
