@@ -32,6 +32,6 @@ package org.jvnet.olt.xliff_back_converter;
  */
 public interface SpecificBackConverterFactory {
     
-    SpecificBackConverter getSpecificBackConverter(String datatype);
+    SpecificBackconverterBase getSpecificBackConverter(String datatype);
     
 }
