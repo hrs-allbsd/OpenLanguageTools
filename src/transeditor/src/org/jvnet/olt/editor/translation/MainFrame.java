@@ -2830,10 +2830,14 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     void jMenuSave_actionPerformed(ActionEvent e) {
         logger.info("Saving file.");
 
+        // Jul 11 '06 - changed calls to SaveThreads to be synchronous
         try {
-            Runnable saveCurrentFileRunnable = new SaveCurrentFileThread(this, backend);
-            Thread saveCurrentFileThread = new Thread(saveCurrentFileRunnable);
-            saveCurrentFileThread.start();
+            //Runnable saveCurrentFileRunnable = new SaveCurrentFileThread(this, backend);
+            //Thread saveCurrentFileThread = new Thread(saveCurrentFileRunnable);
+            //saveCurrentFileThread.start();
+
+            SaveCurrentFileThread saveCurrentFileRunnable = new SaveCurrentFileThread(this, backend);
+            saveCurrentFileRunnable.save();
             
         } catch (Exception ex) {
             System.err.println("Thread synchronization problem, possible race condition.");
@@ -2876,10 +2880,13 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     void jMenuSaveAs_actionPerformed(ActionEvent e) {
         logger.info("Saving file as...");
 
+        // Jul 11 '06 - changed calls to SaveThreads to be synchronous
         try {
-            Runnable saveAsRunnable = new SaveAsFileThread(this, backend);
-            Thread saveAsThread = new Thread(saveAsRunnable);
-            saveAsThread.start();
+            //Runnable saveAsRunnable = new SaveAsFileThread(this, backend);
+            //Thread saveAsThread = new Thread(saveAsRunnable);
+            //saveAsThread.start();
+            SaveAsFileThread sat = new SaveAsFileThread(this, backend);
+            sat.save();
         } catch (Exception ex) {
             System.err.println("Thread synchronization problem, possible race condition.");
             ex.printStackTrace();
