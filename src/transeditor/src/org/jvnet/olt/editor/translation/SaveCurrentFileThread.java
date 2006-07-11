@@ -10,7 +10,6 @@
  */
 package org.jvnet.olt.editor.translation;
 
-import com.sun.corba.se.spi.orb.Operation;
 import com.sun.java.swing.SwingUtilities2;
 import java.awt.Cursor;
 
