@@ -5,14 +5,13 @@
  */
 package org.jvnet.olt.editor.util;
 
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.Vector;
 
 
 public class Languages {
-    private static ResourceBundle bundle = ResourceBundle.getBundle(Languages.class.getName());
+    private static Bundle bundle = Bundle.getBundle(Languages.class.getName());
     public final static String imagePath = ImagePath.PATH + "flags/";
     static final Object[][] language_code_name = {
         { "US", bundle.getString("English_(United_States)"), "ISO-8859-1" },
@@ -190,9 +189,13 @@ public class Languages {
         String strPath = "";
 
         try {
-            strPath = getLanguageName(code).replace(' ', '_');
-            strPath = strPath.replace('(', '1');
-            strPath = strPath.replace(')', '2');
+            String longCode = LanguageMappingTable.getInstance().reverseTranslateLangCode(code);
+            
+            if(longCode == null)
+                strPath ="Unknown";
+            else
+                strPath = longCode.toLowerCase();
+            
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("LanguageError");

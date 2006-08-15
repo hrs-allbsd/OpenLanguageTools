@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.awt.event.*;
 
 import java.util.List;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -44,6 +45,8 @@ public class NewMiniTMPanel extends JDialog {
     //List of ProjectInfos -- all known projects
     private List allProjects;
 
+    static private Bundle bundle = Bundle.getBundle(NewMiniTMPanel.class.getName());
+    
     // bug 4737485
     class ListenForEnter implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -52,7 +55,7 @@ public class NewMiniTMPanel extends JDialog {
     }
 
     public NewMiniTMPanel(JFrame parent, List allProjects) {
-        super(parent, "New Project", true);
+        super(parent, bundle.getString("New_Project"), true);
         this.allProjects = allProjects;
 
         languages = Languages.getLanguagesBySort();
@@ -69,18 +72,18 @@ public class NewMiniTMPanel extends JDialog {
     private void jbInit() throws Exception {
         informationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         informationLabel.setHorizontalTextPosition(SwingConstants.LEFT);
-        informationLabel.setText("Please enter the following information for this project:");
+        informationLabel.setText(bundle.getString("Please_enter_the_following_information_for_this_project:"));
         informationLabel.setBounds(new Rectangle(5, 21, 401, 24));
         this.getContentPane().setLayout(null);
         projectNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        projectNameLabel.setText("Project Name:");
+        projectNameLabel.setText(bundle.getString("Project_Name:"));
         projectNameLabel.setBounds(new Rectangle(0, 58, 116, 35));
 
         sourceIconLabel.setBounds(new Rectangle(16, 129, 49, 44));
         targetIconLabel.setBounds(new Rectangle(16, 218, 49, 44));
-        sourceLabel.setText("Source Language:");
+        sourceLabel.setText(bundle.getString("Source_Language:"));
         sourceLabel.setBounds(new Rectangle(16, 105, 182, 23));
-        targetLabel.setText("Target Language:");
+        targetLabel.setText(bundle.getString("Target_Language:"));
         targetLabel.setBounds(new Rectangle(16, 185, 144, 31));
         sourceComboBox = new JComboBox(languages);
 
@@ -100,14 +103,14 @@ public class NewMiniTMPanel extends JDialog {
                     sourceComboBox_actionPerformed(e);
                 }
             });
-        okButton.setText("Ok");
+        okButton.setText(bundle.getString("Ok"));
         okButton.setBounds(new Rectangle(36, 312, 105, 36));
         okButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     okButton_actionPerformed(e);
                 }
             });
-        cancelButton.setText("Cancel");
+        cancelButton.setText(bundle.getString("Cancel"));
         cancelButton.setBounds(new Rectangle(275, 312, 105, 36));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -169,21 +172,21 @@ public class NewMiniTMPanel extends JDialog {
 
         if (projectName.equals("")) {
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Please enter a project name.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("Please_enter_a_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         }
 
         if (projectName.indexOf("_") != -1) {
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Please enter a name that does not contain the \"_\" character", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("Please_enter_a_name_that_does_not_contain_the_underscore_character"), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         }
 
         if (sourceLan.equals(targetLan)) {
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Source language may not be the same as target language!", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("Source_language_may_not_be_the_same_as_target_language!"), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         }
@@ -191,7 +194,7 @@ public class NewMiniTMPanel extends JDialog {
         if (!checkProjectExists(projectName, Languages.getLanguageCode(sourceLan), Languages.getLanguageCode(targetLan))) {
             Toolkit.getDefaultToolkit().beep();
 
-            JOptionPane.showMessageDialog(this, "The name you selected for the new project already exists.\r\n Please select a different project name.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("The_name_you_selected_for_the_new_project_already_exists.\r\n_Please_select_a_different_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             //TODO how about offering to open the project ???
             return;

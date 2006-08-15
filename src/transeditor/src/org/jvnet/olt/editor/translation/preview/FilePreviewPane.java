@@ -15,7 +15,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -36,7 +36,7 @@ import org.xml.sax.InputSource;
  * Time: 1:20:08 PM
  */
 public class FilePreviewPane extends JPanel implements PropertyChangeListener {
-    private ResourceBundle bundle = ResourceBundle.getBundle(FilePreviewPane.class.getName());    
+    private Bundle bundle = Bundle.getBundle(FilePreviewPane.class.getName());
     private String sourceLang;
     private String targetLang;
     private JLabel srcLangImgLabel;

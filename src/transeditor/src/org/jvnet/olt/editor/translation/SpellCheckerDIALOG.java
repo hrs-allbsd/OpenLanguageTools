@@ -7,9 +7,7 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ResourceBundle;
-
-import java.util.Vector;
+import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -18,7 +16,7 @@ import org.jvnet.olt.editor.model.TMData;
 
 
 public class SpellCheckerDIALOG extends JDialog implements ListSelectionListener {
-    private ResourceBundle bundle = ResourceBundle.getBundle(SpellCheckerDIALOG.class.getName());
+    private Bundle bundle = Bundle.getBundle(SpellCheckerDIALOG.class.getName());
     
     public static JTextField errorTextField = new JTextField();
     public static int retValue = -1;
@@ -44,7 +42,7 @@ public class SpellCheckerDIALOG extends JDialog implements ListSelectionListener
     Backend backend;
 
     public SpellCheckerDIALOG(MainFrame frame, Backend backend) { //,PivotTextPane textPane,int index) {
-        super(frame, ResourceBundle.getBundle(SpellCheckerDIALOG.class.getName()).getString("Spelling_Checker"), true);
+        super(frame, Bundle.getBundle(SpellCheckerDIALOG.class.getName()).getString("Spelling_Checker"), true);
 
         this.backend = backend;
 

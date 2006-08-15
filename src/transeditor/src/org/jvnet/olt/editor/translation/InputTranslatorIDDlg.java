@@ -7,6 +7,7 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
+import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.logging.Logger;
 
@@ -26,6 +27,8 @@ public class InputTranslatorIDDlg extends JDialog {
     JTextField idTextField = new JTextField();
     private String translatorId;
 
+    private Bundle bundle = Bundle.getBundle(InputTranslatorIDDlg.class.getName());
+    
     public InputTranslatorIDDlg(JFrame parent, String translatorId) {
         super(parent, true);
 
@@ -53,7 +56,7 @@ public class InputTranslatorIDDlg extends JDialog {
     }
 
     private void jbInit() throws Exception {
-        this.setTitle("Translator ID");
+        this.setTitle(bundle.getString("Translator_ID"));
         this.getContentPane().setLayout(borderLayout1);
         actionPanel.setLayout(flowLayout1);
         okButton.setEnabled(false);
@@ -61,7 +64,7 @@ public class InputTranslatorIDDlg extends JDialog {
         okButton.setMinimumSize(new Dimension(75, 27));
         okButton.setPreferredSize(new Dimension(75, 27));
         okButton.setMnemonic('O');
-        okButton.setText("OK");
+        okButton.setText(bundle.getString("OK"));
         okButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     okButton_actionPerformed(e);
@@ -70,10 +73,10 @@ public class InputTranslatorIDDlg extends JDialog {
         flowLayout1.setHgap(50);
         centralPanel.setLayout(null);
         infoLabel.setForeground(Color.black);
-        infoLabel.setText("Please enter your translator ID:");
+        infoLabel.setText(bundle.getString("Please_enter_your_translator_ID:"));
         infoLabel.setBounds(new Rectangle(3, 1, 317, 33));
         idLabel.setBounds(new Rectangle(71, 43, 88, 26));
-        idLabel.setText("Translator ID:");
+        idLabel.setText(bundle.getString("Translator_ID:"));
         idLabel.setForeground(Color.black);
         idTextField.setBounds(new Rectangle(167, 43, 73, 27));
         idTextField.setColumns(5);
@@ -130,7 +133,7 @@ public class InputTranslatorIDDlg extends JDialog {
 
     void idTextField_keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            int iRet = JOptionPane.showConfirmDialog(this, "Do you want to exit the editor?", "Information", JOptionPane.YES_NO_OPTION);
+            int iRet = JOptionPane.showConfirmDialog(this, bundle.getString("Do_you_want_to_exit_the_editor?"), bundle.getString("Information"), JOptionPane.YES_NO_OPTION);
 
             switch (iRet) {
             case JOptionPane.YES_OPTION:

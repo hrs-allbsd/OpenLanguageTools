@@ -13,7 +13,7 @@ package org.jvnet.olt.editor.translation;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.logging.Logger;
 
@@ -33,7 +33,7 @@ public class SaveAsFileThread implements Runnable {
     private static final Logger logger = Logger.getLogger(SaveAsFileThread.class.getName());
     private MainFrame frame;
     private Backend backend;
-    private ResourceBundle bundle = ResourceBundle.getBundle(SaveAsFileThread.class.getName());
+    private Bundle bundle = Bundle.getBundle(SaveAsFileThread.class.getName());
 
 
     /** Creates a new instance of SaveAsFileThread */

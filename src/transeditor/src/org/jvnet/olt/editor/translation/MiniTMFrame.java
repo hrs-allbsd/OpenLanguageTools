@@ -8,13 +8,13 @@ package org.jvnet.olt.editor.translation;
 import java.awt.*;
 import java.awt.event.*;
 
-import java.util.*;
 import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.text.*;
 
 import org.jvnet.olt.editor.model.*;
+import org.jvnet.olt.editor.util.Bundle;
 
 
 public class MiniTMFrame extends JPanel {
@@ -28,6 +28,8 @@ public class MiniTMFrame extends JPanel {
     private JTextPane jAttributeText = new JTextPane();
     private BorderLayout borderLayoutAttributes = new BorderLayout();
     private Backend backend;
+
+    private Bundle bundle = Bundle.getBundle(MiniTMFrame.class.getName());
 
     public MiniTMFrame(Backend backend) {
         this.backend = backend;
@@ -45,7 +47,7 @@ public class MiniTMFrame extends JPanel {
 
         jMiniTM = new MiniTMTableFrame();
 
-        jBtnTransfer.setText("Transfer");
+        jBtnTransfer.setText(bundle.getString("Transfer"));
         jBtnTransfer.setBounds(new Rectangle(5, 5, 110, 30));
         jBtnTransfer.setEnabled(false);
         jBtnTransfer.setMaximumSize(new Dimension(110, 30));
@@ -144,7 +146,7 @@ public class MiniTMFrame extends JPanel {
         if (theMatch instanceof MultiSegmentMatch) {
             Toolkit.getDefaultToolkit().beep();
 
-            if (JOptionPane.NO_OPTION == JOptionPane.showConfirmDialog(MainFrame.getAnInstance(), "This match is a M:N match. Are you sure you want to transfer it?", "Transfer", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+            if (JOptionPane.NO_OPTION == JOptionPane.showConfirmDialog(MainFrame.getAnInstance(), bundle.getString("This_match_is_a_M:N_match._Are_you_sure_you_want_to_transfer_it?"), bundle.getString("Transfer"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
                 return;
             }
         }
@@ -175,9 +177,9 @@ public class MiniTMFrame extends JPanel {
             AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(iSrcTableSel + i, 0, true)); //icon
             AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(iSrcTableSel + i, AlignmentMain.testMain2.showType, true));
         }
-        
+
         theMatch.handleWhenSelected();
-        
+
         AlignmentMain.testMain2.startEditing();
     }
 
@@ -186,12 +188,12 @@ public class MiniTMFrame extends JPanel {
         AlignmentMain.testMain2.stopEditing();
         int iSrcTableSel = AlignmentMain.testMain2.tableView.getSelectedRow();
         if(iSrcTableSel == -1) return;
-        
+
         TMData tmpdata = backend.getTMData();
         if((tmpdata).tmsentences[iSrcTableSel].getTranslationStatus() == TMData.TMSentence.VERIFIED) {
             return;
         }
-        
+
         int iSelRow = jMiniTM.tableView.getSelectedRow() ;
         if(iSelRow == -1) return;
         /**
@@ -200,15 +202,15 @@ public class MiniTMFrame extends JPanel {
         Match theMatch = jMiniTM.matchesObject[iSelRow];
         int iMatchQuality = theMatch.getMatchQuality();
         int iTransType = iMatchQuality >=100 ? TMData.TMSentence.EXACT_TRANSLATION : TMData.TMSentence.FUZZY_TRANSLATION;
-        
+
         if(theMatch instanceof MultiSegmentMatch) {
             Toolkit.getDefaultToolkit().beep();
-            if(JOptionPane.NO_OPTION == JOptionPane.showConfirmDialog(MainFrame.getAnInstance(),"This match is a M:N match. Are you sure you want to transfer it?","Transfer",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE))
+            if(JOptionPane.NO_OPTION == JOptionPane.showConfirmDialog(MainFrame.getAnInstance(),bundle.getString("This_match_is_a_M:N_match._Are_you_sure_you_want_to_transfer_it?"),bundle.getString("Transfer"),JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE))
                 return;
         }
-        
+
         theMatch.handleAsAppliedMatch(iSrcTableSel, iTransType, Match.TRANSFER);
-        
+
         /**
          * Set button's status
          */
@@ -219,7 +221,7 @@ public class MiniTMFrame extends JPanel {
         //setButtonStatus(shownAsGroup);
         setButtonEnable(false);
         setButtonStatus(true);
-        
+
         /**
          * Update the flags
          */

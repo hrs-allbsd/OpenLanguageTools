@@ -7,13 +7,13 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.*;
 
 
 public class SegGoToFrame extends JDialog {
-    private ResourceBundle bundle = ResourceBundle.getBundle(SegGoToFrame.class.getName());
+    private Bundle bundle = Bundle.getBundle(SegGoToFrame.class.getName());
     
     JLabel jLabel1 = new JLabel();
     JTextField jTextField1 = new JTextField();

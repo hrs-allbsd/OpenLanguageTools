@@ -33,6 +33,8 @@ final public class Constants {
     public static final String CONTEXT_EMPTY = "[SunTrans::Empty]";
     public static final String XLIFF_1_1_URI = "urn:oasis:names:tc:xliff:document:1.1";
 
+    public static final String MAILING_LIST="dev@open-language-tools.dev.java.net";
+    
     /** Creates a new instance of Constants */
     private Constants() {
     }

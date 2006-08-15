@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -57,6 +58,7 @@ public class JBackConverter extends JDialog {
     //TODO change to somthing better
     private BackConversionOptions options ;
     
+    private Bundle bundle = Bundle.getBundle(JBackConverter.class.getName());
 //private String strCurrentPath = null;
     private File preselectedFile;
     private javax.swing.JCheckBox jcbTransState; // = new JCheckBox();;
@@ -76,12 +78,14 @@ public class JBackConverter extends JDialog {
     }
     protected void dialogInit() {
         super.dialogInit();
+        
+        bundle = Bundle.getBundle(JBackConverter.class.getName());
 
         options = new BackConversionOptions();
         
         GridBagConstraints gridBagConstraints;
 
-        setTitle("Back Converter Dialog");
+        setTitle(bundle.getString("Back_Converter_Dialog"));
 
         //jcbTransState = new javax.swing.JCheckBox();
         jComboBox1 = new JComboBox(CharacterEncoding.getCharacterEncodingList());
@@ -120,7 +124,7 @@ public class JBackConverter extends JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jComboBox1, gridBagConstraints);
 
-        jLabel1.setText("Source file/directory");
+        jLabel1.setText(bundle.getString("Source_file/directory"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -129,7 +133,7 @@ public class JBackConverter extends JDialog {
 
         getContentPane().add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("Encoding");
+        jLabel2.setText(bundle.getString("Encoding"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -139,7 +143,7 @@ public class JBackConverter extends JDialog {
 
         getContentPane().add(jLabel2, gridBagConstraints);
 
-        jLabel3.setText("Target Directory");
+        jLabel3.setText(bundle.getString("Target_Directory"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -149,7 +153,7 @@ public class JBackConverter extends JDialog {
 
         getContentPane().add(jLabel3, gridBagConstraints);
 
-        jbtnSrc.setText("Browse...");
+        jbtnSrc.setText(bundle.getString("Browse..."));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -162,7 +166,7 @@ public class JBackConverter extends JDialog {
                 }
             });
 
-        jbtnTar.setText("Browse...");
+        jbtnTar.setText(bundle.getString("Browse..."));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -208,7 +212,7 @@ public class JBackConverter extends JDialog {
         gridBagConstraints.weighty = 0.5;
         getContentPane().add(jcbTMX, gridBagConstraints);
         */
-        jbtnConvert.setText("OK");
+        jbtnConvert.setText(bundle.getString("OK"));
         jbtnConvert.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jbtnConvert_actionPerformed(evt);
@@ -217,7 +221,7 @@ public class JBackConverter extends JDialog {
 
         jPanel2.add(jbtnConvert);
 
-        jbtnExit.setText("Cancel");
+        jbtnExit.setText(bundle.getString("Cancel"));
         jPanel2.add(jbtnExit);
         jbtnExit.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -237,16 +241,16 @@ public class JBackConverter extends JDialog {
         sgmlOptions = new SGMLOptionsPanel(options);
         
         tabbedPane = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
-        tabbedPane.addTab("General", new GeneralOptionsPanel(options));
-        tabbedPane.addTab("SGML", sgmlOptions);
+        tabbedPane.addTab(bundle.getString("General"), new GeneralOptionsPanel(options));
+        tabbedPane.addTab(bundle.getString("SGML"), sgmlOptions);
         
         JPanel tabPanel = new JPanel();
         tabPanel.setLayout(new BorderLayout());
         tabPanel.add(tabbedPane,BorderLayout.CENTER);
         
-        tabPanel.setBorder(BorderFactory.createTitledBorder("Backconversion options"));
+        tabPanel.setBorder(BorderFactory.createTitledBorder(bundle.getString("Backconversion_options")));
         
-        JButton saveConfigButton = new JButton("Save config");
+        JButton saveConfigButton = new JButton(bundle.getString("Save_config"));
         saveConfigButton.setEnabled(false);
         JPanel saveCfgPanel = new JPanel(new BorderLayout());
         saveCfgPanel.add(saveConfigButton,BorderLayout.EAST);
@@ -276,7 +280,7 @@ public class JBackConverter extends JDialog {
         String javaCharsetName = CharacterEncoding.getJavaName(charsetString);
 
         if ("".equals(javaCharsetName)) {
-            JOptionPane.showMessageDialog(this, "Please select a valid encoding!", "Warning", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, bundle.getString("Please_select_a_valid_encoding!"), bundle.getString("Warning"), JOptionPane.OK_OPTION);
 
             //            jComboBox1.setSelectedIndex(0);
             return;
@@ -286,7 +290,7 @@ public class JBackConverter extends JDialog {
         String strOutput = jTagFileName.getText();
 
         if (strSource.length() == 0) {
-            JOptionPane.showMessageDialog(this, "Please specify location of conversion source file", "Warning", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, bundle.getString("Please_specify_location_of_conversion_source_file"), bundle.getString("Warning"), JOptionPane.OK_OPTION);
 
             return;
         }
@@ -301,11 +305,11 @@ public class JBackConverter extends JDialog {
         try {
             exec.setSourceFile(strSource);
         } catch (FileNotFoundException fnfe) {
-            JOptionPane.showMessageDialog(m_frame, "Could not find the source file.\nPlease select an existing .xlz file and try again.", "Error", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(m_frame, bundle.getString("Could_not_find_the_source_file.Please_select_an_existing_.xlz_file_and_try_again."), bundle.getString("Error"), JOptionPane.OK_OPTION);
 
             return;
         } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(m_frame, "Could to open the source file for reading.", "Error", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(m_frame, bundle.getString("Could_to_open_the_source_file_for_reading."), bundle.getString("Error"), JOptionPane.OK_OPTION);
 
             return;
         }
@@ -313,15 +317,15 @@ public class JBackConverter extends JDialog {
         try {
             exec.setTargetFile(strOutput);
         } catch (FileNotFoundException fnfe) {
-            JOptionPane.showMessageDialog(m_frame, "The target directory could not be found.\nPlease select an existing directory and try again", "Error", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(m_frame, bundle.getString("The_target_directory_could_not_be_found.Please_select_an_existing_directory_and_try_again"), bundle.getString("Error"), JOptionPane.OK_OPTION);
 
             return;
         } catch (IllegalArgumentException iae) {
-            JOptionPane.showMessageDialog(m_frame, "The target file is not a directory.\nPlease select a directory and try again", "Error", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(m_frame, bundle.getString("The_target_file_is_not_a_directory.Please_select_a_directory_and_try_again"), bundle.getString("Error"), JOptionPane.OK_OPTION);
 
             return;
         } catch (IOException ioe) {
-            JOptionPane.showMessageDialog(m_frame, "The target directory is not readable or writable.\nPlease select a directory that is" + " readable and writable and try again", "Error", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(m_frame, bundle.getString("The_target_directory_is_not_readable_or_writable.Please_select_a_directory_that_is_readable_and_writable_and_try_again"), bundle.getString("Error"), JOptionPane.OK_OPTION);
 
             return;
         }

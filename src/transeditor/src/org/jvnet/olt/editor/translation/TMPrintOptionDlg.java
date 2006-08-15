@@ -7,7 +7,7 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.logging.Logger;
 
@@ -16,7 +16,7 @@ import javax.swing.event.*;
 
 
 public class TMPrintOptionDlg extends JDialog implements ChangeListener {
-    private ResourceBundle bundle = ResourceBundle.getBundle(TMPrintOptionDlg.class.getName());    
+    private Bundle bundle = Bundle.getBundle(TMPrintOptionDlg.class.getName());
     private static final Logger logger = Logger.getLogger(TMPrintOptionDlg.class.getName());
     public static int contentType = 1; //1--all,2--target only,3--source only
     public static int tagType = 1; //1--all,2--without only,3--abb only

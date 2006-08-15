@@ -6,24 +6,19 @@
 package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
-import java.awt.datatransfer.*;
 import java.awt.event.*;
-import java.text.MessageFormat;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.Vector;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.text.*;
 
 import org.jvnet.olt.editor.model.*;
 
-import org.w3c.dom.Element;
-
 
 public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
-    private static ResourceBundle bundle = ResourceBundle.getBundle(TMInnerPanel.class.getName());
+    private static Bundle bundle = Bundle.getBundle(TMInnerPanel.class.getName());
     public static Result srcResult = null;
     public static Result oldSrcResult = null;
     public static Result targetResult = null;

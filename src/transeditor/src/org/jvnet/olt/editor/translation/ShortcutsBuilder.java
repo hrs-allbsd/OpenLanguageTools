@@ -88,7 +88,11 @@ public class ShortcutsBuilder {
             Component o = menu.getMenuComponent(j);
 
             if (o instanceof JMenu) {
-                insertCommands((JMenu)o, v, mV, stroke, ((JMenu)o).getText());
+                JMenu xmenu = (JMenu)o;
+                String text = xmenu.getName();
+                if(text == null)
+                    text = xmenu.getText();
+                insertCommands(xmenu, v, mV, stroke, text);
             } else if (o instanceof JMenuItem) {
                 String text = ((JMenuItem)o).getText();
 
@@ -135,7 +139,10 @@ public class ShortcutsBuilder {
 
         for (int i = 0; i < count; i++) {
             JMenu menu = menuBar.getMenu(i);
-            category[i] = menu.getText();
+            String text = menu.getName();
+            if(text == null)
+                text = menu.getText();
+            category[i] = text;
 
             commands[i] = new Vector();
             menus[i] = new Vector();
@@ -165,7 +172,11 @@ public class ShortcutsBuilder {
             if (o instanceof JMenu) {
                 saveCommands((JMenu)o, v, mV, stroke, ((JMenu)o).getText());
             } else if (o instanceof JMenuItem) {
-                String text = ((JMenuItem)o).getText();
+                JMenuItem item  = (JMenuItem)o;
+                String text = item.getName();
+                if(text == null)
+                    text = item.getText();
+                //String text = ((JMenuItem)o).getText();
 
                 if ((text.charAt(0) == '/') || (text.indexOf(":\\") != -1)) {
                     continue;

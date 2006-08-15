@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -61,6 +62,8 @@ public class SGMLOptionsPanel extends JPanel{
     private Unicode2EntTableModel tabModel;
     private boolean doUseCustomMapping;
     
+    private Bundle bundle = Bundle.getBundle(SGMLOptionsPanel.class.getName());
+    
     private BackConversionOptions model;
     /** Creates a new instance of SGMLOptionsPanel */
     public SGMLOptionsPanel(BackConversionOptions model) {
@@ -93,7 +96,7 @@ public class SGMLOptionsPanel extends JPanel{
         
         final EnablePropertyChangeDispatcher disp = new EnablePropertyChangeDispatcher();
         
-        writeStatusToSGML = new JCheckBox("Write translation status into SGML files");
+        writeStatusToSGML = new JCheckBox(bundle.getString("Write_translation_status_into_SGML_files"));
         writeStatusToSGML.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 JCheckBox cb = (JCheckBox)e.getSource();
@@ -102,7 +105,7 @@ public class SGMLOptionsPanel extends JPanel{
             
         });
         
-        useCustomMapping = new JCheckBox("Use custom mapping");
+        useCustomMapping = new JCheckBox(bundle.getString("Use_custom_mapping"));
         useCustomMapping.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 JCheckBox cb = (JCheckBox)e.getSource();
@@ -114,7 +117,7 @@ public class SGMLOptionsPanel extends JPanel{
         });
         
         JPanel uniPanel = new JPanel(new BorderLayout());
-        uniPanel.setBorder(BorderFactory.createTitledBorder("Unicode entity translation table"));
+        uniPanel.setBorder(BorderFactory.createTitledBorder(bundle.getString("Unicode_entity_translation_table")));
         notificationLabel = new JLabel();
         notificationLabel.setForeground(Color.RED);
         
@@ -130,7 +133,7 @@ public class SGMLOptionsPanel extends JPanel{
                 if(exists){
                     Toolkit.getDefaultToolkit().beep();
                     
-                    notificationLabel.setText("This mapping already exists");
+                    notificationLabel.setText(bundle.getString("This_mapping_already_exists"));
                 } else{
                     notificationLabel.setText("");
                 }
@@ -147,9 +150,9 @@ public class SGMLOptionsPanel extends JPanel{
                 boolean rv2 = ! tabModel.existsMapping(value,unicodeEntTable.getEditingRow());
                 
                 if(!rv)
-                    JOptionPane.showMessageDialog(SGMLOptionsPanel.this,"This is not a valid hexadecimal value","Invalid input",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(SGMLOptionsPanel.this,bundle.getString("This_is_not_a_valid_hexadecimal_value"),bundle.getString("Invalid_input"),JOptionPane.ERROR_MESSAGE);
                 if(!rv2)
-                    notificationLabel.setText("This mapping already exists");
+                    notificationLabel.setText(bundle.getString("This_mapping_already_exists"));
                 
                 int row = unicodeEntTable.getEditingRow();
                 int col = unicodeEntTable.getEditingColumn();
@@ -169,9 +172,9 @@ public class SGMLOptionsPanel extends JPanel{
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
         scrollPane.setPreferredSize(new Dimension(300,150));
         
-        final JButton addMappingButton = new JButton("Add mapping");
-        final JButton removeMappigButton = new JButton("Remove mapping");
-        final JButton showDefaultsButton = new JButton("Default mapping...");
+        final JButton addMappingButton = new JButton(bundle.getString("Add_mapping"));
+        final JButton removeMappigButton = new JButton(bundle.getString("Remove_mapping"));
+        final JButton showDefaultsButton = new JButton(bundle.getString("Default_mapping..."));
         
         removeMappigButton.setEnabled(unicodeEntTable.getSelectedRow() != -1);
         
@@ -190,7 +193,7 @@ public class SGMLOptionsPanel extends JPanel{
                 JScrollPane scrollPane = new JScrollPane(table);
                 
                 JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-                JButton closeButton = new JButton("Close");
+                JButton closeButton = new JButton(bundle.getString("Close"));
                 
                 closeButton.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e) {
@@ -201,7 +204,7 @@ public class SGMLOptionsPanel extends JPanel{
                 buttonsPanel.add(closeButton);
                 
                 frame.getContentPane().add(scrollPane,BorderLayout.CENTER);
-                frame.getContentPane().add(new JLabel("Default char to entity mapping"),BorderLayout.NORTH);
+                frame.getContentPane().add(new JLabel(bundle.getString("Default_char_to_entity_mapping")),BorderLayout.NORTH);
                 frame.getContentPane().add(buttonsPanel,BorderLayout.SOUTH);
                 
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

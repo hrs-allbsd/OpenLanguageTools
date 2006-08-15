@@ -12,17 +12,11 @@
  */
 
 package org.jvnet.olt.editor.translation;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 import org.jvnet.olt.xliff.TrackingSourceContext;
 
 import java.util.Map;
 import java.util.Iterator;
-import java.util.Set;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
-import javax.swing.text.html.HTMLDocument;
 
 
 /**
@@ -30,14 +24,14 @@ import javax.swing.text.html.HTMLDocument;
  * @author  timf
  */
 public class SourceContextFrame extends javax.swing.JFrame {
-    private ResourceBundle bundle = ResourceBundle.getBundle(SourceContextFrame.class.getName());
-    
+    private Bundle bundle = Bundle.getBundle(SourceContextFrame.class.getName());
+
     /** Creates new form SourceContextFrame */
     public SourceContextFrame() {
         initComponents();
         setTitle(Constants.TOOL_NAME);
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -67,7 +61,7 @@ public class SourceContextFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * @param args the command line arguments
      */
@@ -79,14 +73,14 @@ public class SourceContextFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 
-    
+
     /**
      * This sets the content of the text pane to show the context
      * information for this segment. There's no formatting applied
@@ -95,7 +89,7 @@ public class SourceContextFrame extends javax.swing.JFrame {
      *
      */
     public void setContextInformation(Map contextInformation){
-        
+
         StringBuffer buf = new StringBuffer();
         Iterator it = contextInformation.entrySet().iterator();
 
@@ -108,5 +102,5 @@ public class SourceContextFrame extends javax.swing.JFrame {
         }
         this.jTextPane1.setText(buf.toString());
     }
-    
+
 }

@@ -10,11 +10,10 @@
  */
 package org.jvnet.olt.editor.translation;
 
-import com.sun.corba.se.spi.orb.Operation;
 import java.awt.Cursor;
 
 import java.io.IOException;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.logging.Logger;
 
@@ -30,7 +29,7 @@ public class SaveCurrentFileThread implements Runnable {
     private static final Logger logger = Logger.getLogger(SaveCurrentFileThread.class.getName());
     private MainFrame mainFrame;
     private Backend backend;
-    private ResourceBundle bundle = ResourceBundle.getBundle(SaveCurrentFileThread.class.getName());
+    private Bundle bundle = Bundle.getBundle(SaveCurrentFileThread.class.getName());
 
     /** Creates a new instance of SaveCurrentFileThread */
     public SaveCurrentFileThread(MainFrame mainFrame, Backend backend) {

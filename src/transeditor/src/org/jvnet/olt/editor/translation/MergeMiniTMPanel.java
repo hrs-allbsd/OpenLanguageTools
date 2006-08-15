@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.util.Iterator;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Logger;
@@ -53,6 +54,8 @@ public class MergeMiniTMPanel extends JDialog {
     private String miniTmDir;
     private Backend backend;
 
+    private Bundle bundle = Bundle.getBundle(MergeMiniTMPanel.class.getName());
+    
     class ProjectComboBox extends JComboBox {
         private String editorContent;
 
@@ -186,12 +189,12 @@ public class MergeMiniTMPanel extends JDialog {
         informationLabel.setForeground(Color.black);
         informationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         informationLabel.setHorizontalTextPosition(SwingConstants.LEFT);
-        informationLabel.setText("Please enter the following information for this project:");
+        informationLabel.setText(bundle.getString("Please_enter_the_following_information_for_this_project:"));
         informationLabel.setBounds(new Rectangle(1, 9, 401, 24));
 
         projectNameLabel.setForeground(Color.black);
         projectNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        projectNameLabel.setText("Project Name:");
+        projectNameLabel.setText(bundle.getString("Project_Name:"));
         projectNameLabel.setBounds(new Rectangle(0, 58, 116, 35));
 
         projectNameComboBox = new ProjectComboBox(oldProjects);
@@ -231,10 +234,10 @@ public class MergeMiniTMPanel extends JDialog {
         targetIconLabel.setForeground(Color.black);
         targetIconLabel.setBounds(new Rectangle(16, 218, 49, 35));
         sourceLabel.setForeground(Color.black);
-        sourceLabel.setText("Source Language:");
+        sourceLabel.setText(bundle.getString("Source_Language:"));
         sourceLabel.setBounds(new Rectangle(16, 105, 182, 23));
         targetLabel.setForeground(Color.black);
-        targetLabel.setText("Target Language:");
+        targetLabel.setText(bundle.getString("Target_Language:"));
         targetLabel.setBounds(new Rectangle(16, 185, 144, 31));
         panel.setBackground(new Color(204, 204, 204));
         sourceComboBox = new JComboBox(languages);
@@ -255,7 +258,7 @@ public class MergeMiniTMPanel extends JDialog {
         targetComboBox.setBounds(new Rectangle(73, 216, 328, 38));
         sourceComboBox.setBounds(new Rectangle(73, 128, 328, 38));
         nextButton.setMnemonic('N');
-        nextButton.setText("Next");
+        nextButton.setText(bundle.getString("Next"));
         nextButton.setBounds(new Rectangle(240, 288, 82, 26));
         nextButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -263,7 +266,7 @@ public class MergeMiniTMPanel extends JDialog {
                 }
             });
         cancelButton.setMnemonic('C');
-        cancelButton.setText("Cancel");
+        cancelButton.setText(bundle.getString("Cancel"));
         cancelButton.setBounds(new Rectangle(340, 288, 82, 26));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -272,7 +275,7 @@ public class MergeMiniTMPanel extends JDialog {
             });
         translatorLabel.setForeground(Color.black);
         translatorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        translatorLabel.setText("Translator ID:");
+        translatorLabel.setText(bundle.getString("Translator_ID:"));
         translatorLabel.setBounds(new Rectangle(0, 35, 116, 35));
         transltorTextField.setBounds(new Rectangle(118, 36, 251, 33));
         transltorTextField.setEditable(false);
@@ -467,19 +470,19 @@ public class MergeMiniTMPanel extends JDialog {
         if (projectName.equals("") || sourceLan.equals("") || targetLan.equals("")) {
             Toolkit.getDefaultToolkit().beep();
 
-            JOptionPane.showMessageDialog(this, "You must enter a project name.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("You_must_enter_a_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         } else if (sourceLan.equals(targetLan)) {
             Toolkit.getDefaultToolkit().beep();
 
-            JOptionPane.showMessageDialog(this, "Source language can not be same as target language.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("Source_language_can_not_be_same_as_target_language."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         } else if (!checkProjectValid(projectName)) {
             Toolkit.getDefaultToolkit().beep();
 
-            JOptionPane.showMessageDialog(this, "The project name you entered is invalid.It can not include \"_\".", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("The_project_name_you_entered_is_invalid.It_can_not_include_underscore_character"), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         } /*else if(!checkTransIDValid(transltorTextField.getText())) {
@@ -491,7 +494,7 @@ public class MergeMiniTMPanel extends JDialog {
         else if (!checkValid(projectName, Languages.getLanguageCode(sourceLan), Languages.getLanguageCode(targetLan))) {
             Toolkit.getDefaultToolkit().beep();
 
-            JOptionPane.showMessageDialog(this, "The name you selected for the new project already exists.\r\n Please select a different project name.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("The_name_you_selected_for_the_new_project_already_exists._Please_select_a_different_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         } else {
@@ -500,7 +503,7 @@ public class MergeMiniTMPanel extends JDialog {
                 if (!Languages.getLanguageCode(sourceLan).equals(backend.getProject().getSrcLang()) || !Languages.getLanguageCode(targetLan).equals(backend.getProject().getSrcLang())) {
                     Toolkit.getDefaultToolkit().beep();
 
-                    JOptionPane.showMessageDialog(this, "The language combination in this file does not match \r\nthe language combination in the selected mini-TM(s).\r\n Please select a different mini-TM", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, bundle.getString("The_language_combination_in_this_file_does_not_match_the_language_combination_in_the_selected_mini-TM(s)._Please_select_a_different_mini-TM"), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
                     return;
                 }
@@ -513,7 +516,7 @@ public class MergeMiniTMPanel extends JDialog {
                 java.util.List projectHistory = backend.getConfig().getProjectHistory();
 
                 MergeMiniTMTablePanel panel = new MergeMiniTMTablePanel(this, getContentPane(), cards, miniTmDir, projectHistory);
-                this.setTitle("Merge Tool Options");
+                this.setTitle(bundle.getString("Merge_Tool_Options"));
                 this.getContentPane().add("second", panel);
                 cards.show(this.getContentPane(), "second");
             } catch (MiniTMException mtme) {

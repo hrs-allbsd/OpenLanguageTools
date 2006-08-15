@@ -5,21 +5,17 @@
  */
 package org.jvnet.olt.editor.translation;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.StringTokenizer;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.swing.*;
 
-import org.jvnet.olt.editor.model.TransProject;
 import org.jvnet.olt.editor.util.Languages;
 
 
@@ -46,6 +42,7 @@ public class OpenMiniTMPanel extends JDialog {
     private String tgtLang;
     private boolean didCancel;
 
+    static private Bundle bundle = Bundle.getBundle(OpenMiniTMPanel.class.getName());
     // bug 4737485
     class ListenForEnter implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -54,7 +51,7 @@ public class OpenMiniTMPanel extends JDialog {
     }
 
     public OpenMiniTMPanel(JFrame parent, List allProjects) {
-        super(parent, "Open Project", true);
+        super(parent, bundle.getString("Open_Project"), true);
         this.allProjects = new Vector(allProjects);
         Collections.sort(this.allProjects);
 
@@ -70,11 +67,11 @@ public class OpenMiniTMPanel extends JDialog {
     private void jbInit() throws Exception {
         informationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         informationLabel.setHorizontalTextPosition(SwingConstants.LEFT);
-        informationLabel.setText("Please select a project from project list:");
+        informationLabel.setText(bundle.getString("Please_select_a_project_from_project_list:"));
         informationLabel.setBounds(new Rectangle(1, 9, 401, 24));
         this.getContentPane().setLayout(null);
         projectNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        projectNameLabel.setText("Project List  :");
+        projectNameLabel.setText(bundle.getString("Project_List__:"));
         projectNameLabel.setBounds(new Rectangle(4, 59, 116, 35));
 
         projectNameComboBox = new JComboBox(allProjects);
@@ -88,9 +85,9 @@ public class OpenMiniTMPanel extends JDialog {
 
         sourceIconLabel.setBounds(new Rectangle(24, 132, 49, 44));
         targetIconLabel.setBounds(new Rectangle(24, 221, 49, 44));
-        sourceLabel.setText("Source Language:");
+        sourceLabel.setText(bundle.getString("Source_Language:"));
         sourceLabel.setBounds(new Rectangle(24, 108, 182, 23));
-        targetLabel.setText("Target Language:");
+        targetLabel.setText(bundle.getString("Target_Language:"));
         targetLabel.setBounds(new Rectangle(24, 188, 144, 31));
         sourceComboBox = new JComboBox(languages);
         sourceComboBox.setEnabled(false);
@@ -103,14 +100,14 @@ public class OpenMiniTMPanel extends JDialog {
         targetComboBox.setSelectedItem(Languages.getLanguageName("US"));
         targetComboBox.setBounds(new Rectangle(79, 219, 322, 48));
         sourceComboBox.setBounds(new Rectangle(79, 131, 322, 47));
-        okButton.setText("Ok");
+        okButton.setText(bundle.getString("Ok"));
         okButton.setBounds(new Rectangle(36, 295, 105, 36));
         okButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     okButton_actionPerformed(e);
                 }
             });
-        cancelButton.setText("Cancel");
+        cancelButton.setText(bundle.getString("Cancel"));
         cancelButton.setBounds(new Rectangle(275, 295, 105, 36));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {

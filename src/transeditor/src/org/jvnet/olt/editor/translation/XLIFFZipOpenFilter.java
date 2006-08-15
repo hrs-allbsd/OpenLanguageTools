@@ -11,7 +11,7 @@
 package org.jvnet.olt.editor.translation;
 
 import java.io.File;
-import java.util.ResourceBundle;
+import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.filechooser.FileFilter;
 
@@ -21,7 +21,7 @@ import javax.swing.filechooser.FileFilter;
  * @author  jc73554
  */
 public class XLIFFZipOpenFilter extends FileFilter {
-    private ResourceBundle bundle = ResourceBundle.getBundle(XLIFFZipOpenFilter.class.getName());
+    private Bundle bundle = Bundle.getBundle(XLIFFZipOpenFilter.class.getName());
     String tmExtension = "xlz";
 
     public boolean accept(File f) {

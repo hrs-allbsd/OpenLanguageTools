@@ -6,11 +6,10 @@
 package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
+import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.*;
 import javax.swing.border.*;
-
-import org.jvnet.olt.editor.translation.MainFrame;
 
 
 public class MatchInfoPanel extends JPanel {
@@ -44,6 +43,8 @@ public class MatchInfoPanel extends JPanel {
     private int APPROVED = 2;
     private int REJECTED = 3;
 
+    private Bundle bundle = Bundle.getBundle(MatchInfoPanel.class.getName());
+
     public MatchInfoPanel() {
         try {
             jbInit();
@@ -58,17 +59,17 @@ public class MatchInfoPanel extends JPanel {
         this.setPreferredSize(new Dimension(104, 25));
 
         defaultColor = TMInformationLabel.getForeground();
-        jLabel1.setText("Segment No:");
+        jLabel1.setText(bundle.getString("Segment_No:"));
         jPanel1.setLayout(borderLayout2);
         jLabelMATCH.setToolTipText("");
-        jLabelMATCH.setText("Match Information :");
+        jLabelMATCH.setText(bundle.getString("Match_Information_:"));
         jPanel2.setLayout(borderLayout3);
         MatchStatusInformationLabel.setBorder(BorderFactory.createLoweredBevelBorder());
         MatchStatusInformationLabel.setMinimumSize(new Dimension(50, 25));
         MatchStatusInformationLabel.setPreferredSize(new Dimension(450, 25));
         TMInformationLabel.setBorder(border1);
 
-        jLabel2.setText("Status:");
+        jLabel2.setText(bundle.getString("Status:"));
         jLabel3.setBorder(BorderFactory.createLoweredBevelBorder());
         jPanel3.setLayout(borderLayout4);
         jLabel3.setPreferredSize(new Dimension(90, 25));
@@ -86,22 +87,22 @@ public class MatchInfoPanel extends JPanel {
     public void setStatus(int iTransStatus) {
         switch (iTransStatus) {
         case 3: //REJECTED:
-            jLabel3.setText("Rejected");
+            jLabel3.setText(bundle.getString("Rejected"));
 
             break;
 
         case 2: //ApproveED:
-            jLabel3.setText("Approved");
+            jLabel3.setText(bundle.getString("Approved"));
 
             break;
 
         case 1: //TRANSLATED:
-            jLabel3.setText("Translated");
+            jLabel3.setText(bundle.getString("Translated"));
 
             break;
 
         case 0: //UNTRANSLATED:
-            jLabel3.setText("Untranslated");
+            jLabel3.setText(bundle.getString("Untranslated"));
 
             break;
 
