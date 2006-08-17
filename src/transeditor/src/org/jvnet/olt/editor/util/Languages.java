@@ -5,12 +5,74 @@
  */
 package org.jvnet.olt.editor.util;
 
+import java.util.Collections;
 import java.util.Hashtable;
-import org.jvnet.olt.editor.util.Bundle;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 
 public class Languages {
+    private static final Logger logger = Logger.getLogger(Languages.class.getName());
+        
+    public static final Language NO_LANGUAGE = new Language();
+    
+    static public class Language implements Comparable{
+        private String shortCode;
+        private String name;
+        private String enc;
+        
+        private Language(){
+            this("","",null);
+        }
+        
+        Language(String shortCode,String name,String enc){
+            this.shortCode = shortCode;
+            this.name = name;
+            
+            this.enc = (enc == null) ? "UTF8" : enc;
+        }
+
+        public String getShortCode() {
+            return shortCode;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getEncoding() {
+            return enc;
+        }
+
+        public int compareTo(Object o) {
+            Language l = (Language)o;
+                        
+            return - l.name.compareTo(name);
+        }
+
+        public String toString() {
+            return name;
+        }
+        
+        public boolean equals(Object obj) {
+            if(obj instanceof Language){
+                return ((Language)obj).shortCode.equals(shortCode);
+            }
+            return false;
+        }
+
+        public int hashCode() {
+            return shortCode.hashCode()*37;
+        }
+        
+        public boolean isEmpty(){
+            return this == NO_LANGUAGE;
+        }
+        
+    }
+    
     private static Bundle bundle = Bundle.getBundle(Languages.class.getName());
     public final static String imagePath = ImagePath.PATH + "flags/";
     static final Object[][] language_code_name = {
@@ -148,44 +210,42 @@ public class Languages {
 
         { "ZU", bundle.getString("Zulu"), "UTF8" },
     };
-    static Hashtable table = new Hashtable();
-
+    
+    private static Hashtable<String,Language> table = new Hashtable();
+    private static Set<Language> allLanguages;
     static {
+        allLanguages = Collections.synchronizedSet(new TreeSet<Language>());
         for (int i = 0; i < language_code_name.length; i++) {
-            table.put(language_code_name[i][0], language_code_name[i][1]);
+            String code = (String)language_code_name[i][0];
+            String name = (String)language_code_name[i][1];
+            String enc = language_code_name[i].length > 2 ? (String)language_code_name[i][2] : null; 
+
+            Language lng = new Language(code,name,enc);
+            
+            allLanguages.add(lng);                        
+            table.put(code,lng);
         }
+        
     }
+
+    
 
     public static String getLanguageName(String code) {
-        //        System.out.println("code = "+code);
-        //String str = (String)name2id.get(code);
-        //if(str == null) return (String)table.get(code);
-        //else
-        return (String)table.get(code);
-    }
-
-    public static String getLanguageCode(String lan) {
-        for (int i = 0; i < language_code_name.length; i++) {
-            if (((String)language_code_name[i][1]).equals(lan)) {
-                return (String)language_code_name[i][0];
-            }
+        if(table.containsKey(code)){
+            return ((Language)table.get(code)).getName();
         }
-
         return null;
     }
 
     public static String getLanguageENC(String code) {
-        for (int i = 0; i < language_code_name.length; i++) {
-            if (((String)language_code_name[i][0]).equals(code)) {
-                return (String)language_code_name[i][2];
-            }
+        if(table.containsKey(code)){
+            return ((Language)table.get(code)).getEncoding();
         }
-
         return null;
     }
 
     //TODO throw some reasonable exception
-    public static String getFlagPath(String code) throws Exception {
+    public static String getFlagPath(String code) {
         String strPath = "";
 
         try {
@@ -197,8 +257,8 @@ public class Languages {
                 strPath = longCode.toLowerCase();
             
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("LanguageError");
+            logger.warning("Exception while looking up flag for code:"+code+","+e);
+            return imagePath + "No-Flag.gif";
         }
 
         Languages l = new Languages();
@@ -211,70 +271,21 @@ public class Languages {
         }
     }
 
-    public static String getFlagPathForLan(String lan) {
-        lan = lan.replace(' ', '_');
-        lan = lan.replace('(', '1');
-        lan = lan.replace(')', '2');
-
-        Languages l = new Languages();
-        Object o = l.getClass().getResource(imagePath + lan.replace(' ', '_') + ".gif");
-
-        if (o == null) {
-            return imagePath + "No-Flag.gif";
-        } else {
-            return imagePath + lan.replace(' ', '_') + ".gif";
-        }
-    }
-
+    
     public static String getFlagPathForUnknown() {
         return imagePath + "Unknown.gif";
     }
 
-    public static Vector getLanguagesBySort() {
-        Vector v = new Vector(language_code_name.length);
-
-        for (int i = 0; i < language_code_name.length; i++) {
-            String temp = getCurMinimal(v);
-
-            if (!v.contains(temp)) {
-                v.addElement(temp);
-            }
-        }
-
-        return v;
+    
+    public static Vector<Language> getLanguages(){
+        Vector<Language> s = new Vector<Language>(allLanguages);
+        return s;
     }
-
-    private static String getCurMinimal(Vector v) {
-        String min = null;
-
-        if (v.size() == 0) {
-            min = (String)language_code_name[0][1];
-
-            for (int i = 1; i < language_code_name.length; i++) {
-                if (((String)language_code_name[i][1]).compareTo(min) < 0) {
-                    min = (String)language_code_name[i][1];
-                }
-            }
-        } else {
-            min = (String)v.elementAt(v.size() - 1);
-
-            for (int i = 0; i < language_code_name.length; i++) {
-                if (((String)language_code_name[i][1]).compareTo(min) > 0) {
-                    min = (String)language_code_name[i][1];
-
-                    break;
-                }
-            }
-
-            for (int i = 0; i < language_code_name.length; i++) {
-                String temp = (String)language_code_name[i][1];
-
-                if ((v.indexOf(temp) == -1) && (temp.compareTo(min) < 0)) {
-                    min = (String)language_code_name[i][1];
-                }
-            }
-        }
-
-        return min;
+    
+    public static Language findByCode(String code){
+        if(table.containsKey(code))
+            return table.get(code);
+    
+        return null;
     }
 }

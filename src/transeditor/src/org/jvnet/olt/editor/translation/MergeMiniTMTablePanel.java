@@ -768,7 +768,11 @@ public class MergeMiniTMTablePanel extends JPanel {
     }
 
     void addButton_actionPerformed(ActionEvent e) {
-        lanPair = "_" + org.jvnet.olt.editor.util.Languages.getLanguageCode(((MergeMiniTMPanel)dlg).sourceLan) + "_" + org.jvnet.olt.editor.util.Languages.getLanguageCode(((MergeMiniTMPanel)dlg).targetLan) + ".MTM";
+        lanPair = "_" + 
+            ((MergeMiniTMPanel)dlg).sourceLan + 
+            "_" + 
+            ((MergeMiniTMPanel)dlg).targetLan + 
+            ".MTM";
 
         MiniTMOpenFilter filter = new MiniTMOpenFilter();
         fileChooser.setFileFilter(filter);

@@ -55,7 +55,7 @@ public class OpenMiniTMPanel extends JDialog {
         this.allProjects = new Vector(allProjects);
         Collections.sort(this.allProjects);
 
-        languages = Languages.getLanguagesBySort();
+        languages = Languages.getLanguages();
 
         try {
             jbInit();
@@ -89,15 +89,18 @@ public class OpenMiniTMPanel extends JDialog {
         sourceLabel.setBounds(new Rectangle(24, 108, 182, 23));
         targetLabel.setText(bundle.getString("Target_Language:"));
         targetLabel.setBounds(new Rectangle(24, 188, 144, 31));
+        
+        Languages.Language lngUS = Languages.findByCode("US");        
+        
         sourceComboBox = new JComboBox(languages);
         sourceComboBox.setEnabled(false);
 
-        sourceComboBox.setSelectedItem(Languages.getLanguageName("US"));
+        sourceComboBox.setSelectedItem(lngUS);
 
         targetComboBox = new JComboBox(languages);
         targetComboBox.setEnabled(false);
 
-        targetComboBox.setSelectedItem(Languages.getLanguageName("US"));
+        targetComboBox.setSelectedItem(lngUS);
         targetComboBox.setBounds(new Rectangle(79, 219, 322, 48));
         sourceComboBox.setBounds(new Rectangle(79, 131, 322, 47));
         okButton.setText(bundle.getString("Ok"));
@@ -158,16 +161,17 @@ public class OpenMiniTMPanel extends JDialog {
     }
 
     private void setFlags(String srcLang, String tgtLang) {
-        String sourceLan = Languages.getLanguageName(srcLang);
-        String targetLan = Languages.getLanguageName(tgtLang);
+        Languages.Language sourceLan = Languages.findByCode(srcLang);
+        Languages.Language targetLan = Languages.findByCode(tgtLang);
 
+        
         sourceComboBox.setSelectedItem(sourceLan);
         targetComboBox.setSelectedItem(targetLan);
 
-        String imagePath = Languages.getFlagPathForLan(targetLan);
-        targetIconLabel.setIcon(new ImageIcon(getClass().getResource(imagePath)));
-        imagePath = Languages.getFlagPathForLan(sourceLan);
+        String imagePath = Languages.getFlagPath(srcLang);
         sourceIconLabel.setIcon(new ImageIcon(getClass().getResource(imagePath)));
+        imagePath = Languages.getFlagPath(tgtLang);
+        targetIconLabel.setIcon(new ImageIcon(getClass().getResource(imagePath)));
     }
 
     void cancelButton_actionPerformed(ActionEvent e) {
