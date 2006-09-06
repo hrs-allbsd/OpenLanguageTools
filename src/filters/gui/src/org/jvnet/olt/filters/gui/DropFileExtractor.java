@@ -33,6 +33,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -138,34 +139,36 @@ public class DropFileExtractor {
                             new Object[] {filenames[i]}));
                 }
             }
-            
-            // cool we're done!
-            return fileList;
         }
-        
-        // otherwise, things are more complex.
-        o = trans.getTransferData(flavor);
-        
-        // We need to work out what type this object is.
-        // Different platforms handle drag+drop differently, so this is a bit
-        // of a hack.
-        if (o != null) {
-            if (o instanceof java.util.List) {
-                fileList = getWin32FileList(o);
-            } else if (o instanceof java.io.InputStreamReader) {
-                fileList = getMacOSXFileList(o);
+        else{
+            // otherwise, things are more complex.
+            o = trans.getTransferData(flavor);
+
+            // We need to work out what type this object is.
+            // Different platforms handle drag+drop differently, so this is a bit
+            // of a hack.
+            if (o != null) {
+                if (o instanceof java.util.List) {
+                    fileList = getWin32FileList(o);
+                } else if (o instanceof java.io.InputStreamReader) {
+                    fileList = getMacOSXFileList(o);
+                } else {
+                    // "Object type "+ o.getClass.toString() + " unknown"
+                    logger.log(Level.SEVERE, MessageFormat.format(
+                            xliffFilterGUIMessages.getString("Object_type_o_unknown"),
+                            new Object[] {o.getClass().toString()}));
+                }
             } else {
-                // "Object type "+ o.getClass.toString() + " unknown"
-                logger.log(Level.SEVERE, MessageFormat.format(
-                        xliffFilterGUIMessages.getString("Object_type_o_unknown"),
-                        new Object[] {o.getClass().toString()}));
+                logger.finer("o was null!");
             }
-        } else {
-            logger.finer("o was null!");
         }
         
-        return fileList;
+        List fullList = expandDirs(fileList);
+        
+        return fullList;
     }
+    
+    
     
     /**
      * MacOSX specific extraction woodoo
@@ -226,5 +229,35 @@ public class DropFileExtractor {
         }
         
         return fileList;
+    }
+
+    private List expandDirs(List fileList) {
+        if(fileList == null || fileList.isEmpty())
+            return Collections.EMPTY_LIST;
+        
+        List rv = new LinkedList();
+        
+        for (Iterator i = fileList.iterator(); i.hasNext();) {
+            File f = (File ) i.next();
+            
+            if(f.isDirectory()){
+                buildFileList(f.listFiles(),rv);
+            }
+            else
+                rv.add(f);
+            
+        }
+        
+        return rv;
+    }
+    
+    void buildFileList(File[] files,List rv){
+        for (int i = 0; files != null && i < files.length; i++) {
+            File f = files[i];
+            if(f.isDirectory())
+                buildFileList(f.listFiles(),rv);
+            else
+                rv.add(f);
+        }
     }
 }
