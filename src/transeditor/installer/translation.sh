@@ -20,7 +20,7 @@ fi
 cd "$INSTALL_PATH"
 
 #build the classpath
-CLASSPATH="TransEditor.jar"
+CLASSPATH="TransEditor.jar:i18n"
 for j in classes/*.jar ; do
 	CLASSPATH="$CLASSPATH:$j"				  
 done

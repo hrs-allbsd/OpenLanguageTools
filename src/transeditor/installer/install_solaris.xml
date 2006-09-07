@@ -45,13 +45,19 @@
             <fileset dir="." targetdir="$INSTALL_PATH">
                 <include name="**/*.jar"/>
             </fileset>
+            <fileset dir="i18n" targetdir="$INSTALL_PATH/i18n">
+                <include name="**/*"/>
+            </fileset>
             <file src="translation.sh" targetdir="$INSTALL_PATH"/>
+            <file src="renamer.sh" targetdir="$INSTALL_PATH"/>
             <file src="logging.properties" targetdir="$INSTALL_PATH"/>
             <file src="Editor.desktop" targetdir="$INSTALL_PATH"/>
             <file src="OLT_XLIFF_Translation_Editor_Manual_@VERSION_FLAT@.pdf" targetdir="$INSTALL_PATH"/>
             <parsable targetfile="$INSTALL_PATH/translation.sh" os="unix"/>
+            <parsable targetfile="$INSTALL_PATH/renamer.sh" os="unix"/>
             <parsable targetfile="$INSTALL_PATH/Editor.desktop" os="unix"/>
             <executable stage="never" targetfile="$INSTALL_PATH/translation.sh" os="unix"/>
+            <executable stage="never" targetfile="$INSTALL_PATH/renamer.sh" os="unix"/>
         </pack>
         <pack name="Spellchecker" required="no" preselected="yes">
             <description>This component includes the Spell Checker feature</description>
@@ -60,7 +66,7 @@
             </fileset>
             <executable stage="never" targetfile="$INSTALL_PATH/spellchecker/bin/aspell" os="unix"/>
         </pack>
-		<pack name="Sample XLIFF files" required="no" preselected="yes">
+        <pack name="Sample XLIFF files" required="no" preselected="yes">
             <description>This component sample XLIFF files</description>
             <fileset dir="samples/" targetdir="$INSTALL_PATH/samples/"> 
                 <include name="**/*"/>
