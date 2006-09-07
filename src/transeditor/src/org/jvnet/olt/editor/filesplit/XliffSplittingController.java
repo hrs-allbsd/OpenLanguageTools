@@ -13,7 +13,6 @@ package org.jvnet.olt.editor.filesplit;
 import java.io.IOException;
 
 import java.util.List;
-import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -30,8 +29,6 @@ public class XliffSplittingController {
     private String defaultFileName;
     private XliffSplittingPrefsDialog dialog;
 
-    private Bundle bundle = Bundle.getBundle(XliffSplittingController.class.getName());
-    
     /** Creates a new instance of XliffSplittingController */
     public XliffSplittingController(JFrame frame, String defaultFileName) {
         this.frame = frame;
@@ -50,8 +47,8 @@ public class XliffSplittingController {
 
         if (prefs == null) {
             //  Show message and return
-            message = bundle.getString("The_file_splitting_operation_has_been_cancelled.");
-            JOptionPane.showMessageDialog(frame, message, bundle.getString("Cancelled"), JOptionPane.WARNING_MESSAGE);
+            message = "The file splitting operation has been cancelled.";
+            JOptionPane.showMessageDialog(frame, message, "Cancelled", JOptionPane.WARNING_MESSAGE);
 
             return;
         }
@@ -67,10 +64,10 @@ public class XliffSplittingController {
             splitter.writeOutputDocuments(docList, prefs.getOutputLoc());
 
             //  Announce successful write out.
-            message = bundle.getString("The_file_splitting_operation_was_successful.");
-            JOptionPane.showMessageDialog(frame, message, bundle.getString("Success"), JOptionPane.INFORMATION_MESSAGE);
+            message = "The file splitting operation was successful.";
+            JOptionPane.showMessageDialog(frame, message, "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ioEx) {
-            JOptionPane.showMessageDialog(frame, ioEx.getMessage(), bundle.getString("Exception_thrown"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, ioEx.getMessage(), "Exception thrown", JOptionPane.ERROR_MESSAGE);
         }
     }
 

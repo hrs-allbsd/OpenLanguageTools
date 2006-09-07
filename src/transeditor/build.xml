@@ -3,9 +3,9 @@
 <project basedir="." default="all" name="translation editor 4">
     <import file="../../common.xml"/>
 
-    <buildnumber file="build.version.properties"/>
-    <property name="editor.dest.dir" value="${dest.dir}/transeditor4/"/>
-    <property name="installer.dir" value="${editor.dest.dir}/installer/"/>
+	<buildnumber file="build.version.properties"/>
+	<property name="editor.dest.dir" value="${dest.dir}/transeditor4/"/>
+	<property name="installer.dir" value="${editor.dest.dir}/installer/"/>
 	
     <path id="build.classpath">
         <path refid="deps.common.util"/>
@@ -26,11 +26,10 @@
     <path id="run.classpath">
         <path refid="build.classpath"/>
         <path location="${build.dir}"/>
-        <path location="${editor.dest.dir}/i18n"/>
-        <path location="${installer.dir}"/>
+        <path location="${intaller.dir}"/>
     </path>
 
-    <!-- dependency tracking see init target-->
+	<!-- dependency tracking see init target-->
     <!-- TODO: Separate tasks which are actually not dependent on
     the complete build flow but have been made so to simply the build -->
 
@@ -42,72 +41,56 @@
     <property name="built.lib.dir" value="./jars"/>
     <property name="webmod.app.dir" value="web_mod/app"/>
 
-    <!-- IzPack setup -->
-    <property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.9.0/"/>	
-    <taskdef name="izpack" classpath="${IZPACK_HOME}/lib/compiler.jar"
-    classname="com.izforge.izpack.ant.IzPackTask"/>
+	<!-- IzPack setup -->
+	<property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.7.0/"/>	
+	<taskdef name="izpack" classpath="${IZPACK_HOME}/lib/compiler.jar"
+         classname="com.izforge.izpack.ant.IzPackTask"/>
 
 
     <target name="init" depends="common.init">
         <echo message="Using build directory ${build.dir}"/>
-        <mkdir dir="${editor.dest.dir}"/>
+		<mkdir dir="${editor.dest.dir}"/>
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}/resources"/>
-        <mkdir dir="${editor.dest.dir}/i18n"/>
         <mkdir dir="${installer.dir}"/>
 		
-        <!-- we're really really REALLY lazy here. We'll build utilities,filters
-        and backconv only if we can't find required stuff from backconverters.
-        see the deps.backconv target    	
-        -->
-        <available 
-        file="${dest.dir}/filters-editor.jar"
-        property="do.build.deps"/>
+		<!-- we're really really REALLY lazy here. We'll build utilities,filters
+			and backconv only if we can't find required stuff from backconverters.
+			see the deps.backconv target    	
+		-->
+		<available 
+			file="${dest.dir}/filters-editor.jar"
+			property="do.build.deps"/>
     </target>
 
 
     <target name="pre-compile" depends="common.pre-compile">
-        <echo>Setting editor version to: ${build.version}</echo>
-        <echo>I copy the original Constants.java  file to Constants.java_ file then change the version and write back to Constants.java</echo>
-        <copy file="src/org/jvnet/olt/editor/translation/Constants.java" 
-        tofile="src/org/jvnet/olt/editor/translation/Constants.java_"
-        overwrite="true"/>
+		<echo>Setting editor version to: ${build.version}</echo>
+		<echo>I copy the original Constants.java  file to Constants.java_ file then change the version and write back to Constants.java</echo>
+		<copy file="src/org/jvnet/olt/editor/translation/Constants.java" 
+			tofile="src/org/jvnet/olt/editor/translation/Constants.java_"
+			overwrite="true"/>
 		
-        <copy file="src/org/jvnet/olt/editor/translation/Constants.java_" 
-            tofile="src/org/jvnet/olt/editor/translation/Constants.java"
-            overwrite="true">
-            <filterset>
-                <filter token="VERSION" value="${build.version}"/>
-            </filterset>
-        </copy>
+		<copy file="src/org/jvnet/olt/editor/translation/Constants.java_" 
+			tofile="src/org/jvnet/olt/editor/translation/Constants.java"
+		   	overwrite="true">
+			<filterset>
+			  <filter token="VERSION" value="${build.version}"/>
+			</filterset>
+		</copy>
     </target>
 
     <target name="compile" depends="init,pre-compile,deps,common.compile">
-        <echo>restoring Constants.java</echo>
-        <copy file="src/org/jvnet/olt/editor/translation/Constants.java_" 
-        tofile="src/org/jvnet/olt/editor/translation/Constants.java"
-        overwrite="true"/>
-        <delete file="src/org/jvnet/olt/editor/translation/Constants.java_"/> 
+		<echo>restoring Constants.java</echo>
+		<copy file="src/org/jvnet/olt/editor/translation/Constants.java_" 
+			tofile="src/org/jvnet/olt/editor/translation/Constants.java"
+			overwrite="true"/>
+		<delete file="src/org/jvnet/olt/editor/translation/Constants.java_"/> 
 		
                 
-        <copy todir="${build.dir}/resources" verbose="true">
+        <copy todir="${build.dir}/resources">
             <fileset dir="./static/resources"/>
         </copy>
-        
-        <echo>Build dir: ${build.dir}</echo>
-        <copy todir="${editor.dest.dir}/i18n" verbose="true" overwrite="true">
-            <fileset dir="src">
-                <include name="**/*.properties"/>
-            </fileset>
-        </copy>
-        
-        <copy todir="${editor.dest.dir}/i18n" verbose="true" overwrite="true">
-            <mapper type="regexp" from="^[a-z][a-z]_[A-Z][A-Z](.*)$$" to="\1"/>
-            <fileset dir="i18n">
-                <include name="**/*.properties"/>
-            </fileset>
-        </copy>
-        
         <copy todir="${build.dir}/resources">
             <fileset dir="${dtd.dir}">
                 <include name="xliff.dtd"/>
@@ -125,18 +108,18 @@
         </copy>
     </target>
 
-    <!-- build dependencies -->
-    <target name="deps" unless="do.build.deps">
-        <ant dir="../../utilities">
-            <property name="do.build.editor" value="please"/>
-        </ant>
-        <ant dir="../filters">
-            <property name="do.build.editor" value="please"/>
-        </ant>
-        <ant dir="../backconverters" target="all">
-            <property name="do.build.editor" value="please"/>
-        </ant>
-    </target>
+	<!-- build dependencies -->
+	<target name="deps" unless="do.build.deps">
+		<ant dir="../../utilities">
+			<property name="do.build.editor" value="please"/>
+		</ant>
+		<ant dir="../filters">
+			<property name="do.build.editor" value="please"/>
+		</ant>
+		<ant dir="../backconverters" target="all">
+			<property name="do.build.editor" value="please"/>
+		</ant>
+	</target>
 
     <target name="dist" depends="common.dist">
         <!-- mksetup -->
@@ -148,41 +131,36 @@
         <mkdir dir="${installer.dir}/downloads/"/>
         <mkdir dir="${installer.dir}/classes"/>
         <mkdir dir="${installer.dir}/samples"/>
-        <mkdir dir="${installer.dir}/i18n"/>
 
         <copy file="${dest.dir}/backconv.jar" verbose="true" tofile="${installer.dir}/classes/XliffBackConverter.jar"/>
         <copy file="${dest.dir}/utilities-fuzzytm.jar" verbose="true" tofile="${installer.dir}/classes/fuzzytm.jar"/>
         <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="installer/README.i18n.txt" verbose="true" todir="${installer.dir}/i18n/"/>
-        
-        <copy todir="${installer.dir}" verbose="true">
-            <fileset dir="installer">
-                <include name="*.properties"/>
-                <include name="*.ico"/>
-                <include name="*.bat"/>
-                <include name="*.sh"/>
-                <include name="shortcuts_*.xml"/>
-                <include name="install_*.xml"/>
-                <include name="*.desktop"/>
-                <exclude name="README.i18n.txt"/>
-            </fileset>
-        </copy>
+	<copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
+
+		<copy todir="${installer.dir}" verbose="true">
+			<fileset dir="installer">
+				<include name="*.properties"/>
+				<include name="*.ico"/>
+				<include name="*.bat"/>
+				<include name="*.sh"/>
+				<include name="shortcuts_*.xml"/>
+				<include name="install_*.xml"/>
+				<include name="*.desktop"/>
+			</fileset>
+		</copy>
 		
-        <copy todir="${installer.dir}" verbose="true" file="static/resources/LICENSE.txt"/>
-        <copy todir="${installer.dir}/samples" verbose="true">
-            <fileset dir="samples"/>
-        </copy>
+		<copy todir="${installer.dir}" verbose="true" file="static/resources/LICENSE.txt"/>
+		<copy todir="${installer.dir}/samples" verbose="true">
+			<fileset dir="samples"/>
+		</copy>
 	
         <chmod file="${installer.dir}/translation.sh" perm="ugo+rx"/>
-        <chmod file="${installer.dir}/renamer.sh" perm="ugo+rx"/>
 
-        <!-- first unzip filters.jar and then zip it with editor -->
-        <unzip src="${dest.dir}/filters-editor.jar" dest="${build.dir}"/>
-        <unzip src="${dest.dir}/utilities-editor.jar" dest="${build.dir}"/>
+		<!-- first unzip filters.jar and then zip it with editor -->
+		<unzip src="${dest.dir}/filters-editor.jar" dest="${build.dir}"/>
+		<unzip src="${dest.dir}/utilities-editor.jar" dest="${build.dir}"/>
         
-        <jar jarfile="${installer.dir}/TransEditor.jar">
+		<jar jarfile="${installer.dir}/TransEditor.jar">
             <fileset dir="${build.dir}">
 			
                 <include name="org/jvnet/olt/editor/backconv/"/>
@@ -233,140 +211,105 @@
                 <include name="org/jvnet/olt/xliff/"/>
                 <include name="org/jvnet/olt/xliffparser/"/>
                 <include name="org/jvnet/olt/xlifftools/"/>
-                <include name="jorg/jvnet/olt/editor/renamer/"/>
-
                 <include name="resources/"/>
                 <include name="resources/flags/"/>
                 <include name="resources/gifs/"/>
                 <include name="resources/LICENSE.txt/"/>
 
-                <!-- include stuff from filters -->
+		<!-- include stuff from filters -->
                 <include name="org/jvnet/olt/tmci/"/>
                 <include name="org/jvnet/olt/filters/software/"/>
                 <include name="org/jvnet/olt/io/"/>
                 <include name="org/jvnet/olt/parsers/"/>
             </fileset>
-            <fileset dir="${editor.dest.dir}/i18n">
-                <include name="**/*.properties"/>
-            </fileset>
         </jar>
 
-        <!-- i18n stuff -->
-        <zip destfile="${installer.dir}/i18n/i18n.zip">
-             <fileset dir="src" includes="**/*.properties"/>
-        </zip>
-        
         <!-- unzip spellchecker -->
 		
-        <!-- we unzip spellchecker for solaris into installer root so that we can test from that dir
-        the win spellchecker is in spellchecker-win 
-        -->
-        <mkdir dir="${installer.dir}/spellchecker-win"/>
-        <unzip src="spellchecker_bin/solaris-spellcheck.zip" dest="${installer.dir}" overwrite="false"/>
-        <unzip src="spellchecker_bin/windows-spellchecker.zip" dest="${installer.dir}/spellchecker-win" overwrite="false"/>
+		<!-- we unzip spellchecker for solaris into installer root so that we can test from that dir
+			the win spellchecker is in spellchecker-win 
+		-->
+		<mkdir dir="${installer.dir}/spellchecker-win"/>
+		<unzip src="spellchecker_bin/solaris-spellcheck.zip" dest="${installer.dir}" />
+		<unzip src="spellchecker_bin/windows-spellchecker.zip" dest="${installer.dir}/spellchecker-win" />
 
-        <!-- make aspell runnable/readable -->
+		<!-- make aspell runnable/readable -->
         <chmod file="${installer.dir}/spellchecker/bin/aspell" perm="ugo+x"/>
         <chmod dir="${installer.dir}/spellchecker" includes="**" perm="ugo+rw" type="both"/>
 
-        <!-- documentation -->
-        <copy file="docs/OLT_XLIFF_Translation_Editor_Manual_1_0.pdf" tofile="${installer.dir}/OLT_XLIFF_Translation_Editor_Manual_${build.version.flat}.pdf"/>
+		<!-- documentation -->
+		<copy file="docs/OLT_XLIFF_Translation_Editor_Manual_1_0.pdf" tofile="${installer.dir}/OLT_XLIFF_Translation_Editor_Manual_${build.version.flat}.pdf"/>
 
-        <!-- set product version number in installer files -->
-        <replace dir="${installer.dir}" token="@VERSION@" value="${build.version}">
-            <include name="install_*.xml"/>
-            <include name="shortcuts_*.xml"/>
-        </replace>
-        <replace dir="${installer.dir}" token="@VERSION_FLAT@" value="${build.version.flat}">
-            <include name="install_*.xml"/>
-            <include name="shortcuts_*.xml"/>
-            <include name="install.*"/>
-        </replace>
+		<!-- set product version number in installer files -->
+		<replace dir="${installer.dir}" token="@VERSION@" value="${build.version}">
+			<include name="install_*.xml"/>
+			<include name="shortcuts_*.xml"/>
+		</replace>
+		<replace dir="${installer.dir}" token="@VERSION_FLAT@" value="${build.version.flat}">
+			<include name="install_*.xml"/>
+			<include name="shortcuts_*.xml"/>
+			<include name="install.*"/>
+		</replace>
 
-        <echo>Building installer for Windows</echo>
-        <izpack input="${installer.dir}/install_windows.xml"
+		<echo>Building installer for Windows</echo>
+ 		<izpack input="${installer.dir}/install_windows.xml"
         output="${dest.dir}/transeditor_v${build.version.flat}_win.jar"
         installerType="standard"
         basedir="${installer.dir}"
         izPackDir="${IZPACK_HOME}"/>
 		
-        <echo>Building installer for Solaris</echo>
-        <izpack input="${installer.dir}/install_solaris.xml"
+		<echo>Building installer for Solaris</echo>
+       <izpack input="${installer.dir}/install_solaris.xml"
         output="${dest.dir}/transeditor_v${build.version.flat}_unix.jar"
         installerType="standard"
         basedir="${installer.dir}"
         izPackDir="${IZPACK_HOME}"/>
 
-        <!-- ANY OTHER PLATFORMS -->
-        <!--
-        <echo>Building installer for Other</echo>
-        <izpack input="installer/install_other.xml"
+		<!-- ANY OTHER PLATFORMS -->
+		<!--
+		<echo>Building installer for Other</echo>
+       <izpack input="installer/install_other.xml"
         output="${dest.dir}/transeditor_v4_5_other.jar"
         installerType="standard"
         basedir="${installer.dir}"
         izPackDir="${IZPACK_HOME}"/>
-        -->
+		-->
 		
-        <zip destfile="${dest.dir}/transeditor_v${build.version.flat}_win.zip">
-            <zipfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_win.jar"/>
-            <zipfileset dir="${installer.dir}" includes="install.bat" />
-        </zip>
-        <tar destfile="${dest.dir}/transeditor_v${build.version.flat}_unix.tar.gz" compression="gzip">
-            <tarfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_unix.jar" mode="555"/>
-            <tarfileset dir="${installer.dir}" includes="install.sh" mode="755"/>
-        </tar>
-    </target>
+		<zip destfile="${dest.dir}/transeditor_v${build.version.flat}_win.zip">
+			<zipfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_win.jar"/>
+			<zipfileset dir="${installer.dir}" includes="install.bat" />
+		</zip>
+		<tar destfile="${dest.dir}/transeditor_v${build.version.flat}_unix.tar.gz" compression="gzip">
+			<tarfileset dir="${dest.dir}" includes="transeditor_v${build.version.flat}_unix.jar" mode="555"/>
+			<tarfileset dir="${installer.dir}" includes="install.sh" mode="755"/>
+		</tar>
+	</target>
 
     <target name="clean" depends="common.clean">
         <delete dir="${editor.dest.dir}"/>
         <delete dir="${build.dir}"/>
     </target>
 
-    <target name="run" depends="compile">
-        <copy tofile="${installer.dir}/logging.debug.properties" verbose="true" file="logging.properties" overwrite="no"/>
+	<target name="run" depends="compile">
+                <copy tofile="${installer.dir}/logging.debug.properties" verbose="true" file="logging.properties" overwrite="no"/>
 
-        <java 
-            classpathref="run.classpath" 
-            fork="yes" 
-            dir="${installer.dir}"
-            classname="org.jvnet.olt.editor.translation.TransEditor">
-            <!--classname="org.jvnet.olt.editor.renamer.Renamer -->
-            <!--classname="org.jvnet.olt.editor.backconv.SGMLOptionsPanel" -->
-            <jvmarg value="-Xdebug"/>
-            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=57000"/>
-			
-            <jvmarg value="-Xmx512M"/>                        
-            <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
-            <sysproperty key="editor_home" value="${installer.dir}"/>
-            <sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/>
-        </java>
+		<java 
+			classpathref="run.classpath" 
+			fork="yes" 
+                        dir="${installer.dir}"
+                        classname="org.jvnet.olt.editor.translation.TransEditor">
+<!--classname="org.jvnet.olt.editor.backconv.SGMLOptionsPanel" -->
+			<jvmarg value="-Xdebug"/>
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
+			<jvmarg value="-Xmx512M"/>                        
+                        <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
+                        <sysproperty key="editor_home" value="${installer.dir}"/>
+                        <sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/>
+		</java>
 		
-    </target>
-	
-    <target name="profile" depends="compile">
-        <copy tofile="${installer.dir}/logging.debug.properties" verbose="true" file="logging.properties" overwrite="no"/>
+	</target>
 
-        <java 
-            classpathref="run.classpath" 
-            fork="yes" 
-            dir="${installer.dir}"
-            classname="org.jvnet.olt.editor.translation.TransEditor">
-            <!--classname="org.jvnet.olt.editor.backconv.SGMLOptionsPanel" -->
-            <jvmarg value="-Xdebug"/>
-            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
-            <jvmarg value="-Xmx512M"/>                        
-            <jvmarg value="-agentpath:/home/boris/java/install/netbeans-5.0/profiler1/lib/deployed/jdk15/linux/libprofilerinterface.so=/home/boris/java/install/netbeans-5.0/profiler1/lib,5140"/>
-            <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
-            <sysproperty key="editor_home" value="${installer.dir}"/>
-            <sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/>
-	
-
-        </java>
-		
-    </target>
-
-
-    <target name="xpre-test">
+   <target name="xpre-test">
         <mkdir dir="${build.dir}/junit-reports"/>
         <mkdir dir="${build.dir}/test-results"/>
     </target>
@@ -374,18 +317,18 @@
         	
     <target name="xtest-single" depends="pre-test,compile">
 
-        <property file="single-test.properties"/>
+		<property file="single-test.properties"/>
         <property name="junit.test.suspend" value="n"/>
         <junit printsummary="yes" haltonfailure="no" dir=".">
             <classpath refid="test.classpath"/>
-            <!--
+<!--
             <classpath>
-            <path location="${build.dir}" />
-            <path refid="build.classpath"/>
-            <path location="."/>
-            <path location="test-data"/>
+                <path location="${build.dir}" />
+                <path refid="build.classpath"/>
+                <path location="."/>
+                <path location="test-data"/>
             </classpath>
-            -->
+    -->
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=${junit.test.suspend},address=58000"/>
             <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
@@ -394,12 +337,12 @@
 
             <test name="${junit.test.class}" fork="yes" todir="${build.dir}/junit-reports"/>
         </junit>
-        <junitreport todir="${build.dir}/junit-reports">
-            <fileset dir="${build.dir}/junit-reports">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${build.dir}/junit-reports/html"/>
-        </junitreport>
+		<junitreport todir="${build.dir}/junit-reports">
+		  <fileset dir="${build.dir}/junit-reports">
+			<include name="TEST-*.xml"/>
+		  </fileset>
+		  <report format="frames" todir="${build.dir}/junit-reports/html"/>
+		</junitreport>
     </target>
 
     <!-- we need to setup working dir and different classpath -->
@@ -407,10 +350,10 @@
         <junit printsummary="yes" haltonfailure="no" dir=".">
             <classpath refid="test.classpath"/>
             <!--<classpath>
-            <path location="${build.dir}" />
-            <path refid="build.classpath"/>
-            <path location="."/>
-            <path location="test-data"/>
+                <path location="${build.dir}" />
+                <path refid="build.classpath"/>
+                <path location="."/>
+                <path location="test-data"/>
             </classpath>
             -->
             <jvmarg value="-Xdebug"/>
@@ -422,45 +365,45 @@
             
             <batchtest fork="yes" todir="${build.dir}/junit-reports">
                 <fileset dir="src">
-                    <include name="**/*Test.java" />
+                  <include name="**/*Test.java" />
                 </fileset>
             </batchtest>
         </junit>
-        <junitreport todir="${build.dir}/junit-reports">
-            <fileset dir="${build.dir}/junit-reports">
-                <include name="TEST-*.xml"/>
-            </fileset>
-            <report format="frames" todir="${build.dir}/junit-reports/html"/>
-        </junitreport>
+		<junitreport todir="${build.dir}/junit-reports">
+		  <fileset dir="${build.dir}/junit-reports">
+			<include name="TEST-*.xml"/>
+		  </fileset>
+		  <report format="frames" todir="${build.dir}/junit-reports/html"/>
+		</junitreport>
     
     </target>
     
 
-    <target name="online">
-        <fail>Online version building does not with this build script</fail>
-    </target>
+	<target name="online">
+		<fail>Online version building does not with this build script</fail>
+	</target>
 	
-    <!-- the targets below are not guaranteed to work -->
+<!-- the targets below are not guaranteed to work -->
     <!--
-    Online Editor Targets  
-    =====================
-    The following targets build the online JNLP deployed version
-    of the Editor. The approach is to build the editor classes as 
-    normal, and then to copy stuff to temporary directories, to finish 
-    off the creation of the signed jars, and the building of the war
-    file.
-    -->
-    <target name="online-x" depends="setup-jar,online-ed-jar" description="Jars up the compiled classes">
+          Online Editor Targets  
+          =====================
+          The following targets build the online JNLP deployed version
+          of the Editor. The approach is to build the editor classes as 
+          normal, and then to copy stuff to temporary directories, to finish 
+          off the creation of the signed jars, and the building of the war
+          file.
+      -->
+     <target name="online-x" depends="setup-jar,online-ed-jar" description="Jars up the compiled classes">
         <!-- 
-        Build the 6 jar file components of the online editor into a 
-        single jar to ease handoff.
-        -->
+            Build the 6 jar file components of the online editor into a 
+            single jar to ease handoff.
+         -->
         <jar jarfile="${build.dir}/handoff.jar">
             <fileset dir="${built.lib.dir}">
                 <include name="TransEditor.jar"/>
                 <include name="EditorSetup.jar"/>
                 <include name="xerces2.jar"/>
-                <include name="xmlParserAPIs.jar"/>
+		<include name="xmlParserAPIs.jar"/>
                 <include name="activation.jar"/>
                 <include name="jdom.jar"/>
                 <include name="mail.jar"/>
@@ -586,37 +529,38 @@
     <target name="setup-compile" depends="init" description="compiles the setup classes">
         <mkdir dir="${build.dir.setup}"/>
         <javac classpathref="javac.classpath" destdir="${build.dir.setup}" includes="org/jvnet/olt/editor/setup/**" srcdir="src"/>
-    </target>
+     </target>
 
     <target name="nightly" depends="all">
         <tstamp/>
         <ant target="upload">
-            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_unix.tar.gz"/>
-            <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_unix.tar.gz"/>
-            <property name="uploaded.file.dir" value="/Releases/Unstable"/>
-            <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} UNIX"/>
+           <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_unix.tar.gz"/>
+           <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_unix.tar.gz"/>
+	   <property name="uploaded.file.dir" value="/Releases/Unstable"/>
+           <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} UNIX"/>
         </ant>
         <ant target="upload">
-            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_win.zip"/>
-            <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_win.zip"/>
-            <property name="uploaded.file.dir" value="/Releases/Unstable"/>
-            <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} Windows"/>
+           <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_win.zip"/>
+           <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_win.zip"/>
+	   <property name="uploaded.file.dir" value="/Releases/Unstable"/>
+           <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} Windows"/>
         </ant>
-    </target>
+     </target>
 	 
     <target name="rc">
         <ant target="upload">
-            <property name="path.to.file" value="${dest.dir}/xliff_filters_v1_1RC1_unix.tar.gz"/>
-            <property name="uploaded.file.name" value="xliff_filters_v1_1RC1_unix.tar.gz"/>
-            <property name="uploaded.file.dir" value="/Releases/"/>
-            <property name="uploaded.file.description" value="OLT XLIFF Filters 1.1 Release Candidate 1 UNIX"/>
+           <property name="path.to.file" value="${dest.dir}/xliff_filters_v1_1RC1_unix.tar.gz"/>
+           <property name="uploaded.file.name" value="xliff_filters_v1_1RC1_unix.tar.gz"/>
+	   <property name="uploaded.file.dir" value="/Releases/"/>
+           <property name="uploaded.file.description" value="OLT XLIFF Filters 1.1 Release Candidate 1 UNIX"/>
         </ant>
         <ant target="upload">
-            <property name="path.to.file" value="${dest.dir}/xliff_filters_v1_1RC1_win.zip"/>
-            <property name="uploaded.file.name" value="xliff_filters_v1_1RC1_win.zip"/>
-            <property name="uploaded.file.dir" value="/Releases/"/>
-            <property name="uploaded.file.description" value="XLIFF Filters 1.1 Release Candidate 1 Windows"/>
+           <property name="path.to.file" value="${dest.dir}/xliff_filters_v1_1RC1_win.zip"/>
+           <property name="uploaded.file.name" value="xliff_filters_v1_1RC1_win.zip"/>
+	   <property name="uploaded.file.dir" value="/Releases/"/>
+           <property name="uploaded.file.description" value="XLIFF Filters 1.1 Release Candidate 1 Windows"/>
         </ant>
-    </target>
+     </target>
+
 
 </project>

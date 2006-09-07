@@ -27,13 +27,10 @@
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder/>
               </Border>
-              <ResourceString PropertyName="titleX" bundle="org/jvnet/olt/editor/translation/SourceContextFrame.properties" key="Source_Text_Context_Information" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jvnet/olt/editor/translation/SourceContextFrame.properties" key="Context_information_describing_the_source_language_string_currently_selected." replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
-        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Context information describing the source language string currently selected."/>
         <Property name="autoscrolls" type="boolean" value="true"/>
         <Property name="name" type="java.lang.String" value=""/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

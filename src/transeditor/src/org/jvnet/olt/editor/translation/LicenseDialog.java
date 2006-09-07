@@ -7,8 +7,6 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
-import org.jvnet.olt.editor.util.Bundle;
-
 
 import javax.swing.*;
 
@@ -34,7 +32,6 @@ public class LicenseDialog extends JDialog {
     private JPanel buttons2;
     private boolean didAgree;
 
-    private Bundle bundle = Bundle.getBundle(LicenseDialog.class.getName());
     /** Construct dialog with license text and in an operation mode
      *
      * @param parent Parent Frame
@@ -55,7 +52,7 @@ public class LicenseDialog extends JDialog {
      *
      */
     void init() {
-        setTitle(bundle.getString("Binary_Licence_Agreement"));
+        setTitle("Binary Licence Agreement");
         setModal(true);
         setResizable(false);
         getContentPane().setLayout(new BorderLayout(20, 20));
@@ -77,7 +74,7 @@ public class LicenseDialog extends JDialog {
         setSize((int)(frameSize.getWidth()), (int)(frameSize.getHeight()));
         setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 
-        JLabel label = new JLabel(bundle.getString("Please_read_the_binary_license_agreement_below:"));
+        JLabel label = new JLabel("Please read the binary license agreement below:");
         label.setAlignmentY((float)0.5);
         getContentPane().add(label, BorderLayout.NORTH);
 
@@ -94,10 +91,10 @@ public class LicenseDialog extends JDialog {
         buttons1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttons2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        JButton agree = new JButton(bundle.getString("Agree"));
+        JButton agree = new JButton("Agree");
         agree.setActionCommand("agree");
 
-        JButton decline = new JButton(bundle.getString("Decline"));
+        JButton decline = new JButton("Decline");
 
         ActionListener buttonListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -112,7 +109,7 @@ public class LicenseDialog extends JDialog {
         buttons1.add(agree);
         buttons1.add(decline);
 
-        JButton ok = new JButton(bundle.getString("Ok"));
+        JButton ok = new JButton("Ok");
         ok.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     setVisible(false);

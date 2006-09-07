@@ -44,11 +44,7 @@
             <fileset dir="." targetdir="$INSTALL_PATH">
                 <include name="**/*.jar"/>
             </fileset>
-            <fileset dir="i18n" targetdir="$INSTALL_PATH/i18n">
-                <include name="**/*"/>
-            </fileset>
             <file src="translation.bat" targetdir="$INSTALL_PATH"/>
-            <file src="renamer.bat" targetdir="$INSTALL_PATH"/>
             <file src="logging.properties" targetdir="$INSTALL_PATH"/>
 
             <file src="editor.ico" targetdir="$INSTALL_PATH/icons"/>
@@ -90,12 +86,12 @@
             <depends packname="Spellchecker"/>
             <file src="spellchecker-win/spellchecker/dict/aspell/swedish" targetdir="$INSTALL_PATH/spellchecker/dict/aspell/"/> 
         </pack>
-        <pack name="Sample XLIFF files" required="no" preselected="yes">
+		<pack name="Sample XLIFF files" required="no" preselected="yes">
             <description>This component sample XLIFF files</description>
             <fileset dir="samples/" targetdir="$INSTALL_PATH/samples/"> 
                 <include name="**/*"/>
             </fileset>
-        </pack>
+		</pack>
     </packs>
     <native type="izpack" name="ShellLink.dll"/>
 

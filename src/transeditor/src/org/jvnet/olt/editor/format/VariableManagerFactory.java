@@ -32,7 +32,6 @@ public class VariableManagerFactory {
     private static final int PROPERTIES = 14;
     private static final int PLAINTEXT = 15;
     private static final int DTD = 16;
-    private static final int STAROFFICE = 17;
     private Map validFormatsHash;
 
     /** Creates a new instance of VariableManagerFactory */
@@ -50,7 +49,7 @@ public class VariableManagerFactory {
         validFormatsHash.put("PLAINTEXT", new Integer(PLAINTEXT));
         validFormatsHash.put("DTD", new Integer(DTD));
 
-        validFormatsHash.put("STAROFFICE", new Integer(STAROFFICE));
+        validFormatsHash.put("STAROFFICE", new Integer(PLAINTEXT));
 
     }
 
@@ -78,7 +77,6 @@ public class VariableManagerFactory {
         case PROPERTIES:
         case PLAINTEXT:
         case DTD:
-        case STAROFFICE:
             gvm = new EntityManager();
 
             return gvm;

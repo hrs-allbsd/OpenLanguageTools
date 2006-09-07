@@ -1,6 +1,0 @@
-#!/bin/sh
-CLASSPATH=..:..:../../sgml_filter/:/space/timf/transtech-build
-#CLASSPATH=/space/timf/transtech-build
-
-export CLASSPATH
-java com.sun.tt.filters.jsp.ViewJspSegments $@

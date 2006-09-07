@@ -6,19 +6,21 @@
 package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
+import java.awt.datatransfer.*;
 import java.awt.event.*;
-import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import javax.swing.text.*;
 
 import org.jvnet.olt.editor.model.*;
 
+import org.w3c.dom.Element;
+
 
 public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
-    private static Bundle bundle = Bundle.getBundle(TMInnerPanel.class.getName());
     public static Result srcResult = null;
     public static Result oldSrcResult = null;
     public static Result targetResult = null;
@@ -79,13 +81,13 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
         jToolBarPanel.setLayout(borderLayout2);
         jPanel2.setLayout(gridLayout1);
         gridLayout1.setColumns(2);
-        jCheckBox1.setText(bundle.getString("Match_Case"));
+        jCheckBox1.setText("Match Case");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jCheckBox1_actionPerformed(e);
                 }
             });
-        jCheckBox2.setText(bundle.getString("Down"));
+        jCheckBox2.setText("Down");
         jCheckBox2.setSelected(true);
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -97,7 +99,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
         jButton1.setMaximumSize(new Dimension(30, 27));
         jButton1.setMinimumSize(new Dimension(25, 25));
         jButton1.setPreferredSize(new Dimension(25, 25));
-        jButton1.setToolTipText(bundle.getString("Search"));
+        jButton1.setToolTipText("Search");
         jButton1.setIcon(MainFrame.ip.imageFind);
         jButton1.addActionListener(new TMInnerPanel_jButton1_actionAdapter(this));
         borderLayout1.setHgap(2);
@@ -148,9 +150,9 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
 
     public void setFlagTips(String strNation) {
         if (iLocation == 0) {
-            jLabel1.setToolTipText(bundle.getString("Source_Language:_") + strNation);
+            jLabel1.setToolTipText("Source Language: " + strNation);
         } else {
-            jLabel1.setToolTipText(bundle.getString("Target_Language:_") + strNation);
+            jLabel1.setToolTipText("Target Language: " + strNation);
         }
     }
 
@@ -189,18 +191,18 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
             Toolkit.getDefaultToolkit().beep();
 
             if (iLocation == 0) {
-                informationString = new String(bundle.getString("Find_what_in_source?"));
+                informationString = new String("Find what in source?");
             } else {
-                informationString = new String(bundle.getString("Find_what_in_target?"));
+                informationString = new String("Find what in target?");
             }
 
             String message = informationString;
 
-            String[] options = { bundle.getString("Ok") };
+            String[] options = { "Ok" };
 
             int r = JOptionPane.showOptionDialog(getRootPane(), // the parent that the dialog blocks
                 message, // the dialog message array
-                bundle.getString("Warning"), // the title of the dialog window
+                "Warning", // the title of the dialog window
                 JOptionPane.DEFAULT_OPTION, // option type
                 JOptionPane.WARNING_MESSAGE, // message type
                 null, // optional icon, use null to use the default icon
@@ -446,22 +448,19 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
 
             Toolkit.getDefaultToolkit().beep();
 
-            String informationString = bundle.getString("Finished_searching_the_file.");
+            String informationString = "Finished searching the file.";
 
             if (noOne) {
-                if (isSrc)
-                    informationString = bundle.getString("The_search_item_was_not_found_Source");
-                else
-                    informationString = bundle.getString("The_search_item_was_not_found_Target");
+                informationString = "The search item was not found in the " + ((isSrc) ? "source" : "target") + " language.";
             }
 
             String message = informationString;
 
-            String[] options = { bundle.getString("Ok") };
+            String[] options = { "Ok" };
 
             int r = JOptionPane.showOptionDialog(AlignmentMain.testMain1.getRootPane(), //AlignmentMain.frame,                             // the parent that the dialog blocks
                 message, // the dialog message array
-                bundle.getString("Searching"), // the title of the dialog window
+                "Searching", // the title of the dialog window
                 JOptionPane.DEFAULT_OPTION, // option type
                 JOptionPane.INFORMATION_MESSAGE, // message type
                 null, // optional icon, use null to use the default icon
@@ -572,13 +571,13 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                     boolean resume = false;
 
                     if ((initSearchRow != 0) && (result == null)) {
-                        String[] options = { bundle.getString("Yes"), bundle.getString("No") };
+                        String[] options = { "Yes", "No" };
 
                         Toolkit.getDefaultToolkit().beep();
 
                         int r = JOptionPane.showOptionDialog(AlignmentMain.testMain1.getRootPane(), //AlignmentMain.frame,                             // the parent that the dialog blocks
-                            bundle.getString("The_editor_has_finished_searching_to_the_end_of_the_file._Do_you_want_to_continue_searching_from_the_top_of_the_file?"), // the dialog message array
-                            bundle.getString("Searching"), // the title of the dialog window
+                            "The editor has finished searching to the end of the file. \nDo you want to continue searching from the top of the file?", // the dialog message array
+                            "Searching", // the title of the dialog window
                             JOptionPane.DEFAULT_OPTION, // option type
                             JOptionPane.INFORMATION_MESSAGE, // message type
                             null, // optional icon, use null to use the default icon
@@ -729,13 +728,13 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                     boolean resume = false;
 
                     if ((initSearchRow != (alignments.length - 1)) && (result == null)) {
-                        String[] options = { bundle.getString("Yes"), bundle.getString("No") };
+                        String[] options = { "Yes", "No" };
 
                         Toolkit.getDefaultToolkit().beep();
 
                         int r = JOptionPane.showOptionDialog(AlignmentMain.testMain1.getRootPane(), //AlignmentMain.frame,                             // the parent that the dialog blocks
-                            bundle.getString("The_editor_has_finished_searching_to_the_top_of_the_file._Do_you_want_to_continue_searching_from_the_end_of_the_file?"), // the dialog message array
-                            bundle.getString("Searching"), // the title of the dialog window
+                            "The editor has finished searching to the top of the file. \nDo you want to continue searching from the end of the file?", // the dialog message array
+                            "Searching", // the title of the dialog window
                             JOptionPane.DEFAULT_OPTION, // option type
                             JOptionPane.INFORMATION_MESSAGE, // message type
                             null, // optional icon, use null to use the default icon

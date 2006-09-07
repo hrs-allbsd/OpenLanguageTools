@@ -8,15 +8,17 @@ package org.jvnet.olt.editor.translation;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.io.*;
+
 import java.util.*;
 import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
+import javax.swing.undo.*;
 
 import org.jvnet.olt.editor.model.*;
-import org.jvnet.olt.editor.util.Bundle;
 
 
 /**
@@ -66,8 +68,6 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
     public static JMenuItem confirmReviewMenu = null;
     public static JMenuItem confirmRejectMenu = null;
 
-    private static final Bundle bundle = Bundle.getBundle(PivotTextPane.class.getName());
-    private static final Bundle mfBundle = Bundle.getBundle(MainFrame.class.getName());
     // bug 4744603
     //--------------------------------------
     private static Keymap thisKeymap = null;
@@ -349,12 +349,12 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         Keymap map = JTextComponent.addKeymap("myMap", thisKeymap);
 
         //KeyStroke ks1 = KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN,InputEvent.CTRL_MASK);
-        KeyStroke ks1 = ShortcutsBuilder.getMenuItemShortcut(mfBundle.getString("Navigation"), mfBundle.getString("Page_Down"));
+        KeyStroke ks1 = ShortcutsBuilder.getMenuItemShortcut("Navigation", "Page Down");
         Action pagedown = new ActionCtrlPageDown("pagedown");
         map.addActionForKeyStroke(ks1, pagedown);
 
         //KeyStroke ks2 = KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP,InputEvent.CTRL_MASK);
-        KeyStroke ks2 = ShortcutsBuilder.getMenuItemShortcut(mfBundle.getString("Navigation"), mfBundle.getString("Page_Up"));
+        KeyStroke ks2 = ShortcutsBuilder.getMenuItemShortcut("Navigation", "Page Up");
         Action pageup = new ActionCtrlPageUp("pageup");
         map.addActionForKeyStroke(ks2, pageup);
 
@@ -505,8 +505,8 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         if(e.getKeyCode() == KeyEvent.VK_ENTER && !insertable){
             e.consume();
         }
-
-
+        
+        
         if (e.getKeyCode() == KeyEvent.VK_DELETE) {
             if (backwardDeletable == false) {
                 curCharString = DELETE;
@@ -528,7 +528,7 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         }
 
         // bug 4714740 4761899
-        KeyStroke ks = ShortcutsBuilder.getMenuItemShortcut(mfBundle.getString("Edit"), mfBundle.getString("Cut"));
+        KeyStroke ks = ShortcutsBuilder.getMenuItemShortcut("Edit", "Cut");
 
         if (MainFrame.canCut && ((e.getKeyCode() == KeyEvent.VK_CUT) || ((e.getKeyCode() == ks.getKeyCode()) && KeyEvent.getKeyModifiersText(e.getModifiers()).equals(KeyEvent.getKeyModifiersText(ks.getModifiers()))))) {
             if (!forwardDeletable || !backwardDeletable) {
@@ -542,7 +542,7 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
             this.operation = CUT;
         }
 
-        ks = ShortcutsBuilder.getMenuItemShortcut(mfBundle.getString("Edit"), mfBundle.getString("Paste"));
+        ks = ShortcutsBuilder.getMenuItemShortcut("Edit", "Paste");
 
         if (MainFrame.canPaste && ((e.getKeyCode() == KeyEvent.VK_PASTE) || ((e.getKeyCode() == ks.getKeyCode()) && KeyEvent.getKeyModifiersText(e.getModifiers()).equals(KeyEvent.getKeyModifiersText(ks.getModifiers()))))) {
             //logger.finer("PivotTextPane Paste");
@@ -558,26 +558,26 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
             this.operation = PASTE;
         }
 
-        ks = ShortcutsBuilder.getMenuItemShortcut(mfBundle.getString("Edit"), mfBundle.getString("Undo"));
+        ks = ShortcutsBuilder.getMenuItemShortcut("Edit", "Undo");
 
         if ((e.getKeyCode() == ks.getKeyCode()) && KeyEvent.getKeyModifiersText(e.getModifiers()).equals(KeyEvent.getKeyModifiersText(ks.getModifiers()))) {
             newInsert();
         }
 
-        ks = ShortcutsBuilder.getMenuItemShortcut(mfBundle.getString("Edit"), mfBundle.getString("Redo"));
+        ks = ShortcutsBuilder.getMenuItemShortcut("Edit", "Redo");
 
         if ((e.getKeyCode() == ks.getKeyCode()) && KeyEvent.getKeyModifiersText(e.getModifiers()).equals(KeyEvent.getKeyModifiersText(ks.getModifiers()))) {
             newInsert();
         }
 
-        ks = ShortcutsBuilder.getMenuItemShortcut(mfBundle.getString("Navigation"),mfBundle.getString("Go_To_Top"));
+        ks = ShortcutsBuilder.getMenuItemShortcut("Navigation", "Go To Top");
 
         if ((e.getKeyCode() == ks.getKeyCode()) && KeyEvent.getKeyModifiersText(e.getModifiers()).equals(KeyEvent.getKeyModifiersText(ks.getModifiers()))) {
             newInsert();
             AlignmentMain.testMain1.navigateTo(0);
         }
 
-        ks = ShortcutsBuilder.getMenuItemShortcut(mfBundle.getString("Navigation"), mfBundle.getString("Go_To_Bottom"));
+        ks = ShortcutsBuilder.getMenuItemShortcut("Navigation", "Go To Bottom");
 
         if ((e.getKeyCode() == ks.getKeyCode()) && KeyEvent.getKeyModifiersText(e.getModifiers()).equals(KeyEvent.getKeyModifiersText(ks.getModifiers()))) {
             newInsert();
@@ -731,7 +731,7 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         }
     }
 
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {        
         if (this.table == AlignmentMain.testMain2.tableView) { //Target
 
             if (isRowApproved()) {
@@ -1386,23 +1386,23 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         if (popEditMenu == null) {
             popEditMenu = new JPopupMenu();
 
-            JMenu markMenu = new JMenu(bundle.getString("Mark_Segment_As"));
+            JMenu markMenu = new JMenu("Mark Segment As");
             popEditMenu.add(markMenu);
-            transMenu = new PopupEditListener(bundle.getString("Translated"), 0);
+            transMenu = new PopupEditListener("Translated", 0);
             markMenu.add(transMenu);
-            approveMenu = new PopupEditListener(bundle.getString("Approved"), 1);
+            approveMenu = new PopupEditListener("Approved", 1);
             markMenu.add(approveMenu);
-            rejectMenu = new PopupEditListener(bundle.getString("Rejected"), 2);
+            rejectMenu = new PopupEditListener("Rejected", 2);
             markMenu.add(rejectMenu);
-            untransMenu = new PopupEditListener(bundle.getString("Untranslated"), 3);
+            untransMenu = new PopupEditListener("Untranslated", 3);
             markMenu.add(untransMenu);
             popEditMenu.addSeparator();
 
-            confirmTransMenu = new PopupEditListener(bundle.getString("Confirm_and_Translate_Next"), 4);
+            confirmTransMenu = new PopupEditListener("Confirm and Translate Next", 4);
             popEditMenu.add(confirmTransMenu);
-            confirmReviewMenu = new PopupEditListener(bundle.getString("Approve_and_go_to_next_translated"), 5);
+            confirmReviewMenu = new PopupEditListener("Approve and go to next translated", 5);
             popEditMenu.add(confirmReviewMenu);
-            confirmRejectMenu = new PopupEditListener(bundle.getString("Reject_and_go_to_next_translated"), 6);
+            confirmRejectMenu = new PopupEditListener("Reject and go to next translated", 6);
             popEditMenu.add(confirmRejectMenu);
         }
 

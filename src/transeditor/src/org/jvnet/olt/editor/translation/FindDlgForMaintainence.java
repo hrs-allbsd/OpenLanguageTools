@@ -11,7 +11,6 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.*;
-import java.text.MessageFormat;
 
 import java.util.Vector;
 import java.util.logging.Logger;
@@ -194,8 +193,8 @@ public class FindDlgForMaintainence extends JPanel {
         /**
          * forward radio button
          */
-        JRadioButton searchDownRadio = new JRadioButton(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Search_down"),true);
-        JRadioButton searchUpRadio = new JRadioButton(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Search_up"));
+        JRadioButton searchDownRadio = new JRadioButton("Search down",true);
+        JRadioButton searchUpRadio = new JRadioButton("Search up");
         ButtonGroup buttonGroup = new ButtonGroup();
         /**
          * backward radio button
@@ -266,15 +265,15 @@ public class FindDlgForMaintainence extends JPanel {
         private void jbInit() throws Exception {
             gridLayout2.setRows(2);
             gridLayout2.setColumns(1);
-            titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(SystemColor.inactiveCaptionBorder, 1), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Options"));
-            titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(SystemColor.inactiveCaptionText, 1), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Search_in"));
+            titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(SystemColor.inactiveCaptionBorder, 1), "Options");
+            titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(SystemColor.inactiveCaptionText, 1), "Search in");
             this.setLayout(null);
             actionPanel.setLayout(flowLayout1);
             replaceAllButton.setMaximumSize(new Dimension(120, 27));
             replaceAllButton.setMinimumSize(new Dimension(120, 27));
             replaceAllButton.setPreferredSize(new Dimension(120, 27));
-            replaceAllButton.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Replace_all_found_string"));
-            replaceAllButton.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Replace_All"));
+            replaceAllButton.setToolTipText("Replace all found string");
+            replaceAllButton.setText("Replace All");
             replaceAllButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     replaceAllButton_actionPerformed(e);
@@ -283,8 +282,8 @@ public class FindDlgForMaintainence extends JPanel {
             cancelButton.setMaximumSize(new Dimension(120, 27));
             cancelButton.setMinimumSize(new Dimension(120, 27));
             cancelButton.setPreferredSize(new Dimension(120, 27));
-            cancelButton.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Close"));
-            cancelButton.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Close"));
+            cancelButton.setToolTipText("Close");
+            cancelButton.setText("Close");
             cancelButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     cancelButton_actionPerformed(e);
@@ -294,8 +293,8 @@ public class FindDlgForMaintainence extends JPanel {
             clearButton.setMaximumSize(new Dimension(120, 27));
             clearButton.setMinimumSize(new Dimension(120, 27));
             clearButton.setPreferredSize(new Dimension(120, 27));
-            clearButton.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Clearr"));
-            clearButton.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Clear_All"));
+            clearButton.setToolTipText("Clea");
+            clearButton.setText("Clear All");
             clearButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     findComboBox.setSelectedItem("");
@@ -307,8 +306,8 @@ public class FindDlgForMaintainence extends JPanel {
             replaceButton.setMaximumSize(new Dimension(120, 27));
             replaceButton.setMinimumSize(new Dimension(120, 27));
             replaceButton.setPreferredSize(new Dimension(120, 27));
-            replaceButton.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Replace_the_current_string"));
-            replaceButton.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Replace"));
+            replaceButton.setToolTipText("Replace the current string");
+            replaceButton.setText("Replace");
             replaceButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     replaceButton_actionPerformed(e);
@@ -317,8 +316,8 @@ public class FindDlgForMaintainence extends JPanel {
             findButton.setMaximumSize(new Dimension(120, 27));
             findButton.setMinimumSize(new Dimension(120, 27));
             findButton.setPreferredSize(new Dimension(120, 27));
-            findButton.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Start_finding"));
-            findButton.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Find"));
+            findButton.setToolTipText("Start finding");
+            findButton.setText("Find");
             findButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     findButton_actionPerformed(e);
@@ -327,8 +326,8 @@ public class FindDlgForMaintainence extends JPanel {
             helpButton.setMaximumSize(new Dimension(120, 27));
             helpButton.setMinimumSize(new Dimension(120, 27));
             helpButton.setPreferredSize(new Dimension(120, 27));
-            helpButton.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Help_for_finding_or_replacing"));
-            helpButton.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Help"));
+            helpButton.setToolTipText("Help for finding or replacing");
+            helpButton.setText("Help");
             helpButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     helpButton_actionPerformed(e);
@@ -337,15 +336,15 @@ public class FindDlgForMaintainence extends JPanel {
             findSubPanel.setLayout(gridLayout2);
             textPanel.setLayout(gridBagLayout1);
             findLabel.setHorizontalAlignment(SwingConstants.LEFT);
-            findLabel.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Text_to_find:"));
+            findLabel.setText("Text to find:");
             
             replaceLabel.setHorizontalAlignment(SwingConstants.LEFT);
-            replaceLabel.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Replace_With:"));
+            replaceLabel.setText("Replace With:");
             optionPanel.setBorder(titledBorder1);
             optionPanel.setLayout(gridLayout3);
             
             ButtonGroup bg = new ButtonGroup();
-            findComboBox.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Enter_a_word_or_string_to_find"));
+            findComboBox.setToolTipText("Enter a word or string to find");
             findComboBox.getEditor().addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     findButton.requestFocus();
@@ -360,8 +359,8 @@ public class FindDlgForMaintainence extends JPanel {
                     }
                 }
             });
-            replaceComboBox.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Enter_a_word_or_string_to_replace_"));
-            caseOption.setToolTipText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Match_case_sensitivity"));
+            replaceComboBox.setToolTipText("Enter a word or string to replace ");
+            caseOption.setToolTipText("Match case sensitivity");
             //searchDirectionOption.setToolTipText("search down");
             //searchDirectionOption.setSelected(true);
             //searchDirectionOption.setText("Down");
@@ -379,7 +378,7 @@ public class FindDlgForMaintainence extends JPanel {
             findSubPanel.setPreferredSize(new Dimension(200, 200));
             gridLayout3.setColumns(1);
             gridLayout3.setRows(2);
-            caseOption.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Match_Case"));
+            caseOption.setText("Match Case");
             this.setMaximumSize(new Dimension(280, 240));
             this.setMinimumSize(new Dimension(280, 240));
             this.setPreferredSize(new Dimension(456, 300));
@@ -527,7 +526,7 @@ public class FindDlgForMaintainence extends JPanel {
                 Toolkit.getDefaultToolkit().beep();
                 
                 //Object[]    message = new Object[1];
-                String informationString = org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Find_what?");
+                String informationString = "Find what?";
                 
             /*textArea.setSize(200,50);
             textArea.setText(informationString);
@@ -536,10 +535,10 @@ public class FindDlgForMaintainence extends JPanel {
                 String message = informationString;
                 
 				try{
-					String[] options = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Ok") };
+					String[] options = { "Ok" };
 					int r = JOptionPane.showOptionDialog(this.getRootPane(), // the parent that the dialog blocks
 							message, // the dialog message array
-							org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Warning"), // the title of the dialog window
+							"Warning", // the title of the dialog window
 							JOptionPane.DEFAULT_OPTION, // option type
 							JOptionPane.WARNING_MESSAGE, // message type
 							null, // optional icon, use null to use the default icon
@@ -598,18 +597,18 @@ public class FindDlgForMaintainence extends JPanel {
                 Toolkit.getDefaultToolkit().beep();
                 
                 //Object[]    message = new Object[1];
-                String informationString = org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Replace_what?");
+                String informationString = "Replace what?";
                 
             /*textArea.setText(informationString);
             scr.setSize(new Dimension(textArea.getPreferredSize()));
             message[0] = scr;*/
                 String message = informationString;
                 
-                String[] options = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Ok") };
+                String[] options = { "Ok" };
                 
                 int r = JOptionPane.showOptionDialog(this, // the parent that the dialog blocks
                         message, // the dialog message array
-                        org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Warning"), // the title of the dialog window
+                        "Warning", // the title of the dialog window
                         JOptionPane.DEFAULT_OPTION, // option type
                         JOptionPane.WARNING_MESSAGE, // message type
                         null, // optional icon, use null to use the default icon
@@ -680,7 +679,7 @@ public class FindDlgForMaintainence extends JPanel {
                 Toolkit.getDefaultToolkit().beep();
                 
                 //Object[]    message = new Object[1];
-                String informationString = org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Replace_what?");
+                String informationString = "Replace what?";
                 
             /*textArea.setSize(200,50);
             textArea.setText(informationString);
@@ -688,11 +687,11 @@ public class FindDlgForMaintainence extends JPanel {
             message[0] = scr;*/
                 String message = informationString;
                 
-                String[] options = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Ok") };
+                String[] options = { "Ok" };
                 
                 int r = JOptionPane.showOptionDialog(this, // the parent that the dialog blocks
                         message, // the dialog message array
-                        org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Warning"), // the title of the dialog window
+                        "Warning", // the title of the dialog window
                         JOptionPane.DEFAULT_OPTION, // option type
                         JOptionPane.WARNING_MESSAGE, // message type
                         null, // optional icon, use null to use the default icon
@@ -740,11 +739,7 @@ public class FindDlgForMaintainence extends JPanel {
                 
                 MiniTMAlignmentMain.testMain.tableView.repaint(MiniTMAlignmentMain.testMain.tableView.getBounds());
                 Toolkit.getDefaultToolkit().beep();
-
-                String x = (v.size() > 1) ?  MessageFormat.format("{0} occurrences have been replaced",v.size()) :
-                    MessageFormat.format("{0} occurrence has been replaced",v.size() ); 
-                
-                JOptionPane.showMessageDialog(this,x, "Replace All", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(this, v.size() + ((v.size() > 1) ? " occurrences have" : " occurrence has") + " been replaced!", "Replace All", JOptionPane.PLAIN_MESSAGE);
             }
             
             stopWhile();
@@ -803,10 +798,10 @@ public class FindDlgForMaintainence extends JPanel {
                 Toolkit.getDefaultToolkit().beep();
                 
                 //Object[]    message = new Object[1];
-                String informationString = org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Finished_searching_the_file.");
+                String informationString = "Finished searching the file.";
                 
                 if (noOne) {
-                    informationString = org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("The_search_item_was_not_found_in_the_Mini-TM_file.");
+                    informationString = "The search item was not found in the Mini-TM file.";
                 }
                 
             /*textArea.setText(informationString);
@@ -816,11 +811,11 @@ public class FindDlgForMaintainence extends JPanel {
             message[0] = scr;*/
                 String message = informationString;
                 
-                String[] options = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Ok") };
+                String[] options = { "Ok" };
                 
                 int r = JOptionPane.showOptionDialog(this, //AlignmentMain.frame,                             // the parent that the dialog blocks
                         message, // the dialog message array
-                        org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Searching"), // the title of the dialog window
+                        "Searching", // the title of the dialog window
                         JOptionPane.DEFAULT_OPTION, // option type
                         JOptionPane.INFORMATION_MESSAGE, // message type
                         null, // optional icon, use null to use the default icon
@@ -1018,11 +1013,11 @@ public class FindDlgForMaintainence extends JPanel {
                     }
                     
                     if ((startRow != 0) && (oldResult == null)) {
-                        String[] options = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Yes"), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("No") };
+                        String[] options = { "Yes", "No" };
                         
                         int r = JOptionPane.showOptionDialog(this, //AlignmentMain.frame,                             // the parent that the dialog blocks
-                                org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("The_editor_has_searched_to_the_end_of_the_file._Do_you_want_to_continue_searching_from_the_start_of_the_file?"), // the dialog message array
-                                org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Searching"), // the title of the dialog window
+                                "The editor has searched to the end of the file. \nDo you want to continue searching from the start of the file?", // the dialog message array
+                                "Searching", // the title of the dialog window
                                 JOptionPane.DEFAULT_OPTION, // option type
                                 JOptionPane.INFORMATION_MESSAGE, // message type
                                 null, // optional icon, use null to use the default icon
@@ -1210,11 +1205,11 @@ public class FindDlgForMaintainence extends JPanel {
                     }
                     
                     if ((startRow != (alignments.length - 1)) && (oldResult == null)) {
-                        String[] options = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Yes"), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("No") };
+                        String[] options = { "Yes", "No" };
                         
                         int r = JOptionPane.showOptionDialog(this, //AlignmentMain.frame,                             // the parent that the dialog blocks
-                                org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("The_editor_has_searched_to_the_start_of_the_file._Do_you_want_to_continue_searching_from_the_end_of_the_file?"), // the dialog message array
-                                org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Searching"), // the title of the dialog window
+                                "The editor has searched to the start of the file. \nDo you want to continue searching from the end of the file?", // the dialog message array
+                                "Searching", // the title of the dialog window
                                 JOptionPane.DEFAULT_OPTION, // option type
                                 JOptionPane.INFORMATION_MESSAGE, // message type
                                 null, // optional icon, use null to use the default icon
@@ -1371,9 +1366,7 @@ public class FindDlgForMaintainence extends JPanel {
                 Toolkit.getDefaultToolkit().beep();
                 
                 //Object[]    message = new Object[1];
-                String informationString = isSrc ? MessageFormat.format("Can not find {0} in source",s.what) :
-                            MessageFormat.format("Can not find {0} in target",s.what) ;                    
-                //String informationString = "Can not find " + s.what + ((isSrc) ? " in source." : " in target.");
+                String informationString = "Can not find " + s.what + ((isSrc) ? " in source." : " in target.");
                 
             /*textArea.setSize(200,50);
             textArea.setText(informationString);
@@ -1381,10 +1374,10 @@ public class FindDlgForMaintainence extends JPanel {
             message[0] = scr;*/
                 String message = informationString;
                 
-                String[] options = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Ok") };
+                String[] options = { "Ok" };
                 int r = JOptionPane.showOptionDialog(this, // the parent that the dialog blocks
                         message, // the dialog message array
-                        org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FindDlgForMaintainence").getString("Searching"), // the title of the dialog window
+                        "Searching", // the title of the dialog window
                         JOptionPane.DEFAULT_OPTION, // option type
                         JOptionPane.INFORMATION_MESSAGE, // message type
                         null, // optional icon, use null to use the default icon

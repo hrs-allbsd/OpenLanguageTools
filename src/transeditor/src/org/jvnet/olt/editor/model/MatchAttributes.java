@@ -11,7 +11,6 @@ package org.jvnet.olt.editor.model;
  * <p>Description: Attributes information of Match</p>
  */
 import java.util.ArrayList;
-import org.jvnet.olt.editor.util.Bundle;
 
 
 public class MatchAttributes {
@@ -23,8 +22,6 @@ public class MatchAttributes {
     String sSubject = null;
     String sPartNo = null;
 
-    private Bundle bundle = Bundle.getBundle(MatchAttributes.class.getName());
-    
     public MatchAttributes(String sFileIdentifier, String sProjectId, String sWorkspaceBuild, String sModule, String sShortBookName, String sSubject, String sPartNo) {
         this.sFileIdentifier = sFileIdentifier;
         this.sProjectId = sProjectId;
@@ -36,34 +33,34 @@ public class MatchAttributes {
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder(128);
+        StringBuffer sb = new StringBuffer(128);
 
         if (sFileIdentifier != null) {
-            sb.append(bundle.getString("File_Identifier:_")).append(' ').append(sFileIdentifier).append("; ");
+            sb.append("File Identifier: " + sFileIdentifier + "; ");
         }
 
         if (sProjectId != null) {
-            sb.append(bundle.getString("Project_ID:_")).append(' ').append(sProjectId).append("; ");
+            sb.append("Project ID: " + sProjectId + "; ");
         }
 
         if (sWorkspaceBuild != null) {
-            sb.append(bundle.getString("Workspace_Build:_")).append(' ').append(sWorkspaceBuild).append("; ");
+            sb.append("Workspace Build: " + sWorkspaceBuild + "; ");
         }
 
         if (sModule != null) {
-            sb.append(bundle.getString("Module:_")).append(' ').append(sModule).append("; ");
+            sb.append("Module: " + sModule + "; ");
         }
 
         if (sShortBookName != null) {
-            sb.append(bundle.getString("Short_Book_Name:_")).append(sShortBookName).append("; ");
+            sb.append("Short Book Name: " + sShortBookName + "; ");
         }
 
         if (sSubject != null) {
-            sb.append(bundle.getString("Subject:_")).append(sSubject).append("; ");
+            sb.append("Subject: " + sSubject + "; ");
         }
 
         if (sPartNo != null) {
-            sb.append(bundle.getString("Part_No.:_")).append(sPartNo);
+            sb.append("Part No.: " + sPartNo);
         }
 
         return sb.toString();
@@ -73,37 +70,37 @@ public class MatchAttributes {
         ArrayList attrList = new ArrayList();
 
         if (sFileIdentifier != null) {
-            attrList.add(bundle.getString("File_Identifier:")+" ");
+            attrList.add("File Identifier: ");
             attrList.add(sFileIdentifier + ";  ");
         }
 
         if (sProjectId != null) {
-            attrList.add(bundle.getString("Project_ID:")+" ");
+            attrList.add("Project ID: ");
             attrList.add(sProjectId + ";  ");
         }
 
         if (sWorkspaceBuild != null) {
-            attrList.add(bundle.getString("Workspace_Build:")+" ");
+            attrList.add("Workspace Build: ");
             attrList.add(sWorkspaceBuild + ";  ");
         }
 
         if (sModule != null) {
-            attrList.add(bundle.getString("Module:")+" ");
+            attrList.add("Module: ");
             attrList.add(sModule + ";  ");
         }
 
         if (sShortBookName != null) {
-            attrList.add(bundle.getString("Short_Book_Name:")+" ");
+            attrList.add("Short Book Name: ");
             attrList.add(sShortBookName + ";  ");
         }
 
         if (sSubject != null) {
-            attrList.add(bundle.getString("Subject:")+" ");
+            attrList.add("Subject: ");
             attrList.add(sSubject + ";  ");
         }
 
         if (sPartNo != null) {
-            attrList.add(bundle.getString("Part_No.:")+" ");
+            attrList.add("Part No.: ");
             attrList.add(sPartNo);
         }
 

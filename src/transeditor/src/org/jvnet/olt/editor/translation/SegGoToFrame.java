@@ -7,14 +7,11 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
-import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.*;
 
 
 public class SegGoToFrame extends JDialog {
-    private Bundle bundle = Bundle.getBundle(SegGoToFrame.class.getName());
-    
     JLabel jLabel1 = new JLabel();
     JTextField jTextField1 = new JTextField();
     JButton jBtnOK = new JButton();
@@ -29,14 +26,14 @@ public class SegGoToFrame extends JDialog {
     }
 
     private void jbInit() throws Exception {
-        jLabel1.setText(bundle.getString("Enter_new_segment_number:"));
+        jLabel1.setText("Enter new segment number:");
         jLabel1.setBounds(new Rectangle(16, 22, 182, 20));
         this.setResizable(false);
-        this.setTitle(bundle.getString("Go_to_segment_number"));
+        this.setTitle("Go to segment number");
         this.getContentPane().setLayout(null);
         jTextField1.setBounds(new Rectangle(15, 54, 220, 22));
         jBtnOK.setMnemonic('O');
-        jBtnOK.setText(bundle.getString("OK"));
+        jBtnOK.setText("OK");
         jBtnOK.setBounds(new Rectangle(111, 93, 77, 23));
         jBtnOK.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -44,7 +41,7 @@ public class SegGoToFrame extends JDialog {
                 }
             });
         jBtnCancel.setMnemonic('C');
-        jBtnCancel.setText(bundle.getString("Cancel"));
+        jBtnCancel.setText("Cancel");
         jBtnCancel.setBounds(new Rectangle(199, 93, 77, 23));
         jBtnCancel.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {

@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.JPanel;
-import org.jvnet.olt.editor.util.Languages;
 
 
 public class ContrastFrame extends JPanel {
@@ -52,12 +51,12 @@ public class ContrastFrame extends JPanel {
 
     public void setLeftFlag(String strFlagPath) {
         tmLeftPanel.setNationFlag(strFlagPath);
-        //tmLeftPanel.setFlagTips(Languages.getLanguageName(strFlagPath));
+        tmLeftPanel.setFlagTips(GetNationName(strFlagPath));
     }
 
     public void setRightFlag(String strFlagPath) {
         tmRightPanel.setNationFlag(strFlagPath);
-        //tmRightPanel.setFlagTips(Languages.getLanguageName(strFlagPath));
+        tmRightPanel.setFlagTips(GetNationName(strFlagPath));
     }
 
     public void setLeftTooltip(String strFlagPath) {

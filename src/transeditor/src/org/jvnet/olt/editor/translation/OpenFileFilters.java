@@ -7,7 +7,6 @@ package org.jvnet.olt.editor.translation;
 
 import java.io.File;
 import java.util.HashSet;
-import org.jvnet.olt.editor.util.Bundle;
 import java.util.Set;
 import javax.swing.filechooser.FileFilter;
 
@@ -23,11 +22,8 @@ import javax.swing.filechooser.FileFilter;
  * @author boris
  */
 public class OpenFileFilters {
-    private static final Bundle bundle = Bundle.getBundle(OpenFileFilters.class.getName());
-    
-    
-    public static final FileFilter XLF_FILTER = new OpenFileFilter(new String[]{"xlf","xliff"}, bundle.getString("XLIFF_files_(.xlf,.xliff)"));
-    public static final FileFilter XLZ_FILTER = new OpenFileFilter("xlz", bundle.getString("XLIFF_package_files_(.xlz)"));
+    public static final FileFilter XLF_FILTER = new OpenFileFilter(new String[]{"xlf","xliff"}, "XLIFF files (.xlf,.xliff)");
+    public static final FileFilter XLZ_FILTER = new OpenFileFilter("xlz", "XLIFF package files (.xlz)");
     
     static class OpenFileFilter extends FileFilter {
         final String description;

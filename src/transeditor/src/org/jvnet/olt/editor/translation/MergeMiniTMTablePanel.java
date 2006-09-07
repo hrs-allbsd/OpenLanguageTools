@@ -10,11 +10,12 @@ import java.awt.event.*;
 
 import java.io.File;
 
-import org.jvnet.olt.editor.util.Bundle;
+import java.util.Hashtable;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import javax.swing.*;
+import javax.swing.event.*;
 
 
 public class MergeMiniTMTablePanel extends JPanel {
@@ -32,8 +33,6 @@ public class MergeMiniTMTablePanel extends JPanel {
             return new Insets(10, 5, 5, 10);
         }
     };
-
-    private Bundle bundle = Bundle.getBundle(MergeMiniTMTablePanel.class.getName());
 
     JPanel idactionPanel = new JPanel() {
         public Insets getInsets() {
@@ -151,7 +150,7 @@ public class MergeMiniTMTablePanel extends JPanel {
         }
 
         public String getDescription() {
-            return bundle.getString("Mini-TM_Files");
+            return "Mini-TM Files";
         }
     }
 
@@ -182,7 +181,7 @@ public class MergeMiniTMTablePanel extends JPanel {
         moveDownButton.setMaximumSize(new Dimension(83, 27));
         moveDownButton.setMinimumSize(new Dimension(83, 27));
         moveDownButton.setPreferredSize(new Dimension(83, 27));
-        moveDownButton.setText(bundle.getString("Move_Down"));
+        moveDownButton.setText("Move Down");
         moveDownButton.setBounds(new Rectangle(13, 52, 106, 27));
         moveDownButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -192,7 +191,7 @@ public class MergeMiniTMTablePanel extends JPanel {
         moveUpButton.setMaximumSize(new Dimension(83, 27));
         moveUpButton.setMinimumSize(new Dimension(83, 27));
         moveUpButton.setPreferredSize(new Dimension(83, 27));
-        moveUpButton.setText(bundle.getString("Move_Up"));
+        moveUpButton.setText("Move Up");
         moveUpButton.setBounds(new Rectangle(13, 12, 106, 27));
         moveUpButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -201,14 +200,14 @@ public class MergeMiniTMTablePanel extends JPanel {
             });
         orderPanel.setLayout(null);
         selectPanel.setLayout(null);
-        addButton.setText(bundle.getString("Add..."));
+        addButton.setText("Add...");
         addButton.setBounds(new Rectangle(10, 10, 109, 28));
         addButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     addButton_actionPerformed(e);
                 }
             });
-        removeButton.setText(bundle.getString("Remove"));
+        removeButton.setText("Remove");
         removeButton.setBounds(new Rectangle(10, 51, 109, 28));
         removeButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -220,14 +219,14 @@ public class MergeMiniTMTablePanel extends JPanel {
         orderPanel.setMinimumSize(new Dimension(101, 80));
         orderPanel.setPreferredSize(new Dimension(101, 80));
         cancelButton.setMnemonic('C');
-        cancelButton.setText(bundle.getString("Cancel"));
+        cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     cancelButton_actionPerformed(e);
                 }
             });
         startButton.setMnemonic('S');
-        startButton.setText(bundle.getString("Start"));
+        startButton.setText("Start");
         startButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     startButton_actionPerformed(e);
@@ -248,7 +247,7 @@ public class MergeMiniTMTablePanel extends JPanel {
         idactionPanel.setPreferredSize(new Dimension(140, 240));
         borderLayout2.setVgap(20);
         backButton.setMnemonic('B');
-        backButton.setText(bundle.getString("Back"));
+        backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     backButton_actionPerformed(e);
@@ -258,19 +257,19 @@ public class MergeMiniTMTablePanel extends JPanel {
         jRadioButton1.setText("jRadioButton1");
         jRadioButton2.setText("jRadioButton2");
         jRadioButton3.setText("jRadioButton3");
-        manualMerge.setText(bundle.getString("Manual"));
+        manualMerge.setText("Manual");
         manualMerge.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     manualMerge_actionPerformed(e);
                 }
             });
-        semiautoMerge.setText(bundle.getString("Semi-automatic"));
+        semiautoMerge.setText("Semi-automatic");
         semiautoMerge.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     semiautoMerge_actionPerformed(e);
                 }
             });
-        autoMerge.setText(bundle.getString("Automatic"));
+        autoMerge.setText("Automatic");
         autoMerge.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     autoMerge_actionPerformed(e);
@@ -497,7 +496,7 @@ public class MergeMiniTMTablePanel extends JPanel {
                             differentTranslation.repaintSelf(oldNum);
 
                             if (selectDialog == null) {
-                                selectDialog = new JDialog(dlg, bundle.getString("Select_one_translation"), true) {
+                                selectDialog = new JDialog(dlg, "Select one translation", true) {
                                             protected void processWindowEvent(WindowEvent e) {
                                                 if (e.getID() == WindowEvent.WINDOW_CLOSING) {
                                                     Component[] children = selectDialog.getContentPane().getComponents();
@@ -510,8 +509,8 @@ public class MergeMiniTMTablePanel extends JPanel {
                                 selectDialog.getContentPane().setLayout(new BorderLayout());
                                 selectDialog.getContentPane().add(differentTranslation, BorderLayout.CENTER);
 
-                                JButton addSegmentButton = new JButton(bundle.getString("Add"));
-                                JButton cancelSegmentButton = new JButton(bundle.getString("Cancel"));
+                                JButton addSegmentButton = new JButton("Add");
+                                JButton cancelSegmentButton = new JButton("Cancel");
                                 JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
                                 p.add(addSegmentButton);
                                 p.add(cancelSegmentButton);
@@ -592,7 +591,7 @@ public class MergeMiniTMTablePanel extends JPanel {
                             differentTranslation.repaintSelf(oldNum);
 
                             if (selectDialog == null) {
-                                selectDialog = new JDialog(dlg, bundle.getString("Select_one_translation"), true) {
+                                selectDialog = new JDialog(dlg, "Select one translation", true) {
                                             protected void processWindowEvent(WindowEvent e) {
                                                 if (e.getID() == WindowEvent.WINDOW_CLOSING) {
                                                     Component[] children = selectDialog.getContentPane().getComponents();
@@ -605,8 +604,8 @@ public class MergeMiniTMTablePanel extends JPanel {
                                 selectDialog.getContentPane().setLayout(new BorderLayout());
                                 selectDialog.getContentPane().add(differentTranslation, BorderLayout.CENTER);
 
-                                JButton addSegmentButton = new JButton(bundle.getString("Add"));
-                                JButton cancelSegmentButton = new JButton(bundle.getString("Cancel"));
+                                JButton addSegmentButton = new JButton("Add");
+                                JButton cancelSegmentButton = new JButton("Cancel");
                                 JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
                                 p.add(addSegmentButton);
                                 p.add(cancelSegmentButton);
@@ -747,7 +746,7 @@ public class MergeMiniTMTablePanel extends JPanel {
 
             ((MergeMiniTMPanel)dlg).init();
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(dlg, bundle.getString("The_selected_mini-TMs_have_been_successfully_merged."), bundle.getString("Merge_process"), JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(dlg, "The selected mini-TMs have been successfully merged.", "Merge process", JOptionPane.PLAIN_MESSAGE);
 
             this.cards.show(parent, "first");
         } catch (org.jvnet.olt.minitm.MiniTMException ex) {
@@ -768,16 +767,12 @@ public class MergeMiniTMTablePanel extends JPanel {
     }
 
     void addButton_actionPerformed(ActionEvent e) {
-        lanPair = "_" + 
-            ((MergeMiniTMPanel)dlg).sourceLan + 
-            "_" + 
-            ((MergeMiniTMPanel)dlg).targetLan + 
-            ".MTM";
+        lanPair = "_" + org.jvnet.olt.editor.util.Languages.getLanguageCode(((MergeMiniTMPanel)dlg).sourceLan) + "_" + org.jvnet.olt.editor.util.Languages.getLanguageCode(((MergeMiniTMPanel)dlg).targetLan) + ".MTM";
 
         MiniTMOpenFilter filter = new MiniTMOpenFilter();
         fileChooser.setFileFilter(filter);
-        fileChooser.setApproveButtonText(bundle.getString("Add"));
-        fileChooser.setDialogTitle(bundle.getString("Add_Mini-TM_File"));
+        fileChooser.setApproveButtonText("Add");
+        fileChooser.setDialogTitle("Add Mini-TM File");
         fileChooser.setApproveButtonMnemonic('A');
 
         int ret = fileChooser.showOpenDialog(this);

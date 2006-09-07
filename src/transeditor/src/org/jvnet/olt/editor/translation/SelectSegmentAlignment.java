@@ -6,16 +6,22 @@
 package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
+import java.awt.event.*;
+
+import java.util.*;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import javax.swing.event.*;
+import javax.swing.plaf.*;
+import javax.swing.plaf.basic.*;
+import javax.swing.plaf.basic.BasicScrollBarUI.*;
 import javax.swing.table.*;
 
-import org.jvnet.olt.editor.util.Bundle;
+import org.jvnet.olt.editor.model.*;
 
 
 public class SelectSegmentAlignment extends JPanel {
-    private Bundle bundle = Bundle.getBundle(SelectSegmentAlignment.class.getName());
     public static int iSentenceCount;
     public static MiniTMPivotTextPane[] editPanes = new MiniTMPivotTextPane[PivotTextRender1.ROW_COUNT * 2];
 
@@ -116,7 +122,7 @@ public class SelectSegmentAlignment extends JPanel {
      * table model
      */
     class SelectMiniTMTableModel implements TableModel {
-        String[] header = { bundle.getString("translator"), bundle.getString("source"), bundle.getString("translation") };
+        String[] header = { "translator", "source", "translation" };
 
         public int getRowCount() {
             if (data == null) {

@@ -7,7 +7,6 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
-import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.logging.Logger;
 
@@ -16,7 +15,6 @@ import javax.swing.event.*;
 
 
 public class TMPrintOptionDlg extends JDialog implements ChangeListener {
-    private Bundle bundle = Bundle.getBundle(TMPrintOptionDlg.class.getName());
     private static final Logger logger = Logger.getLogger(TMPrintOptionDlg.class.getName());
     public static int contentType = 1; //1--all,2--target only,3--source only
     public static int tagType = 1; //1--all,2--without only,3--abb only
@@ -58,7 +56,7 @@ public class TMPrintOptionDlg extends JDialog implements ChangeListener {
     JCheckBox showNumCheckBox = new JCheckBox();
 
     public TMPrintOptionDlg() {
-        setTitle(bundle.getString("Print_Options..."));
+        setTitle("Print Options...");
 
         try {
             jbInit();
@@ -123,9 +121,9 @@ public class TMPrintOptionDlg extends JDialog implements ChangeListener {
         contentSubPanel.setLayout(gridLayout1);
 
         //sourceAndTargetRadioButton.setSelected(true);
-        sourceAndTargetRadioButton.setText(bundle.getString("Source_and_Target_Language"));
-        sourceRadioButton.setText(bundle.getString("Source_Language_Only"));
-        targetRadioButton.setText(bundle.getString("Target_Language_Only"));
+        sourceAndTargetRadioButton.setText("Source and Target Language");
+        sourceRadioButton.setText("Source Language Only");
+        targetRadioButton.setText("Target Language Only");
 
         ButtonGroup contentGroup = new ButtonGroup();
         tabbedOptionPane.setBackground(new Color(220, 220, 220));
@@ -138,7 +136,7 @@ public class TMPrintOptionDlg extends JDialog implements ChangeListener {
         contentGroup.add(sourceRadioButton);
         gridLayout1.setRows(3);
         gridLayout1.setColumns(1);
-        cancelButton.setText(bundle.getString("Cancel"));
+        cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     cancelButton_actionPerformed(e);
@@ -147,16 +145,16 @@ public class TMPrintOptionDlg extends JDialog implements ChangeListener {
         okButton.setMaximumSize(new Dimension(85, 27));
         okButton.setMinimumSize(new Dimension(85, 27));
         okButton.setPreferredSize(new Dimension(85, 27));
-        okButton.setText(bundle.getString("OK"));
+        okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     okButton_actionPerformed(e);
                 }
             });
         tagsPanel.setLayout(borderLayout3);
-        abbreTagsRadioButton.setText(bundle.getString("Abbreviated_Tags"));
-        withoutTagsRadioButton.setText(bundle.getString("Without_Tags"));
-        withTagsRadioButton.setText(bundle.getString("With_Tags"));
+        abbreTagsRadioButton.setText("Abbreviated Tags");
+        withoutTagsRadioButton.setText("Without Tags");
+        withTagsRadioButton.setText("With Tags");
 
         ButtonGroup tagGroup = new ButtonGroup();
         tagGroup.add(withTagsRadioButton);
@@ -169,24 +167,24 @@ public class TMPrintOptionDlg extends JDialog implements ChangeListener {
         gridLayout2.setColumns(1);
         tagsLabel.setText(""); //Whether or not tags should be printed:");
         othersPanel.setLayout(null);
-        showTypeCheckBox.setText(bundle.getString("Show_Translation_Type"));
+        showTypeCheckBox.setText("Show Translation Type");
         showTypeCheckBox.setBounds(new Rectangle(11, 8, 294, 66));
-        showNumCheckBox.setText(bundle.getString("Show_Segment_Number"));
+        showNumCheckBox.setText("Show Segment Number");
         showNumCheckBox.setBounds(new Rectangle(11, 77, 294, 66));
         this.getContentPane().add(tabbedOptionPane, BorderLayout.CENTER);
-        tabbedOptionPane.add(contentPanel, bundle.getString("Languages"));
+        tabbedOptionPane.add(contentPanel, "Languages");
         contentPanel.add(contentLabel, BorderLayout.NORTH);
         contentPanel.add(contentSubPanel, BorderLayout.CENTER);
         contentSubPanel.add(sourceAndTargetRadioButton, null);
         contentSubPanel.add(targetRadioButton, null);
         contentSubPanel.add(sourceRadioButton, null);
-        tabbedOptionPane.add(tagsPanel, bundle.getString("Tags"));
+        tabbedOptionPane.add(tagsPanel, "Tags");
         tagsPanel.add(tagsSubPanel, BorderLayout.CENTER);
         tagsSubPanel.add(withTagsRadioButton, null);
         tagsSubPanel.add(withoutTagsRadioButton, null);
         tagsSubPanel.add(abbreTagsRadioButton, null);
         tagsPanel.add(tagsLabel, BorderLayout.NORTH);
-        tabbedOptionPane.add(othersPanel, bundle.getString("Other..."));
+        tabbedOptionPane.add(othersPanel, "Other...");
         othersPanel.add(showTypeCheckBox, null);
         othersPanel.add(showNumCheckBox, null);
         this.getContentPane().add(actionPanel, BorderLayout.SOUTH);

@@ -5,9 +5,8 @@
  */
 package org.jvnet.olt.editor.model;
 
-import java.text.MessageFormat;
-import org.jvnet.olt.editor.util.Bundle;
 import org.jvnet.olt.editor.translation.Backend;
+import org.jvnet.olt.editor.translation.MainFrame;
 import org.jvnet.olt.minitm.TMUnit;
 import org.jvnet.olt.xliff.*;
 
@@ -27,8 +26,6 @@ public abstract class Match {
     protected SimpleSentence lrdt; // target in TM
     protected MatchAttributes matchAttr = null;
 
-    private Bundle rb = Bundle.getBundle(Match.class.getName());
-    
     public Match(TMUnit unit, int iMatchQualityInput, int iFormatDiffInput) {
         iMatchQuality = iMatchQualityInput;
         iFormatDiff = iFormatDiffInput;
@@ -79,16 +76,13 @@ public abstract class Match {
     public String getMatchInformation() {
         String matchAttr = null;
 
-        
-        
-        
         if (iTMType == SYSTEM_TM) {
-            matchAttr = MessageFormat.format(rb.getString("TM_;_Format_Difference:_{0}%;_Quality:_{1}%"),iFormatDiff,iMatchQuality);
+            matchAttr = "TM ; Format Difference: " + iFormatDiff + "%; Quality: " + iMatchQuality + "%";
         } else if (iTMType == MINI_TM) {
             Backend backend = Backend.instance();
             TMData tmpdata = backend.getTMData();
 
-            matchAttr = MessageFormat.format(rb.getString("Mini-TM:_{0};_Format_Difference:_{1}%;_Quality:_{2}%"),tmpdata.getTransProject().getMiniTM().getName(),iFormatDiff,iMatchQuality);
+            matchAttr = "Mini-TM: " + tmpdata.getTransProject().getMiniTM().getName() + "; Format Difference: " + iFormatDiff + "%; Quality: " + iMatchQuality + "%";
         }
 
         return matchAttr;

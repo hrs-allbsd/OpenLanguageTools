@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.jvnet.olt.editor.util.Bundle;
 import java.util.Set;
 import java.util.logging.Logger;
 import javax.swing.event.TableModelEvent;
@@ -17,15 +16,11 @@ import javax.swing.table.TableModel;
 
 class Unicode2EntTableModel implements TableModel {
     
-    private static Logger logger = Logger.getLogger(Unicode2EntTableModel.class.getName());
-    private Bundle bundle = Bundle.getBundle(Unicode2EntTableModel.class.getName());
+    Logger logger = Logger.getLogger(Unicode2EntTableModel.class.getName());
+    
     List items = new ArrayList();
     
-    String columnNames[] = new String[] {
-        bundle.getString("Unicode_char"),
-        bundle.getString("Unicode_value"),
-        bundle.getString("SGML_entity")
-    };
+    String columnNames[] = new String[] {"Unicode char","Unicode value","SGML entity"};
     
     Set tableListeners = new HashSet();
     

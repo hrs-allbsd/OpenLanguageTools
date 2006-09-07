@@ -22,7 +22,6 @@ public interface BackconversionStatusCallback {
     public static final int ERROR_TMX = 0;
     public static final int ERROR_BACKCONV = 1;
     public static final int ERROR_FRAMEFILE = 2;
-    public static final int ERROR_NO_FILES = 3;
 
     public void conversionStart(int numFiles);
 
