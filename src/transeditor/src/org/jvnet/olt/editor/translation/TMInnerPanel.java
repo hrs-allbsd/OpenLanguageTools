@@ -577,7 +577,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                         Toolkit.getDefaultToolkit().beep();
 
                         int r = JOptionPane.showOptionDialog(AlignmentMain.testMain1.getRootPane(), //AlignmentMain.frame,                             // the parent that the dialog blocks
-                            bundle.getString("The_editor_has_finished_searching_to_the_end_of_the_file._\nDo_you_want_to_continue_searching_from_the_top_of_the_file?"), // the dialog message array
+                            bundle.getString("The_editor_has_finished_searching_to_the_end_of_the_file._Do_you_want_to_continue_searching_from_the_top_of_the_file?"), // the dialog message array
                             bundle.getString("Searching"), // the title of the dialog window
                             JOptionPane.DEFAULT_OPTION, // option type
                             JOptionPane.INFORMATION_MESSAGE, // message type
@@ -734,7 +734,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                         Toolkit.getDefaultToolkit().beep();
 
                         int r = JOptionPane.showOptionDialog(AlignmentMain.testMain1.getRootPane(), //AlignmentMain.frame,                             // the parent that the dialog blocks
-                            bundle.getString("The_editor_has_finished_searching_to_the_top_of_the_file._\nDo_you_want_to_continue_searching_from_the_end_of_the_file?"), // the dialog message array
+                            bundle.getString("The_editor_has_finished_searching_to_the_top_of_the_file._Do_you_want_to_continue_searching_from_the_end_of_the_file?"), // the dialog message array
                             bundle.getString("Searching"), // the title of the dialog window
                             JOptionPane.DEFAULT_OPTION, // option type
                             JOptionPane.INFORMATION_MESSAGE, // message type
