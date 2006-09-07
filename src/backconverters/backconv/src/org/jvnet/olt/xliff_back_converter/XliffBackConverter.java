@@ -182,7 +182,7 @@ public class XliffBackConverter {
 
             //SpecificBackConverterFactory fac = new SunTrans2SpecificBackConverterFactory(props);
             SpecificBackconverterBase specific= fac.getSpecificBackConverter(datatype);
-            specific.setEncoding(encUTF8);
+            specific.setTargetEncoding(charSet);
             specific.setLang(lang);
             specific.setDataType(datatype);
             specific.setOriginalXlzFile(file);
@@ -199,7 +199,7 @@ public class XliffBackConverter {
             if(!specific.isBinaryFormat()){
                 //recode to native encoding (if needed)
                 SpecificBackconverterBase recoder = new RecodingSpecificBackconverter();
-                recoder.setEncoding(charSet);
+                recoder.setTargetEncoding(charSet);
                 recoder.setLang(lang);
                 recoder.setDataType(datatype);
                 recoder.setOriginalXlzFile(file);
@@ -208,7 +208,12 @@ public class XliffBackConverter {
                 
                 //recoder.convert(convertee, lang, charSet, file.getAbsolutePath());
                 recoder.convert(convertee);
-            }            
+                recoder.postConvert(file);
+            }      
+            
+            //do postconversion tasks
+            
+            specific.postConvert(convertee);
            
         } catch (java.util.zip.ZipException ex) {
             logger.log(java.util.logging.Level.SEVERE, "ZipException - unable to read xlz " +

@@ -39,7 +39,7 @@ public class SoftwareSpecificBackConverter extends  SpecificBackconverterBase {
     public void convert(File file) throws SpecificBackConverterException {
 
         try {
-            SoftwareFileReformat reformat = new SoftwareFileReformat(file.getAbsolutePath(), lang, encoding);
+            SoftwareFileReformat reformat = new SoftwareFileReformat(file.getAbsolutePath(), lang, UTF8);
         } catch (org.jvnet.olt.tmci.TMCParseException e){
             throw new SpecificBackConverterException("Parse Error : " +e.getMessage());
         } catch (Throwable t){

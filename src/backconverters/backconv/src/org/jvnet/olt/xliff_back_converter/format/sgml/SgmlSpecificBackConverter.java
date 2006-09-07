@@ -84,7 +84,7 @@ public class SgmlSpecificBackConverter extends  SpecificBackconverterBase{
             System.out.println("props:"+props);
             UnicodeReverse wrapper = new CustomMapping(ur,props.getSGMLUnicode2EntityIncludeMap(),props.getSGMLUnicode2EntityExcludeMap());
             
-            UnicodeEntityBackConverter.fix(file.getAbsolutePath(), wrapper, encoding);
+            UnicodeEntityBackConverter.fix(file.getAbsolutePath(), wrapper, UTF8);
             
             //
             //  This code is added as a fix for bug 5023094. In the case of 
@@ -95,7 +95,7 @@ public class SgmlSpecificBackConverter extends  SpecificBackconverterBase{
             //
             if(lang.toLowerCase().equals("ja-jp")) {
                 WavyDashConverter wdc = new WavyDashConverter();
-                wdc.convertFile(file.getAbsolutePath(), encoding);
+                wdc.convertFile(file.getAbsolutePath(), UTF8);
             }
             //  End fix.
         } 
