@@ -1,7 +1,7 @@
 /* XMLException.java                                               NanoXML/Java
  *
- * $Revision: 1.1 $
- * $Date: 2006-09-08 19:59:53 $
+ * $Revision: 1.1.2.1 $
+ * $Date: 2006-09-08 21:57:12 $
  * $Name: not supported by cvs2svn $
  *
  * This file is part of NanoXML 2 for Java.
@@ -35,7 +35,7 @@ import java.io.PrintWriter;
  * An XMLException is thrown when an exception occurred while processing the XML data.
  * 
  * @author Marc De Scheemaecker
- * @version $Name: not supported by cvs2svn $, $Revision: 1.1 $
+ * @version $Name: not supported by cvs2svn $, $Revision: 1.1.2.1 $
  */
 public class XMLException extends Exception
 {

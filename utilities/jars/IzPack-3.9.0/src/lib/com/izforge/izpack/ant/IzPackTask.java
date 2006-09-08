@@ -1,5 +1,5 @@
 /*
- * $Id: IzPackTask.java,v 1.1 2006-09-08 20:00:42 boris_steiner Exp $
+ * $Id: IzPackTask.java,v 1.1.2.1 2006-09-08 21:56:25 boris_steiner Exp $
  * IzPack - Copyright 2001-2006 Julien Ponge, All Rights Reserved.
  * 
  * http://www.izforge.com/izpack/

@@ -20,7 +20,7 @@
  */
 
 /*
- *  $Id: PackFile.java,v 1.1 2006-09-08 20:00:50 boris_steiner Exp $
+ *  $Id: PackFile.java,v 1.1.2.1 2006-09-08 21:56:23 boris_steiner Exp $
  *  IzPack
  *  Copyright (C) 2001 Johannes Lehtinen
  *

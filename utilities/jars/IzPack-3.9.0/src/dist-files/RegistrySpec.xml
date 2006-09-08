@@ -3,7 +3,7 @@
 	ATTENTION!!! do not edit with an editor which do not handle UTF-8 in a right manner!!
 	Storing with a wrong editor can crash this file!
     Registry definition file for IzPack Installation.
-    $Id: RegistrySpec.xml,v 1.1 2006-09-08 19:58:13 boris_steiner Exp $
+    $Id: RegistrySpec.xml,v 1.1.2.1 2006-09-08 21:55:35 boris_steiner Exp $
 -->
 
 <registry>

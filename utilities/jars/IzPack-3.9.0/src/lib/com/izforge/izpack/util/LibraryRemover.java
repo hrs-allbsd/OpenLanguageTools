@@ -1,5 +1,5 @@
 /*
- * $Id: LibraryRemover.java,v 1.1 2006-09-08 19:58:48 boris_steiner Exp $ 
+ * $Id: LibraryRemover.java,v 1.1.2.1 2006-09-08 21:57:00 boris_steiner Exp $ 
  * IzPack - Copyright 2001-2006 Julien Ponge, All Rights Reserved.
  * 
  * http://www.izforge.com/izpack/ http://developer.berlios.de/projects/izpack/

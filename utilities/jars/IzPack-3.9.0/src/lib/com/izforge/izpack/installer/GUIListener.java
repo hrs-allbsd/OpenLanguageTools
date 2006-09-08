@@ -1,5 +1,5 @@
 /*
- * $Id: GUIListener.java,v 1.1 2006-09-08 19:58:05 boris_steiner Exp $
+ * $Id: GUIListener.java,v 1.1.2.1 2006-09-08 21:56:39 boris_steiner Exp $
  * IzPack - Copyright 2001-2006 Julien Ponge, All Rights Reserved.
  * 
  * http://www.izforge.com/izpack/ http://developer.berlios.de/projects/izpack/

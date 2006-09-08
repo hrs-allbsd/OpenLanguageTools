@@ -66,7 +66,7 @@ import java.util.Properties;
  * 
  *
  * @author Julien Ponge, Klaus Bartz, Marc Eppelmann
- * @version $Revision: 1.1 $ ($Id: Debug.java,v 1.1 2006-09-08 19:58:49 boris_steiner Exp $)
+ * @version $Revision: 1.1.2.1 $ ($Id: Debug.java,v 1.1.2.1 2006-09-08 21:56:57 boris_steiner Exp $)
  */
 public class Debug
 {

@@ -1,5 +1,5 @@
 <!--
-    $Id: IzPack-install-reg.xml,v 1.1 2006-09-08 19:58:11 boris_steiner Exp $
+    $Id: IzPack-install-reg.xml,v 1.1.2.1 2006-09-08 21:55:34 boris_steiner Exp $
 
     IzPack installer XML file with registry custom actions.
 

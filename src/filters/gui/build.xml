@@ -5,6 +5,9 @@
 <project name="gui" basedir="." default="all">
     <import file="../../../common.xml"/>
 
+	<!-- read in the version numbers -->
+	<property file="../build.local.properties"/>
+
     <property name="installer.dir" value="${build.dir}/installer"/>
     <!-- IzPack setup -->
     <property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.7.0/"/>	
@@ -42,12 +45,6 @@
         <mkdir dir="${dest.dir}"/>
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${installer.dir}"/>
-        <!-- the version number to use for the installer
-         TODO: include the version number in the source code
-         in a replacable area so it can be seen in the running app
-         -->
-        <property name="build.version" value="1.2alpha"/>
-        <property name="build.version.flat" value="1_2alpha"/>
 
         <available 
         file="${dest.dir}/filters.jar"
@@ -57,6 +54,7 @@
 
     <!-- build dependencies -->
     <target name="deps" unless="do.build.deps">
+		<!-- TODO build dependencies here -->
     </target>
 
     <target name="dist" depends="common.dist">
@@ -66,7 +64,6 @@
         <copy file="${dest.dir}/filters.jar" verbose="true" tofile="${installer.dir}/classes/filters.jar"/>
         <copy file="${dest.dir}/tt-common.jar" verbose="true" tofile="${installer.dir}/classes/tt-common.jar"/>
         <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/dtdparser121.jar" verbose="true" todir="${installer.dir}/classes/"/>
 
@@ -145,7 +142,7 @@
         <java 
             classpathref="run.classpath" 
             fork="yes"
-            classname="org.jvnet.olt.filters.gui.XliffFilterGUI">
+            classname="org.jvnet.olt.filters.gui2.Frame">
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58001"/>
             <jvmarg value="-Xmx512M"/>
