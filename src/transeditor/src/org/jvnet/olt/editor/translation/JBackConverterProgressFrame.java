@@ -180,9 +180,11 @@ public class JBackConverterProgressFrame extends JDialog implements Backconversi
             log("TMX generation FAILED");
         } else if (errorCode == BackconversionStatusCallback.ERROR_FRAMEFILE) {
             log("Frame file backconversion on this client is not available.");
+        } else if (errorCode == BackconversionStatusCallback.ERROR_NO_FILES){
+            log("No .xlz files found in source direcotry");        
         } else {
             log("Unknown error");
-        }
+        }  
         
         log("\n");
         

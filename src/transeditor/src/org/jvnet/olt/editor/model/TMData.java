@@ -18,6 +18,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.Vector;
 import java.util.logging.*;
 
@@ -83,6 +84,8 @@ public class TMData extends PivotData {
     private GlobalVariableManager globalVarManager;
     private int lastError = ERROR_NONE;
 
+    private Bundle bundle = Bundle.getBundle(TMData.class.getName());
+    
     public class TMSentence {
         /*
         100%:Verified
@@ -622,14 +625,14 @@ public class TMData extends PivotData {
                         panel.setLayout(b);
                         panel.setPreferredSize(new Dimension(400, 300));
 
-                        JTextArea topLabel = new JTextArea("This source language segment already exists in the mini-TM, but with the following translation:");
+                        JTextArea topLabel = new JTextArea(bundle.getString("This_source_language_segment_already_exists_in_the_mini-TM,_but_with_the_following_translation:"));
                         topLabel.setWrapStyleWord(true);
                         topLabel.setEditable(false);
                         topLabel.setBackground(new Color(204, 204, 204));
                         topLabel.setFont(MainFrame.dlgFont);
                         topLabel.setLineWrap(true);
 
-                        JTextArea bottomLable = new JTextArea("Do you want to overwrite the translation in the mini-TM with this new translation, or do you wish to add a new segment pair to the mini-TM?");
+                        JTextArea bottomLable = new JTextArea(bundle.getString("Do_you_want_to_overwrite_the_translation_in_the_mini-TM_with_this_new_translation,_or_do_you_wish_to_add_a_new_segment_pair_to_the_mini-TM?"));
                         bottomLable.setWrapStyleWord(true);
                         bottomLable.setEditable(false);
                         bottomLable.setBackground(new Color(204, 204, 204));
@@ -656,11 +659,15 @@ public class TMData extends PivotData {
 
                         Object[] message = new Object[] { panel };
 
-                        String[] options = { "Overwrite", "Add", "Cancel" };
+                        String[] options = { 
+                            bundle.getString("Overwrite"), 
+                            bundle.getString("Add"), 
+                            bundle.getString("Cancel") 
+                        };
 
                         int result = JOptionPane.showOptionDialog(MainFrame.rootFrame, // the parent that the dialog blocks
                             message, // the dialog message array
-                            "Duplicate Source Segment Entry Check", // the title of the dialog window
+                            bundle.getString("Duplicate_Source_Segment_Entry_Check"), // the title of the dialog window
                             JOptionPane.DEFAULT_OPTION, // option type
                             JOptionPane.WARNING_MESSAGE, // message type
                             null, // optional icon, use null to use the default icon

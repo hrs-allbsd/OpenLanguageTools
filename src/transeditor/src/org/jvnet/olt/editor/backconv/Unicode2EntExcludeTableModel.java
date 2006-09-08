@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.jvnet.olt.editor.util.Bundle;
 import javax.swing.table.TableModel;
 
 /**
@@ -26,7 +27,15 @@ import javax.swing.table.TableModel;
  */
 public class Unicode2EntExcludeTableModel implements TableModel{
     private HashSet tableListeners = new HashSet();
-    private String[] columnNames = new String[]{"Unicode char","Unicode code","SGML Entity","Exclude"};
+    
+    private Bundle bundle = Bundle.getBundle(Unicode2EntExcludeTableModel.class.getName());
+    
+    private String[] columnNames = new String[]{
+        bundle.getString("Unicode_char"),
+        bundle.getString("Unicode_code"),
+        bundle.getString("SGML_Entity"),
+        bundle.getString("Exclude")
+    };
     
     private List items;
     private BitSet exclusions;

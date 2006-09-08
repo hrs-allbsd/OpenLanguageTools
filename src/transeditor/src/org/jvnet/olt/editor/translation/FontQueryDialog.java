@@ -50,7 +50,7 @@ public class FontQueryDialog extends JDialog {
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setTitle("Select Font Size Option");
+        setTitle(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Select_Font_Size_Option"));
         setModal(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -64,10 +64,10 @@ public class FontQueryDialog extends JDialog {
         mainPanel.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(5, 5, 5, 5)));
         samplePanel.setLayout(new java.awt.BorderLayout());
 
-        samplePanel.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder("Sample"), new javax.swing.border.EmptyBorder(new java.awt.Insets(5, 5, 5, 5))));
+        samplePanel.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Sample")), new javax.swing.border.EmptyBorder(new java.awt.Insets(5, 5, 5, 5))));
         sampleLabel.setBackground(new java.awt.Color(255, 255, 255));
         sampleLabel.setFont(new java.awt.Font("Dialog", 1, 24));
-        sampleLabel.setText("Sample text");
+        sampleLabel.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Sample_text"));
         sampleLabel.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(0, 20, 0, 0)));
         sampleLabel.setDoubleBuffered(true);
         sampleLabel.setFocusable(false);
@@ -80,7 +80,7 @@ public class FontQueryDialog extends JDialog {
         optionsPanel.setLayout(new javax.swing.BoxLayout(optionsPanel, javax.swing.BoxLayout.Y_AXIS));
 
         radioSmallText.setMnemonic('S');
-        radioSmallText.setText("Small text (12 pts)");
+        radioSmallText.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Small_text_(12_pts)"));
         buttonGroup.add(radioSmallText);
         radioSmallText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +91,7 @@ public class FontQueryDialog extends JDialog {
         optionsPanel.add(radioSmallText);
 
         radioMediumText.setMnemonic('M');
-        radioMediumText.setText("Medium text (18 pts)");
+        radioMediumText.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Medium_text_(18_pts)"));
         buttonGroup.add(radioMediumText);
         radioMediumText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +102,7 @@ public class FontQueryDialog extends JDialog {
         optionsPanel.add(radioMediumText);
 
         radioLargeText.setMnemonic('L');
-        radioLargeText.setText("Large text (24 pts)");
+        radioLargeText.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Large_text_(24_pts)"));
         buttonGroup.add(radioLargeText);
         radioLargeText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +120,7 @@ public class FontQueryDialog extends JDialog {
 
         buttonPanel.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(5, 5, 5, 5)));
         okButton.setMnemonic('O');
-        okButton.setText("OK");
+        okButton.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("OK"));
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -130,7 +130,7 @@ public class FontQueryDialog extends JDialog {
         buttonPanel.add(okButton);
 
         cancelButton.setMnemonic('C');
-        cancelButton.setText("Cancel");
+        cancelButton.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Cancel"));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);

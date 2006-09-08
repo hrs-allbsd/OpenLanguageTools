@@ -12,6 +12,7 @@ package org.jvnet.olt.editor.backconv;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jvnet.olt.editor.util.Bundle;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
@@ -25,6 +26,9 @@ public class GeneralOptionsPanel extends JPanel{
     private JCheckBox createTmxCheckBox;
     private JCheckBox overwriteFilesCheckBox;
     private JCheckBox preferOrigNameCheckBox;
+    
+    private Bundle bundle = Bundle.getBundle(GeneralOptionsPanel.class.getName());
+
     /** Creates a new instance of GeneralOptionsPanel */
     public GeneralOptionsPanel(BackConversionOptions model) {
         super();
@@ -35,7 +39,7 @@ public class GeneralOptionsPanel extends JPanel{
     }
     
     private void init(){
-        createTmxCheckBox = new JCheckBox("Create TMX file",model.isGenerateTMX());
+        createTmxCheckBox = new JCheckBox(bundle.getString("Create_TMX_file"),model.isGenerateTMX());
         createTmxCheckBox.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 JCheckBox cb = (JCheckBox)e.getSource();
@@ -44,7 +48,7 @@ public class GeneralOptionsPanel extends JPanel{
             }
         });
         
-        overwriteFilesCheckBox = new JCheckBox("Overwrite existing files",model.isOverwriteFiles());
+        overwriteFilesCheckBox = new JCheckBox(bundle.getString("Overwrite_existing_files"),model.isOverwriteFiles());
         overwriteFilesCheckBox.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 JCheckBox cb = (JCheckBox)e.getSource();
@@ -53,7 +57,7 @@ public class GeneralOptionsPanel extends JPanel{
             }
         });
 
-        preferOrigNameCheckBox = new JCheckBox("Use file name stored in .xlz file",model.isPreferXLZNames());
+        preferOrigNameCheckBox = new JCheckBox(bundle.getString("Use_file_name_stored_in_.xlz_file"),model.isPreferXLZNames());
         preferOrigNameCheckBox .addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 JCheckBox cb = (JCheckBox)e.getSource();

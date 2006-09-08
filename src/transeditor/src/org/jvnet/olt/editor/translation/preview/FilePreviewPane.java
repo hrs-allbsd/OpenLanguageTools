@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -35,6 +36,7 @@ import org.xml.sax.InputSource;
  * Time: 1:20:08 PM
  */
 public class FilePreviewPane extends JPanel implements PropertyChangeListener {
+    private Bundle bundle = Bundle.getBundle(FilePreviewPane.class.getName());
     private String sourceLang;
     private String targetLang;
     private JLabel srcLangImgLabel;
@@ -67,7 +69,7 @@ public class FilePreviewPane extends JPanel implements PropertyChangeListener {
         fileNameLabel = new JLabel("");
         fileNameLabel.setPreferredSize(new Dimension(150, 30));
 
-        fileNamePanel.add(new JLabel("File:"), BorderLayout.WEST);
+        fileNamePanel.add(new JLabel(bundle.getString("File:")), BorderLayout.WEST);
         fileNamePanel.add(fileNameLabel, BorderLayout.CENTER);
 
         add(fileNamePanel);
@@ -80,7 +82,7 @@ public class FilePreviewPane extends JPanel implements PropertyChangeListener {
         srcLangImgLabel.setPreferredSize(prefDim);
         srcLangLabel = new JLabel("", JLabel.CENTER);
 
-        srcPanel.add(new JLabel("Source language:"));
+        srcPanel.add(new JLabel(bundle.getString("Source_language:")));
         srcPanel.add(srcLangImgLabel);
         srcPanel.add(srcLangLabel);
 
@@ -92,14 +94,14 @@ public class FilePreviewPane extends JPanel implements PropertyChangeListener {
         final JPanel tgtPanel = new JPanel();
         tgtPanel.setLayout(new GridLayout(3, 1));
         tgtPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        tgtPanel.add(new JLabel("Target language:"));
+        tgtPanel.add(new JLabel(bundle.getString("Target_language:")));
         tgtPanel.add(tgtLangImgLabel);
         tgtPanel.add(tgtLangLabel);
 
         add(srcPanel);
         add(tgtPanel);
 
-        final JCheckBox enablePreview = new JCheckBox("Enable preview", true);
+        final JCheckBox enablePreview = new JCheckBox(bundle.getString("Enable_preview"), true);
         enablePreview.addItemListener(new ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     previewEnabled = e.getStateChange() == ItemEvent.SELECTED;
@@ -178,7 +180,7 @@ public class FilePreviewPane extends JPanel implements PropertyChangeListener {
 
     private void setLangLable(String shortLangCode, JLabel label) {
         if (shortLangCode == null) {
-            label.setText("Not specified");
+            label.setText(bundle.getString("Not_specified"));
         } else {
             String code = LanguageMappingTable.getInstance().translateLangCode(shortLangCode);
             label.setText(Languages.getLanguageName(code));

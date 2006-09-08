@@ -8,6 +8,8 @@ package org.jvnet.olt.editor.translation;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.*;
+import java.text.ChoiceFormat;
+import java.text.MessageFormat;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -17,6 +19,7 @@ import javax.swing.border.*;
 import javax.swing.text.*;
 
 import org.jvnet.olt.editor.model.*;
+import org.jvnet.olt.editor.util.Bundle;
 
 
 /**
@@ -34,7 +37,8 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
     public static boolean REPLACE = false;
     public static boolean REPLACE_ALL = true;
     public static boolean stop = false;
-    
+
+    private Bundle rb = Bundle.getBundle(FindAndReplacePanel.class.getName());
     /**
      * find criteria panel,which is on the left of this panel
      * including find text,replace text,case sensitive,
@@ -139,10 +143,10 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
      * option,to search from strat of the document
      */
     //JCheckBox searchDirectionOption = new JCheckBox();
-    JRadioButton searchDownRadio = new JRadioButton("Search down",true);
-    JRadioButton searchUpRadio = new JRadioButton("Search up");
+    JRadioButton searchDownRadio = new JRadioButton(rb.getString("Search_down"),true);
+    JRadioButton searchUpRadio = new JRadioButton(rb.getString("Search_up"));
     ButtonGroup buttonGroup = new ButtonGroup();
-    
+
     /**
      * option,to search with case sensitively
      */
@@ -174,12 +178,12 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     
     /*public static Result oldSrcResult = null;
-    public static Result srcResult = null;
-    public static Result oldTargetResult = null;
-    public static Result targetResult = null;*/
-    private JTextPane textArea = new JTextPane();
-    private JScrollPane scr = new JScrollPane(textArea);
-    
+public static Result srcResult = null;
+public static Result oldTargetResult = null;
+public static Result targetResult = null;*/
+    //private JTextPane textArea = new JTextPane();
+    //private JScrollPane scr = new JScrollPane(textArea);
+
     /**
      * temporary varibles
      * editType:
@@ -251,15 +255,15 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
     Thread thread = null;
 
     private JButton clearButton =new JButton();
-    
-    {
+
+/*    {
         textArea.setSize(200, 50);
         textArea.setBackground(new Color(204, 204, 204));
         textArea.setEditable(false);
         textArea.setFont(MainFrame.dlgFont);
         scr.setBorder(null);
     }
-    
+*/
     public FindAndReplacePanel(JDialog findDlg, Backend backend) {
         this.backend = backend;
         parent = findDlg;
@@ -277,7 +281,7 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         ((JTextField)findComboBox.getEditor().getEditorComponent()).requestFocus();
         parent.getGlassPane().addMouseListener(new MouseAdapter() {
         });
-        
+
         // bug 4736736 ---------------------------
         //this calls the repainting the buttons
         if (sourceRadioButton.isSelected()) {
@@ -296,15 +300,15 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
      * paint its UI
      */
     private void jbInit() throws Exception {
-        titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(SystemColor.inactiveCaptionBorder, 1), "Options");
-        titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(SystemColor.inactiveCaptionBorder, 1), "Search in");
+        titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(SystemColor.inactiveCaptionBorder, 1), rb.getString("Options"));
+        titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(SystemColor.inactiveCaptionBorder, 1), rb.getString("Search_in"));
         this.setLayout(gridBagLayout2);
         actionPanel.setLayout(flowLayout1);
         replaceAllButton.setMaximumSize(new Dimension(120, 27));
         replaceAllButton.setMinimumSize(new Dimension(120, 27));
         replaceAllButton.setPreferredSize(new Dimension(120, 27));
-        replaceAllButton.setToolTipText("Replace all found string");
-        replaceAllButton.setText("Replace All");
+        replaceAllButton.setToolTipText(rb.getString("Replace_all_found_string"));
+        replaceAllButton.setText(rb.getString("Replace_All"));
         replaceAllButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 replaceAllButton_actionPerformed(e);
@@ -313,8 +317,8 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         cancelButton.setMaximumSize(new Dimension(120, 27));
         cancelButton.setMinimumSize(new Dimension(120, 27));
         cancelButton.setPreferredSize(new Dimension(120, 27));
-        cancelButton.setToolTipText("Close");
-        cancelButton.setText("Close");
+        cancelButton.setToolTipText(rb.getString("Close"));
+        cancelButton.setText(rb.getString("Close"));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cancelButton_actionPerformed(e);
@@ -323,8 +327,8 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         replaceButton.setMaximumSize(new Dimension(120, 27));
         replaceButton.setMinimumSize(new Dimension(120, 27));
         replaceButton.setPreferredSize(new Dimension(120, 27));
-        replaceButton.setToolTipText("Replace the current string");
-        replaceButton.setText("Replace");
+        replaceButton.setToolTipText(rb.getString("Replace_the_current_string"));
+        replaceButton.setText(rb.getString("Replace"));
         replaceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 replaceButton_actionPerformed(e);
@@ -333,32 +337,32 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         findButton.setMaximumSize(new Dimension(120, 27));
         findButton.setMinimumSize(new Dimension(120, 27));
         findButton.setPreferredSize(new Dimension(120, 27));
-        findButton.setToolTipText("Start finding");
-        findButton.setText("Find");
+        findButton.setToolTipText(rb.getString("Start_finding"));
+        findButton.setText(rb.getString("Find"));
         findButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 findButton_actionPerformed(e);
             }
         });
-        
+
         clearButton.setMaximumSize(new Dimension(120, 27));
         clearButton.setMinimumSize(new Dimension(120, 27));
         clearButton.setPreferredSize(new Dimension(120, 27));
-        clearButton.setToolTipText("Clea");
-        clearButton.setText("Clear All");
+        clearButton.setToolTipText(rb.getString("Clear"));
+        clearButton.setText(rb.getString("Clear_All"));
         clearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 findComboBox.setSelectedItem("");
                 replaceComboBox.setSelectedItem("");
             }
         });
-        
-        
+
+
         helpButton.setMaximumSize(new Dimension(120, 27));
         helpButton.setMinimumSize(new Dimension(120, 27));
         helpButton.setPreferredSize(new Dimension(120, 27));
-        helpButton.setToolTipText("Help for finding or replacing");
-        helpButton.setText("Help");
+        helpButton.setToolTipText(rb.getString("Help_for_finding_or_replacing"));
+        helpButton.setText(rb.getString("Help"));
         helpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 helpButton_actionPerformed(e);
@@ -368,21 +372,21 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         sourcePanel.setLayout(gridLayout2);
         textPanel.setLayout(gridBagLayout1);
         findLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        findLabel.setText("Text to find:");
-        
+        findLabel.setText(rb.getString("Text_to_find:"));
+
         replaceLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        replaceLabel.setText("Replace With:");
+        replaceLabel.setText(rb.getString("Replace_With:"));
         optionPanel.setBorder(titledBorder1);
         optionPanel.setLayout(gridLayout3);
         sourcePanel.setBorder(titledBorder2);
         gridLayout2.setColumns(2);
-        targetRadioButton.setToolTipText("Search in the target language");
-        targetRadioButton.setText("Target language");
+        targetRadioButton.setToolTipText(rb.getString("Search_in_the_target_language"));
+        targetRadioButton.setText(rb.getString("Target_language"));
         targetRadioButton.addActionListener(this);
         
         ButtonGroup bg = new ButtonGroup();
-        findComboBox.setToolTipText("Enter a word or string to find");
-        
+        findComboBox.setToolTipText(rb.getString("Enter_a_word_or_string_to_find"));
+
         //findComboBox.requestFocus();
         findComboBox.getEditor().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -390,7 +394,7 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
                 findButton.doClick();
             }
         });
-        
+
         findButton.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 if ((e.getKeyCode() == KeyEvent.VK_ENTER) && (e.getModifiers() == 0)) {
@@ -398,15 +402,15 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
                 }
             }
         });
-        replaceComboBox.setToolTipText("Enter a word or string to replace ");
-        caseOption.setToolTipText("Match case sensitivity");
+        replaceComboBox.setToolTipText(rb.getString("Enter_a_word_or_string_to_replace_"));
+        caseOption.setToolTipText(rb.getString("Match_case_sensitivity"));
         //searchDirectionOption.setToolTipText("search down");
         //searchDirectionOption.setSelected(true);
         //searchDirectionOption.setText("Down");
         buttonGroup.add(searchDownRadio);
         buttonGroup.add(searchUpRadio);
-        
-        sourceRadioButton.setToolTipText("Search in the source language");
+
+        sourceRadioButton.setToolTipText(rb.getString("Search_in_the_source_language"));
         bg.add(targetRadioButton);
         bg.add(sourceRadioButton);
         sourceRadioButton.setSelected(true);
@@ -414,14 +418,14 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         //these two command noted by cl141268
         //replaceButton.setEnabled(!MainFrame.bFlagWriteProtection);
         //replaceAllButton.setEnabled(!MainFrame.bFlagWriteProtection);
-        sourceRadioButton.setText("Source language");
+        sourceRadioButton.setText(rb.getString("Source_language"));
         sourceRadioButton.addActionListener(this);
         findSubPanel.setMaximumSize(new Dimension(238, 159));
         findSubPanel.setMinimumSize(new Dimension(200, 200));
         findSubPanel.setPreferredSize(new Dimension(200, 200));
         gridLayout3.setColumns(1);
         gridLayout3.setRows(2);
-        caseOption.setText("Match Case");
+        caseOption.setText(rb.getString("Match_Case"));
         this.setMaximumSize(new Dimension(280, 240));
         this.setMinimumSize(new Dimension(280, 240));
         this.setPreferredSize(new Dimension(456, 300));
@@ -451,7 +455,7 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         findSubPanel.add(sourcePanel, null);
         findSubPanel.add(optionPanel, null);
         //optionPanel.add(searchDirectionOption, null);
-        optionPanel.add(searchDownRadio,null);        
+        optionPanel.add(searchDownRadio,null);
         optionPanel.add(searchUpRadio,null);
         optionPanel.add(caseOption, null);
         sourcePanel.add(sourceRadioButton, null);
@@ -593,22 +597,18 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
             Toolkit.getDefaultToolkit().beep();
             
             Object[] message = new Object[1];
-            String informationString = "Find what in " + ((this.sourceRadioButton.isSelected()) ? "source?" : "target?");
-            textArea.setSize(200, 50);
-            textArea.setText(informationString);
-            scr.setSize(new Dimension(textArea.getPreferredSize()));
-            message[0] = scr;
-            
-            String[] options = { "Ok" };
+            String informationString = MessageFormat.format(rb.getString("Please_specify_the_text_to_search_in_{0}"), (this.sourceRadioButton.isSelected() ? rb.getString("source") : rb.getString("target")) );
+
+            String[] options = { rb.getString("Ok") };
             int r = JOptionPane.showOptionDialog(this.getRootPane(), // the parent that the dialog blocks
-                    message, // the dialog message array
-                    "Warning", // the title of the dialog window
+                    informationString, // the dialog message array
+                    rb.getString("Warning"), // the title of the dialog window
                     JOptionPane.DEFAULT_OPTION, // option type
                     JOptionPane.WARNING_MESSAGE, // message type
                     null, // optional icon, use null to use the default icon
                     options, // options string array, will be made into buttons
                     options[0]);
-            
+
             switch (r) {
                 case 0: // ok
                     break;
@@ -651,11 +651,11 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
                     Thread.currentThread().sleep(200);
                 } catch (Exception ex) {
                 }
-                
+
                 enableGUI();
             }
         });
-        
+
         //}
         thread.start();
     }
@@ -674,10 +674,10 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         
         if (s == null) {
             Toolkit.getDefaultToolkit().beep();
-            
-            String informationString = "Replace what in " + ((this.sourceRadioButton.isSelected()) ? "source?" : "target?");
-            JOptionPane.showMessageDialog(this.getRootPane(), informationString, "Warning", JOptionPane.WARNING_MESSAGE);
-            
+
+            String informationString = MessageFormat.format(rb.getString("Please_specify_the_string_to_replace_with_in_{0}"), (this.sourceRadioButton.isSelected() ? rb.getString("source") : rb.getString("target")) );
+            JOptionPane.showMessageDialog(this.getRootPane(), informationString, rb.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+
             return;
         }
         
@@ -725,7 +725,7 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
                     MainFrame.getAnInstance().setBHasModified(true);
                     tmpdata.bTMFlags[TMInnerPanel.oldSrcResult.rowIndex] = true;
                 } else {
-                    JOptionPane.showMessageDialog(this.getRootPane(), "This item cannot be replaced as tag protection is switched on!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this.getRootPane(), rb.getString("This_item_cannot_be_replaced_as_tag_protection_is_switched_on!"), rb.getString("Warning"), JOptionPane.WARNING_MESSAGE);
                 }
                 
                 //---------------------------------------------
@@ -758,7 +758,7 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
                     MainFrame.getAnInstance().setBHasModified(true);
                     tmpdata.bTMFlags[TMInnerPanel.oldTargetResult.rowIndex] = true;
                 } else {
-                    JOptionPane.showMessageDialog(this.getRootPane(), "This item cannot be replaced as tag protection is switched on!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this.getRootPane(), rb.getString("This_item_cannot_be_replaced_as_tag_protection_is_switched_on!"), rb.getString("Warning"), JOptionPane.WARNING_MESSAGE);
                 }
                 
                 //---------------------------------------------
@@ -785,10 +785,10 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
         
         if (s == null) {
             Toolkit.getDefaultToolkit().beep();
-            
-            String informationString = "Replace what in " + ((this.sourceRadioButton.isSelected()) ? "source?" : "target?");
-            JOptionPane.showMessageDialog(this.getRootPane(), informationString, "Warning", JOptionPane.WARNING_MESSAGE);
-            
+
+            String informationString = MessageFormat.format(rb.getString("Please_specify_the_text_to_replace_with_in_{0}"), (this.sourceRadioButton.isSelected() ? rb.getString("source") : rb.getString("target")));
+            JOptionPane.showMessageDialog(this.getRootPane(), informationString, rb.getString("Warning"), JOptionPane.WARNING_MESSAGE);
+
             return;
         }
         
@@ -854,12 +854,22 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
                 //------------------------------------
                 AlignmentMain.testMain1.tableView.repaint(AlignmentMain.testMain1.tableView.getBounds());
                 Toolkit.getDefaultToolkit().beep();
-                
+
+                String msg = null;
                 if (replacedItemCount == v.size()) {
-                    JOptionPane.showMessageDialog(this.getRootPane(), v.size() + ((v.size() > 1) ? " items have" : " item has") + " been replaced!", "Replace All", JOptionPane.PLAIN_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this.getRootPane(), v.size() + " items found, but only " + replacedItemCount + " replaced, as tag protection is switched on!", "Replace All", JOptionPane.PLAIN_MESSAGE);
+
+                    ChoiceFormat fmt = new ChoiceFormat(
+                            rb.getString("_0#_no_occurencies_have_been_replaced_|#1_{0}_occurency_has_been_replaced_|_{0}_occurencies_have_been_replaced_"));
+                    String xmsg = fmt.format(v.size());
+                    msg = MessageFormat.format(xmsg,v.size());
+
                 }
+                else {
+                    msg = MessageFormat.format(rb.getString("{0}_occurencies_found_but_only_{1}_have_been_replaced,as_tag_protection_is_switched_on"),v.size(),replacedItemCount);
+                }
+
+                JOptionPane.showMessageDialog(this.getRootPane(), msg, rb.getString("Replace_All"), JOptionPane.PLAIN_MESSAGE);
+
             }
         } else { //replace target
             s.forwardFlag = true;
@@ -881,7 +891,7 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
                                     new Integer(((tmpdata).tmsentences[r.rowIndex].getTranslationStatus() * 10) + (tmpdata).tmsentences[r.rowIndex].getTranslationType()),
                                     new Integer(((tmpdata).tmsentences[r.rowIndex].getTranslationStatus() * 10) + TMData.TMSentence.USER_TRANSLATION)
                         });
-                        
+
                         (tmpdata).tmsentences[r.rowIndex].setTranslation(tempStr);
                         (tmpdata).tmsentences[r.rowIndex].setTranslationType(TMData.TMSentence.USER_TRANSLATION);
                         MainFrame.getAnInstance().setBHasModified(true);
@@ -897,12 +907,20 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
                 //------------------------------------
                 AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getBounds());
                 Toolkit.getDefaultToolkit().beep();
-                
+
+                String msg = null;
                 if (replacedItemCount == v.size()) {
-                    JOptionPane.showMessageDialog(this.getRootPane(), v.size() + ((v.size() > 1) ? " items have" : " item has") + " been replaced!", "Replace All", JOptionPane.PLAIN_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this.getRootPane(), v.size() + " items found, but only " + replacedItemCount + " replaced, as tag protection is switched on!", "Replace All", JOptionPane.PLAIN_MESSAGE);
+                    ChoiceFormat fmt = new ChoiceFormat(
+                            rb.getString("_0#_no_occurencies_have_been_replaced_|#1_{0}_occurency_has_been_replaced_|_{0}_occurencies_have_been_replaced_"));
+                    String xmsg = fmt.format(v.size());
+                    MessageFormat.format(xmsg,v.size());
                 }
+                else {
+                    msg = MessageFormat.format(rb.getString("{0}_occurencies_found_but_only_{1}_have_been_replaced,\nas_tag_protection_is_switched_on"),v.size(),replacedItemCount);
+                }
+
+                JOptionPane.showMessageDialog(this.getRootPane(), msg, rb.getString("Replace_All"), JOptionPane.PLAIN_MESSAGE);
+
             }
         }
     }
@@ -948,24 +966,19 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
             }
             
             Toolkit.getDefaultToolkit().beep();
-            
-            Object[] message = new Object[1];
-            String informationString = "Can not find " + s.what + ((isSrc) ? " in source." : " in target.");
-            textArea.setSize(200, 50);
-            textArea.setText(informationString);
-            scr.setSize(new Dimension(textArea.getPreferredSize()));
-            message[0] = scr;
-            
-            String[] options = { "Ok" };
+
+            String informationString = MessageFormat.format(rb.getString("Unable_to_find_{0}_in_{1}"), s.what, (isSrc ? rb.getString("source") : rb.getString("target")));
+
+            String[] options = { rb.getString("Ok") };
             int r = JOptionPane.showOptionDialog(this.getRootPane(), // the parent that the dialog blocks
-                    message, // the dialog message array
-                    "Searching", // the title of the dialog window
+                    informationString, // the dialog message array
+                    rb.getString("Searching"), // the title of the dialog window
                     JOptionPane.DEFAULT_OPTION, // option type
                     JOptionPane.INFORMATION_MESSAGE, // message type
                     null, // optional icon, use null to use the default icon
                     options, // options string array, will be made into buttons
                     options[0]);
-            
+
             switch (r) {
                 case 0: // ok
                     break;

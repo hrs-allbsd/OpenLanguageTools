@@ -8,8 +8,11 @@ package org.jvnet.olt.editor.translation;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.*;
+import java.net.URL;
+import java.util.Iterator;
 
 import java.util.List;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -44,6 +47,8 @@ public class NewMiniTMPanel extends JDialog {
     //List of ProjectInfos -- all known projects
     private List allProjects;
 
+    static private Bundle bundle = Bundle.getBundle(NewMiniTMPanel.class.getName());
+    
     // bug 4737485
     class ListenForEnter implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -52,10 +57,11 @@ public class NewMiniTMPanel extends JDialog {
     }
 
     public NewMiniTMPanel(JFrame parent, List allProjects) {
-        super(parent, "New Project", true);
+        super(parent, bundle.getString("New_Project"), true);
         this.allProjects = allProjects;
 
-        languages = Languages.getLanguagesBySort();
+//        languages = Languages.getLanguagesBySort();
+        languages = Languages.getLanguages();
 
         try {
             jbInit();
@@ -69,55 +75,88 @@ public class NewMiniTMPanel extends JDialog {
     private void jbInit() throws Exception {
         informationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         informationLabel.setHorizontalTextPosition(SwingConstants.LEFT);
-        informationLabel.setText("Please enter the following information for this project:");
+        informationLabel.setText(bundle.getString("Please_enter_the_following_information_for_this_project:"));
         informationLabel.setBounds(new Rectangle(5, 21, 401, 24));
         this.getContentPane().setLayout(null);
         projectNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        projectNameLabel.setText("Project Name:");
+        projectNameLabel.setText(bundle.getString("Project_Name:"));
         projectNameLabel.setBounds(new Rectangle(0, 58, 116, 35));
 
         sourceIconLabel.setBounds(new Rectangle(16, 129, 49, 44));
         targetIconLabel.setBounds(new Rectangle(16, 218, 49, 44));
-        sourceLabel.setText("Source Language:");
+        sourceLabel.setText(bundle.getString("Source_Language:"));
         sourceLabel.setBounds(new Rectangle(16, 105, 182, 23));
-        targetLabel.setText("Target Language:");
+        targetLabel.setText(bundle.getString("Target_Language:"));        
         targetLabel.setBounds(new Rectangle(16, 185, 144, 31));
+        
+        Languages.Language lngUS = Languages.findByCode("US");
+        
+        ItemListener itemLstnr =   new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED){
+                    Languages.Language lng = (Languages.Language)e.getItem();
+                    String path = Languages.getFlagPath(lng.getShortCode());
+                    URL res = getClass().getResource(path);    
+                    ImageIcon icon = new ImageIcon(res);            
+
+                    if(e.getSource() == sourceComboBox){
+                        sourceIconLabel.setIcon(icon);                        
+                    }
+                    else{
+                        targetIconLabel.setIcon(icon);
+                        
+                    }
+                }
+            }
+        };
+
+        
         sourceComboBox = new JComboBox(languages);
 
-        sourceComboBox.setSelectedItem(Languages.getLanguageName("US"));
+        sourceComboBox.addItemListener(itemLstnr);
+        
+        
+        
+        sourceComboBox.setSelectedItem(lngUS);
         targetComboBox = new JComboBox(languages);
-
-        targetComboBox.setSelectedItem(Languages.getLanguageName("US"));
+        targetComboBox.addItemListener(itemLstnr);
+        
+        targetComboBox.setSelectedItem(lngUS);
         targetComboBox.setBounds(new Rectangle(73, 216, 328, 48));
-        targetComboBox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    targetComboBox_actionPerformed(e);
-                }
-            });
+//        targetComboBox.addActionListener(new java.awt.event.ActionListener() {
+//                public void actionPerformed(ActionEvent e) {
+//                    targetComboBox_actionPerformed(e);
+//                }
+//            });
         sourceComboBox.setBounds(new Rectangle(73, 128, 328, 47));
-        sourceComboBox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    sourceComboBox_actionPerformed(e);
-                }
-            });
-        okButton.setText("Ok");
+//        sourceComboBox.addActionListener(new java.awt.event.ActionListener() {
+//                public void actionPerformed(ActionEvent e) {
+//                    sourceComboBox_actionPerformed(e);
+//                }
+//            });
+        okButton.setText(bundle.getString("Ok"));
         okButton.setBounds(new Rectangle(36, 312, 105, 36));
         okButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     okButton_actionPerformed(e);
                 }
             });
-        cancelButton.setText("Cancel");
+        cancelButton.setText(bundle.getString("Cancel"));
         cancelButton.setBounds(new Rectangle(275, 312, 105, 36));
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     cancelButton_actionPerformed(e);
                 }
             });
-
-        sourceIconLabel.setIcon(new ImageIcon(getClass().getResource(Languages.getFlagPathForLan((String)sourceComboBox.getSelectedItem()))));
+            
+            
+/*        Languages.Language lng = (Languages.Language)sourceComboBox.getSelectedItem();
+        String path = Languages.getFlagPathForLan(lng.getShortCode());
+        URL res = getClass().getResource(path);    
+        ImageIcon icon = new ImageIcon(res);            
+        sourceIconLabel.setIcon(icon);
         targetIconLabel.setIcon(new ImageIcon(getClass().getResource(Languages.getFlagPathForLan((String)targetComboBox.getSelectedItem()))));
-
+*/
         jProjName.setBounds(new Rectangle(112, 61, 282, 33));
         this.getContentPane().add(okButton, null);
         this.getContentPane().add(cancelButton, null);
@@ -155,6 +194,10 @@ public class NewMiniTMPanel extends JDialog {
          */
     }
 
+    void setFlagIcon(){
+        
+    }
+    
     void cancelButton_actionPerformed(ActionEvent e) {
         setVisible(false);
 
@@ -162,36 +205,36 @@ public class NewMiniTMPanel extends JDialog {
     }
 
     void okButton_actionPerformed(ActionEvent e) {
-        String sourceLan = (String)sourceComboBox.getSelectedItem();
-        String targetLan = (String)targetComboBox.getSelectedItem();
+        String sourceLan = ((Languages.Language)sourceComboBox.getSelectedItem()).getShortCode();
+        String targetLan = ((Languages.Language)targetComboBox.getSelectedItem()).getShortCode();
 
         String projectName = jProjName.getText().trim();
 
         if (projectName.equals("")) {
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Please enter a project name.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("Please_enter_a_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         }
 
         if (projectName.indexOf("_") != -1) {
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Please enter a name that does not contain the \"_\" character", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("Please_enter_a_name_that_does_not_contain_the_underscore_character"), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         }
 
         if (sourceLan.equals(targetLan)) {
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Source language may not be the same as target language!", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("Source_language_may_not_be_the_same_as_target_language!"), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             return;
         }
 
-        if (!checkProjectExists(projectName, Languages.getLanguageCode(sourceLan), Languages.getLanguageCode(targetLan))) {
+        if (!checkProjectExists(projectName,sourceLan, targetLan)) {
             Toolkit.getDefaultToolkit().beep();
 
-            JOptionPane.showMessageDialog(this, "The name you selected for the new project already exists.\r\n Please select a different project name.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("The_name_you_selected_for_the_new_project_already_exists.\r\n_Please_select_a_different_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             //TODO how about offering to open the project ???
             return;
@@ -209,8 +252,8 @@ public class NewMiniTMPanel extends JDialog {
         }
          */
         this.projectName = projectName;
-        this.targetLang = Languages.getLanguageCode(targetLan);
-        this.sourceLang = Languages.getLanguageCode(sourceLan);
+        this.targetLang = targetLan;
+        this.sourceLang = sourceLan;
 
         setVisible(false);
     }
@@ -220,7 +263,7 @@ public class NewMiniTMPanel extends JDialog {
 
         return !allProjects.contains(nfo);
     }
-
+/*
     void sourceComboBox_actionPerformed(ActionEvent e) {
         String sourceLan = (String)sourceComboBox.getSelectedItem();
         String imagePath = Languages.getFlagPathForLan(sourceLan);
@@ -232,7 +275,7 @@ public class NewMiniTMPanel extends JDialog {
         String imagePath = Languages.getFlagPathForLan(targetLan);
         targetIconLabel.setIcon(new ImageIcon(getClass().getResource(imagePath)));
     }
-
+*/
     public String getProjectName() {
         return projectName;
     }

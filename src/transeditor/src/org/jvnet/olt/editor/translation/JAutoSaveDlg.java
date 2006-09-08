@@ -8,9 +8,8 @@ package org.jvnet.olt.editor.translation;
 import java.awt.*;
 import java.awt.event.*;
 
-import java.io.*;
-
 import java.lang.*;
+import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.Vector;
 import java.util.logging.Logger;
@@ -22,7 +21,6 @@ import javax.swing.border.*;
 class JAutoSaveDlg extends JDialog {
     private static final Logger logger = Logger.getLogger(JAutoSaveDlg.class.getName());
     protected JFrame m_owner;
-    protected String[] vInterval = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
     protected Vector vInter;
     JPanel p1 = new JPanel(new BorderLayout());
     JPanel pc1 = new JPanel(new BorderLayout());
@@ -30,7 +28,8 @@ class JAutoSaveDlg extends JDialog {
     JPanel jPanel1 = new JPanel();
     JButton jBtnOK = new JButton();
     JButton jBtnCancel = new JButton();
-    JComboBox jCbInterval = new JComboBox(vInterval);
+    
+    JComboBox jCbInterval = new JComboBox(new Object[]{1,2,3,4,5,6,7,8,9,10});
     JLabel jLabel1 = new JLabel();
     JCheckBox jCkEnable = new JCheckBox();
     private boolean bTempFile;
@@ -41,8 +40,11 @@ class JAutoSaveDlg extends JDialog {
     private boolean bEnable;
     private int interval;
 
+    private Bundle bundle = Bundle.getBundle(JAutoSaveDlg.class.getName());
+    
     public JAutoSaveDlg(JFrame owner, boolean enabled, int interval) {
-        super(owner, "Autosave Property Setting", true);
+        super(owner,"", true);
+        setTitle(bundle.getString("Autosave_Property_Setting"));
         m_owner = owner;
         this.bEnable = enabled;
 
@@ -58,17 +60,17 @@ class JAutoSaveDlg extends JDialog {
     private void jbInit() throws Exception {
         //jPanel3.setBorder(new TitledBorder(new EtchedBorder(),"Enable/Disable Autosave Function"));
         border1 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
-        titledBorder1 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, Color.white, new Color(142, 142, 142)), "Interval of Autosave Function as:", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.black);
+        titledBorder1 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, Color.white, new Color(142, 142, 142)),bundle.getString("Interval_of_Autosave_Function_as:"), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.black);
         jBtnOK.setMnemonic('O');
         jBtnOK.setSelected(true);
-        jBtnOK.setText("OK");
+        jBtnOK.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/JAutoSaveDlg").getString("OK"));
         jBtnOK.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jBtnOK_actionPerformed(e);
                 }
             });
         jBtnCancel.setMnemonic('C');
-        jBtnCancel.setText("Cancel");
+        jBtnCancel.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/JAutoSaveDlg").getString("Cancel"));
         jBtnCancel.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jBtnCancel_actionPerformed(e);
@@ -79,7 +81,7 @@ class JAutoSaveDlg extends JDialog {
 
         //po.setBorder(new TitledBorder(new EtchedBorder(),"Autosave Options"));
         jLabel1.setForeground(Color.black);
-        jLabel1.setText("  Minutes");
+        jLabel1.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/JAutoSaveDlg").getString("__Minutes"));
         jLabel1.setBounds(new Rectangle(204, 78, 60, 27));
 
         jCbInterval.setMaximumSize(new Dimension(150, 27));
@@ -88,7 +90,7 @@ class JAutoSaveDlg extends JDialog {
         jCbInterval.setEditable(true);
         jCbInterval.setBounds(new Rectangle(137, 78, 64, 27));
         this.setResizable(false);
-        jCkEnable.setText("Enable Autosave Function");
+        jCkEnable.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/JAutoSaveDlg").getString("Enable_Autosave_Function"));
         jCkEnable.setBounds(new Rectangle(17, 22, 210, 25));
         jCkEnable.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -97,7 +99,7 @@ class JAutoSaveDlg extends JDialog {
             });
         po.setLayout(null);
         jLabel2.setForeground(Color.black);
-        jLabel2.setText("Autosave file every");
+        jLabel2.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/JAutoSaveDlg").getString("Autosave_file_every"));
         jLabel2.setBounds(new Rectangle(19, 76, 116, 31));
         pc1.add(jPanel1, BorderLayout.SOUTH);
         jPanel1.add(jBtnOK, null);
@@ -173,8 +175,8 @@ class JAutoSaveDlg extends JDialog {
             int interval = Integer.parseInt(strInput);
 
             if ((interval <= 0) || (interval > 60)) {
-                String strErrorMsg = "Please enter the auto save interval in minutes between 1 and 60.";
-                JOptionPane.showMessageDialog(this, strErrorMsg, "Error Input", JOptionPane.OK_OPTION);
+                String strErrorMsg =bundle.getString("Please_enter_the_auto_save_interval_in_minutes_between_1_and_60.");
+                JOptionPane.showMessageDialog(this, strErrorMsg,bundle.getString("Error_Input"), JOptionPane.OK_OPTION);
 
                 return false;
             }
@@ -183,8 +185,8 @@ class JAutoSaveDlg extends JDialog {
 
             return true;
         } catch (Exception ex) {
-            String strErrorMsg = "The autosave interval must be a number between 1 and 60.";
-            JOptionPane.showMessageDialog(this, strErrorMsg, "Error Input", JOptionPane.OK_OPTION);
+            String strErrorMsg =bundle.getString("The_autosave_interval_must_be_a_number_between_1_and_60.");
+            JOptionPane.showMessageDialog(this, strErrorMsg,bundle.getString("Error_Input"), JOptionPane.OK_OPTION);
 
             return false;
         }

@@ -12,16 +12,13 @@ package org.jvnet.olt.editor.translation;
  */
 import java.awt.*;
 import java.awt.event.*;
+import java.text.MessageFormat;
 
 import java.util.*;
 import java.util.logging.Logger;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.event.*;
-import javax.swing.plaf.*;
-import javax.swing.plaf.basic.*;
-import javax.swing.plaf.basic.BasicScrollBarUI.*;
 import javax.swing.table.*;
 
 import org.jvnet.olt.editor.model.*;
@@ -260,13 +257,13 @@ public class AlignmentMain extends JPanel implements AdjustmentListener {
 
                     switch (status) {
                     case TMData.TMSentence.UNTRANSLATED:
-                        return "untranslated";
+                        return org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("untranslated");
 
                     case TMData.TMSentence.TRANSLATED:
-                        return "translated";
+                        return org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("translated");
 
                     case TMData.TMSentence.VERIFIED:
-                        return "verified";
+                        return org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("verified");
 
                     default:
                         return null;
@@ -282,21 +279,21 @@ public class AlignmentMain extends JPanel implements AdjustmentListener {
 
                     switch (type) {
                     case TMData.TMSentence.AUTO_TRANSLATION:
-                        return "auto-translation";
+                        return org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("auto-translation");
 
                     case TMData.TMSentence.EXACT_TRANSLATION:
-                        return "exact-translation";
+                        return org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("exact-translation");
 
                     case TMData.TMSentence.FUZZY_TRANSLATION:
-                        return "fuzzy-translation";
+                        return org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("fuzzy-translation");
 
                     //case TMData.TMSentence.MACHINE_TRANSLATION:
                     //return "Machine translation";
                     case TMData.TMSentence.UNKNOWN_TRANSLATION:
-                        return "unknown translation";
+                        return org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("unknown_translation");
 
                     case TMData.TMSentence.USER_TRANSLATION:
-                        return "user-Translation";
+                        return org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("user-Translation");
 
                     default:
                         return null;
@@ -788,7 +785,8 @@ public class AlignmentMain extends JPanel implements AdjustmentListener {
         TMData tmpdata = backend.getTMData();
 
         // refresh the status bar
-        MainFrame.myMatchstatusBar.setAliNumber("   " + (row + 1) + "/" + tmpdata.getSize());
+        String str = MessageFormat.format("   {0} / {1} ", (row + 1) ,tmpdata.getSize());
+        MainFrame.myMatchstatusBar.setAliNumber(str);
     }
 
     public void getMatchesContent() {
@@ -1059,7 +1057,8 @@ public class AlignmentMain extends JPanel implements AdjustmentListener {
 
         //tableView.setRowSelectionInterval(row,row);
         // refresh the status bar
-        MainFrame.myMatchstatusBar.setAliNumber("   " + (row + 1) + "/" + tmpdata.getSize());
+        String str = MessageFormat.format("   {0} / {1} ", (row + 1) ,tmpdata.getSize());
+        MainFrame.myMatchstatusBar.setAliNumber(str);
     }
 
     // method to get PivotTextPane for source
@@ -1088,7 +1087,7 @@ public class AlignmentMain extends JPanel implements AdjustmentListener {
 
 class SourceTableModel implements TableModel {
     Backend backend = Backend.instance();
-    String[] header = { "Status", "Full Content", "Abbreviation Content", "Pure Text" };
+    String[] header = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("Status"), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("Full_Content"), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("Abbreviation_Content"), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("Pure_Text") };
 
     /**
      * implements TableModel
@@ -1180,7 +1179,7 @@ class SourceTableModel implements TableModel {
 
 class TargetTableModel implements TableModel {
     Backend backend = Backend.instance();
-    String[] header = { "Status", "Full Content", "Abbreviation Content", "Pure Text" };
+    String[] header = { org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("Status"), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("Full_Content"), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("Abbreviation_Content"), org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/AlignmentMain").getString("Pure_Text") };
 
     /**
      * implements TableModel

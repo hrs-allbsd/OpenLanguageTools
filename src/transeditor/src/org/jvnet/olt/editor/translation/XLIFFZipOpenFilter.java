@@ -11,6 +11,7 @@
 package org.jvnet.olt.editor.translation;
 
 import java.io.File;
+import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.filechooser.FileFilter;
 
@@ -20,6 +21,7 @@ import javax.swing.filechooser.FileFilter;
  * @author  jc73554
  */
 public class XLIFFZipOpenFilter extends FileFilter {
+    private Bundle bundle = Bundle.getBundle(XLIFFZipOpenFilter.class.getName());
     String tmExtension = "xlz";
 
     public boolean accept(File f) {
@@ -54,6 +56,6 @@ public class XLIFFZipOpenFilter extends FileFilter {
     }
 
     public String getDescription() {
-        return "XLIFF Package Files(.xlz)";
+        return bundle.getString("XLIFF_Package_Files(.xlz)");
     }
 }

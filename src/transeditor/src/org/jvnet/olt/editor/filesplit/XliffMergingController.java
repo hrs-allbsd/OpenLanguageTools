@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.List;
+import org.jvnet.olt.editor.util.Bundle;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -37,6 +38,7 @@ public class XliffMergingController {
     private JFrame frame;
     private XliffMergingPrefsDialog dialog;
 
+    private Bundle bundle = Bundle.getBundle(XliffMergingController.class.getName());
     /** Creates a new instance of XliffMergingController */
     public XliffMergingController(JFrame frame) {
         this(frame, "", "", "");
@@ -71,8 +73,9 @@ public class XliffMergingController {
 
         if (prefs == null) {
             //  Show message and return
-            message = "The file merging operation has been cancelled.";
-            JOptionPane.showMessageDialog(frame, message, "Cancelled", JOptionPane.WARNING_MESSAGE);
+            message = bundle.getString("The_file_merging_operation_has_been_cancelled.");
+            String cancelled = bundle.getString("Cancelled");
+            JOptionPane.showMessageDialog(frame, message, cancelled, JOptionPane.WARNING_MESSAGE);
 
             return;
         }
@@ -88,11 +91,13 @@ public class XliffMergingController {
         try {
             outputDoc = merger.mergeDocuments(docsToMerge, fileName);
         } catch (SAXException saxEx) {
-            JOptionPane.showMessageDialog(frame, saxEx.getMessage(), "Exception thrown", JOptionPane.ERROR_MESSAGE);
+            String ex = bundle.getString("Exception_thrown");
+            JOptionPane.showMessageDialog(frame, saxEx.getMessage(), ex, JOptionPane.ERROR_MESSAGE);
 
             return;
         } catch (ParserConfigurationException parserEx) {
-            JOptionPane.showMessageDialog(frame, parserEx.getMessage(), "Exception thrown", JOptionPane.ERROR_MESSAGE);
+            String ex = bundle.getString("Exception_thrown");
+            JOptionPane.showMessageDialog(frame, parserEx.getMessage(), ex, JOptionPane.ERROR_MESSAGE);
 
             return;
         }
@@ -105,10 +110,12 @@ public class XliffMergingController {
             outputDoc.writeTo(outputFile);
 
             //  Announce successful write out.
-            message = "The file merging operation was successful.";
-            JOptionPane.showMessageDialog(frame, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+            message = bundle.getString("The_file_merging_operation_was_successful.");
+            String success = bundle.getString("Success");
+            JOptionPane.showMessageDialog(frame, message, success ,JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ioEx) {
-            JOptionPane.showMessageDialog(frame, ioEx.getMessage(), "Exception thrown", JOptionPane.ERROR_MESSAGE);
+            String ex = bundle.getString("Exception_thrown");
+            JOptionPane.showMessageDialog(frame, ioEx.getMessage(), ex, JOptionPane.ERROR_MESSAGE);
         }
     }
 

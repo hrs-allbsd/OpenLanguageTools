@@ -5,6 +5,7 @@
  */
 package org.jvnet.olt.editor.model;
 
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.logging.Logger;
 
 import org.jvnet.olt.editor.translation.AlignmentMain;
@@ -21,8 +22,9 @@ import org.jvnet.olt.xliff.*;
 
 public class SingleSegmentMatch extends Match {
     private static final Logger logger = Logger.getLogger(SingleSegmentMatch.class.getName());
-    private static final String matchStyle = "1:1";
-
+    private static final String matchStyle = org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/model/SingleSegmentMatch").getString("1:1");
+    Bundle bundle = Bundle.getBundle(SingleSegmentMatch.class.getName());
+    
     public SingleSegmentMatch(TMUnit unit, int iMatchQualityInput, int iFormatDiffInput) {
         super(unit, iMatchQualityInput, iFormatDiffInput);
     }
@@ -97,7 +99,7 @@ public class SingleSegmentMatch extends Match {
             newString = tms.getTranslation();
             newType = (tms.getTranslationStatus() * 10) + tms.getTranslationType();
 
-            DocumentUndoableEdit edit = new DocumentUndoableEdit(false, "Transfer " + getMatchStyle(), tms.getSentenceID(), 0, oldString, newString, oldType, newType);
+            DocumentUndoableEdit edit = new DocumentUndoableEdit(false, org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/model/SingleSegmentMatch").getString("Transfer_") + getMatchStyle(), tms.getSentenceID(), 0, oldString, newString, oldType, newType);
             MainFrame.undo.addDocumentEdit(edit);
         }
     }

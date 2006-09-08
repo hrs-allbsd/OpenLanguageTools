@@ -207,7 +207,8 @@ public class JBackConverterExecutor {
                 Vector v = listAllFiles(fSrc);
 
                 if (v.size() == 0) {
-                    JOptionPane.showMessageDialog(mainFrame, "The selected directory contains no xlz files", "warning", JOptionPane.OK_OPTION);
+                    callback.fileError(BackconversionStatusCallback.ERROR_NO_FILES,null);
+                    //JOptionPane.showMessageDialog(mainFrame, "The selected directory contains no xlz files", "warning", JOptionPane.OK_OPTION);
 
                     return;
                 }

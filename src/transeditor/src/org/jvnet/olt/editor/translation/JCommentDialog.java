@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.util.Calendar;
+import org.jvnet.olt.editor.util.Bundle;
 import java.util.logging.Logger;
 
 import javax.swing.*;
@@ -44,6 +45,8 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
 
     private boolean needsSave;
 
+    private Bundle bundle = Bundle.getBundle(JCommentDialog.class.getName());
+    
     public JCommentDialog(Frame owner) throws HeadlessException {
         super(owner, "", true);
 
@@ -59,23 +62,23 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
     }
 */
     private void jbInit() throws Exception {
-        border1 = BorderFactory.createCompoundBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(142, 142, 142)), "Comment"), BorderFactory.createEmptyBorder(0, 1, 1, 1));
+        border1 = BorderFactory.createCompoundBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(142, 142, 142)), bundle.getString("Comment")), BorderFactory.createEmptyBorder(0, 1, 1, 1));
 
-        jMenuItemClose.setToolTipText("Close Comment");
+        jMenuItemClose.setToolTipText(bundle.getString("Close_Comment"));
         jMenuItemClose.setMnemonic('S');
-        jMenuItemClose.setText("Close Comment");
+        jMenuItemClose.setText(bundle.getString("Close_Comment"));
         jMenuItemClose.addActionListener(new JCommentDialog_jMenuItemClose_actionAdapter(this));
 
-        jButtonStamp.setText("Date Stamp");
+        jButtonStamp.setText(bundle.getString("Date_Stamp"));
         jButtonStamp.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jButtonStamp_actionPerformed(e);
                 }
             });
-        jButtonSave.setText("Save");
+        jButtonSave.setText(bundle.getString("Save"));
         jButtonSave.addActionListener(new JCommentDialog_jButtonSave_actionAdapter(this));
         jButtonClose.setActionCommand("jButtonClose");
-        jButtonClose.setText("Close");
+        jButtonClose.setText(bundle.getString("Close"));
         jButtonClose.addActionListener(new JCommentDialog_jButtonClose_actionAdapter(this));
         jPopupMenuComment.add(jMenuItemClose);
 
@@ -114,7 +117,7 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
         if (type == COMMENT_SEGMENT) {
             this.setTitle("Comment on segment no." + (rowNo + 1));
         } else if (type == COMMENT_FILE) {
-            this.setTitle("Comment on File");
+            this.setTitle(bundle.getString("Comment_on_File"));
         }
 
         jTextPaneComment.setText((comment == null) ? "" : comment);
@@ -231,7 +234,7 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
         if (modified) {
             Toolkit.getDefaultToolkit().beep();
 
-            int iResult = JOptionPane.showConfirmDialog(this, "The comment has been changed. Do you wish to save it?", "Save Comment", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int iResult = JOptionPane.showConfirmDialog(this, bundle.getString("The_comment_has_been_changed._Do_you_wish_to_save_it?"), bundle.getString("Save_Comment"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (iResult == JOptionPane.YES_OPTION) {
                 writeBackTheComment();
