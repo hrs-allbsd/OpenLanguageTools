@@ -30,6 +30,7 @@ public class SgmlSegmentNormaliserVisitor implements NonConformantSgmlDocFragmen
     private org.jvnet.olt.parsers.tagged.TagTable tagTable;
     private Stack tagStringStack;
     private static final int BUFFSIZE = 20;
+    private boolean contentNormalised = false;
     
     /** Creates a new instance of HtmlSegmentNormaliser
      *
@@ -59,7 +60,7 @@ public class SgmlSegmentNormaliserVisitor implements NonConformantSgmlDocFragmen
                     break;
                 case NonConformantSgmlDocFragmentParserTreeConstants.JJTCLOSE_TAG:
                     if (!tagStack.empty()){
-                        if (!((SimpleNode)tagStack.peek()).getTagName().equals(simpleNode.getTagName()) ||
+                        if (contentNormalised || !((SimpleNode)tagStack.peek()).getTagName().equals(simpleNode.getTagName()) ||
                                  simpleNode.hasAttribute() ){
                             // we're doing this if there are attributes in the tag on the stack
                             // (*never* normalise <a name="myanchor"></a>)
@@ -71,8 +72,11 @@ public class SgmlSegmentNormaliserVisitor implements NonConformantSgmlDocFragmen
                             }
                             segment.append(reverse.toString());
                             segment.append(simpleNode.getNodeData());
-                        } else { // they are equal, so throw away this tag
+                        } else {
+                            // they are equal, so throw away this tag
                             tagStack.pop();
+                            // normalise just one time....
+                            contentNormalised = true;
                         }
                     } else {// empty stack - so write this tag
                         segment.append(simpleNode.getNodeData());

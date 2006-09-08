@@ -19,6 +19,7 @@ import org.jvnet.olt.filters.segmenters.formatters.SegmenterFormatter;
 import org.jvnet.olt.filters.segmenters.formatters.SegmenterFormatterException;
 import org.jvnet.olt.filters.sgml.visitors.*;
 import org.jvnet.olt.alignment.Segment;
+import org.jvnet.olt.filters.sgml.docbook.DocbookSegmenterTable;
 import org.jvnet.olt.format.*;
 import java.io.*;
 import java.util.*;
@@ -274,6 +275,9 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                     case TaggedMarkupNodeConstants.ENTITY_DECL:
                         processEntityDecl(simpleNode);
                         break;
+                    case TaggedMarkupNodeConstants.NOTATION_DECL:
+                        processNotationDecl(simpleNode);
+                        break;
                         
                     case TaggedMarkupNodeConstants.PROCESSING_INST:
                         processProcessingInst(simpleNode);
@@ -350,12 +354,11 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                          * Currently it supports only sgml. We can remove the code if attributes handling
                          * will be added to other tagged markup filters
                          */
-                        boolean dontSegmentOrCount = true;
-                        if(segmenterTable.getClass().getName().indexOf("DocbookSegmenterTable")>-1) {
-                            Map tagAttributes  = ((org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode)simpleNode).getAttribs();
-                            dontSegmentOrCount = ((org.jvnet.olt.filters.sgml.docbook.DocbookSegmenterTable)segmenterTable).dontSegmentOrCountInsideTag(tagName,namespaceID,tagAttributes);
-                        } else {
-                            dontSegmentOrCount = segmenterTable.dontSegmentOrCountInsideTag(tagName,namespaceID);
+                        boolean dontSegmentOrCount = segmenterTable.dontSegmentOrCountInsideTag(tagName,namespaceID);
+
+                        if(segmenterTable instanceof DocbookSegmenterTable && simpleNode instanceof org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode) {
+                            Map tagAttributes = ((org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode)simpleNode).getAttribs();
+                            dontSegmentOrCount = ((DocbookSegmenterTable)segmenterTable).dontSegmentOrCountInsideTag(tagName,namespaceID,tagAttributes);
                         }
                         
                         if (dontSegmentOrCount) {
@@ -703,7 +706,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             boolean nonTranslatableBlockPcData = nonTranslatableBlockPcData();
             // the question here, is do we write non translatable data inline
             // or do we write it to the skeleton file ?
-            if (nonTranslatableBlockPcData && tagState == NONTRANSLATABLE){
+            if (!nonTranslatableBlockPcData && tagState == NONTRANSLATABLE){
                 /* no neeed to make a decision here!
                  tagState = NONTRANSLATABLE;
                 updateSegmentationState(tagState);*/
@@ -718,10 +721,10 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 inlineNoSegBuffer = new StringBuffer();
                 inlineNoSegNoCountBuffer = new StringBuffer();
                 inlineNoTransBuffer = new StringBuffer();
-                inlineNoTransBuffer.append(nodeData);
                 if (buf.length()!=0){
                     doSentenceSegmentation(buf);
                 }
+
                 buf = new StringBuffer();
                 formatter.writeFormatting(nodeData);
             } else {
@@ -817,7 +820,19 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             writeEntityDecl(val, simpleNode.getNodeData());
         }
     }
-    
+
+    protected void processNotationDecl(TaggedMarkupNode simpleNode) throws SegmenterFormatterException, IOException {
+        if (!markedSectionStack.empty()){
+            if (inIncludedMarkedSection()){
+                includedMarkedSectionNodes.add(simpleNode);
+            } else {
+                ignoredMarkedSectionNodes.add(simpleNode);
+            }
+        } else {
+            formatter.writeFormatting(simpleNode.getNodeData());
+        }
+    }
+
 // simply save the entire marked section, either in the ignored
 // buffer, or the included buffer, and deal with it later.
     protected void processMarkedSectTag(TaggedMarkupNode simpleNode) throws SegmenterFormatterException, IOException{
@@ -1383,7 +1398,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
             }
         }
     }
-    
+   
 // don't know if we need this anymore...
     private void removeTagsFromList(List nodeList){
         Iterator it = nodeList.iterator();
