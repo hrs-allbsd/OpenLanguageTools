@@ -23,12 +23,14 @@ import java.io.File;
  * @author boris
  */
 abstract public class SpecificBackconverterBase implements SpecificBackConverter{
+    protected static final String UTF8 = "UTF-8";
+        
     /** data type of the original  file
      */
     protected String dataType;
     /** encoding of the result type.
      */
-    protected String encoding;
+    protected String targetEncoding;
     /* language of the file to which it file is backconverted
      */
     protected String lang;
@@ -56,12 +58,12 @@ abstract public class SpecificBackconverterBase implements SpecificBackConverter
         this.dataType = dataType;
     }
 
-    public String getEncoding() {
-        return encoding;
+    public String getTargetEncoding() {
+        return targetEncoding;
     }
 
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
+    public void setTargetEncoding(String encoding) {
+        this.targetEncoding = encoding;
     }
 
     public String getLang() {
@@ -96,4 +98,10 @@ abstract public class SpecificBackconverterBase implements SpecificBackConverter
         return false;
     }
 
+    /* make postconversion steps
+     *
+     * This method operates on file that has been converted to target encoding (if not binary)
+     */
+    public void postConvert(File file) throws SpecificBackConverterException {
+    }
 }

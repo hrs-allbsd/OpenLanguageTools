@@ -36,13 +36,13 @@ public class PlaintextSpecificBackConverter extends SpecificBackconverterBase{
         try {
             //System.out.println("Trying to do plaintext specific back conversion ! on " + filename+ " with encoding" + encoding);
             InputStreamReader reader = new InputStreamReader(
-                    new FileInputStream(file),encoding);
+                    new FileInputStream(file),UTF8);
             BufferedReader bufr = new BufferedReader(reader);
             
             File tmp = new File(file.getAbsolutePath()+".st2-temp");
             //System.out.println("Writing tmp file " + tmp.getCanonicalPath());
             OutputStreamWriter writer = new OutputStreamWriter(
-                    new FileOutputStream(tmp),encoding);
+                    new FileOutputStream(tmp),UTF8);
             HTMLEscapeFilterWriter filter = new HTMLEscapeFilterWriter(writer);
             BufferedWriter bufw = new BufferedWriter(filter);
             
