@@ -271,7 +271,7 @@ TOKEN : { <EXTENSION: ("(")?
 			   ".sgi" | ".shar" | ".shg" | ".SHK" | ".snd" | ".sqz" |
 			   ".stm" | ".tdo" | ".TGA" | ".uc2" | ".ul" | ".UTL" |
 			   ".uue" | ".uud" | ".vic" | ".vik" | ".vis" | ".voc" |
-			   ".WAV" | ".WMF" | ".XBM" | ".xm" | ".xpm" | ".XWD" |
+			   ".WAV" | ".WMF" | ".XBM" | ".xhp" | ".xm" | ".xpm" | ".XWD" |
 			   ".Y" | ".yuv" | ".zoo" | ".zw" | ".x" | ".y" | ".X"
                            // .x and .y are actually not filename extensions, but
                            // often appear as part of version numbers (eg.
@@ -718,7 +718,7 @@ void segment():
 }
 {
     ( (//(ignorednewline())?
-       (t=<QUOTE> {s+=t.image;})?
+       //(t=<QUOTE> {s+=t.image;})?
         (
 
          (t=<BRACKET> {s+=t.image;} st=sentence() {s+=st;} (st=sentsep() {s+=st;})?
@@ -729,7 +729,7 @@ void segment():
                (st=sentsep() {s+=st;})? )
          
  	)
-       (t=<QUOTE> {s+=t.image;})?
+       //(t=<QUOTE> {s+=t.image;})?
        )  
       |
       st=sentsep() {s+=st;} 
@@ -798,11 +798,11 @@ String dashedword():
  Token t;
 }
 {
-     
-     ( (t=<WORD> {s=t.image;} | t=<NUMBER> {s=t.image;})
+     ( 
+       (t=<WORD> {s+=t.image;} | t=<NUMBER> {s+=t.image;})
        (t=<DASH> {s+=t.image;}) 
-       (t=<WORD>  { s+=t.image;} | t=<NUMBER> {s+=t.image;})
-      )+ 
+       (t=<WORD> {s+=t.image;} | t=<NUMBER> {s+=t.image;})
+     )+ 
     
    { jjtThis.setNodeData(s); return s;}
 
@@ -828,7 +828,7 @@ String word():
  Token t;
 }
 {
-    ( 
+    (
      (st=numabbrev() {s=st;}) |
      (st=time() {s=st;}) |
      (st=abbrev() {s=st;}) |
