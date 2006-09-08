@@ -1,5 +1,5 @@
 /*
- * $Id: UnicodeHelper.h,v 1.1 2006-09-08 19:58:17 boris_steiner Exp $
+ * $Id: UnicodeHelper.h,v 1.1.2.1 2006-09-08 21:57:18 boris_steiner Exp $
  * IzPack - Copyright 2001-2005 Julien Ponge, All Rights Reserved.
  * 
  * http://www.izforge.com/izpack/

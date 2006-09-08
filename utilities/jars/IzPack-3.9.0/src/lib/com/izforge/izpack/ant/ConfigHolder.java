@@ -34,7 +34,7 @@ import org.apache.tools.ant.Project;
  * The installation document must be passed in using a CDATA element.
  * 
  * @author Scott Stark
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.1.2.1 $
  */
 public class ConfigHolder
 {

@@ -1,5 +1,5 @@
 /*
- * $Id: PackCompressorBase.java,v 1.1 2006-09-08 20:00:22 boris_steiner Exp $
+ * $Id: PackCompressorBase.java,v 1.1.2.1 2006-09-08 21:56:29 boris_steiner Exp $
  * IzPack - Copyright 2001-2006 Julien Ponge, All Rights Reserved.
  * 
  * http://www.izforge.com/izpack/

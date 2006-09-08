@@ -1,7 +1,7 @@
 /* ContentReader.java                                              NanoXML/Java
  *
- * $Revision: 1.1 $
- * $Date: 2006-09-08 19:59:52 $
+ * $Revision: 1.1.2.1 $
+ * $Date: 2006-09-08 21:57:09 $
  * $Name: not supported by cvs2svn $
  *
  * This file is part of NanoXML 2 for Java.

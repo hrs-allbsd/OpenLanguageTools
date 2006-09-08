@@ -33,7 +33,7 @@
 #  ./start.sh http://www.izforge.com/izpack/
 #
 # author marc.eppelmann&#064;gmx.de
-# $Id: start.sh,v 1.1 2006-09-08 19:58:13 boris_steiner Exp $
+# $Id: start.sh,v 1.1.2.1 2006-09-08 21:55:41 boris_steiner Exp $
 #
 
 function detectDesktop() {

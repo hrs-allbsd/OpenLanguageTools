@@ -1,7 +1,7 @@
 /* XMLParseException.java                                          NanoXML/Java
  *
- * $Revision: 1.1 $
- * $Date: 2006-09-08 19:59:52 $
+ * $Revision: 1.1.2.1 $
+ * $Date: 2006-09-08 21:57:12 $
  * $Name: not supported by cvs2svn $
  *
  * This file is part of NanoXML 2 for Java.
@@ -32,7 +32,7 @@ package net.n3.nanoxml;
  * An XMLParseException is thrown when the XML passed to the XML parser is not well-formed.
  * 
  * @author Marc De Scheemaecker
- * @version $Name: not supported by cvs2svn $, $Revision: 1.1 $
+ * @version $Name: not supported by cvs2svn $, $Revision: 1.1.2.1 $
  */
 public class XMLParseException extends XMLException
 {

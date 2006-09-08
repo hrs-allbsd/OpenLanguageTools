@@ -76,11 +76,11 @@ public class Unix_Shortcut extends Shortcut implements Unix_ShortcutConstants
     //~ Static fields/initializers
     // *******************************************************************************************************************************
 
-    /** version = "$Id: Unix_Shortcut.java,v 1.1 2006-09-08 19:58:35 boris_steiner Exp $" */
-    private static String version = "$Id: Unix_Shortcut.java,v 1.1 2006-09-08 19:58:35 boris_steiner Exp $";
+    /** version = "$Id: Unix_Shortcut.java,v 1.1.2.1 2006-09-08 21:57:07 boris_steiner Exp $" */
+    private static String version = "$Id: Unix_Shortcut.java,v 1.1.2.1 2006-09-08 21:57:07 boris_steiner Exp $";
 
-    /** rev = "$Revision: 1.1 $" */
-    private static String rev = "$Revision: 1.1 $";
+    /** rev = "$Revision: 1.1.2.1 $" */
+    private static String rev = "$Revision: 1.1.2.1 $";
 
     /** DESKTOP_EXT = ".desktop" */
     private static String DESKTOP_EXT = ".desktop";

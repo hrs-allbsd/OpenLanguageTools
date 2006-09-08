@@ -38,7 +38,7 @@ import com.izforge.izpack.installer.InstallerFrame;
  * @see UserInputPanel
  * 
  * @author $author$
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.1.2.1 $
  */
 public class ConditionalUserInputPanel extends UserInputPanel
 {
