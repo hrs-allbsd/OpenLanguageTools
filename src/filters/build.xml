@@ -7,9 +7,6 @@
 
  	<property name="module.filters.name" value="filters"/>
 
-	<property name="build.version" value="1.2alpha"/>
-    <property name="build.version.flat" value="1_2alpha"/>
-
     <property name="module.filters.editor.name" value="filters"/>
 
 	<target name="dist.editor" if="do.build.editor">
