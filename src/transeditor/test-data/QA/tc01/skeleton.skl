@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!DOCTYPE tt-xliff-skl PUBLIC "-//SUN-TRANSTECH//DTD XLIFF SKELETON//EN"
+ "http://www.ireland/~timf/tt-xliff-skl.dtd" >
+<tt-xliff-skl version="1.0">
+ <file source-language="en-US" datatype="html" original="/home/boris/java/work/open-language-tools/src/transeditor/test-data/QA/tc01/t1.html">
+  <header><xliff-file href="content.xlf"/></header>
+  <body>
+<formatting>&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;</formatting>
+<tu-placeholder id="a1"/><formatting>&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;h1&gt;</formatting>
+<tu-placeholder id="a2"/><formatting type="whitespace"> </formatting>
+<formatting>&lt;/h1&gt;
+		&lt;p&gt;</formatting>
+<tu-placeholder id="a3"/><formatting type="whitespace"> </formatting>
+<formatting>&lt;center&gt;</formatting>
+<tu-placeholder id="a4"/><formatting type="whitespace"> </formatting>
+<formatting>&lt;/center&gt;</formatting>
+<tu-placeholder id="a5"/><formatting type="whitespace"> </formatting>
+<formatting>&lt;/body&gt;
+&lt;/html&gt;</formatting>
+</body>
+</file>
+</tt-xliff-skl>

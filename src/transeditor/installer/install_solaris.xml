@@ -71,6 +71,6 @@
             <fileset dir="samples/" targetdir="$INSTALL_PATH/samples/"> 
                 <include name="**/*"/>
             </fileset>
-		</pack>
+        </pack>
     </packs>
 </installation>

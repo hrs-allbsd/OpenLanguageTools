@@ -1,6 +1,0 @@
-#!/bin/sh
-CLASSPATH=..:../../format_handling/:../../../suntrans2/src/tm_component/src:/space/timf/transtech-build
-xCLASSPATH=/space/timf/transtech-build/
-export CLASSPATH
-xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=55698"
-java ${DEBUG} com.sun.tt.filters.sgml.DocbookToXliff_Reverse $@
