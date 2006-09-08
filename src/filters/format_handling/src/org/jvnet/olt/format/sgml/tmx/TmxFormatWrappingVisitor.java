@@ -129,7 +129,7 @@ implements SgmlDocFragmentParserVisitor, SgmlDocFragmentParserTreeConstants
             {
                 m_boolIgnoredMarkedSect = true;
                 m_markedSectDepth =1;
-                m_buffer.append("<it i=\"" + (m_itCount++) + "\" pos=\"begin\">");
+                m_buffer.append("<it pos=\"begin\">");
                 m_buffer.append(escapeSgmlTokens(nodeText));
             }
             else
@@ -157,7 +157,7 @@ implements SgmlDocFragmentParserVisitor, SgmlDocFragmentParserTreeConstants
  
     protected void writeIndividualFormat(String format)
     {
-        m_buffer.append("<it i=\"" + (m_itCount++) + "\" pos=\"begin\">");
+        m_buffer.append("<it pos=\"begin\">");
         m_buffer.append(escapeSgmlTokens(format));
         m_buffer.append("</it>");       
     }
