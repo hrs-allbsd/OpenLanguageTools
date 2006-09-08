@@ -15,6 +15,7 @@ package org.jvnet.olt.format;
 
 import java.util.Map;
 import java.util.HashMap;
+import org.jvnet.olt.format.sgml.tmx.TmxFormatWrapper;
 import org.jvnet.olt.parsers.tagged.SegmenterTable;
 import org.jvnet.olt.parsers.tagged.TagTable;
 import org.jvnet.olt.filters.jsp.JspSegmenterTable;
@@ -23,9 +24,11 @@ import org.jvnet.olt.filters.sgml.docbook.DocbookSegmenterTable;
 import org.jvnet.olt.filters.sgml.docbook.DocbookTagTable;
 import org.jvnet.olt.format.plaintext.PlainTextFormatWrapper;
 import org.jvnet.olt.format.sgml.SgmlFormatWrapper;
+import org.jvnet.olt.format.sgml.tmx.TmxFormatWrapper;
 import org.jvnet.olt.format.xml.XmlFormatWrapper;
 import org.jvnet.olt.format.messageformat.MessageFormatWrapper;
 import org.jvnet.olt.format.brokensgml.BrokenSgmlFormatWrapper;
+import org.jvnet.olt.format.soxliff.SOXliffFormatWrapper;
 import org.jvnet.olt.format.printf.PrintfFormatWrapper;
 
 /**
@@ -44,6 +47,8 @@ public class FormatWrapperFactory {
     private static final int JAVA = 8;
     private static final int JSP = 9;
     private static final int DTD = 10;
+    private static final int STAROFFICE = 11;
+    private static final int TMX = 12;
     
     private Map m_hashAvailableWrappers;
     
@@ -66,9 +71,9 @@ public class FormatWrapperFactory {
         m_hashAvailableWrappers.put("JAVA", new Integer(JAVA));
         m_hashAvailableWrappers.put("PROPERTIES",new Integer(PROPERTIES));
         m_hashAvailableWrappers.put("JSP", new Integer(JSP));        
-		m_hashAvailableWrappers.put("DTD", new Integer(DTD));
-        
-        m_hashAvailableWrappers.put("STAROFFICE", new Integer(PLAINTEXT));
+        m_hashAvailableWrappers.put("DTD", new Integer(DTD));
+        m_hashAvailableWrappers.put("STAROFFICE", new Integer(STAROFFICE));
+        m_hashAvailableWrappers.put("TMX", new Integer(TMX));
     }
     
     //    protected FormatWrapper getFormatWrapper(String type, GlobalVariableManager gvm) throws UnsupportedFormatException {
@@ -107,6 +112,11 @@ public class FormatWrapperFactory {
                     ex = new SgmlFormatWrapper(gvm, localTagTable, localSegmenterTable);
                     
                     return ex;   //  No drop through                  
+                case STAROFFICE:
+                    
+                    ex = new SOXliffFormatWrapper();
+                    
+                    return ex;
                 case XML:
                     // If we're getting html or sgml, we already know the tag tables,
                     // so we use them. For xml, if we're wrapping the original source
@@ -137,6 +147,9 @@ public class FormatWrapperFactory {
 		case DTD:
                 case JAVA:
                     ex = new MessageFormatWrapper();
+                    return ex;
+                case TMX:
+                    ex= new TmxFormatWrapper(gvm);
                     return ex;
                     
                 default:
