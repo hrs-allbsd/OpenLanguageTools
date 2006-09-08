@@ -43,7 +43,7 @@ public class RecodingSpecificBackconverter extends  SpecificBackconverterBase{
         
         try{
             
-            w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newFile),encoding));
+            w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newFile),targetEncoding));
             r = new BufferedReader(new InputStreamReader(new FileInputStream(oldFile),"UTF-8"));
             
             

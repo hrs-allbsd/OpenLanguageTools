@@ -43,10 +43,17 @@ public class HtmlSpecificBackConverter extends SpecificBackconverterBase {
  */
     public void convert(File file) throws SpecificBackConverterException {
         try {
-            HtmlMetaTagController.fixMetaTag(file.getAbsolutePath(), encoding);
             UnicodeReverse ur = new HTMLUnicodeReverseImpl();
-            UnicodeEntityBackConverter.fix(file.getAbsolutePath(), ur, encoding);
+            UnicodeEntityBackConverter.fix(file.getAbsolutePath(), ur, UTF8);
             
+        } catch (java.io.IOException e){
+            throw new SpecificBackConverterException("Error during html format-specific back conversion : " +e.getMessage());
+        }
+    }
+
+    public void postConvert(File file) throws SpecificBackConverterException {
+        try {
+            HtmlMetaTagController.fixMetaTag(file.getAbsolutePath(), targetEncoding);            
         } catch (java.io.IOException e){
             throw new SpecificBackConverterException("Error during html format-specific back conversion : " +e.getMessage());
         }
