@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd"><xliff version="1.0">
+ <file source-language="en-US" datatype="HTML" original="/home/boris/java/work/open-language-tools/src/transeditor/test-data/QA/tc01/t1.html" xml:space="default" target-language="nl-NL">
+  <header><skl>
+<external-file href="skeleton.skl"></external-file></skl></header>
+  <body>
+<trans-unit id="a1" translate="yes" reformat="yes" xml:space="default">    
+       <source>TestPage</source>
+       <target xml:lang="nl-NL" state="user:untranslated">Testovaci stranka</target><count-group name="word count">
+          <count count-type="word count" unit="word">1</count>
+       </count-group>
+    </trans-unit>
+<trans-unit id="a2" translate="yes" reformat="yes" xml:space="default">    
+       <source>This is a simple page to test</source>
+       <target xml:lang="nl-NL" state="user:untranslated">Jednoduchy text na preklad</target><count-group name="word count">
+          <count count-type="word count" unit="word">7</count>
+       </count-group>
+    </trans-unit>
+<trans-unit id="a3" translate="yes" reformat="yes" xml:space="default">    
+       <source>A paragraph &lt;b&gt;with&lt;i&gt;some&lt;/i&gt;stuff&lt;/b&gt;&lt;em&gt;in it&lt;/em&gt; to</source>
+       <target xml:lang="nl-NL" state="auto-translated:translated">A paragraph withsomestuffin it to a najeke zmeny</target><count-group name="word count">
+          <count count-type="word count" unit="word">8</count>
+       </count-group>
+    </trans-unit>
+<trans-unit id="a4" translate="yes" reformat="yes" xml:space="default">    
+       <source>test</source>
+       <target xml:lang="nl-NL" state="user:untranslated">test abc def</target><count-group name="word count">
+          <count count-type="word count" unit="word">1</count>
+       </count-group>
+    </trans-unit>
+<trans-unit id="a5" translate="yes" reformat="yes" xml:space="default">    
+       <source>how things &lt;a href="#d"&gt;work&lt;/a&gt;</source>
+       <target xml:lang="nl-NL" state="user:untranslated">TEST TEXT</target><count-group name="word count">
+          <count count-type="word count" unit="word">3</count>
+       </count-group>
+    </trans-unit>
+</body>
+</file>
+</xliff>
