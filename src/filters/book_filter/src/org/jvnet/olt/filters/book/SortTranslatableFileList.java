@@ -64,48 +64,50 @@ public class SortTranslatableFileList  {
                 String ext = getExtension(filename);
                 // we ignore all files in the input, except the book file
                 if (ext.equals("book")){
+                    try { 
+                        HashSet translatableSet = new HashSet();
+                        HashSet singleSegTranslatableSet = new HashSet();
+                        translatableFileMap = new HashMap();
+                        singleSegTranslatableFileMap = new HashMap();
                     
-                    HashSet translatableSet = new HashSet();
-                    HashSet singleSegTranslatableSet = new HashSet();
-                    translatableFileMap = new HashMap();
-                    singleSegTranslatableFileMap = new HashMap();
-                    
-                    File file = new File(filename);
-                    String directory = file.getParent();
-                    if (directory == null){
-                        directory = System.getProperty("user.dir");
-                    }
-                    // nasty hack here to normalise filenames
-                    filename = filename.replaceAll("//","/");
-                    logger.log(Level.CONFIG,"Found book file " + filename +" which comes from directory " + directory);
-                    // now, based on these files, we work out which are translatable
-                    BufferedReader reader = new BufferedReader(new InputStreamReader
-                    (new FileInputStream(file),sourceEncoding));
-                    
-                    Book book = new Book(reader, directory, null, logger, false);
-                    translatableSet = book.getTranslatableFiles();
-                    singleSegTranslatableSet = book.getSingleSegTranslatableFiles();
-                    
-                    GlobalVariableManager gvm = book.getGlobalVariableManager();
-                    // store the gvm for this book in a hashMap
-                    globalVariableManagerMap.put(filename, gvm);
+                        File file = new File(filename);
+                        String directory = file.getParent();
+                        if (directory == null){
+                            directory = System.getProperty("user.dir");
+                        }
+                        // nasty hack here to normalise filenames
+                        filename = filename.replaceAll("//","/");
+                        logger.log(Level.CONFIG,"Found book file " + filename +" which comes from directory " + directory);
+                        // now, based on these files, we work out which are translatable
+                        BufferedReader reader = new BufferedReader(new InputStreamReader
+                        (new FileInputStream(file),sourceEncoding));
+                        Book book = new Book(reader, directory, null, logger, false);
+                        translatableSet = book.getTranslatableFiles();
+                        singleSegTranslatableSet = book.getSingleSegTranslatableFiles();
+                         
+                        GlobalVariableManager gvm = book.getGlobalVariableManager();
+                        // store the gvm for this book in a hashMap
+                        globalVariableManagerMap.put(filename, gvm);
                     
                     
-                    // next store each translatable file - and which gvm it's using
-                    // in the translatableFileMap
-                    Iterator iter = translatableSet.iterator();
-                    while (iter.hasNext()){
-                       String s = (String)iter.next();
-                        logger.log(Level.CONFIG,"Translatable file from "+file.getName()+" : "+directory+"/"+s);
-                        translatableFileMap.put(directory+"/"+s,filename);
-                    }
+                        // next store each translatable file - and which gvm it's using
+                        // in the translatableFileMap
+                        Iterator iter = translatableSet.iterator();
+                        while (iter.hasNext()){
+                            String s = (String)iter.next();
+                            logger.log(Level.CONFIG,"Translatable file from "+file.getName()+" : "+directory+"/"+s);
+                            translatableFileMap.put(directory+"/"+s,filename);
+                        }
                     
-                    // now do the same thing for the single segment translatable files
-                    iter = singleSegTranslatableSet.iterator();
-                    while (iter.hasNext()){
-                       String s = (String)iter.next();
-                        logger.log(Level.CONFIG,"Single segment translatable file from "+file.getName()+" : "+directory+"/"+s);
-                        singleSegTranslatableFileMap.put(directory+"/"+s,filename);
+                        // now do the same thing for the single segment translatable files
+                        iter = singleSegTranslatableSet.iterator();
+                        while (iter.hasNext()){
+                            String s = (String)iter.next();
+                            logger.log(Level.CONFIG,"Single segment translatable file from "+file.getName()+" : "+directory+"/"+s);
+                            singleSegTranslatableFileMap.put(directory+"/"+s,filename);
+                        }
+                    } catch (BookException e) {
+                        logger.log(Level.SEVERE,"Cannot parse book file: " + filename,e); 
                     }
                 }
             }
