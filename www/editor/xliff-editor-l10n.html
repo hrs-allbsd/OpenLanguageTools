@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+    <head>
+        <title>Localizing the Open Language Tools XLIFF Translation Editor</title>
+    </head>
+    <body>
+        <h1>Localizing the Open Language Tools XLIFF Translation Editor</h1>
+        <!-- table of contents -->
+        
+        <h3>Contents</h3>
+        <p>
+            <dl>
+                <dt><a href="#introduction">Introduction</a></dt>
+                <dt><a href="#build_reqs">L10n requirements</a></dt>
+                <dt><a href="#build_output">Translation</a></dt>
+            </dl>
+        </p>
+
+        <a name="introduction"></a>
+        <h3>Introduction</h3>
+        <p>This document aims to describe the l10n procedure of OLT XLIFF editor from a point of view
+		of a translator.
+		</p>
+        
+        <a name="build_reqs"></a>
+        <h3>L10n requirements</h3>
+        <p>
+			In order to do l10n of the OLT XLIFF editor the user must:
+			<ol>
+				<li>Install <b>JDK</b> 1.5.0 (note: JRE is not enough; JDK installation contains native2ascii application which will be used)</li>
+				<li>Install OLT XLIFF Filters 1.2.6 or better (note: in filters 1.2.6 recursive processing of directories has been added)</li>
+				<li>Install OLT XLIFF Editor 1.2.6 or better </li>
+			</ol>
+        </p>
+
+       <a name="build_output"></a>
+        <h3>Translation</h3>
+
+		<p>
+			<h4>Short version:</h4>
+			<ol>
+				<li>unzip i18n.zip in &lt;EDITOR_HOME&gt;/i18n directory</li>
+				<li>run renamer.sh from  &lt;EDITOR_HOME&gt;</li>
+				<li>select the i18n dir as Path</li>
+				<li>replace LOCALE in 'Rename To' field with <a href='http://java.sun.com/j2se/1.5.0/docs/guide/intl/locale.doc.html#util-text'>locale</a> (fr_FR,de_DE,es_ES ...)</li>
+				<li>Hit  'Test' and preview</li>
+				<li>Hit 'Rename' to rename</li>
+				<li>Run filters</li>
+				<li>Drop the i18n directory on filters</li>
+				<li>... if all works fine, you'll get .xlz files in the i18n directories</li>
+				<li>.... translate  (create a project etc) ...</li>
+				<li>Backconvert files, select UTF8 as target encoding</li>
+				<li>run <i>native2ascii -encoding UTF8 &lt;file&gt;</i> on each backconverted file</li>
+				<li>restart the editor to see the strings in action</li>
+
+			</ol>
+		</p>
+        
+        <p>
+		<h4>Long version</h4>
+		
+		The proces of translation of the XLIFF editor consists of translation of java .property files.
+		The property files need to be encoded in iso-8859-1 encoding and all characters not contains in this encoding
+		need to escaped correctly to form a UTF8 character in order to be correctly read in and
+		displayed in the editor. The .property files also need to comply to a naming convention for locale
+		which is used. For example file <pre>MainFrame.properties</pre> for German translation needs to be renamed
+		to <pre>MainFrame_de_DE.properties</pre> to be displayed correctly in German localized enviroment.
+		</p>
+		
+        
+        <p>
+			<h4>Preparation</h4>
+           All editor's l10n files are zipped in the file i18n.zip under directory i18n in the directory where 
+		   the editor has been installed. Unzip the file in the location where it's present. A set of directories
+		   will be created. The directories directly copy the inner structure of the application, so there are 
+		   many directories and many .property files. Most of these files map directly to user interface components
+		   which need to be translated.
+        </p>
+        <p>
+			All these .property files already are encoded in iso-88592-1 encoding and contain the default UI
+			strings. The files' names do not contain the locale part which needs to be added. 
+			To rename the property files one can use a shell, a bulk renamer or an application called Renamer
+			installed in the directory where the editor is installed.
+		</p>
+		<p>
+			<h4>Rename source files</h4>
+			To run the application, go to the directory where the editor is installed and run 
+			<pre>renamer.sh</pre> or <pre>renamer.bat</pre>
+			
+			In the text field labeled <b>Path:</b> select the directory where you unzipped the i18n.zip file.
+			Then in the field labeled <b>Rename to:</b> replace the string LOCALE to desired 
+			<a href='http://java.sun.com/j2se/1.5.0/docs/guide/intl/locale.doc.html#util-text'>locale</a>,
+			for exmaple for French replace LOCALE with fr_FR. 
+			Hit the 'Test' button to preview the name transformation.
+			If it's OK then press 'Rename' button to rename the files. 
+		</p> 
+		<p>
+			<b>Wanrning:</b>The file will be renamed , that means that the original files will disappear !
+		</p>
+		<p>
+			<h4>Create .xlz files</h4>
+			Start the XLIFF OLT Filters and drop the i18n directory on the filters window. If all goes well
+			the i18n directory will contain the .xlz file which you can translate
+		</p>
+		<p>
+			<h4>Translate and backconvert</h4>
+			Start the OLT XLIFF Editor and create  a project. Translate files. When backconverting, select the 
+			i18n directory and <b>UTF8</b> as target encoding. Run <i>native2ascii</i> from JDK's bin directory
+			on each backconverted <i>.properties</i> file as:
+			<pre>
+				native2ascii -encoding UTF8 &lt;file&gt;
+			</pre>
+		</p>
+		<p>
+			<h4>Test</h4>
+			Any time you restart the editor, you can preview the changes, since the editor uses the i18n directory
+			when loading the locale, but <b>the files must be stored in the same hierarchy as they are in in the i18n.zip file!</b>
+        </p>
+	</body>
+</html>
