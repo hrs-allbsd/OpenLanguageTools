@@ -58,6 +58,7 @@ public class Book {
     private GlobalVariableManager gvm;
     private HashSet translatable = new HashSet();
     private HashSet singleSegTranslatable = new HashSet();
+    private Logger logger;
     
     // a simple constructor used for testing...
     public Book(Reader reader, String dir, GlobalVariableManager gvm, boolean isDTD) throws BookException {
@@ -74,7 +75,7 @@ public class Book {
      * @param isDTD true if this file is a DTD, false otherwise (.book files are sgml files
      * but we also use this class to read any dtd files the original book file #includes)
      */
-    public Book(Reader reader, String dir, GlobalVariableManager gvm, Logger logger, boolean isDTD) throws BookException{
+    public Book(Reader reader, String dir, GlobalVariableManager gvm, Logger log, boolean isDTD) throws BookException{
         try {
             if (dir == null){
                 System.out.println("dir was null, using ./");
@@ -83,7 +84,7 @@ public class Book {
             if (gvm == null){
                 this.gvm = new EntityManager();
             }
-            if (logger == null){
+            if (log == null){
                 // try and get a logger
                 java.util.logging.LogManager manager = LogManager.getLogManager();
                 logger = manager.getLogger("org.jvnet.olt.filters.book.Book");
@@ -92,6 +93,8 @@ public class Book {
                     System.out.println("Still have null logger - using default");
                     logger = Logger.global;
                 }
+            } else {
+                this.logger = log;
             }
             
             ProcessedSgmlFileVisitor proc;
@@ -185,7 +188,8 @@ public class Book {
         NonConformantSgmlDocFragmentParser parser;
         File test = new File(directory+"/"+filename);
         if (!test.exists()){
-            throw new FileNotFoundException("Translatable file " + filename +" does not exist in the input");
+            logger.log(Level.SEVERE,"Translatable file " + filename + " does not exist in the input");
+            return;
         }
             
         try {
