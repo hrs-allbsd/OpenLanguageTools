@@ -654,7 +654,13 @@ public class XliffFilterFacade {
                 charset = xliffFilterGUIMessages.getString("ISO8859-1");
             }
         }
-        if (!java.nio.charset.Charset.isSupported(charset)){
+        boolean charsetSupported = false;
+        try {
+            charsetSupported = java.nio.charset.Charset.isSupported(charset);
+        } catch(java.nio.charset.IllegalCharsetNameException e) {
+            logger.log(Level.SEVERE,"Cannot determine right encoding with java.nio.charset.Charset: " + e.getMessage(),e);
+        }
+        if (!charsetSupported){
             // Warning ! User supplied charset charset doesn't seem to be supported
             logger.log(Level.INFO,MessageFormat.format(
                     xliffFilterGUIMessages.getString("Warning!_User_supplied_charset_o_doesn't_seem_to_be_supported"),
@@ -691,7 +697,13 @@ public class XliffFilterFacade {
             logger.log(Level.INFO, MessageFormat.format(
                     xliffFilterGUIMessages.getString("Ignoring_user-specified_charset_o_using_o_instead"),
                     new Object[] {encoding, charset}));
-            if (!java.nio.charset.Charset.isSupported(charset)){
+            boolean charsetSupported = false;
+            try {
+                charsetSupported = java.nio.charset.Charset.isSupported(charset);
+            } catch(java.nio.charset.IllegalCharsetNameException e) {
+                logger.log(Level.SEVERE,"Cannot determine right encoding with java.nio.charset.Charset: " + e.getMessage(),e);
+            }
+            if (!charsetSupported){
                 // Warning ! File declared charset charset doesn't seem to be supported, trying user-supplied charset instead...
                 logger.log(Level.INFO, MessageFormat.format(
                         xliffFilterGUIMessages.getString("Warning!_File-declared_charset_o"),
@@ -716,7 +728,13 @@ public class XliffFilterFacade {
             logger.log(Level.INFO,MessageFormat.format(
                     xliffFilterGUIMessages.getString("Ignoring_user-specified_charset_using_o_instead"),
                     new Object[] {encoding}));
-            if (!java.nio.charset.Charset.isSupported(encoding)){
+            boolean charsetSupported = false;
+            try {
+                charsetSupported = java.nio.charset.Charset.isSupported(encoding);
+            } catch(java.nio.charset.IllegalCharsetNameException e) {
+                logger.log(Level.SEVERE,"Cannot determine right encoding with java.nio.charset.Charset: " + e.getMessage(),e);
+            }
+            if (!charsetSupported){
                 // Warning ! File-declared charset doesn't seem to be supported, defaulting to UTF-8
                 logger.log(Level.INFO, MessageFormat.format(
                         xliffFilterGUIMessages.getString("Warning!_File-declared_charset_UTF"),
