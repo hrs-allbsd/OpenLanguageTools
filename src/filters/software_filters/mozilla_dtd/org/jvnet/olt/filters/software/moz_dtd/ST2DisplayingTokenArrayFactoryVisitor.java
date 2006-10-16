@@ -50,32 +50,32 @@ public class ST2DisplayingTokenArrayFactoryVisitor implements DTDDocFragmentPars
             // check to see if there are any tokens in the tree that would suggest
             // we haven't parsed a mozilla dtd file.
             case JJTNDATA_ENTITY_DECL:
-            case JJTPARAMETER_ENTITY_DECL:
             case JJTNOTATION_DECL:
-            case JJTINT_ENTITY:
                 this.encounteredNonMozillaMessageStringDTD = true;
+                break;
+            case JJTPARAMETER_ENTITY_DECL:
+            case JJTINT_ENTITY:
+                // add it to skeleton
+                cell = new TokenCell(TokenCell.FORMATING, node.getNodeData() );
                 break;
             case JJTENTITY_DECL_NAME:
                 //  add the key
                 this.key = replaceXMLChars(node.getNodeData());
                 cell = new TokenCell(TokenCell.KEY, this.key);
-                m_vect.addElement(cell);
-                // add the key also as formatting
-                cell = new TokenCell(TokenCell.FORMATING, this.key);
                 break;
                 
             case JJTENTITY_DECL_VALUE:
+                String quote = node.getNodeData().substring(0,1);
                 String value = replaceXMLChars(node.getNodeData().substring(1, node.getNodeData().length() - 1));
-                
                 // need to put formatting quotes around the message value
-                cell = new TokenCell(TokenCell.FORMATING, "\"");
+                cell = new TokenCell(TokenCell.FORMATING, quote);
                 m_vect.addElement(cell);
                 cell = new MessageTokenCell(TokenCell.MESSAGE, MessageType.MOZDTD_FILE, value,
                         this.key, this.comment, true);
                 cell.setReLayoutAllowed(false);
                 m_vect.addElement(cell);
                 // need to put formatting quotes around the message value
-                cell = new TokenCell(TokenCell.FORMATING, "\"");
+                cell = new TokenCell(TokenCell.FORMATING, quote);
                 this.comment = "";
                 this.key = "";
                 break;
