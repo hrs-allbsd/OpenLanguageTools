@@ -44,8 +44,6 @@ import org.jvnet.olt.editor.minitm.TMXImporter;
 import org.jvnet.olt.editor.model.*;
 import org.jvnet.olt.editor.model.TMData.TMSentence;
 import org.jvnet.olt.editor.spellchecker.SpellCheckerAPI;
-import org.jvnet.olt.editor.translation.action.ActionFactory;
-import org.jvnet.olt.editor.translation.action.ActionType;
 import org.jvnet.olt.editor.translation.preview.FilePreviewPane;
 import org.jvnet.olt.editor.util.*;
 import org.jvnet.olt.fuzzy.basicsearch.BasicFuzzySearchMiniTM;
