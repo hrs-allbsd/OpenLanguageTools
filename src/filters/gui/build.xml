@@ -7,7 +7,7 @@
 
     <property name="installer.dir" value="${build.dir}/installer"/>
     <!-- IzPack setup -->
-    <property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.7.0/"/>	
+    <property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.9.0/"/>	
     <taskdef name="izpack" classpath="${IZPACK_HOME}/lib/compiler.jar"
     classname="com.izforge.izpack.ant.IzPackTask"/>
     
