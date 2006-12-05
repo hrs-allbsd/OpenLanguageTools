@@ -20,9 +20,9 @@
      iconFile="$INSTALL_PATH/icons/editor.ico"
      iconIndex="0"
      encoding="UTF-8"
+     type="Application"     
      description="Launch the Open Langage Tools XLIFF Translation Editor">
 
-     <createForPack name="Open Language Tools XLIFF Translation Editor"/>
    </shortcut>
    <shortcut
      name="User Manual"
@@ -38,7 +38,6 @@
      encoding="UTF-8"
      description="Launch the Open Language Tools XLIFF Translation Editor">
 
-     <createForPack name="Open Language Tools XLIFF Translation Editor"/>
    </shortcut>
     <shortcut
      name="Uninstaller"
@@ -56,7 +55,5 @@
      type="Application"
      encoding="UTF-8"
      description="IzPack uninstaller">
-     <createForPack name="Open Language Tools XLIFF Translation Editor" />
    </shortcut>
-
 </shortcuts>

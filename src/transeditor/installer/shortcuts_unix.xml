@@ -7,9 +7,9 @@
   <programGroup defaultName="Open Language Tools XLIFF Translation Editor @VERSION@" location="applications"/>
 
    <shortcut
-     name="Open Language Tools XLIFF Translation Editor"
+     name="OLT XLIFF Translation Editor"
      programGroup="yes"
-     desktop="no"
+     desktop="yes"
      applications="yes"
      startMenu="yes"
      startup="no"
@@ -20,13 +20,28 @@
      iconFile="help"
      iconIndex="0"
      encoding="UTF-8"
+     type="Application"
      description="Launch the Open Language Tools XLIFF Translation Editor">
-
-     <createForPack name="Base"/>
    </shortcut>
+  
+   <shortcut
+     name="User Manual"
+     programGroup="yes"
+     desktop="yes"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     target="$INSTALL_PATH/OLT_XLIFF_Translation_Editor_Manual_@VERSION_FLAT@.pdf"
+     workingDirectory="$INSTALL_PATH"
+     commandLine=""
+     initialState="normal"
+     encoding="UTF-8"
+     description="Open Language Tools XLIFF Translation Editor User Guide">
 
-    <shortcut
-     name="Uninstaller"
+   </shortcut>
+    
+   <shortcut
+     name="OLT XLIFF Editor Uninstaller"
      programGroup="yes"
      desktop="yes"
      applications="no"
@@ -41,7 +56,6 @@
      type="Application"
      encoding="UTF-8"
      description="IzPack uninstaller">
-     <createForPack name="Base" />
    </shortcut>
 
 </shortcuts>
