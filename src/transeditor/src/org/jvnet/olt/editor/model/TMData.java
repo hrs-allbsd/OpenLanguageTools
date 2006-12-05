@@ -162,6 +162,10 @@ public class TMData extends PivotData {
             }
         }
 
+        protected TMSentence(){
+            //only for testing!        
+        }
+        
         public int getSentenceID() {
             return iSentenceID;
         }

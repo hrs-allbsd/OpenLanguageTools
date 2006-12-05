@@ -409,4 +409,8 @@ public class Configuration {
     public Map getShortcuts() {
         return shortcutsMap;
     }
+    
+    public Preferences getPreferencesRootForSpellCheckers(){
+        return preferences().node("spellcheckers");
+    }
 }
