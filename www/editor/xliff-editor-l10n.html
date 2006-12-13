@@ -109,7 +109,11 @@
 			i18n directory and <b>UTF8</b> as target encoding. Run <i>native2ascii</i> from JDK's bin directory
 			on each backconverted <i>.properties</i> file as:
 			<pre>
-				native2ascii -encoding UTF8 &lt;file&gt;
+				native2ascii -encoding UTF8 &lt;file&gt; &lt;out_file&gt;
+			</pre>
+			or
+			<pre>
+				native2ascii -encoding UTF8 &lt;file&gt; &gt;  &lt;out_file&gt;
 			</pre>
 		</p>
 		<p>
