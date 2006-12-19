@@ -10,7 +10,13 @@
  */
 package org.jvnet.olt.editor.model;
 
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 public class Search {
+    private static final Logger logger = Logger.getLogger(Search.class.getName());
     /**
      * indicates what will be searched
      */
@@ -31,6 +37,12 @@ public class Search {
      */
     public boolean forwardFlag = true;
 
+    public boolean matchWords = true;
+    
+    private String origWhat;
+    private String origStringToMatch;
+    
+    private Matcher m;
     /**
      * Constructor
      */
@@ -40,11 +52,12 @@ public class Search {
         forwardFlag = f;
     }
 
-    public Search(String w, boolean s, boolean c, boolean f) {
+    public Search(String w, boolean s, boolean c, boolean f,boolean matchWords) {
         what = w;
         srcFlag = s;
         caseFlag = c;
         forwardFlag = f;
+        this.matchWords = matchWords;
     }
 
     public String toString() {
@@ -60,7 +73,7 @@ public class Search {
     }
 
     public Object clone() {
-        return new Search(what, srcFlag, caseFlag, forwardFlag);
+        return new Search(what, srcFlag, caseFlag, forwardFlag,matchWords);
     }
 
     /**
@@ -97,7 +110,40 @@ public class Search {
         this.caseFlag = caseFlag;
     }
 
-    public void setForwardFlag(boolean forwardFlag) {
+    public void setForwardFlag(String stringToMatch,boolean forwardFlag) {
         this.forwardFlag = forwardFlag;
+    }
+    
+    public Matcher getMatcher(String stringToMatch){
+        if(origWhat == null){
+            origWhat = what;
+        }
+        
+        if(origStringToMatch == null)
+            origStringToMatch = stringToMatch;
+        
+        if(origWhat.equals(what) && origStringToMatch.equals(stringToMatch) && m != null){
+            return m;
+        }
+        else{
+            m = getPattern().matcher(stringToMatch);
+        }
+        
+        return m;
+    }
+    
+    Pattern getPattern(){
+        String px = "\\b"+Pattern.quote(what)+"\\b";
+        Pattern rv = null;
+        try{
+            if(caseFlag)
+                rv  = Pattern.compile(px);                
+            else
+                rv = Pattern.compile(px,Pattern.CASE_INSENSITIVE);
+        }
+        catch (PatternSyntaxException pse){
+            logger.warning("Pattern failed to compile:"+pse);
+        }
+        return rv;
     }
 }

@@ -153,6 +153,11 @@ public class FindAndReplacePanel extends JPanel implements ActionListener, KeyLi
     JCheckBox caseOption = new JCheckBox();
 
     /**
+     * option to match whole word only
+     */
+    JCheckBox wholeWordsOption = new JCheckBox();
+
+    /**
      * layout of find panel
      */
     GridLayout gridLayout1 = new GridLayout();
@@ -404,6 +409,7 @@ public static Result targetResult = null;*/
         });
         replaceComboBox.setToolTipText(rb.getString("Enter_a_word_or_string_to_replace_"));
         caseOption.setToolTipText(rb.getString("Match_case_sensitivity"));
+        wholeWordsOption.setToolTipText(rb.getString("Match_whole_words"));
         //searchDirectionOption.setToolTipText("search down");
         //searchDirectionOption.setSelected(true);
         //searchDirectionOption.setText("Down");
@@ -426,6 +432,8 @@ public static Result targetResult = null;*/
         gridLayout3.setColumns(1);
         gridLayout3.setRows(2);
         caseOption.setText(rb.getString("Match_Case"));
+        wholeWordsOption.setText(rb.getString("Match_Words"));
+
         this.setMaximumSize(new Dimension(280, 240));
         this.setMinimumSize(new Dimension(280, 240));
         this.setPreferredSize(new Dimension(456, 300));
@@ -458,6 +466,7 @@ public static Result targetResult = null;*/
         optionPanel.add(searchDownRadio,null);
         optionPanel.add(searchUpRadio,null);
         optionPanel.add(caseOption, null);
+        optionPanel.add(wholeWordsOption,null);
         sourcePanel.add(sourceRadioButton, null);
         sourcePanel.add(targetRadioButton, null);
         this.add(actionPanel, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 1), 0, 0));
@@ -515,8 +524,10 @@ public static Result targetResult = null;*/
         boolean caseFlag = caseOption.isSelected();
         //boolean forwardFlag = searchDirectionOption.isSelected();
         boolean forwardFlag = searchDownRadio.isSelected();
-
-        return new Search(searchString, caseFlag, forwardFlag);
+        boolean isSrc = sourceRadioButton.isSelected();
+        boolean matchWords = wholeWordsOption.isSelected();
+        
+        return new Search(searchString, isSrc,caseFlag, forwardFlag,matchWords);
     }
 
     /**
