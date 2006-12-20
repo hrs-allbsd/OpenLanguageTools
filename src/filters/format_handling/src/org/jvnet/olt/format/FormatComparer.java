@@ -1,6 +1,6 @@
 
 /*
- * Copyright  2005 Sun Microsystems, Inc. 
+ * Copyright  2005 Sun Microsystems, Inc.
  * All rights reserved Use is subject to license terms.
  *
  */
@@ -9,6 +9,7 @@ package org.jvnet.olt.format;
 
 import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.jvnet.olt.format.plaintext.PlainTextFormatExtractor;
 import org.jvnet.olt.format.GlobalVariableManager;
@@ -29,6 +30,8 @@ public class FormatComparer {
     private static final int MESSAGEFORMAT=3;
     private static final int BROKENML=4;
     private static final int SOXLIFF=5;
+    
+    private static final int CORRECTION_CONSTANT = 3;
     
     public FormatComparer() {
         m_hashExtractors = new HashMap();
@@ -56,62 +59,25 @@ public class FormatComparer {
      */
     public int compareFormats(String src, String srcType, String match, String matchType, GlobalVariableManager gvm) throws InvalidFormattingException, UnsupportedFormatException {
         //  Extract the formatting from source string
-        HashMap sourceMap = extractFormatting(src, srcType.toUpperCase(), gvm);
+        Map formatMap = new HashMap();
         
-        //  Extract the formatting from match string
-        HashMap matchMap = extractFormatting(match, matchType.toUpperCase(), gvm);
+        FormatExtractor srcExtractor   = getFormatExtractor(srcType);
+        FormatExtractor matchExtractor = getFormatExtractor(matchType);
         
-        //  Do comparison
-        int formatPenalty = 0;
+        String normalizedSource = srcExtractor.getNormalizedForm(src,formatMap,gvm);
+        //System.out.println("normalizedSource: " + normalizedSource);
+        String normalizedMatch  = matchExtractor.getNormalizedForm(match,formatMap,gvm);
+        //System.out.println("normalizedMatch: " + normalizedMatch);
+  
+        int editDistance = computeLevenshteinDistance(normalizedSource.toCharArray(),normalizedMatch.toCharArray());
         
-        Iterator sourceIterator = sourceMap.keySet().iterator();
-        String sourceKey;
-        FormatItem sourceItem;
-        FormatItem matchItem;
-        while(sourceIterator.hasNext()) {
-            sourceKey = (String) sourceIterator.next();
-            if(matchMap.containsKey(sourceKey)) {
-                sourceItem = (FormatItem) sourceMap.get(sourceKey);
-                matchItem = (FormatItem) matchMap.get(sourceKey);
-                
-                int numMatch = matchItem.getOccurrences();
-                int numSrc = sourceItem.getOccurrences();
-                
-                if(numMatch != numSrc) {
-                    formatPenalty +=
-                    (Math.abs(numMatch - numSrc) * sourceItem.getPenalty());
-                }
-                
-                matchMap.remove(sourceKey);
-            }
-            else {
-                sourceItem = (FormatItem) sourceMap.get(sourceKey);
-                formatPenalty +=
-                (Math.abs(sourceItem.getOccurrences()) * sourceItem.getPenalty());
-                
-            }
-        }
+        int penalty = (int)Math.ceil(editDistance/1.5);
         
-        Iterator matchIterator = matchMap.values().iterator();
-        while(matchIterator.hasNext()) {
-            //  Anything left in matchMap wasn't found in sourceMap therefore
-            //  apply the penalties.
-            matchItem = (FormatItem) matchIterator.next();
-            
-            formatPenalty +=
-            (Math.abs(matchItem.getOccurrences()) * matchItem.getPenalty());
-        }
+        return penalty;
         
-        return formatPenalty;
+        //return (int)Math.ceil(editDistance/CORRECTION_CONSTANT);
     }
     
-    protected HashMap extractFormatting(String string, String type, GlobalVariableManager gvm) throws InvalidFormattingException, UnsupportedFormatException {
-        FormatExtractor extractor = getFormatExtractor(type);
-        
-        HashMap formats = extractor.getFormatting(string, gvm);
-        
-        return formats;
-    }
     
     protected FormatExtractor getFormatExtractor(String type)
     throws UnsupportedFormatException {
@@ -156,9 +122,53 @@ public class FormatComparer {
                 default:
                     throw new UnsupportedFormatException("Format is unsupported : " + type);
             }
-        }
-        else {
+        } else {
             throw new UnsupportedFormatException("Format is unsupported : " + type);
         }
     }
+    
+    /**
+     * Compute edit distance with Levenstein distance algorith
+     *
+     * @param str1 the first string to compare
+     * @param str2 the second string to compare
+     *
+     * @return the edit distance for str1 and str2
+     */
+    private static int computeLevenshteinDistance(char[] str1, char[] str2) {
+        int[][] distance = new int[str1.length+1][];
+        
+        for(int i=0; i<=str1.length; i++){
+            distance[i] = new int[str2.length+1];
+            distance[i][0] = i; 
+        }
+        for(int j=0; j<str2.length+1; j++)
+            distance[0][j]=j;
+        
+        for(int i=1; i<=str1.length; i++)
+            for(int j=1;j<=str2.length; j++)
+                distance[i][j]= minimum(distance[i-1][j]+1, distance[i][j-1]+1,
+                        distance[i-1][j-1]+((str1[i-1]==str2[j-1])?0:1));
+        
+        return distance[str1.length][str2.length];
+    }
+    
+    /**
+     * Helper method for Levevenstein edit distance algorithm to count
+     * atomic minimal edit operation.
+     */
+    private static int minimum(int a, int b, int c){
+        if (a<=b && a<=c)
+            return a;
+        if (b<=a && b<=c)
+            return b;
+        return c;
+    }
+    
+    public static void main(String[] args) throws Throwable {
+        FormatComparer fc = new FormatComparer();
+        int formatPenalty = fc.compareFormats(args[0], args[1], args[2], args[3], new org.jvnet.olt.format.sgml.EntityManager());
+        System.out.println("Format penalty: " + formatPenalty);
+    }
+    
 }
