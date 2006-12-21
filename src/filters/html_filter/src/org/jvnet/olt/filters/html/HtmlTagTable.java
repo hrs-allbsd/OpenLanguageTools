@@ -83,6 +83,8 @@ public class HtmlTagTable implements org.jvnet.olt.parsers.tagged.TagTable {
         
         //  The Verbatim layout
         verbatimSet.add("pre");        
+        verbatimSet.add("object");
+        verbatimSet.add("param");
         //  "EMPTY" tags
         emptySet.add("br");
         emptySet.add("hr");
@@ -92,6 +94,7 @@ public class HtmlTagTable implements org.jvnet.olt.parsers.tagged.TagTable {
         emptySet.add("area");
         emptySet.add("link");
         emptySet.add("suntransxmlfilter");
+        emptySet.add("object");
         emptySet.add("param");
     }
     
