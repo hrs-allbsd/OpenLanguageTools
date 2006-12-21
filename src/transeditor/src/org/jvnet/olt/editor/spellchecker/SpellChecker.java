@@ -30,6 +30,8 @@ public abstract class SpellChecker {
         public void addToPersonal(String s);
         
         public void ignoreWord(String word,boolean alwaysIgnore);
+        
+        public boolean close();
     }
     
     protected final Properties props;
