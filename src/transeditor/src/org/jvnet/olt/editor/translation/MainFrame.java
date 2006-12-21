@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import org.jvnet.olt.editor.spellchecker.ASpellChecker;
+import org.jvnet.olt.editor.spellchecker.SpellCheckerCreationException;
 import org.jvnet.olt.editor.spellchecker.SpellCheckerFactory;
 import org.jvnet.olt.editor.spellchecker.Suggestion;
 import org.jvnet.olt.editor.util.Bundle;
@@ -48,8 +48,10 @@ import org.jvnet.olt.editor.filesplit.XliffSplittingController;
 import org.jvnet.olt.editor.minitm.TMXImporter;
 import org.jvnet.olt.editor.model.*;
 import org.jvnet.olt.editor.model.TMData.TMSentence;
+import org.jvnet.olt.editor.spellchecker.SessionStartException;
 import org.jvnet.olt.editor.spellchecker.SpellChecker;
 import org.jvnet.olt.editor.spellchecker.SpellChecker.Session;
+import org.jvnet.olt.editor.spellchecker.SpellCheckerOptionsDialog;
 import org.jvnet.olt.editor.translation.preview.FilePreviewPane;
 import org.jvnet.olt.editor.util.*;
 import org.jvnet.olt.fuzzy.basicsearch.BasicFuzzySearchMiniTM;
@@ -305,6 +307,8 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     private JCheckBoxMenuItem jCBMenuTagVerifyIgnoreOrder = new JCheckBoxMenuItem();
     private JCheckBoxMenuItem jCBMenuAutoPropagate = new JCheckBoxMenuItem();
     private JMenuItem jMenuAutoSave = new JMenuItem();
+    private JMenuItem jMenuSpellCheckerOption = new JMenuItem();
+
     private JMenuItem jMenuShortcutOption = new JMenuItem();
 
     /**
@@ -2049,6 +2053,14 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
 
+        jMenuSpellCheckerOption.setText(bundle.getString("Spellchecker_Options..."));
+        jMenuSpellCheckerOption.setToolTipText(bundle.getString("Spellchecker_Options..."));
+        jMenuSpellCheckerOption.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    jMenuSpellCheckerOption_actionPerformed(e);
+                }
+            });
+
         /**
          * Help Menu
          */
@@ -2252,6 +2264,8 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         optionMenu.add(jCBMenuAutoPropagate);
         optionMenu.add(jMenuAutoSave);
         optionMenu.addSeparator();
+        optionMenu.add(jMenuSpellCheckerOption);
+        
         optionMenu.add(jMenuShortcutOption);
 
         /**
@@ -5248,7 +5262,28 @@ OUTER2:
             JOptionPane.showMessageDialog(this, bundle.getString("All_tags_in_the_source_language_are_present_in_the_target_language!"), bundle.getString("Tag_Verification"), JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
+    void jMenuSpellCheckerOption_actionPerformed(ActionEvent e){
+        SpellChecker[] sc = SpellCheckerFactory.instance().getAllSpellCheckers(null);
+        
+        String spellChecker = backend.instance().getConfig().getSpellcheckerName();
+        
+        logger.finer("Using spellchecker:"+spellChecker);
+        
+        SpellCheckerOptionsDialog dlg = new SpellCheckerOptionsDialog(this,true);
+        dlg.setDefaultSpellCheckerName(spellChecker);
+        dlg.setSpellCheckers(sc);
+        
+        dlg.setVisible(true);
 
+        spellChecker = dlg.getDefaultSpellCheckerName();
+        logger.finer("Setting spellchecker to:"+spellChecker);
+        
+        backend.instance().getConfig().setSpellcheckerName(spellChecker);
+        
+        SpellCheckerFactory.instance().updateSpellCheckers(sc);
+    }
+    
     void jMenuSpellCheck_actionPerformed(ActionEvent e) {
         int curSeg =  AlignmentMain.testMain2.tableView.getSelectedRow();
         
@@ -5258,14 +5293,25 @@ OUTER2:
             
             AlignmentMain.testMain2.stopEditing();
 
-            checker = SpellCheckerFactory.instance().create("aspell");
+            Properties p = new Properties();
+            
+            File edHome = backend.getConfig().getInstallHome();                
+            p.setProperty("EDITOR_HOME",edHome.getAbsolutePath() );
+            File userHome = backend.getConfig().getUserHome();                
+            p.setProperty("USER_HOME",userHome.getAbsolutePath() );
+                
+            
+            String spellChecker = backend.instance().getConfig().getSpellcheckerName();        
+            logger.finer("Using spellchecker:"+spellChecker);
+            checker = SpellCheckerFactory.instance().create(spellChecker,p);
+            
             if(checker == null){
                 JOptionPane.showMessageDialog(this,"No spell checker is available");
                 return ;
                 
             }
             
-            String lang = backend.getTMData().getTargetLanguageCode().toLowerCase();
+            String lang = backend.getTMData().getTargetLanguageCode().toUpperCase();
             Session s = checker.startSession(lang);
 
             boolean done = false;
@@ -5279,31 +5325,27 @@ OUTER2:
 
                 String word = i.next();
                 curSeg = i.currentSegment();
-                logger.info("Current segment:"+curSeg);
+                logger.finer("Current segment:"+curSeg);
 
                 if(ignoreWords.contains(word)){
                     logger.info("Skipping ingored word:"+word);
                     continue;
                 }
-                //we need to move to new location;
-                //repaint old segment
-                //hilite new one
+                
+                logger.finer("word:"+word);
+
+                Suggestion[] sugs = s.getSuggestions(word);
+
+                if(sugs == null || sugs.length == 0)
+                    continue;
+
                 if(oldSeg != i.currentSegment()){
                     
                     AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(oldSeg, AlignmentMain.testMain2.showType, false));
                     AlignmentMain.testMain2.navigateTo(curSeg);
                     AlignmentMain.testMain2.stopEditing();
                 } 
-//                AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(curSeg, AlignmentMain.testMain2.showType, false));
-
                 oldSeg = curSeg;
-                
-                logger.info("word:"+word);
-
-                Suggestion[] sugs = s.getSuggestions(word);
-
-                if(sugs == null || sugs.length == 0)
-                    continue;
                 
                 {
                     StringBuilder sb = null;
@@ -5313,7 +5355,7 @@ OUTER2:
                         else
                             sb.append(',').append(sug.getWord());
                     }
-                    logger.info("suggestions:"+sb.toString());                
+                    logger.finer("suggestions:"+sb.toString());                
                 }
 
                 boolean enableChanges = backend.getTMData().tmsentences[curSeg].getTranslationStatus() != TMSentence.APPROVED;
@@ -5345,6 +5387,8 @@ OUTER2:
                             i.replaceCurrentWord(sg.getWord());
                             AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(curSeg, AlignmentMain.testMain2.showType, false));
                             
+                            setBHasModified(true);
+                            
                         }
                         else
                             logger.warning("Suggestion is null!");
@@ -5357,6 +5401,9 @@ OUTER2:
                             
                             String msg = MessageFormat.format("Replaced {0} occurences of word ''{1}''",cnt,word);                            
                             dlg.setStatusText(msg);
+
+                            if(cnt > 0)
+                                setBHasModified(true);
 
                             AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(curSeg, AlignmentMain.testMain2.showType, false));
                         }
@@ -5378,13 +5425,33 @@ OUTER2:
                 dlg.resetState();
                 
                 curSeg = i.currentSegment();
-                logger.info("Current segment2:"+curSeg);
+                logger.finer("Current segment2:"+curSeg);
    
             }
             
         }
-        catch (Exception ex){
-            logger.info("Ex:"+ex);
+        catch (SpellCheckerCreationException scce){
+            logger.warning("Ex:"+scce);
+            
+            JOptionPane.showMessageDialog(this,"An error occurred while creating the spellchecker:\n"+scce.getMessage());
+            
+        }
+        catch (SessionStartException sse){
+            logger.warning("Ex:"+sse);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.add(new JLabel("An error occurred while starting the spellchecker:"),BorderLayout.NORTH);
+            
+            JTextArea textArea = new JTextArea(sse.getMessage()+"\n\n"+sse.getCommand());
+
+            JScrollPane pane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            pane.setPreferredSize(new Dimension(400,250));
+            
+            panel.add(pane,BorderLayout.CENTER);
+            
+            JOptionPane.showMessageDialog(this,panel);
+            
         }
         finally {
             if(checker != null)
