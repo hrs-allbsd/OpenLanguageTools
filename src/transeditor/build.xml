@@ -6,13 +6,17 @@
     <buildnumber file="build.version.properties"/>
     <property name="editor.dest.dir" value="${dest.dir}/transeditor4/"/>
     <property name="installer.dir" value="${editor.dest.dir}/installer/"/>
-	
+
+    <propertyfile file="single-test.properties"/>
+
+    
     <path id="build.classpath">
         <path refid="deps.common.util"/>
         <path refid="deps.filters"/>
         <path refid="deps.editor.libs"/>
         <path refid="deps.backconv"/>
         <path refid="deps.xerces"/>
+        <path refid="deps.swing-layout"/>
     </path>
     <path id="test.classpath">
         <path refid="deps.common.util"/>
@@ -89,6 +93,9 @@
         overwrite="true"/>
         <delete file="src/org/jvnet/olt/editor/translation/Constants.java_"/> 
 		
+        <copy todir="${build.dir}" verbose="true">
+            <fileset dir="./static/resources" includes="spellchecker.properties"/>
+        </copy>
                 
         <copy todir="${build.dir}/resources" verbose="true">
             <fileset dir="./static/resources"/>
@@ -155,6 +162,7 @@
         <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${lib.dir}/swing-layout-1.0.1.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="installer/README.i18n.txt" verbose="true" todir="${installer.dir}/i18n/"/>
         
         <copy todir="${installer.dir}" verbose="true">
@@ -239,6 +247,7 @@
                 <include name="resources/flags/"/>
                 <include name="resources/gifs/"/>
                 <include name="resources/LICENSE.txt/"/>
+                <include name="spellchecker.properties"/>
 
                 <!-- include stuff from filters -->
                 <include name="org/jvnet/olt/tmci/"/>
@@ -282,6 +291,20 @@
             <include name="shortcuts_*.xml"/>
             <include name="install.*"/>
         </replace>
+
+        <echo>Building Lite installer for Windows</echo>
+        <izpack input="${installer.dir}/install_windows_lite.xml"
+        output="${dest.dir}/transeditor_v${build.version.flat}_lite_win.jar"
+        installerType="standard"
+        basedir="${installer.dir}"
+        izPackDir="${IZPACK_HOME}"/>
+		
+        <echo>Building Lite installer for Solaris</echo>
+        <izpack input="${installer.dir}/install_solaris_lite.xml"
+        output="${dest.dir}/transeditor_v${build.version.flat}_lite_unix.jar"
+        installerType="standard"
+        basedir="${installer.dir}"
+        izPackDir="${IZPACK_HOME}"/>
 
         <echo>Building installer for Windows</echo>
         <izpack input="${installer.dir}/install_windows.xml"
@@ -333,12 +356,13 @@
             <!--classname="org.jvnet.olt.editor.renamer.Renamer -->
             <!--classname="org.jvnet.olt.editor.backconv.SGMLOptionsPanel" -->
             <jvmarg value="-Xdebug"/>
-            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=57000"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${test.debug.port}"/>
 			
             <jvmarg value="-Xmx512M"/>                        
             <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
+            <!-- sysproperty key="swing.defaultlaf" value="com.sun.java.swing.plaf.gtk.GTKLookAndFeel"/-->
             <sysproperty key="editor_home" value="${installer.dir}"/>
-            <sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/>
+            <!-- sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/-->
         </java>
 		
     </target>
@@ -353,7 +377,7 @@
             classname="org.jvnet.olt.editor.translation.TransEditor">
             <!--classname="org.jvnet.olt.editor.backconv.SGMLOptionsPanel" -->
             <jvmarg value="-Xdebug"/>
-            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${test.debug.port}"/>
             <jvmarg value="-Xmx512M"/>                        
             <jvmarg value="-agentpath:/home/boris/java/install/netbeans-5.0/profiler1/lib/deployed/jdk15/linux/libprofilerinterface.so=/home/boris/java/install/netbeans-5.0/profiler1/lib,5140"/>
             <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
@@ -387,7 +411,7 @@
             </classpath>
             -->
             <jvmarg value="-Xdebug"/>
-            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=${junit.test.suspend},address=58000"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=${junit.test.suspend},address=${test.debug.port}"/>
             <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
             
             <formatter type="xml"/>
@@ -414,7 +438,7 @@
             </classpath>
             -->
             <jvmarg value="-Xdebug"/>
-            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=58000"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${test.debug.port}"/>
             <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
             
             <formatter type="xml"/>
