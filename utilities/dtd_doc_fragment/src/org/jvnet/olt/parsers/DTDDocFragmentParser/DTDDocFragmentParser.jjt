@@ -148,7 +148,7 @@ TOKEN :
 <IN_ENTITY_DECL>
 TOKEN :
 {
-    <ENTITY_DECL_NAME: (~[" ","\t","\"","'",">"])+ >
+    <ENTITY_DECL_NAME: (~[" ","\t","\"","'","\n","\f","\b","\r",">"])+ >
 |   <ENT_WS : ( " " | "\t" | "\n" | "\f" | "\b" | "\r")+ > 
 |   <ENT_STRING_LIT: "'" ( ~["'"] )* "'" | "\"" ( ~["\""] )* "\""  >
 |   <CLOSE_ENTITY_DECL : ">" > : DEFAULT
@@ -393,6 +393,7 @@ String ndata_entity_decl() :
 
 // parameter_entity_decl
 // <!ENTITY % RTthreads "INCLUDE">
+// <!ENTITY % brandDTD SYSTEM "chrome://branding/locale/brand.dtd">
 String parameter_entity_decl() :
 { Token t;
   String s="";
@@ -404,6 +405,11 @@ String parameter_entity_decl() :
   // name
   st=entity_decl_name() { s+=st; }
   (st=entity_decl_space() { s+=st; })+
+  // type
+  (
+   st=entity_decl_name() { s+=st; }
+   (st=entity_decl_space() { s+=st; })+
+  )?
   // value (INCLUDE/IGNORE)
   st=entity_decl_value() { s+=st; }
   (st=entity_decl_space() { s+=st; })*
