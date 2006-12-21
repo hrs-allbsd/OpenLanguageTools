@@ -10,7 +10,7 @@
 
     <property name="installer.dir" value="${build.dir}/installer"/>
     <!-- IzPack setup -->
-    <property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.7.0/"/>	
+    <property name="IZPACK_HOME" value="${lib.dir}/IzPack-3.9.0/"/>	
     <taskdef name="izpack" classpath="${IZPACK_HOME}/lib/compiler.jar"
     classname="com.izforge.izpack.ant.IzPackTask"/>
     
@@ -64,6 +64,7 @@
         <copy file="${dest.dir}/filters.jar" verbose="true" tofile="${installer.dir}/classes/filters.jar"/>
         <copy file="${dest.dir}/tt-common.jar" verbose="true" tofile="${installer.dir}/classes/tt-common.jar"/>
         <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${lib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/dtdparser121.jar" verbose="true" todir="${installer.dir}/classes/"/>
 
