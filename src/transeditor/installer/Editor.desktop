@@ -3,13 +3,9 @@ Version=1.0
 Encoding=UTF-8
 Type=Application
 Exec=$INSTALL_PATH/translation.sh
-TryExec=
 Icon=$INSTALL_PATH/editor.png
-X-GNOME-DocPath=
 Terminal=false
-Name[en_US]=Open Language Tools XLIFF Translation Editor
-GenericName[en_US]=
-Comment[en_US]=
+
+Name=Open Language Tools XLIFF Translation Editor
 Name[en]=Open Language Tools XLIFF Translation Editor
-GenericName[en]=
-Comment[en]=
+Name[en_US]=Open Language Tools XLIFF Translation Editor
