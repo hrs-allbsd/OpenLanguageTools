@@ -693,6 +693,8 @@ TOKEN :
  >
 }
 
+TOKEN : { <WORDNUMBER: <WORD> (["0"-"9"])+ >}
+
 TOKEN :
 /* for non separating punctuation that shouldn't be counted as a word 
    - just a comma for now */
@@ -769,6 +771,7 @@ String sentence():
      st=dashedword() {s+=st;} |
      st=numabbrev() {s+=st;} |
      st=number() {s+=st;} |
+     t=<WORDNUMBER> {s+=t.image;} |
      st=word() {s+=st;} |
      t=<NONSEPPUNCT> {s+=t.image;} |
      t=<BRACKET> {s+=t.image;} | 
