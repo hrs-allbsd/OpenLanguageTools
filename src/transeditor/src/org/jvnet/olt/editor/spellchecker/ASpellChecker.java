@@ -15,12 +15,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
+import javax.swing.JComponent;
 import org.jvnet.olt.editor.spellchecker.SpellChecker.Session;
 
 /**
@@ -28,11 +33,28 @@ import org.jvnet.olt.editor.spellchecker.SpellChecker.Session;
  * @author boris
  */
 public class ASpellChecker extends SpellChecker{
+    
+    private enum OperatingSystem { LINUX, WINDOWS, SOLARIS,OTHER };
+     
+    private static final String VAR_EDITOR_HOME="${EDITOR_HOME}";
+    private static final String VAR_PROJECT_LANG="${PROJECT_LANG}";
+    private static final String VAR_TRANS_PROJECT_LANG="${TRANS_PROJECT_LANG}";
+    private static final String VAR_USER_HOME="${USER_HOME}";
+    
+    
     private static final Logger logger = Logger.getLogger(ASpellChecker.class.getName());
     
     private  Set<Session> sessions = new HashSet<Session>();
     
     private static final List<DefaultSuggestion> NOTHING = Collections.emptyList();
+    
+    private String lastCmd;
+    private String defaultCommand;
+    
+    ASpellCustomizerPanel customizer;
+    
+    Map<String,String> mappingTable = new HashMap<String,String>();
+    
     
     class ASpellSession implements SpellChecker.Session{
         
@@ -48,6 +70,10 @@ public class ASpellChecker extends SpellChecker{
             this.pw = new PrintWriter(p.getOutputStream());
             this.r = new BufferedReader(new InputStreamReader(p.getInputStream()));
             
+            readBanner(r);
+        }
+        
+        private void readBanner(BufferedReader r)throws IOException {
             do{
                 String line = r.readLine();
                 if(line == null)
@@ -63,6 +89,31 @@ public class ASpellChecker extends SpellChecker{
         }
         
         public Suggestion[] getSuggestions(String word) {
+            if(!checkProcessOK(p)){
+                try{
+                    int retries = 5;
+                    while(!checkProcessOK(p) && retries-- >= 0){
+                        p = startProcess(lastCmd);
+                        this.pw = new PrintWriter(p.getOutputStream());
+                        this.r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                        
+                        readBanner(r);
+                        
+                    }
+                    
+                    if(retries == 0)
+                        return new DefaultSuggestion[]{};
+                } catch (SessionStartException ex){
+                    logger.warning("Exception while starting spellchecker:"+ex);
+                    return new DefaultSuggestion[]{};
+                } catch (IOException ex) {
+                    logger.warning("Exception while starting spellchecker:"+ex);
+                    return new DefaultSuggestion[]{};
+                }
+                
+                
+            }
+            
             
             pw.println(word);
             pw.flush();
@@ -104,7 +155,15 @@ public class ASpellChecker extends SpellChecker{
             //this implementation does nothing
         }
         
-        void close(){
+        public boolean close(){
+            //call the owner to do the house cleaning and call back
+            //to realClose(); see you there ;-)
+            return endSession(this);
+        }
+        
+        
+        //do the real clean up here
+        protected boolean realClose(){
             pw.close();
             
             try{
@@ -115,6 +174,7 @@ public class ASpellChecker extends SpellChecker{
             
             // call destroy ??
             // check exitValue ?
+            return true;
         }
         
         List<DefaultSuggestion> parseReply(String reply){
@@ -152,6 +212,11 @@ public class ASpellChecker extends SpellChecker{
             
         }
         
+        @Override
+        protected void finalize(){
+            endSession(this);
+        }
+        
     }
     
     /** Creates a new instance of ASpellChecker */
@@ -159,35 +224,31 @@ public class ASpellChecker extends SpellChecker{
         super(p);
     }
     
+    
+    
     public SpellChecker.Session startSession(String lang) throws SessionStartException {
-        String[] cmd = createASpellCommand(lang);
+        lastCmd = createASpellCommand(defaultCommand,lang);
         
         Session session = null;
         
         try{
-            Process p = Runtime.getRuntime().exec(cmd);
             
-            if(!checkProcessOK(p)){
-                StringBuilder sb = new StringBuilder();
-                for(String s: cmd){
-                    sb.append(s).append(" ");
-                }
-                
-                logger.warning("Starting the process '"+sb.toString()+"' has exited");
-                
-                throw new SessionStartException();
-            }
+            Process p = startProcess(lastCmd);
             
             try{
-                Session s = new ASpellSession(p);
-                sessions.add(s);
-                return s;
+                session = new ASpellSession(p);
+                sessions.add(session);
+                return session;
             } catch (IOException ioe){
                 logger.warning("IOException while startup:"+ioe);
-                throw new SessionStartException(ioe);
+                if(session != null)
+                    endSession(session);
+                throw new SessionStartException(lastCmd,ioe);
+            } finally {
+                
             }
         } catch (IOException ioe){
-            throw new SessionStartException(ioe);
+            throw new SessionStartException(lastCmd,ioe);
         }
     }
     
@@ -205,7 +266,7 @@ public class ASpellChecker extends SpellChecker{
     public boolean endSession(SpellChecker.Session sess) {
         
         if(sessions.contains(sess)){
-            ((ASpellSession)sess).close();
+            ((ASpellSession)sess).realClose();
             return sessions.remove(sess);
         }
         
@@ -220,59 +281,36 @@ public class ASpellChecker extends SpellChecker{
         return null;
     }
     
-    private String[] createASpellCommand(String lang) {
-        //  Intorduce an evil hack here: different command strings based on the
-        //  OS platform the system is running on.
-        //boolean boolUsingSunOS = System.getProperty("os.name").equals("SunOS");
+    private String createASpellCommand(String fullCommand,String lang){
+        String tgtLang = lang;
+        if(mappingTable.containsKey(lang))
+            tgtLang = mappingTable.get(lang);
         
-        String dictLang = lang;
-        
-        String os = System.getProperty("os.name").toLowerCase();
-        
-        boolean onWin = os.startsWith("windows");
-        boolean onLin = os.indexOf("linux") != -1;
-        boolean onSol = os.startsWith("sunos");
-        
-        //fallback to SOL. Do far
-        if(!onWin && !onLin && !onSol)
-            onSol = true;
-        
-        String[] cmd = new String[5];
-        String aspellHomePath = "/usr/bin/aspell";
-        
-        logger.finest("Aspell home:"+aspellHomePath);
-        
-        if (onLin) {
-            //  Command to use on Linux; we assume there is an aspell installed somewhere
-            cmd[0] = "aspell";
-            cmd[1] = "--lang="+dictLang;
-            cmd[2] = "-a";
-            cmd[3] = "";
-            cmd[4] = "";
-        } else if(onSol){
-            //  Command to use on Solaris
-            cmd[0] = aspellHomePath + "bin" + File.separator + "aspell";
-            cmd[1] = "--lang=" + lang;
-            cmd[2] = "--dict-dir=" + aspellHomePath + "lib" + File.separator + "aspell";
-            cmd[3] = "--data-dir=" + aspellHomePath + "share" + File.separator + "aspell";
-            cmd[4] = "-a";
-        } else if(onWin){
-            //  Command to use on other platforms, i.e., Windows
-            cmd[0] = aspellHomePath + "bin" + File.separator + "aspell";
-            cmd[1] = "--lang=" + dictLang;
-            cmd[2] = "--master=" + aspellHomePath + "dict" + File.separator + "aspell" + File.separator + dictLang;
-            cmd[3] = "--data-dir=" + aspellHomePath + "share" + File.separator + "aspell";
-            cmd[4] = "-a";
+        StringBuilder sb = new StringBuilder(fullCommand);
+
+        String[][] map = new String[][]{
+            {VAR_EDITOR_HOME,props.getProperty("EDITOR_HOME") },
+            {VAR_USER_HOME,props.getProperty("USER_HOME") },
+            {VAR_PROJECT_LANG,lang },
+            {VAR_TRANS_PROJECT_LANG,tgtLang},
             
+        };
+        
+        for(int i = 0; i < map.length;i++){
+            String src = map[i][0];
+            String tgt = map[i][1];
+            
+            //bogus counter prevents us from "eternal loop" (tm)
+            int bogusCounter = 111;
+            int idx = 0;
+            while((idx = sb.indexOf(src)) != -1 && --bogusCounter > 0){
+                sb.replace(idx,idx+src.length(),tgt);            
+            }
         }
-        logger.finest("Command:"+cmd[0]+" "+cmd[1]+" "+cmd[2]+" "+cmd[3]+" "+cmd[4]);
-        logger.finest("Are we running on win? "+onWin);
-        
-        
-        return cmd;
-        
+
+        return sb.toString();
     }
-    
+
     public String getDisplayName() {
         return "ASpell";
     }
@@ -280,7 +318,7 @@ public class ASpellChecker extends SpellChecker{
     public String getName() {
         return "aspell";
     }
-
+    
     protected void finalize() throws Throwable {
         if(sessions != null && !sessions.isEmpty()){
             logger.warning("The spellcheckers sessions have not been finished!");
@@ -289,4 +327,142 @@ public class ASpellChecker extends SpellChecker{
         }
     }
     
+    protected Process startProcess(String cmd) throws SessionStartException,IOException{
+        Process p = Runtime.getRuntime().exec(cmd);
+        if(!checkProcessOK(p)){
+            
+            logger.warning("Starting the process '"+cmd+"' has exited");
+            
+            throw new SessionStartException(cmd);
+        }
+        return p;
+    }
+    
+    public JComponent getCustomizer(){
+        if(customizer == null){
+            customizer = new ASpellCustomizerPanel(this,mappingTable);
+        }
+        
+        return customizer;
+    }
+    
+    String makeDefaultCommand(){
+
+        String s = File.separator;
+        String q = "\"";
+        String cmd =null;
+        
+        OperatingSystem os = opereratingSystem();
+        switch (os){
+            case WINDOWS:
+                cmd= q+VAR_EDITOR_HOME+s+"spellchecker"+s+"bin"+s+"aspell.exe"+q+" ";
+                cmd+="--lang="+VAR_TRANS_PROJECT_LANG+" ";
+                cmd+="--master="+q+VAR_EDITOR_HOME+s+"spellchecker"+s+"dict"+s+"aspell"+s+VAR_TRANS_PROJECT_LANG+q+" ";
+                cmd+="--data-dir="+q+VAR_EDITOR_HOME+s+"spellchecker"+s+"share"+s+"aspell"+q+" ";
+                cmd+=" -a";                
+            break;
+            case SOLARIS:
+                cmd= VAR_EDITOR_HOME+s+"spellchecker"+s+"bin"+s+"aspell ";
+                cmd+="--lang="+VAR_TRANS_PROJECT_LANG;
+                cmd+=" --dict-dir="+VAR_EDITOR_HOME+s+"spellchecker"+s+"lib"+s+"aspell"+s;
+                cmd+=" --data-dir="+VAR_EDITOR_HOME+s+"spellchecker"+s+"share"+s+"aspell";
+                cmd+=" -a";
+            break;
+            case LINUX:
+            case OTHER:
+                cmd = s+"usr"+s+"bin"+s+"aspell -a --lang="+VAR_TRANS_PROJECT_LANG;
+                
+        }
+
+        return cmd;
+    }
+    
+    protected void storeConfig(Preferences prefs) {
+        if(customizer != null){
+            defaultCommand = customizer.getCommandTextField().getText();
+            customizer = null;
+        }
+        prefs.put("binary",defaultCommand);
+        
+        try{
+            if(prefs.nodeExists("lang_mapping")){
+                Preferences n = prefs.node("lang_mapping");
+                n.removeNode();
+                n.flush();
+            }
+            
+            Preferences n = prefs.node("lang_mapping");
+            
+            for(Map.Entry<String,String> e: mappingTable.entrySet()){
+                n.put(e.getKey(),e.getValue());
+            }
+            
+        } catch (BackingStoreException bse){
+            
+        }
+    }
+    
+    protected void loadConfig(Preferences prefs) {
+        defaultCommand = prefs.get("binary",makeDefaultCommand());
+        
+        try{
+            if(prefs.nodeExists("lang_mapping")){
+                Preferences n = prefs.node("lang_mapping");
+                String[] keys = n.keys();
+                
+                mappingTable = new HashMap<String,String>();
+                
+                for(String key: keys)
+                    mappingTable.put(key,n.get(key,""));
+                
+            } else{
+                String[][] defaults = null;
+                OperatingSystem os = opereratingSystem();
+                switch (os){
+                    case WINDOWS:
+                        defaults = new String[][]{
+                            {"DE","german"},
+                            {"FR","francais"},
+                            {"ES","spanish"},
+                            {"IT","italian"},
+                            {"SV","swedish"},
+                        };
+                     break;
+                     case SOLARIS:
+                     case LINUX:
+                     case OTHER:
+                         defaults = null;
+                    //no defaults for linux or other systems
+                }
+                
+                if(defaults != null)
+                    for(String[] dfs: defaults)
+                        mappingTable.put(dfs[0],dfs[1]);
+            }
+        } catch (BackingStoreException bse){
+            logger.warning("While saving language mapping:"+bse);
+        }
+        
+    }
+    
+    public String getDefaultCommand(){
+        return defaultCommand;
+    }
+    
+    public void setDefaultCommand(String defaultCommand){
+        this.defaultCommand = defaultCommand;
+    }
+
+    private OperatingSystem opereratingSystem(){
+        String os = System.getProperty("os.name").toLowerCase();
+        
+        if(os.startsWith("windows"))
+            return OperatingSystem.WINDOWS;
+        else if(os.startsWith("sunos"))
+            return OperatingSystem.SOLARIS;
+        else if(os.indexOf("linux") != -1)
+            return OperatingSystem.LINUX;
+        else        
+            return OperatingSystem.OTHER;
+    }
 }
