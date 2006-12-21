@@ -42,6 +42,8 @@ public class HtmlSegmenterTable implements org.jvnet.olt.parsers.tagged.Segmente
         
         dontSegmentOrCountSet.add("script");
         dontSegmentOrCountSet.add("code");
+        dontSegmentOrCountSet.add("object");
+        dontSegmentOrCountSet.add("param");
         
         dontSegmentSet.add("caption");
         
