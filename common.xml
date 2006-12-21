@@ -108,12 +108,21 @@
 		<fileset dir="${common.basedir}/utilities/jars" includes="dom4j*.jar"/>
 	</path>
 
+	<path id="deps.swing-layout">
+		<fileset dir="${common.basedir}/utilities/jars" includes="swing-layout-1.0.1.jar"/>
+	</path>
+
 
     <!-- jars in lib/junit -->
     <path id="deps.junit">
         <fileset dir="${common.basedir}/utilities/jars">
             <include name="**/*.jar"/>
         </fileset>
+    </path>
+
+    <!-- dom4j dependecies -->
+    <path id="deps.dom4j">
+		<fileset dir="${common.basedir}/utilities/jars" includes="dom4j-161.jar"/>
     </path>
 
 	<!-- common classpath; include build.dir -->
@@ -231,7 +240,7 @@
 
             <formatter type="xml"/>
 
-			<test fork="yes" todir="${build.dir}/junit-reports" name="${test.single.class}" if="do.single.test"/>
+            <test fork="yes" todir="${build.dir}/junit-reports" name="${test.single.class}" if="do.single.test"/>
 
             <batchtest fork="yes" todir="${build.dir}/junit-reports" unless="do.single.test">
                 <fileset refid="test.src"/>
