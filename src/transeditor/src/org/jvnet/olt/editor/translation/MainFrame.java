@@ -16,11 +16,16 @@ import java.io.*;
 import java.text.MessageFormat;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import org.jvnet.olt.editor.spellchecker.SpellCheckerCreationException;
+import org.jvnet.olt.editor.spellchecker.SpellCheckerFactory;
+import org.jvnet.olt.editor.spellchecker.Suggestion;
 import org.jvnet.olt.editor.util.Bundle;
-import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Logger;
 import java.util.zip.ZipException;
@@ -43,7 +48,10 @@ import org.jvnet.olt.editor.filesplit.XliffSplittingController;
 import org.jvnet.olt.editor.minitm.TMXImporter;
 import org.jvnet.olt.editor.model.*;
 import org.jvnet.olt.editor.model.TMData.TMSentence;
-import org.jvnet.olt.editor.spellchecker.SpellCheckerAPI;
+import org.jvnet.olt.editor.spellchecker.SessionStartException;
+import org.jvnet.olt.editor.spellchecker.SpellChecker;
+import org.jvnet.olt.editor.spellchecker.SpellChecker.Session;
+import org.jvnet.olt.editor.spellchecker.SpellCheckerOptionsDialog;
 import org.jvnet.olt.editor.translation.preview.FilePreviewPane;
 import org.jvnet.olt.editor.util.*;
 import org.jvnet.olt.fuzzy.basicsearch.BasicFuzzySearchMiniTM;
@@ -144,12 +152,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     public static String errString = null;
     public static String resultString = null;
 
-    //current dictionary for spellchecker
-    public static String dictLang = null;
-
-    //spellchecker dialog instance
-    public static SpellCheckerDIALOG spellDlg = null;
-
+    private Set<String> ignoreWords = new HashSet<String>();
     /**
      * the static instance of this frame
      */
@@ -298,6 +301,8 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     private JCheckBoxMenuItem jCBMenuTagVerifyIgnoreOrder = new JCheckBoxMenuItem();
     private JCheckBoxMenuItem jCBMenuAutoPropagate = new JCheckBoxMenuItem();
     private JMenuItem jMenuAutoSave = new JMenuItem();
+    private JMenuItem jMenuSpellCheckerOption = new JMenuItem();
+
     private JMenuItem jMenuShortcutOption = new JMenuItem();
 
     /**
@@ -395,15 +400,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
      * auto save Timer instance
      */
     protected Timer m_timer;
-
-    /**
-     * variables for spellchecker
-     */
-
-    //TODO move to separate class
-    private Process proc = null;
-    private StreamGobbler errorGobbler = null;
-    private StreamGobbler outputGobbler = null;
 
     //StreamWriter outputWriter = null;
     private Process saveTempFileProc = null;
@@ -521,50 +517,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         bundle.getString("An_unknown_error_occured_while_saving_to_temporary_file"),
     };
     
-    /**
-     * spellchecker functions
-     */
-    class StreamGobbler extends Thread {
-        InputStream is;
-        String type;
-
-        StreamGobbler(InputStream is, String type) {
-            this.is = is;
-            this.type = type;
-        }
-
-        public void run() {
-            try {
-                String targetLan = backend.getProject().getTgtLang();
-                InputStreamReader isr = new InputStreamReader(is, Languages.getLanguageENC(targetLan));
-                BufferedReader br = new BufferedReader(isr);
-                String line = null;
-
-                while ((line = br.readLine()) != null) {
-                    if (type.equals("ERROR")) {
-                        if (!line.trim().equals("")) {
-                            errString = line;
-
-                            //TODO better handling; make the spellchecker a plugin
-                            logger.warning(type + ">" + errString);
-                            Toolkit.getDefaultToolkit().beep();
-
-                            String msg = MessageFormat.format(bundle.getString("The_dictionary_for_the_{0}_language_is_not_installed."),MainFrame.dictLang);
-                            
-                            JOptionPane.showMessageDialog(null, msg , bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
-                        }
-                    } else if (type.equals("OUTPUT")) {
-                        if (!line.trim().equals("") && !line.startsWith("@")) {
-                            resultString = line;
-                        }
-                    }
-                }
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
-        }
-    }
-
     class SetTableViewThread extends Thread {
         DocumentUndoableEdit ue = null;
         boolean isUndo = true;
@@ -846,8 +798,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         //CustomKeyboard.init();
         undo = new PivotUndoManager(this, backend);
         initTempPrintDlg();
-        spellDlg = new SpellCheckerDIALOG(this, backend);
-        spellDlg.setLocationRelativeTo(this);
         reloadLastTempFile();
         initTimer();
     }
@@ -2042,6 +1992,14 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
 
+        jMenuSpellCheckerOption.setText(bundle.getString("Spellchecker_Options..."));
+        jMenuSpellCheckerOption.setToolTipText(bundle.getString("Spellchecker_Options..."));
+        jMenuSpellCheckerOption.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    jMenuSpellCheckerOption_actionPerformed(e);
+                }
+            });
+
         /**
          * Help Menu
          */
@@ -2245,6 +2203,8 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         optionMenu.add(jCBMenuAutoPropagate);
         optionMenu.add(jMenuAutoSave);
         optionMenu.addSeparator();
+        optionMenu.add(jMenuSpellCheckerOption);
+        
         optionMenu.add(jMenuShortcutOption);
 
         /**
@@ -2556,10 +2516,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         }
 
         backend.shutdown();
-
-        if (proc != null) {
-            proc.destroy();
-        }
 
         if (saveTempFileProc != null) {
             saveTempFileProc.destroy();
@@ -5248,262 +5204,263 @@ OUTER2:
             JOptionPane.showMessageDialog(this, bundle.getString("All_tags_in_the_source_language_are_present_in_the_target_language!"), bundle.getString("Tag_Verification"), JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    
+    void jMenuSpellCheckerOption_actionPerformed(ActionEvent e){
+        SpellChecker[] sc = SpellCheckerFactory.instance().getAllSpellCheckers(null);
+        
+        String spellChecker = backend.instance().getConfig().getSpellcheckerName();
+        
+        logger.finer("Using spellchecker:"+spellChecker);
+        
+        SpellCheckerOptionsDialog dlg = new SpellCheckerOptionsDialog(this,true);
+        dlg.setDefaultSpellCheckerName(spellChecker);
+        dlg.setSpellCheckers(sc);
+        dlg.setLocationRelativeTo(this);
+        dlg.setVisible(true);
 
+        spellChecker = dlg.getDefaultSpellCheckerName();
+        logger.finer("Setting spellchecker to:"+spellChecker);
+        
+        backend.instance().getConfig().setSpellcheckerName(spellChecker);
+        
+        SpellCheckerFactory.instance().updateSpellCheckers(sc);
+    }
+    
     void jMenuSpellCheck_actionPerformed(ActionEvent e) {
-        try {
-            if (errorGobbler != null) {
-                errorGobbler = null;
-            }
+        int curSeg =  AlignmentMain.testMain2.tableView.getSelectedRow();
+        
+        SpellChecker checker = null;
+        try{
+            SpellCheckerDialog dlg = new SpellCheckerDialog(this,true);
+            dlg.setLocationRelativeTo(this);
+            
+            AlignmentMain.testMain2.stopEditing();
 
-            if (outputGobbler != null) {
-                outputGobbler = null;
-            }
-
-            if (proc != null) {
-                proc.destroy();
-            }
-
-            TMData tmpdata = backend.getTMData();
-
-            String lang = (tmpdata).getTargetLanguageCode().toLowerCase();
-            dictLang = null;
-
-            if (lang.equals("de")) {
-                dictLang = "german";
-            } else if (lang.equals("fr")) {
-                dictLang = "francais";
-            } else if (lang.equals("it")) {
-                dictLang = "italian";
-            } else if (lang.equals("es")) {
-                dictLang = "spanish";
-            } else if (lang.equals("sv")) {
-                dictLang = "swedish";
-            } else {
-                Toolkit.getDefaultToolkit().beep();
-                JOptionPane.showMessageDialog(this, bundle.getString("There_is_no_spellchecker_for_this_language_dictionary!"), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
-
-                return;
-            }
-
-            String editorHome = System.getProperty("editor_home");
-
-            if (editorHome == null) {
-                editorHome = backend.getConfig().getHome().getAbsolutePath();
-            }
-
-            proc = Runtime.getRuntime().exec(SpellCheckerAPI.getCommand(editorHome, dictLang,lang));
-
-            try{
-                int x = proc.exitValue();
-                logger.warning("Spellchecker process has died with exit code:"+x);
-            }
-            catch(IllegalThreadStateException ite){
-                //We IGNORE THIS EXCEPTION
-                logger.finer("The spellchecker process seems to be OK so far");
+            Properties p = new Properties();
+            
+            File edHome = backend.getConfig().getInstallHome();                
+            p.setProperty("EDITOR_HOME",edHome.getAbsolutePath() );
+            File userHome = backend.getConfig().getUserHome();                
+            p.setProperty("USER_HOME",userHome.getAbsolutePath() );
+                
+            
+            String spellChecker = backend.instance().getConfig().getSpellcheckerName();        
+            logger.finer("Using spellchecker:"+spellChecker);
+            checker = SpellCheckerFactory.instance().create(spellChecker,p);
+            
+            if(checker == null){
+                JOptionPane.showMessageDialog(this,"No spell checker is available");
+                return ;
+                
             }
             
-            /*errorGobbler = new
-            StreamGobbler(proc.getErrorStream(), "ERROR");
+            String lang = backend.getTMData().getTargetLanguageCode().toUpperCase();
+            Session s = checker.startSession(lang);
 
+            boolean done = false;
+            DocumentIterator i = new DocumentIterator(backend.getTMData());   
+            
+            i.seekToSegment(curSeg);
+            int oldSeg = curSeg;
+            
+            while(!done && i.hasNext()){
+                
 
-            outputGobbler = new
-            StreamGobbler(proc.getInputStream(), "OUTPUT");
+                String word = i.next();
+                curSeg = i.currentSegment();
+                logger.finer("Current segment:"+curSeg);
 
-            // kick them off
-            errorGobbler.start();
-            outputGobbler.start();
-             */
-            PrintWriter pw = null;
-            String targetLan = backend.getProject().getTgtLang();
-            InputStreamReader isr = new InputStreamReader(proc.getInputStream(), Languages.getLanguageENC(targetLan));
-            BufferedReader br = new BufferedReader(isr);
+                if(ignoreWords.contains(word)){
+                    logger.info("Skipping ingored word:"+word);
+                    continue;
+                }
+                
+                logger.finer("word:"+word);
 
-            if (proc.getOutputStream() != null) {
-                pw = new PrintWriter(new OutputStreamWriter(proc.getOutputStream(), Languages.getLanguageENC(targetLan)), true);
-            }
+                Suggestion[] sugs = s.getSuggestions(word);
 
-            check(pw, br);
+                if(sugs == null || sugs.length == 0)
+                    continue;
 
-            proc.getOutputStream().close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void check(PrintWriter pw, BufferedReader br) {
-        AlignmentMain.testMain2.stopEditing();
-
-        int start = AlignmentMain.testMain2.tableView.getSelectedRow();
-
-        if (start == -1) {
-            start = 0;
-        }
-
-        TMData tmpdata = backend.getTMData();
-
-OUT: 
-        for (int i = start; i < ((tmpdata).tmsentences).length; i++) {
-            SpellCheckerDIALOG.diff = 0;
-
-            PivotText p = new PivotText((tmpdata).tmsentences[i].getTranslation());
-
-            for (int j = 0; j < p.elements().length; j++) {
-                if (!(p.elements()[j]).getFlag()) {
-                    if ((j != 0) && (j != (p.elements().length - 1)) && PivotTag.betweenIntegratedTag(j, p.elements())) {
-                        continue;
+                if(oldSeg != i.currentSegment()){
+                    
+                    AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(oldSeg, AlignmentMain.testMain2.showType, false));
+                    AlignmentMain.testMain2.navigateTo(curSeg);
+                    AlignmentMain.testMain2.stopEditing();
+                } 
+                oldSeg = curSeg;
+                
+                {
+                    StringBuilder sb = null;
+                    for(Suggestion sug: sugs){
+                        if(sb == null)
+                            sb = new StringBuilder(sug.getWord());
+                        else
+                            sb.append(',').append(sug.getWord());
                     }
+                    logger.finer("suggestions:"+sb.toString());                
+                }
 
-                    String source = (p.elements()[j]).getContent();
+                boolean enableChanges = backend.getTMData().tmsentences[curSeg].getTranslationStatus() != TMSentence.APPROVED;
+                
+                dlg.enableChanges(enableChanges);
+                dlg.setStatusText("Spellchecking segment no:"+curSeg+1);
+                dlg.setWord(backend.getTMData().tmsentences[curSeg].getTranslation());                    
+                dlg.setSelection(i.getOffsetInSegment(),word.length());
+                dlg.setSuggestions(sugs);                
+                dlg.setVisible(true);
+                
+                switch (dlg.getResult()){
+                    case CANCEL:
+                        done = true;
+                        break;
+                        
+                    case IGNORE:
+                        ;
+                        break;
+                    case IGNORE_ALL:
 
-                    for (int k = 0; k < source.length(); k++) {
-                        char c = source.charAt(k);
-
-                        if (!Character.isLetter(c)) {
-                            if (PivotTextPane.delim.indexOf(String.valueOf(c)) == -1) {
-                                PivotTextPane.delim = PivotTextPane.delim + c;
-                            }
+                        ignoreWords.add(word);
+                        
+                        break;
+                    case CHANGE:                        
+                        //
+                        Suggestion sg = dlg.getSelectedSuggestion();
+                        if(sg != null){
+                            i.replaceCurrentWord(sg.getWord());
+                            AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(curSeg, AlignmentMain.testMain2.showType, false));
+                            
+                            setBHasModified(true);
+                            
                         }
-                    }
+                        else
+                            logger.warning("Suggestion is null!");
+                        
+                        break;
+                    case CHANGE_ALL:
+                        sg = dlg.getSelectedSuggestion();
+                        if(sg != null){
+                            int cnt = spellCheckReplaceAll(i,word,sg);  
+                            
+                            String msg = MessageFormat.format("Replaced {0} occurences of word ''{1}''",cnt,word);                            
+                            dlg.setStatusText(msg);
 
-                    String delim = PivotTextPane.delim;
-                    StringTokenizer tokens = new StringTokenizer(source, delim, true);
-                    int offset = (p.elements()[j]).getPositionSite() + SpellCheckerDIALOG.diff;
-                    int curP = 0;
+                            if(cnt > 0)
+                                setBHasModified(true);
 
-                    while (tokens.hasMoreElements()) {
-                        String word = (String)tokens.nextElement();
-
-                        if ((word.length() == 1) && (delim.indexOf(word) != -1)) {
-                            curP += 1;
-
-                            continue;
+                            AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(curSeg, AlignmentMain.testMain2.showType, false));
                         }
-
-                        try {
-                            int ttt = Integer.parseInt(word);
-                            curP += word.length();
-
-                            continue;
-                        } catch (NumberFormatException ex) {
-                        }
-
-                        if (PivotTextPane.getWordFromIgnoreTable(word) != null) {
-                            curP += word.length();
-
-                            continue;
-                        }
-
-                        int flag = -1;
-                        resultString = null;
-
-                        logger.finest("Checking word:"+word);
-                        SpellCheckerAPI.checkWord(pw, word);
+                        else
+                            logger.warning("Suggestion is null!");
 
                         
-                        resultString = SpellCheckerAPI.getResult(br);
-                        logger.finest("Result string:"+resultString);
-                        if (resultString == null) {
-                            break OUT;
-                        }
-
-                        if (resultString != null) {
-                            if (!resultString.trim().equals(SpellCheckerAPI.getFlagForNonErrorWord())) {
-                                suggestion.clear();
-
-                                if (resultString.startsWith("#")) {
-                                } else if (resultString.startsWith(SpellCheckerAPI.getFlagForErrorWord())) {
-                                    String words = resultString.substring(resultString.indexOf(SpellCheckerAPI.getSuggestionStartFlagForErrorWord()) + 1);
-                                    StringTokenizer tokens2 = new StringTokenizer(words, SpellCheckerAPI.getSuggestionDelimiterFlagForErrorWord(), false);
-
-                                    while (tokens2.hasMoreElements()) {
-                                        suggestion.add(tokens2.nextToken().trim());
-                                    }
-                                }
-                                logger.finest("Result suggestions:"+suggestion);
-
-                                PivotTextPane.wordInRowIndex = i;
-                                PivotTextPane.wordStart = offset + curP;
-                                PivotTextPane.wordEnd = offset + curP + word.length();
-
-                                AlignmentMain.testMain2.navigateTo(i);
-                                AlignmentMain.testMain2.tableView.repaint();
-
-                                MainFrame.spellDlg.setLan(Languages.getLanguageName(backend.getTMData().getTargetLanguageCode()));
-                                MainFrame.spellDlg.setEditor(word, offset + curP);
-                                MainFrame.spellDlg.errorTextField.setText(word);
-
-                                if ((tmpdata).tmsentences[i].getTranslationStatus() == TMSentence.APPROVED) {
-                                    MainFrame.spellDlg.changeButton.setEnabled(false);
-                                } else {
-                                    MainFrame.spellDlg.changeButton.setEnabled(true);
-                                }
-
-                                MainFrame.spellDlg.suggestionList.setListData(suggestion);
-
-                                if (suggestion.size() != 0) {
-                                    MainFrame.spellDlg.suggestionList.setSelectedIndex(0);
-                                } else {
-                                    MainFrame.spellDlg.suggestionList.setSelectedIndex(-1);
-                                }
-
-                                SpellCheckerDIALOG.retValue = -1;
-                                SpellCheckerDIALOG.actionSignal = 0;
-                                MainFrame.spellDlg.addButton.setEnabled(true);
-                                MainFrame.spellDlg.ignoreButton.setEnabled(true);
-                                MainFrame.spellDlg.ignoreAllButton.setEnabled(true);
-                                MainFrame.spellDlg.enableGUI();
-
-                                if (!MainFrame.spellDlg.isVisible()) {
-                                    MainFrame.spellDlg.setVisible(true);
-                                }
-
-                                int result = SpellCheckerDIALOG.retValue;
-
-                                switch (result) {
-                                case -1: //close this dlg
-                                    break OUT;
-
-                                case 3: // cancel
-                                    break OUT;
-
-                                case 1: // ignore
-                                    curP += word.length();
-
-                                    continue;
-
-                                case 2: // change
-                                    curP += (word.length() + SpellCheckerDIALOG.curDiff);
-
-                                    continue;
-
-                                case 0: // add
-                                    curP += (word.length() + SpellCheckerDIALOG.curDiff);
-                                    SpellCheckerAPI.addToPersonal(pw, word);
-
-                                    continue;
-
-                                case 4: // ignore all
-                                    PivotTextPane.addToIgnoreTable(word);
-                                    curP += word.length();
-
-                                    continue;
-                                }
-                            }
-                        }
-
-                        curP += word.length();
-                    }
+                        
+                        
+                        break;
+                    case ADD:                        
+                        s.addToPersonal(word);                        
+                        
+                        break;
+                    default:
+                        logger.warning("Unknown option:"+dlg.getResult());
                 }
+                
+                dlg.resetState();
+                
+                curSeg = i.currentSegment();
+                logger.finer("Current segment2:"+curSeg);
+   
             }
+            
         }
+        catch (SpellCheckerCreationException scce){
+            logger.warning("Ex:"+scce);
+            
+            JOptionPane.showMessageDialog(this,"An error occurred while creating the spellchecker:\n"+scce.getMessage());
+            
+        }
+        catch (SessionStartException sse){
+            logger.warning("Ex:"+sse);
 
-        MainFrame.spellDlg.setVisible(false);
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.add(new JLabel("An error occurred while starting the spellchecker:"),BorderLayout.NORTH);
+            
+            JTextArea textArea = new JTextArea(sse.getMessage()+"\n\n"+sse.getCommand());
 
-        int oldRow = PivotTextPane.wordInRowIndex;
-        PivotTextPane.wordInRowIndex = -1;
-        AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(oldRow, AlignmentMain.testMain2.showType, false));
+            JScrollPane pane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            pane.setPreferredSize(new Dimension(400,250));
+            
+            panel.add(pane,BorderLayout.CENTER);
+            
+            JOptionPane.showMessageDialog(this,panel);
+            
+        }
+        finally {
+            if(checker != null)
+                checker.release();
+        }
+        
+        AlignmentMain.testMain2.navigateTo(curSeg);
+        AlignmentMain.testMain2.invalidate();
+        AlignmentMain.testMain2.tableView.repaint();
+        
+        AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(curSeg, AlignmentMain.testMain2.showType, false));
+
     }
 
+    private int spellCheckReplaceAll(DocumentIterator i,String currentWord,Suggestion sg) {
+        int startSeg = i.currentSegment();
+        String newWord = sg.getWord();
+
+        TMSentence[] segments = backend.getTMData().tmsentences;
+        
+        boolean enableChanges = segments[startSeg].getTranslationStatus() != TMSentence.APPROVED;
+        if(enableChanges)        
+            i.replaceCurrentWord(newWord);
+        
+        int cnt = 1;
+        while(i.hasNext()){
+            String word = i.next();
+            int curSeg = i.currentSegment();
+
+            enableChanges = segments[curSeg].getTranslationStatus() != TMSentence.APPROVED;
+            if(!enableChanges)
+                continue;            
+            
+            if(word.equals(currentWord)){
+                i.replaceCurrentWord(newWord);
+                cnt++;
+                
+                int seg = i.currentSegment();
+                AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(seg, AlignmentMain.testMain2.showType, false));
+                AlignmentMain.testMain2.stopEditing();
+
+            }
+        }
+        
+        i.seekToSegment(0);
+        while(i.currentSegment() <= startSeg && i.hasNext()){
+            String word = i.next();
+            int curSeg = i.currentSegment();
+
+            enableChanges = segments[curSeg].getTranslationStatus() != TMSentence.APPROVED;
+            if(!enableChanges)
+                continue;
+            
+            if(word.equals(currentWord)){
+                i.replaceCurrentWord(newWord);
+                int seg = i.currentSegment();
+                AlignmentMain.testMain2.tableView.repaint(AlignmentMain.testMain2.tableView.getCellRect(seg, AlignmentMain.testMain2.showType, false));
+                AlignmentMain.testMain2.stopEditing();
+                
+                cnt++;
+            }
+        }
+        
+        return cnt;
+    }
+    
     void jMenuUpdateMiniTM_actionPerformed(ActionEvent e) {
         jBtnUpdateMiniTM_actionPerformed(null);
     }
@@ -6269,9 +6226,6 @@ OUT:
 
         bSafeExit = true;
 
-        if (proc != null) {
-            proc.destroy();
-        }
 
         int oldNum = (MiniTMFrame.jMiniTM.data == null) ? 0 : MiniTMFrame.jMiniTM.data.size();
         MiniTMFrame.jMiniTM.data = new Vector();
@@ -6716,4 +6670,5 @@ OUT:
         JOptionPane.showMessageDialog(this, defaultMsg+bundle.getString("Error_message:")+exce.getMessage(), bundle.getString("Error"), JOptionPane.ERROR_MESSAGE);
         
     }
+
 }
