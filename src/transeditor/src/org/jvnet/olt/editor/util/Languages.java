@@ -111,11 +111,11 @@ public class Languages {
         { "AM", bundle.getString("Amharic"), "UTF8" },
         { "AE", bundle.getString("Old_English"), "UTF8" },
         
-
+  
         { "AS", bundle.getString("Assamese"), "UTF8" },
         { "AZ", bundle.getString("Azerbaijani"), "UTF8" },
         { "AI", bundle.getString("Iranian_Azerbaijani"), "UTF8" },
-        { "BE", bundle.getString("Belarusian"), "UTF8" },
+        { "BY", bundle.getString("Belarusian"), "UTF8" },
         { "BG", bundle.getString("Bulgarian"), "UTF8" },
         { "BN", bundle.getString("Bengali"), "UTF8" },
         { "BR", bundle.getString("Breton"), "UTF8" },

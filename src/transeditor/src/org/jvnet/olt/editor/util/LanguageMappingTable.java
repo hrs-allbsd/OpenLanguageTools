@@ -96,8 +96,8 @@ public class LanguageMappingTable {
         mappingTable.put("az-az", "AZ"); //Azerbaijani
         mappingTable.put("az-ir", "AI"); //Iranian Azerbaijani
         mappingTable.put("az", "AZ"); //Azerbaijani
-        mappingTable.put("be-be", "BE"); //Belarusian
-        mappingTable.put("be", "BE"); //Belarusian
+        mappingTable.put("be-by", "BY"); //Belarusian
+        mappingTable.put("be", "BY"); //Belarusian
         mappingTable.put("bg-bg", "BG"); //Bulgarian
         mappingTable.put("bg", "BG"); //Bulgarian
         mappingTable.put("bn-bn", "BN"); //Bengali
