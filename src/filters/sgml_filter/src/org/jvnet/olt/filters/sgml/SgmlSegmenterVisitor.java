@@ -1513,7 +1513,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                 case TaggedMarkupNodeConstants.PCDATA:
                 case TaggedMarkupNodeConstants.CDATA:
                     String str = SgmlFilterHelper.normalise(new StringBuffer(node.getNodeData()));
-                    if (!str.equals(" ")){
+                    if (!str.matches("^\\s+$")) {
                         found = true;
                         isBlockTag = false;
                     }
