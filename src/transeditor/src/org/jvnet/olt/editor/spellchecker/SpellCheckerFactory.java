@@ -17,8 +17,11 @@ import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -72,11 +75,46 @@ public class SpellCheckerFactory {
         return instance;
     }
     
-    public SpellChecker create(String name) throws SpellCheckerCreationException,InvocationTargetException {
+    public static SpellChecker[] getAllSpellCheckers(Properties defaults){
+        SpellCheckerFactory fa = instance();
+        
+        
+        Set<SpellChecker> set = new LinkedHashSet<SpellChecker>();
+        int j = 0;
+        for(String checkerName: fa.nameClassMap.keySet()){
+            try{
+                set.add( fa.create(checkerName,defaults) );
+            }
+            catch (SpellCheckerCreationException scce){
+                logger.warning("Unable to create spellchecker:"+checkerName);
+            }
+        }
+        SpellChecker[] rv = set.toArray(new SpellChecker[]{});
+
+        return rv;
+    }
+    
+    static public void updateSpellCheckers(SpellChecker[] sc){
+        SpellCheckerFactory i = instance();
+        for(SpellChecker s: sc){
+            if(s != null)
+                i.releaseSpellChecker(s);
+        }
+    }
+    
+    public SpellChecker create(String name) throws SpellCheckerCreationException {
+        return create(name,null);        
+    }
+    
+    public SpellChecker create(String name,Properties defaults) throws SpellCheckerCreationException {
+    
         if(nameClassMap.containsKey(name)){
             SpellCheckerHolder holder  = nameClassMap.get(name);
             
             Properties p = new Properties(holder.props);
+            
+            if(defaults != null)
+                p.putAll(defaults);
             
             try{
                 SpellChecker sp = (SpellChecker)holder.createMethod.invoke(null,p);
@@ -91,7 +129,11 @@ public class SpellCheckerFactory {
                 
             } catch (IllegalArgumentException iare){
                 throw new SpellCheckerCreationException(iare);
+            } 
+            catch (InvocationTargetException ite){
+                throw new SpellCheckerCreationException(ite);
             }
+            
         }
         
         return null;
@@ -180,4 +222,6 @@ public class SpellCheckerFactory {
         Preferences root =  Backend.instance().getConfig().getPreferencesRootForSpellCheckers();
         return root.node(spellCheckerName);
     }
+    
+
 }
