@@ -14,16 +14,23 @@ package org.jvnet.olt.editor.spellchecker;
  * @author boris
  */
 public class SessionStartException extends Exception{
-    
+    private String command;
     /** Creates a new instance of SessionStartException */
-    public SessionStartException() {
+    public SessionStartException(String command) {
+        this.command = command;
     }
     
-    public SessionStartException(Throwable t){
+    public SessionStartException(String command,Throwable t){
         super(t);
+        this.command = command;
     }
 
-    public SessionStartException(String msg){
+    public SessionStartException(String command,String msg){
         super(msg);
+        this.command = command;
+    }
+    
+    public String getCommand(){
+        return command;
     }
 }
