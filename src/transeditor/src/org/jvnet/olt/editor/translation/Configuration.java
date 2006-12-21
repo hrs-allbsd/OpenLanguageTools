@@ -62,6 +62,10 @@ public class Configuration {
     private File home;
     private Map shortcutsMap = Collections.synchronizedMap(new HashMap());
 
+    private String activeSpellChecker;
+    private File userHome;
+    private File installHome;
+    
     public Configuration(File home, File miniTmDir) throws ConfigurationException {
         this.miniTmDir = miniTmDir;
         this.home = home;
@@ -70,6 +74,15 @@ public class Configuration {
     public void load() throws ConfigurationException {
         try {
             loadFromPrefs();
+            
+            userHome = new File(System.getProperty("user.home"));
+            
+            String edHomeStr  = System.getProperty("editor_home");
+            if(edHomeStr == null)
+                edHomeStr = System.getProperty("user.dir");
+            
+            installHome = new File(edHomeStr);
+            
         } catch (BackingStoreException bse) {
             logger.severe("While loading prefs" + bse);
             throw new ConfigurationException(bse);
@@ -329,6 +342,7 @@ public class Configuration {
         Preferences shortcutsNode = prefs.node(PREFS_NODE_SHORTCUTS);
         PreferencesUtils.readMapFromPrefs(shortcutsNode, shortcutsMap);
 
+        activeSpellChecker = optNode.get("spellchecker","aspell");
         //TODO put into a separate node like RunTime ???
         //TODO think of a better way of storing the last open file...
         bFlagTempFile = optNode.getBoolean("TempFile", false);
@@ -384,6 +398,9 @@ public class Configuration {
         optNode.put("TranslatorID", translatorID);
         optNode.putBoolean("LicenseShow", didAgreeToLicense);
 
+        optNode.put("spellchecker",activeSpellChecker);
+
+        
         optNode.flush();
 
         Preferences fileHistNode = prefs.node(PREFS_NODE_HISTORY_FILES);
@@ -408,5 +425,25 @@ public class Configuration {
 
     public Map getShortcuts() {
         return shortcutsMap;
+    }
+    
+    public Preferences getPreferencesRootForSpellCheckers(){
+        return preferences().node("spellcheckers");
+    }
+    
+    public String getSpellcheckerName(){
+        return activeSpellChecker;
+    }
+    
+    public void setSpellcheckerName(String spellChecker){
+        this.activeSpellChecker = spellChecker;
+    }
+    
+    public File getUserHome(){
+        return userHome;
+    }
+
+    public File getInstallHome(){
+        return installHome;
     }
 }
