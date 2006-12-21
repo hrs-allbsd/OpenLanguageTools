@@ -241,7 +241,7 @@
                 <include name="org/jvnet/olt/xliff/"/>
                 <include name="org/jvnet/olt/xliffparser/"/>
                 <include name="org/jvnet/olt/xlifftools/"/>
-                <include name="jorg/jvnet/olt/editor/renamer/"/>
+                <include name="org/jvnet/olt/editor/renamer/"/>
 
                 <include name="resources/"/>
                 <include name="resources/flags/"/>
