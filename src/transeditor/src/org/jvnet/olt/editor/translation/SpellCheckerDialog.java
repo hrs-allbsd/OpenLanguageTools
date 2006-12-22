@@ -12,12 +12,15 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import org.jvnet.olt.editor.spellchecker.Suggestion;
+import org.jvnet.olt.editor.util.Bundle;
 
 /**
  *
  * @author  boris
  */
-public class SpellCheckerDialog extends javax.swing.JDialog {    
+public class SpellCheckerDialog extends javax.swing.JDialog {  
+    private Bundle bundle = Bundle.getBundle(SpellCheckerDialog.class.getName());
+    
     public enum Result { IGNORE, IGNORE_ALL, CHANGE, CHANGE_ALL, CANCEL,ADD };
     
     private DefaultListModel listModel;
@@ -42,7 +45,7 @@ public class SpellCheckerDialog extends javax.swing.JDialog {
         StyleConstants.setBold(regular,true);
         StyleConstants.setForeground(regular,Color.RED);
         
-        setTitle("Spellchecker");
+        setTitle(bundle.getString("Spellchecker"));
     }
 
     DefaultListModel getListModel(){
@@ -104,7 +107,7 @@ public class SpellCheckerDialog extends javax.swing.JDialog {
         textPane = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        jLabel1.setText("Not in dictionary:");
+        jLabel1.setText(bundle.getString("Not_in_dictionary:")); // NOI18N
 
         suggestionsList.setModel(getListModel());
         suggestionsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -115,44 +118,44 @@ public class SpellCheckerDialog extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(suggestionsList);
 
-        jLabel2.setText("Suggestions:");
+        jLabel2.setText(bundle.getString("Suggestions:")); // NOI18N
 
-        addButton.setText("Add");
+        addButton.setText(bundle.getString("Add")); // NOI18N
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
         });
 
-        ignoreAllButton.setText("Ignore All");
+        ignoreAllButton.setText(bundle.getString("Ignore_All")); // NOI18N
         ignoreAllButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ignoreAllButtonActionPerformed(evt);
             }
         });
 
-        ignoreButton.setText("Ignore");
+        ignoreButton.setText(bundle.getString("Ignore")); // NOI18N
         ignoreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ignoreButtonActionPerformed(evt);
             }
         });
 
-        changeButton.setText("Change");
+        changeButton.setText(bundle.getString("Change")); // NOI18N
         changeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 changeButtonActionPerformed(evt);
             }
         });
 
-        cancelButton.setText("Cancel");
+        cancelButton.setText(bundle.getString("Cancel")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        changeAllButton.setText("Change All");
+        changeAllButton.setText(bundle.getString("Change_All")); // NOI18N
         changeAllButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 changeAllButtonActionPerformed(evt);

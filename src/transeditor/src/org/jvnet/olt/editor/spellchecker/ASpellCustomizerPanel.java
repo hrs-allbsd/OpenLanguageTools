@@ -7,16 +7,13 @@
 package org.jvnet.olt.editor.spellchecker;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
+import org.jvnet.olt.editor.util.Bundle;
 import org.jvnet.olt.editor.util.Languages;
 
 /**
@@ -24,7 +21,8 @@ import org.jvnet.olt.editor.util.Languages;
  * @author  boris
  */
 public class ASpellCustomizerPanel extends javax.swing.JPanel {
-    
+    private Bundle bundle = Bundle.getBundle(ASpellCustomizerPanel.class.getName());
+
     private ASpellChecker checker;
     
     private LanguageMappingTableModel languageTableModel;
@@ -50,7 +48,7 @@ public class ASpellCustomizerPanel extends javax.swing.JPanel {
                 new JComboBox(
                 Languages.getLanguages())));
         
-        languageMappingTable.getColumn("Spellchecker language").setCellEditor(
+        languageMappingTable.getColumn(bundle.getString("Spellchecker_language")).setCellEditor(
                 new DefaultCellEditor(new JTextField()));
         
         languageMappingTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -90,37 +88,37 @@ public class ASpellCustomizerPanel extends javax.swing.JPanel {
         addButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
 
-        jLabel1.setText("Aspell command");
+        jLabel1.setText(bundle.getString("Aspell_command")); // NOI18N
 
-        jLabel2.setText("Placeholders: ");
+        jLabel2.setText(bundle.getString("Placeholders:_")); // NOI18N
 
-        jLabel3.setText("${EDITOR_HOME} editor installation directory");
+        jLabel3.setText(bundle.getString("${EDITOR_HOME}_editor_installation_directory")); // NOI18N
 
-        jLabel4.setText("${USER_HOME} user's home directory location ");
+        jLabel4.setText(bundle.getString("${USER_HOME}_user's_home_directory_location_")); // NOI18N
 
         scrollPane1.setViewportView(languageMappingTable);
 
-        jLabel5.setText("Language Mapping table");
+        jLabel5.setText(bundle.getString("Language_Mapping_table")); // NOI18N
 
-        jLabel6.setText("${PROJECT_LANG} the project target language (fr-FR,de-DE etc)");
+        jLabel6.setText(bundle.getString("${PROJECT_LANG}_the_project_target_language_(fr-FR,de-DE_etc)")); // NOI18N
 
-        jLabel7.setText("${TRANS_PROJECT_LANG} translated project lang. \nfrom the lang. mapping table");
+        jLabel7.setText(bundle.getString("${TRANS_PROJECT_LANG}_translated_project_lang._\nfrom_the_lang._mapping_table")); // NOI18N
 
-        resetButton.setText("Reset to defaults");
+        resetButton.setText(bundle.getString("Reset_to_defaults")); // NOI18N
         resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetButtonActionPerformed(evt);
             }
         });
 
-        addButton.setText("Add");
+        addButton.setText(bundle.getString("Add")); // NOI18N
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
         });
 
-        removeButton.setText("Remove");
+        removeButton.setText(bundle.getString("Remove")); // NOI18N
         removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeButtonActionPerformed(evt);

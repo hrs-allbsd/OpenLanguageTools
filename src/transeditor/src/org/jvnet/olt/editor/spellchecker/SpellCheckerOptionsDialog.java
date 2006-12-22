@@ -12,13 +12,16 @@ import java.awt.Frame;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import org.jvnet.olt.editor.util.Bundle;
 
 /**
  *
  * @author  boris
  */
 public class SpellCheckerOptionsDialog extends javax.swing.JDialog {
-    
+    private Bundle bundle = Bundle.getBundle(SpellCheckerOptionsDialog.class.getName());
+
+            
     class ModelAdapter {
         final SpellChecker sc;
         
@@ -96,9 +99,9 @@ public class SpellCheckerOptionsDialog extends javax.swing.JDialog {
         closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("SpellChecker options");
+        setTitle(bundle.getString("SpellChecker_options")); // NOI18N
 
-        jLabel1.setText("Spellchecker");
+        jLabel1.setText(bundle.getString("Spellchecker")); // NOI18N
 
         spellCheckerCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -111,7 +114,7 @@ public class SpellCheckerOptionsDialog extends javax.swing.JDialog {
             }
         });
 
-        defaultSpellCheckerCheckBox.setText("default");
+        defaultSpellCheckerCheckBox.setText(bundle.getString("default")); // NOI18N
         defaultSpellCheckerCheckBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         defaultSpellCheckerCheckBox.setMargin(new java.awt.Insets(0, 0, 0, 0));
         defaultSpellCheckerCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +125,7 @@ public class SpellCheckerOptionsDialog extends javax.swing.JDialog {
 
         spellCheckerCustomizerPanel.setLayout(new java.awt.BorderLayout());
 
-        closeButton.setText("Close");
+        closeButton.setText(bundle.getString("Close")); // NOI18N
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
