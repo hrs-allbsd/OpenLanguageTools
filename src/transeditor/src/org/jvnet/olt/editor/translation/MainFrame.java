@@ -5242,7 +5242,7 @@ OUTER2:
             checker = SpellCheckerFactory.instance().create(spellChecker,p);
             
             if(checker == null){
-                JOptionPane.showMessageDialog(this,"No spell checker is available");
+                JOptionPane.showMessageDialog(this,bundle.getString("No_spell_checker_is_available"));
                 return ;
                 
             }
@@ -5297,7 +5297,7 @@ OUTER2:
                 boolean enableChanges = backend.getTMData().tmsentences[curSeg].getTranslationStatus() != TMSentence.APPROVED;
                 
                 dlg.enableChanges(enableChanges);
-                dlg.setStatusText("Spellchecking segment no:"+curSeg+1);
+                dlg.setStatusText(bundle.getString("Spellchecking segment no:")+curSeg+1);
                 dlg.setWord(backend.getTMData().tmsentences[curSeg].getTranslation());                    
                 dlg.setSelection(i.getOffsetInSegment(),word.length());
                 dlg.setSuggestions(sugs);                
@@ -5335,7 +5335,7 @@ OUTER2:
                         if(sg != null){
                             int cnt = spellCheckReplaceAll(i,word,sg);  
                             
-                            String msg = MessageFormat.format("Replaced {0} occurences of word ''{1}''",cnt,word);                            
+                            String msg = MessageFormat.format(bundle.getString("Replaced_0_occurences_of_word_1"),cnt,word);                            
                             dlg.setStatusText(msg);
 
                             if(cnt > 0)
@@ -5369,7 +5369,7 @@ OUTER2:
         catch (SpellCheckerCreationException scce){
             logger.warning("Ex:"+scce);
             
-            JOptionPane.showMessageDialog(this,"An error occurred while creating the spellchecker:\n"+scce.getMessage());
+            JOptionPane.showMessageDialog(this,bundle.getString("An_error_occurred_while_creating_the_spellchecker")+scce.getMessage());
             
         }
         catch (SessionStartException sse){
@@ -5377,7 +5377,7 @@ OUTER2:
 
             JPanel panel = new JPanel();
             panel.setLayout(new BorderLayout());
-            panel.add(new JLabel("An error occurred while starting the spellchecker:"),BorderLayout.NORTH);
+            panel.add(new JLabel(bundle.getString("An_error_occurred_while_creating_the_spellchecker")),BorderLayout.NORTH);
             
             JTextArea textArea = new JTextArea(sse.getMessage()+"\n\n"+sse.getCommand());
 
