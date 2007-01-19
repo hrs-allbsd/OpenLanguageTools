@@ -24,6 +24,7 @@ import org.jvnet.olt.util.FileUtils;
 import org.jvnet.olt.editor.util.NestableException;
 import org.jvnet.olt.util.FileUtils;
 import org.jvnet.olt.xliff.*;
+import org.jvnet.olt.minitm.*;
 
 
 /*
@@ -307,6 +308,14 @@ public class Backend {
         close();
         
         if (project != null) {
+            try {
+                MiniTM tm = project.getMiniTM();
+                if(tm!=null) {
+                    tm.close();
+                }
+            } catch(MiniTMException e) {
+                logger.severe("Cannot close miniTM: " + e.getMessage());
+            }
             project.closeProject();
         }
     }

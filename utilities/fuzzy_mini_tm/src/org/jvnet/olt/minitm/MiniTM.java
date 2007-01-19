@@ -77,5 +77,11 @@ public interface MiniTM
    *  This method allows the user to force a save of the TM file.
    */
   public void saveMiniTmToFile() throws MiniTMException;
+
+  
+  /**
+   * Close all resources
+   */
+  public void close() throws MiniTMException;
 	 
 }

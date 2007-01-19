@@ -54,10 +54,10 @@ import org.jvnet.olt.editor.spellchecker.SpellChecker.Session;
 import org.jvnet.olt.editor.spellchecker.SpellCheckerOptionsDialog;
 import org.jvnet.olt.editor.translation.preview.FilePreviewPane;
 import org.jvnet.olt.editor.util.*;
-import org.jvnet.olt.fuzzy.basicsearch.BasicFuzzySearchMiniTM;
 import org.jvnet.olt.minitm.AlignedSegment;
 import org.jvnet.olt.minitm.MiniTM;
 import org.jvnet.olt.minitm.MiniTMException;
+import org.jvnet.olt.fuzzy.MiniTMFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.jvnet.olt.util.FileUtils;
@@ -5660,13 +5660,9 @@ OUTER2:
 
                         MiniTM targetTM = backend.getProject().getMiniTM();
                         tmxImporter.convertTMX2MTM(tmxFile,tmpFile);
-        
-                        MiniTM newTM = new BasicFuzzySearchMiniTM(
-                                tmpFile.getAbsolutePath(),
-                                false,
-                                "XXX",
-                                proj.getSrcLang(),
-                                proj.getTgtLang());
+                        
+                        MiniTMFactory.Param tmParam = new MiniTMFactory.Param("XXX", tmpFile.getAbsolutePath(), proj.getSrcLang(), proj.getTgtLang());
+                        MiniTM newTM = MiniTMFactory.createMiniTM(MiniTMFactory.Engine.LUCENE,tmParam,"UNKNOWN"); 
                         
                         AlignedSegment[] segs = newTM.getAllSegments();
                         for(int i = 0; segs != null && i < segs.length;i++){

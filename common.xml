@@ -63,6 +63,12 @@
         <path location="${common.basedir}/utilities/jars/dtdparser121.jar"/>
     </path>
 
+    <!-- lucene library -->
+    <path id="deps.lucene">
+        <path location="${common.basedir}/utilities/jars/lucene2.0.0.jar"/>
+    </path>
+
+
     <path id="deps.jaxb">
 		<fileset dir="${common.basedir}/utilities/jars/jwsdp-1.5/jaxb/lib" includes="*.jar"/>
 		<fileset dir="${common.basedir}/utilities/jars/jwsdp-1.5/jwsdp-shared/lib" includes="*.jar"/>

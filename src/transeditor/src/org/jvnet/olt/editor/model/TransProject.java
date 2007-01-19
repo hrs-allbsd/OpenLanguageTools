@@ -11,11 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.jvnet.olt.fuzzy.basicsearch.BasicFuzzySearchMiniTM;
-import org.jvnet.olt.fuzzy.basicsearch.BasicSGMLFuzzySearchMiniTM;
 import org.jvnet.olt.minitm.AlignedSegment;
 import org.jvnet.olt.minitm.MiniTM;
 import org.jvnet.olt.minitm.MiniTMException;
+import org.jvnet.olt.fuzzy.MiniTMFactory;
 
 
 /**
@@ -24,31 +23,6 @@ import org.jvnet.olt.minitm.MiniTMException;
  */
 public class TransProject {
     private static final Logger logger = Logger.getLogger(TransProject.class.getName());
-    private static final int SGML = 1;
-    private static final int HTML = 2;
-    private static final int XML = 3;
-    private static final int JSP = 4;
-    private static final int PO = 11;
-    private static final int JAVA = 12;
-    private static final int MSG = 13;
-    private static final int PROPERTIES = 14;
-    private static final int PLAINTEXT = 15;
-    private static final int DTD = 16;
-    private static Map knownTMTypes = Collections.synchronizedMap(new HashMap());
-
-    static {
-        knownTMTypes.put("SGML", new Integer(SGML));
-        knownTMTypes.put("HTML", new Integer(HTML));
-        knownTMTypes.put("XML", new Integer(XML));
-        knownTMTypes.put("JSP", new Integer(JSP));
-
-        knownTMTypes.put("PO", new Integer(PO));
-        knownTMTypes.put("JAVA", new Integer(JAVA));
-        knownTMTypes.put("MSG", new Integer(MSG));
-        knownTMTypes.put("PROPERTIES", new Integer(PROPERTIES));
-        knownTMTypes.put("DTD", new Integer(DTD));
-        knownTMTypes.put("PLAINTEXT", new Integer(PROPERTIES));
-    }
 
     private String projectName = null;
     private String src = null;
@@ -97,8 +71,11 @@ public class TransProject {
         path = tmDir;
 
         fileName = path+ (new StringBuffer(project).append("_").append(srcLan).append("_").append(tgtLan).append(".MTM").toString() );
-        knownTMTypes = new HashMap();
 
+        // close the current minitm
+        if(minitm!=null) {
+            minitm.close();
+        }
         
         minitm = getNewMiniTM(fileName, true, project, srcLan, tgtLan, dataType);
     }
@@ -108,6 +85,10 @@ public class TransProject {
         try {
             //StringBuffer fileName = new StringBuffer(projectName).append("_").append(src).append("_").append(tgt).append(".MTM");            
             //minitm = getNewMiniTM(path + fileName.toString(), true, projectName, src, tgt, this.dataType);
+            if(minitm!=null) {
+                minitm.close();
+            }
+            
             minitm = getNewMiniTM(fileName, true, projectName, src, tgt, this.dataType);
         } catch (org.jvnet.olt.minitm.MiniTMException ex) {
             logger.throwing(getClass().getName(), "reloadMinitm()", ex);
@@ -206,42 +187,10 @@ public class TransProject {
 
     private MiniTM getNewMiniTM(String fileName, boolean createIfMissing, String project, String srcLang, String targLang, String dataType) throws MiniTMException {
         MiniTM mini = null;
-        Integer type = (Integer)this.knownTMTypes.get(dataType);
-
-        if (type == null) { // if we don't know what type of mini tm to use, then use the simplest by default
-
-            return new BasicFuzzySearchMiniTM(fileName.toString(), true, projectName, src, tgt);
-        } else {
-            switch (type.intValue()) {
-            case SGML:
-            case XML:
-            case HTML:
-            case JSP:
-
-                // logger.finer("Returning a new sgml mini-TM");
-                return new BasicSGMLFuzzySearchMiniTM(fileName.toString(), true, projectName, src, tgt);
-
-            case PROPERTIES:
-            case PO:
-            case JAVA:
-            case MSG:
-            case PLAINTEXT:
-            case DTD:
-
-                // logger.finer("Returning a new basic mini-TM");
-                return new BasicFuzzySearchMiniTM(fileName.toString(), true, projectName, src, tgt);
-
-            default: // we should never get here (it implies we've added a new type to the Map
-
-                // but have forgotten to update the above switch statement)
-                logger.severe("Error determing type of mini TM to create from datatype " + dataType + "\n" + "Please report a bug about this error !");
-
-                //TODO throw an exception (around someone's neck)
-            }
-        }
-
-        // returning an empty mini tm will probably throw a null pointer exception
-        // somewhere else in the code, which should be handled properly.
+        
+        MiniTMFactory.Param tmParam = new MiniTMFactory.Param(project, fileName, srcLang, targLang, createIfMissing);
+        mini = MiniTMFactory.createMiniTM(MiniTMFactory.Engine.LUCENE, tmParam, dataType);
+        
         return mini;
     }
 

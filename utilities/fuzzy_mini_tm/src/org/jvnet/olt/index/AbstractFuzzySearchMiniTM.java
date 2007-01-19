@@ -193,4 +193,11 @@ implements MiniTM {
         return fr.removeFormatting(segmentText);
     }
     
+    /**
+     * Close all resources
+     */
+    public void close() throws MiniTMException {
+        dataStore.saveMiniTmToFile();
+    }
+    
 }

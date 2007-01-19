@@ -9,6 +9,8 @@
 	<path location="${build.dir}"/>
         <path refid="deps.common.util"/>
 	<path refid="deps.xerces"/>
+	<path refid="deps.lucene"/>
+	<path refid="deps.junit"/>
 	</path>
 
 	<!-- are dependencies built ? -->
@@ -29,6 +31,7 @@
 	</target>
 
 	<target name="dist" depends="common.dist">
+        <unjar src="${common.basedir}/utilities/jars/lucene2.0.0.jar" dest="${build.dir}"/>
 		<jar destfile="${build.dir}/fuzzytm.jar">
 	   		<zipfileset	dir="${build.dir}" includes="**/*.class"/>
 		</jar>
