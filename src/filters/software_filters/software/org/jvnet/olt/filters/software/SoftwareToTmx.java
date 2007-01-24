@@ -171,7 +171,7 @@ public class SoftwareToTmx {
             String srcLang = args[1];
             File trgFile = new File(args[2]);
             String trgLang = args[3];
-            String trgEncoding = args[4];
+            String encoding = args[4];
 
             //  Here must check the language code and the target encoding
             //  Refer to StandaloneLocaleTable class
@@ -185,17 +185,17 @@ public class SoftwareToTmx {
                 errstr = "The target language \"" + trgLang + "\" is NOT valid.";
                 throw new Exception(errstr);
             }
-            if (!slt.isValidCodeset(trgEncoding)) {
-                errstr = "The localised encoding \"" + trgEncoding + "\"is NOT valid.";
+            if (!slt.isValidCodeset(encoding)) {
+                errstr = "The encoding \"" + encoding + "\"is NOT valid.";
                 throw new Exception(errstr);
             }
-            if (!slt.getDefaultEncoding(trgLang).equals(trgEncoding)) {
-                errstr = "The specified localised encoding (\"" + trgEncoding + "\") is NOT consistent with the default encoding (\"" + slt.getDefaultEncoding(trgLang) +"\") for \"" + trgLang + "\".";
+            if (!slt.getDefaultEncoding(trgLang).equals(encoding)) {
+                errstr = "The specified encoding (\"" + encoding + "\") is NOT consistent with the default encoding (\"" + slt.getDefaultEncoding(trgLang) +"\") for \"" + trgLang + "\".";
                 System.out.println("Warning : " + errstr);
             }
 
             //  Start to do the alignment
-            String[][] arrAligned = alignFiles(srcFile, srcLang, trgFile, trgLang, trgEncoding);
+            String[][] arrAligned = alignFiles(srcFile, srcLang, trgFile, trgLang, encoding);
             Writer tmxWriter = new OutputStreamWriter(new FileOutputStream(args[0]+".tmx"),"UTF-8");
             int type = determineFileType(srcFile);
             String dataType = (String)reverseFileTypeMap.get(new Integer(type));
@@ -223,16 +223,16 @@ public class SoftwareToTmx {
 
 
     // FIXME : pass useful stuff in here instead of a hashtable...
-    public String[][] alignFiles(File srcFile, String srcLang, File trgFile, String trgLang, String trgEncoding)
+    public String[][] alignFiles(File srcFile, String srcLang, File trgFile, String trgLang, String encoding)
     throws TMCParseException,IOException,Exception,AliToolException {
         int iAlignType = determineFileType(srcFile);
         String strDefaultDomain = determineDefaultDomain(srcFile,iAlignType);
 
         //  Parse source file
-        String[][] arrSource = parseFile(srcFile, srcLang, iAlignType, strDefaultDomain, "ISO-8859-1");
+        String[][] arrSource = parseFile(srcFile, srcLang, iAlignType, strDefaultDomain, encoding);
 
         //  Parse target file
-        String[][] arrTarget = parseFile(trgFile, trgLang, iAlignType, strDefaultDomain, trgEncoding);
+        String[][] arrTarget = parseFile(trgFile, trgLang, iAlignType, strDefaultDomain, encoding);
 
         //  Do best comparison of the two lists: may involve sorting
         //    Dodgy way implemented here
@@ -549,8 +549,8 @@ public class SoftwareToTmx {
 
     // just for testing
     private void usage(){
-        System.err.println("Usage: SoftwareToTmx <src file> <src lang> <target file> <target lang> <localised encoding>");
-        System.err.println("       SoftwareToTmx <src file> <src lang> <target file> <target lang> <localised encoding> -map <mapping file> <mapping DTD file>");
+        System.err.println("Usage: SoftwareToTmx <src file> <src lang> <target file> <target lang> <encoding>");
+        System.err.println("       SoftwareToTmx <src file> <src lang> <target file> <target lang> <encoding> -map <mapping file> <mapping DTD file>");
         System.err.println("");
         System.err.println("Here <mapping file> is an XML format file, contains \"filename-in-workspace\"->\"unique-installpath\" pairs.");
         System.err.println("Please refer the sample.xml file.");
