@@ -67,10 +67,8 @@ indent="no"/>
                 </xsl:attribute>
             </xsl:otherwise>
         </xsl:choose>
-        
         <!-- This will need to be modified for software files -->
 <xsl:text>&#10;</xsl:text>
-
         <prop type="SunTrans::DocFile">
             <xsl:value-of select="@original"/>
         </prop>
@@ -100,10 +98,10 @@ indent="no"/>
             elements appear at the end of XLIFF trans-unit elements, but the 
             information they contain has to appear at the start of the tu element.
          -->
+        <xsl:apply-templates select="note"/>
         <xsl:apply-templates select="context-group"/>
         <xsl:apply-templates select="source"/>
         <xsl:apply-templates select="target"/>
-        <xsl:apply-templates select="note"/>
 <xsl:text>&#10;</xsl:text>
 
     </tu>
@@ -382,7 +380,7 @@ body/group/trans-unit/target/it">
 <!-- Add support for note handling -->
 <!-- Currently this is a simple match, but it can be made more complex to cover
      eventualities -->
-<xsl:template match="note">
+<xsl:template match="body/trans-unit/note">
     <note><xsl:value-of select="."/></note>
 </xsl:template>
 
