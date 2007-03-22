@@ -475,7 +475,7 @@ public class SgmlSegmenterVisitor implements TaggedMarkupVisitor {
                         inlineNoSegNoCountBuffer = new StringBuffer();
                         break;
                     case NONSEGMENTABLE:
-                        buf.append(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegNoCountBuffer),"dontsegment"));
+                        buf.append(SgmlFilterHelper.insertSegmentationProtection(SgmlFilterHelper.normalise(inlineNoSegBuffer),"dontsegment"));
                         inlineNoSegBuffer = new StringBuffer();
                         break;
                     default:
