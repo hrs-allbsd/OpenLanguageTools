@@ -329,6 +329,12 @@ public class ASpellChecker extends SpellChecker{
     
     protected Process startProcess(String cmd) throws SessionStartException,IOException{
         Process p = Runtime.getRuntime().exec(cmd);
+        try{
+            Thread.currentThread().sleep(1000);
+        }
+        catch(InterruptedException ie){
+            logger.warning("wait for child process has been interrupted");
+        }
         if(!checkProcessOK(p)){
             
             logger.warning("Starting the process '"+cmd+"' has exited");
