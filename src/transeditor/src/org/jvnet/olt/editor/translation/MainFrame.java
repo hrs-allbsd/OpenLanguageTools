@@ -794,7 +794,46 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
         shortcutsBuilder = new ShortcutsBuilder(backend.getConfig().getShortcuts(), menuBar);
         shortcutsBuilder.parseMenu();
-
+        
+        //set up FileChooser l10n stuff:
+        {
+            Bundle chBundle = Bundle.getBundle("org.jvnet.olt.editor.translation.FileChooser");
+            String[] keys = new String[]{
+                "saveButtonText",
+                "openButtonText",
+                "cancelButtonText",
+                "updateButtonText",
+                "helpButtonText",
+                "saveButtonToolTipText",
+                "openButtonToolTipText",
+                "cancelButtonToolTipText",
+                "updateButtonToolTipText",
+                "helpButtonToolTipText",
+                "lookInLabelText",
+                "filesOfTypeLabelText",
+                "upFolderToolTipText",
+                "fileNameLabelText",
+                "homeFolderToolTipText",
+                "newFolderToolTipText",
+                "listViewButtonToolTipTextlist",
+                "detailsViewButtonToolTipText",
+                "saveButtonText",
+                "openButtonText",
+                "cancelButtonText",
+                "updateButtonText",
+                "helpButtonText",
+                "saveButtonToolTipText",
+                "openButtonToolTipText",
+                "cancelButtonToolTipText",
+                "updateButtonToolTipText",
+                "helpButtonToolTipText", 
+            }; 
+            for(String key: keys){
+                String val = chBundle.getString(key);
+                if(val != null && !"".equals(val.trim()))
+                       UIManager.put("FileChooser."+key, val);
+            }
+        } 
         //CustomKeyboard.init();
         undo = new PivotUndoManager(this, backend);
         initTempPrintDlg();
