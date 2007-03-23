@@ -37,7 +37,7 @@ public class Search {
      */
     public boolean forwardFlag = true;
 
-    public boolean matchWords = true;
+    public boolean matchWords = false;
     
     private String origWhat;
     private String origStringToMatch;
