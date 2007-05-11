@@ -5918,6 +5918,7 @@ OUTER2:
         boolean tempFile = backend.getConfig().isBFlagTempFile();
 
         JAutoSaveDlg jAd = new JAutoSaveDlg(this, autoSave, interval);
+        jAd.setLocationRelativeTo(this);
         jAd.setVisible(true);
 
         if (jAd.isCancelled()) {
