@@ -185,6 +185,8 @@ public class PivotTextEditor1 extends AbstractCellEditor implements TableCellEdi
 
         editor.setWidth(getInitialWidth(table, column));
         editor.setSize(getInitialWidth(table, column), parentRowInitHight - 10);
+        
+        editor.setFont(MainFrame._defaultFont);
 
         if (table == AlignmentMain.testMain1.tableView) {
             editor.setContent(data, tmpdata.tmsentences[row].getSourceBaseElements());

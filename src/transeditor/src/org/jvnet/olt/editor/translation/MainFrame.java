@@ -169,7 +169,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     //  Maintenance note: the code below is suboptimal to put it mildly, but it works.
 
     /** Default Font accessor information */
-    private static java.awt.Font _defaultFont = new java.awt.Font("Dialog", Font.PLAIN, 12);
+    static java.awt.Font _defaultFont = new java.awt.Font("Dialog", Font.PLAIN, 12);
     Backend backend = Backend.instance();
 
     /**
