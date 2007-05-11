@@ -9,9 +9,13 @@
 
 package org.jvnet.olt.editor.translation;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 import java.util.StringTokenizer;
 import org.jvnet.olt.editor.model.PivotBaseElement;
 import org.jvnet.olt.editor.model.PivotTag;
@@ -23,6 +27,9 @@ import org.jvnet.olt.editor.model.TMData;
  * @author boris
  */
 public class DocumentIterator {
+    public static String PROPERTY_TRANSLATION="PROP_TRANSLATION";
+    public static String PROPERTY_SOURCE="PROP_TRANSLATION";
+    
     
     private int curSent = 0;
     private int curWord = 0;
@@ -33,6 +40,8 @@ public class DocumentIterator {
     boolean finished = false;
     
     List<WordHolder> words = new ArrayList<WordHolder>();
+    
+    Set<PropertyChangeListener> listeners;
     
     class WordHolder {
         String word;
@@ -197,8 +206,11 @@ public class DocumentIterator {
         StringBuilder sb = new StringBuilder(tr);
         sb.replace(h.position,h.position+h.word.length(),newWord);
 
-        tmdata.tmsentences[curSent].setTranslation(sb.toString());
+        String orig = tmdata.tmsentences[curSent].getTranslation();
+        String newS = sb.toString(); 
+        tmdata.tmsentences[curSent].setTranslation(newS);
         
+        notifyListeners(false,newS,orig);
         
         int diff = newWord.length() - h.word.length();
         
@@ -221,5 +233,27 @@ public class DocumentIterator {
         curWord = 0;
         words = buildWordList(curSent);
         finished = false;
+    }
+    
+    public boolean addPropertyChangeListener(PropertyChangeListener lstnr){
+        if(listeners == null){
+            listeners = new HashSet<PropertyChangeListener>();
+        }
+        return listeners.add(lstnr);
+    }
+    
+    public boolean removePropertyChangeListener(PropertyChangeListener lstnr){
+        return listeners != null && listeners.remove(lstnr);
+    } 
+    
+    private void notifyListeners(boolean isSource,String newValue,String oldValue){
+        if(listeners == null)
+            return;
+        
+        String propType = isSource ? PROPERTY_SOURCE : PROPERTY_TRANSLATION;
+        PropertyChangeEvent pce = new PropertyChangeEvent(this,propType,oldValue,newValue);
+                
+        for(PropertyChangeListener lstnr: listeners)
+            lstnr.propertyChange(pce);
     }
 }

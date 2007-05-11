@@ -5290,7 +5290,16 @@ OUTER2:
             Session s = checker.startSession(lang);
 
             boolean done = false;
-            DocumentIterator i = new DocumentIterator(backend.getTMData());   
+            
+            final DocumentIterator i = new DocumentIterator(backend.getTMData());   
+
+            i.addPropertyChangeListener(new PropertyChangeListener() {
+                public void propertyChange(PropertyChangeEvent evt) {
+                    int curSeg = i.currentSegment();
+                    
+                    backend.getTMData().bTMFlags[curSeg] = true;
+                }
+            } );
             
             i.seekToSegment(curSeg);
             int oldSeg = curSeg;
