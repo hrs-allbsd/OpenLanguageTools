@@ -600,6 +600,8 @@ TOKEN : { <ELIPSIS: ("." (".")+)>  }
 
 TOKEN : { <BRACKET: ["(","[","{",    ")","]","}"]>}
 
+TOKEN : { <CODE: "<!"> }
+
 /*
 Colons - who'd have thought there were this many !
 02D0;MODIFIER LETTER TRIANGULAR COLON;Lm;0;L;;;;;N;;;;;
@@ -767,6 +769,7 @@ String sentence():
    (
     (
      st=tag() {s+=st;} |
+     t=<CODE> {s+=t.image;} |
      st=dashedline() {s+=st;} |
      st=dashedword() {s+=st;} |
      st=numabbrev() {s+=st;} |
@@ -774,7 +777,7 @@ String sentence():
      t=<WORDNUMBER> {s+=t.image;} |
      st=word() {s+=st;} |
      t=<NONSEPPUNCT> {s+=t.image;} |
-     t=<BRACKET> {s+=t.image;} | 
+     t=<BRACKET> {s+=t.image;} |
      st=ignorednewline() {s+=st;} |
      st=apostrophe() {s+=st;} |
      st=whitespace() {s+=st;}
