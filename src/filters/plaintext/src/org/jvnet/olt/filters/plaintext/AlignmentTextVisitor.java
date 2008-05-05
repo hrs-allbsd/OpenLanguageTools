@@ -39,8 +39,7 @@ public class AlignmentTextVisitor implements BlockSegmenter_enVisitor {
     
     public Object visit(SimpleNode node, Object data) throws RuntimeException{
         try {
-            if (node.getType() == BlockSegmenter_enTreeConstants.JJTBLOCK  ||
-            node.getType() == BlockSegmenter_enTreeConstants.JJTEOF_BLOCK){
+            if (node.getType() == BlockSegmenter_enTreeConstants.JJTBLOCK){
                 StringReader myreader = new StringReader(node.getNodeData());
                 SegmenterFacade segmenter = new SegmenterFacade(myreader,language);
                 try {
@@ -68,7 +67,7 @@ public class AlignmentTextVisitor implements BlockSegmenter_enVisitor {
                 }       
                 
             } else if (node.getType() == BlockSegmenter_enTreeConstants.JJTBLANKS ||
-            node.getType() == BlockSegmenter_enTreeConstants.JJTEOF_NEWLINE){
+            node.getType() == BlockSegmenter_enTreeConstants.JJTNEWLINE){
                 alignmentWriter.write("*\n");
             }
         }catch (java.io.IOException e){
