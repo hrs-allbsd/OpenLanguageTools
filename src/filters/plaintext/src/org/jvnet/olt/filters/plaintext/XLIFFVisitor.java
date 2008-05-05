@@ -49,13 +49,12 @@ public class XLIFFVisitor implements BlockSegmenter_enVisitor {
     
     public Object visit(SimpleNode node, Object data) throws RuntimeException {
        try { 
-            if (node.getType() == BlockSegmenter_enTreeConstants.JJTBLOCK  ||
-            node.getType() == BlockSegmenter_enTreeConstants.JJTEOF_BLOCK){
+            if (node.getType() == BlockSegmenter_enTreeConstants.JJTBLOCK) {
                 String block = node.getNodeData();
                 // for plaintext, we normalise all whitespace characters
                 // (which zonks low-ascii control characters !)
-                StringReader reader = new StringReader(normalise(new StringBuffer(block)));
-                //StringReader reader = new StringReader(block);
+                //StringReader reader = new StringReader(normalise(new StringBuffer(block)));
+                StringReader reader = new StringReader(block);
                 Map formatting = new HashMap();
                 List tmpSegments = new ArrayList();
                 segmenterFacade = new SegmenterFacade(reader, language);
@@ -68,7 +67,8 @@ public class XLIFFVisitor implements BlockSegmenter_enVisitor {
                 
                 tmpSegments = segmenterFacade.getSegments();
                 formatting = segmenterFacade.getFormatting();
-                int counter=0;
+
+                int counter=1;
                 
                 
                 Iterator it = tmpSegments.iterator();
@@ -80,11 +80,12 @@ public class XLIFFVisitor implements BlockSegmenter_enVisitor {
                         // remove that object from the formatting map
                         formatting.remove(new Integer(counter));
                     }
+                    counter++;
                 }
                 
                 
             } else if (node.getType() == BlockSegmenter_enTreeConstants.JJTBLANKS ||
-            node.getType() == BlockSegmenter_enTreeConstants.JJTEOF_NEWLINE){
+            node.getType() == BlockSegmenter_enTreeConstants.JJTNEWLINE){
                 formatter.writeFormatting(node.getNodeData());
             }        
          } catch (org.jvnet.olt.filters.plaintext.PlaintextParserException e){

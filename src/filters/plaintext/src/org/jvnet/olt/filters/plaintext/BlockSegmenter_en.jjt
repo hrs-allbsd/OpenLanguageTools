@@ -102,7 +102,8 @@ TOKEN :
 void file():
 {;}
 {
-    (newline())? (blanks())?  (block() | eof_block())+
+    (blanks() | block() | newline())+
+    <EOF>
 }
 
 void block():
@@ -110,13 +111,6 @@ void block():
 {
     s=text() (blanks())* {jjtThis.setNodeData(s);}
 }
-
-void eof_block():
-{String s="";}
-{
-    s=eof_text() <EOF> {jjtThis.setNodeData(s);}
-}
-
 
 String text():
 {Token t;
@@ -129,28 +123,10 @@ String st="";}
      )+ {return s;}
 }
 
-String eof_text():
-{Token t;
-String s="";
-String st="";
-}{
-    (
-     (t=<ELSE> {s+=t.image;} | st=whitespace() {s+=st;})(eof_newline())*
-
-     )+ {return s;}
-}
-
-
-
 String newline():
-{}{ ( <NEWLINE> ){return " ";}
-}
-
-
-// this is to allow newlines at the end of files (thus influencing formatting)
-void eof_newline():
-{String s="";
- Token t;}{ ( (t=<NEWLINE>{s=t.image;}) | t=<BLANKS> {s=t.image;}){jjtThis.setNodeData(t.image);}
+{
+Token t;
+}{ ( t=<NEWLINE> ){return t.image;}
 }
 
 String whitespace():
