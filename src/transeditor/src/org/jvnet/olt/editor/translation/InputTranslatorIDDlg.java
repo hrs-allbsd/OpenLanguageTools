@@ -15,20 +15,29 @@ import javax.swing.*;
 
 
 //TODO add don;t ask again + you can change you translator Id by going blah blah
+//
+// SimonAW says: by going WHAT?
 public class InputTranslatorIDDlg extends JDialog {
     private static final Logger logger = Logger.getLogger(InputTranslatorIDDlg.class.getName());
-    BorderLayout borderLayout1 = new BorderLayout();
-    JPanel actionPanel = new JPanel();
-    FlowLayout flowLayout1 = new FlowLayout();
-    JButton okButton = new JButton();
-    JPanel centralPanel = new JPanel();
-    JLabel infoLabel = new JLabel();
-    JLabel idLabel = new JLabel();
-    JTextField idTextField = new JTextField();
+    private Bundle bundle = Bundle.getBundle(InputTranslatorIDDlg.class.getName());
+
+	// Data
     private String translatorId;
 
-    private Bundle bundle = Bundle.getBundle(InputTranslatorIDDlg.class.getName());
+	// UI Elements
+	private JButton btnOK = null;
+	private JButton btnCancel = null;
+	private JLabel lblHeader = null;
+	private JLabel lblPrompt = null;
+	private JTextField txtTranslatorID = null;
+
+	private JPanel pnlContents = null;
+	private JPanel pnlControls = null;
+
+	private GridBagLayout layout = null;
     
+	/** Main C'tor
+	 */
     public InputTranslatorIDDlg(JFrame parent, String translatorId) {
         super(parent, true);
 
@@ -44,8 +53,8 @@ public class InputTranslatorIDDlg extends JDialog {
     /*Added by cl141268, update() would be called automatically after Construtor
     when the dialog has been called, the idTextField component will be focused.*/
     public void update(Graphics g) {
-        idTextField.requestFocus();
-        idTextField.setCaretPosition(0);
+        txtTranslatorID.requestFocus();
+        txtTranslatorID.setCaretPosition(0);
     }
 
     //end added
@@ -57,6 +66,99 @@ public class InputTranslatorIDDlg extends JDialog {
 
     private void jbInit() throws Exception {
         this.setTitle(bundle.getString("Translator_ID"));
+
+		layout = new GridBagLayout();
+		pnlContents = new JPanel( layout );
+
+		lblHeader = new JLabel( bundle.getString("Please_enter_your_translator_ID:") );
+		/*
+		lblHeader.setOpaque( true );
+		lblHeader.setBackground( new Color( 220, 220, 220 ) );
+		*/
+		lblPrompt = new JLabel( bundle.getString("Translator_ID:"), SwingConstants.RIGHT );
+		txtTranslatorID = new JTextField();
+        txtTranslatorID.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    idTextField_actionPerformed(e);
+                }
+            });
+        txtTranslatorID.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyReleased(KeyEvent e) {
+                    idTextField_keyReleased(e);
+                }
+
+                //public void keyTyped(KeyEvent e) {
+                //  idTextField_keyTyped(e);
+                //}
+            });
+
+
+		btnOK = new JButton( bundle.getString("OK") );
+		btnOK.setEnabled( false );
+        btnOK.addActionListener( new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    okButton_actionPerformed(e);
+                }
+            });
+		btnCancel = new JButton( bundle.getString("Cancel") );
+        btnCancel.addActionListener( new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+					handleCancelRequest();
+                }
+            });
+
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.ipadx = 4;
+		constraints.ipady = 4;
+		constraints.weightx = 1.0;
+		constraints.weighty = 0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.insets = new Insets( 20, 8, 8, 8 );
+		constraints.gridwidth = 3;
+		pnlContents.add( lblHeader, constraints );
+
+		constraints.insets = new Insets( 8, 8, 8, 8 );
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 1;
+		pnlContents.add( lblPrompt, constraints );
+
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		constraints.gridwidth = 2;
+		pnlContents.add( txtTranslatorID, constraints );
+
+		constraints.gridx = 1;
+		constraints.gridy = 2;
+		constraints.gridwidth = 1;
+		constraints.weighty = 1.0;
+		constraints.anchor = GridBagConstraints.LAST_LINE_END;
+		pnlContents.add( btnOK, constraints );
+
+		constraints.gridx = 2;
+		constraints.gridy = 2;
+		constraints.gridwidth = 1;
+		pnlContents.add( btnCancel, constraints );
+
+		setContentPane( pnlContents );
+
+        String defaultId = (translatorId == null) ? "" : translatorId;
+        txtTranslatorID.setText(defaultId);
+
+        btnOK.setEnabled((defaultId != null) && (defaultId.trim().length() != 0));
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = this.getSize();
+
+		Dimension d = layout.preferredLayoutSize( pnlContents );
+		d.setSize( d.width*1.2, d.height*1.2 );
+
+		setSize( d );
+        setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+
+		/*
         this.getContentPane().setLayout(borderLayout1);
         actionPanel.setLayout(flowLayout1);
         okButton.setEnabled(false);
@@ -108,7 +210,7 @@ public class InputTranslatorIDDlg extends JDialog {
 
         okButton.setEnabled((defaultId != null) && (defaultId.trim().length() != 0));
 
-        this.setSize(300, 160);
+        this.setSize(400, 160);
         this.setResizable(false);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -123,17 +225,23 @@ public class InputTranslatorIDDlg extends JDialog {
         }
 
         this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+		*/
     }
 
     void okButton_actionPerformed(ActionEvent e) {
         //String id = idTextField.getText();
-        this.translatorId = idTextField.getText().trim();
+        this.translatorId = txtTranslatorID.getText().trim();
         this.setVisible(false);
     }
 
-    void idTextField_keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            int iRet = JOptionPane.showConfirmDialog(this, bundle.getString("Do_you_want_to_exit_the_editor?"), bundle.getString("Information"), JOptionPane.YES_NO_OPTION);
+
+	private void handleCancelRequest() {
+		int iRet = JOptionPane.showConfirmDialog(
+				this,
+				bundle.getString("Do_you_want_to_exit_the_editor?"),
+				bundle.getString("Information"),
+				JOptionPane.YES_NO_OPTION
+				);
 
             switch (iRet) {
             case JOptionPane.YES_OPTION:
@@ -144,14 +252,19 @@ public class InputTranslatorIDDlg extends JDialog {
             case JOptionPane.NO_OPTION:
                 return;
             }
+	}
+
+    void idTextField_keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			handleCancelRequest();
         }
 
-        String id = idTextField.getText();
+        String id = txtTranslatorID.getText();
 
         if ((id == null) || (id.trim().length() == 0)) {
             //Toolkit.getDefaultToolkit().beep();
             //JOptionPane.showMessageDialog(this,"Invalidate translator ID!","Error",JOptionPane.WARNING_MESSAGE);
-            okButton.setEnabled(false);
+            btnOK.setEnabled(false);
 
             return;
         }
@@ -159,16 +272,16 @@ public class InputTranslatorIDDlg extends JDialog {
         if ((id != null) && (id.trim().length() > 5)) {
             //Toolkit.getDefaultToolkit().beep();
             //JOptionPane.showMessageDialog(this,"Invalidate translator ID!","Error",JOptionPane.WARNING_MESSAGE);
-            idTextField.setText(id.substring(0, id.length() - 1));
+            txtTranslatorID.setText(id.substring(0, id.length() - 1));
 
             return;
         }
 
-        okButton.setEnabled(true);
+        btnOK.setEnabled(true);
     }
 
     void idTextField_actionPerformed(ActionEvent e) {
-        okButton.doClick();
+        btnOK.doClick();
     }
 
     public String getTranslatorId() {
