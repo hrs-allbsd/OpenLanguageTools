@@ -7,8 +7,9 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.*;
 
-import java.util.Calendar;
+import java.util.*;
 import org.jvnet.olt.editor.util.Bundle;
 import java.util.logging.Logger;
 
@@ -187,6 +188,8 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
             logger.finer("Orig comment:"+originalComment);
             logger.finer("New  comment:"+ comment);
             logger.finer("Needs save  :"+ needsSave);
+
+			modified = false;
         //}
 
         /*        if(modified) {
@@ -218,8 +221,12 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
 
     void jButtonStamp_actionPerformed(ActionEvent e) {
         StringBuffer sb = new StringBuffer(jTextPaneComment.getText());
-        java.util.Calendar curDate = java.util.Calendar.getInstance();
-        sb.append("\n" + translatorId + "  " + curDate.get(Calendar.YEAR) + "-" + curDate.get(Calendar.MONTH) + "-" + curDate.get(Calendar.DAY_OF_MONTH));
+
+		sb.append( "\n" + translatorId + ", " +
+				DateFormat.getDateInstance( DateFormat.LONG, Locale.getDefault() ).format( new Date() )
+				);
+        //java.util.Calendar curDate = java.util.Calendar.getInstance();
+        //sb.append("\n" + translatorId + "  " + curDate.get(Calendar.YEAR) + "-" + curDate.get(Calendar.MONTH) + "-" + curDate.get(Calendar.DAY_OF_MONTH));
 
         jTextPaneComment.setText(sb.toString());
         jTextPaneComment.requestFocus();
@@ -227,7 +234,9 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
 
     void jButtonSave_actionPerformed(ActionEvent e) {
         writeBackTheComment();
+		logger.info( "Comment written" );
         jButtonSave.setEnabled(modified);
+
     }
 
     void jButtonClose_actionPerformed(ActionEvent e) {
