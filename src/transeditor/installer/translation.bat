@@ -1,5 +1,6 @@
-SET SUNTRANS_HOME="$INSTALL_PATH"
+@echo off
 
-CD %SUNTRANS_HOME%
+set OTECLASSPATH=TransEditor.jar;i18n;classes\dom4j-161.jar;classes\fuzzytm.jar;classes\swing-layout-1.0.1.jar;classes\xerces2.jar;\classes\XliffBackConverter.jar;\classes\xmlParserAPIs.jar
 
-java -Xmx256M  -classpath TransEditor.jar;i18n;classes\swing-layout-1.0.1.jar;classes\fuzzytm.jar;classes\xerces2.jar;classes\dom4j-161.jar;classes\xmlParserAPIs.jar;classes\XliffBackConverter.jar -Djava.util.logging.config.file=logging.properties -Djava.library.path=%SUNTRANS_HOME%\spellchecker\lib -Deditor_home=%SUNTRANS_HOME% org.jvnet.olt.editor.translation.TransEditor
+java -Xmx512M -classpath %OTECLASSPATH% -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser org.jvnet.olt.editor.translation.TransEditor
+
