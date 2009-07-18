@@ -37,23 +37,26 @@ public class NoteHandler extends TextHandler {
     }
 
     protected void postAction() {
-        Note n = new Note(text.toString());
+        //do not create empty notes
+        if (! text.toString().isEmpty() ) {
+            Note n = new Note(text.toString());
 
-        switch (type) {
-        case NOTE_HEADER:
-            ctx.addHeaderNote(n);
+            switch (type) {
+            case NOTE_HEADER:
+                ctx.addHeaderNote(n);
 
-            break;
+                break;
 
-        case NOTE_TRANS_UNIT:
-            ctx.addTransUnitNote(n);
+            case NOTE_TRANS_UNIT:
+                ctx.addTransUnitNote(n);
 
-            break;
+                break;
 
-        case NOTE_ALT_TRANS_UNIT:
-            ctx.addAltTransUnitNote(n);
+            case NOTE_ALT_TRANS_UNIT:
+                ctx.addAltTransUnitNote(n);
 
-            break;
+                break;
+            }
         }
     }
 }
