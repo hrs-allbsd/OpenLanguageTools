@@ -1145,34 +1145,34 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             System.exit(0);
         }
 
-        jBtnOpen.setIcon(ip.imageOpen);
-        jBtnSave.setIcon(ip.imageSave);
-        jBtnUndo.setIcon(ip.imageUndo);
-        jBtnRedo.setIcon(ip.imageRedo);
-        jBtnCut.setIcon(ip.imageCut);
-        jBtnCopy.setIcon(ip.imageCopy);
-        jBtnPaste.setIcon(ip.imagePaste);
-        jBtnSearch.setIcon(ip.imageSearch);
-        jBtnPrev.setIcon(ip.imagePrev);
-        jBtnNext.setIcon(ip.imageNext);
-        jBtnMarkAsTransAndGoToNextUnTrans.setIcon(ip.imageMTAGNU);
-        jBtnMarkAsApprovedAndGoToNextTrans.setIcon(ip.imageMVAGNT);
-        jBtnUpdateMiniTM.setIcon(ip.imageUpdate);
-        jBtnTagVerify.setIcon(ip.imageTagVerify);
-        jBtnSpellCheck.setIcon(ip.imageSpellCheck);
-        jBtnMarkAsApprovedAndGoToNextTrans.setIcon(ip.imageApproveSegment);
-        jBtnMarkAsRejectedAndGoToNextTrans.setIcon(ip.imageRejectSegment);
+        jBtnOpen.setIcon(ImagePackage.imageOpen);
+        jBtnSave.setIcon(ImagePackage.imageSave);
+        jBtnUndo.setIcon(ImagePackage.imageUndo);
+        jBtnRedo.setIcon(ImagePackage.imageRedo);
+        jBtnCut.setIcon(ImagePackage.imageCut);
+        jBtnCopy.setIcon(ImagePackage.imageCopy);
+        jBtnPaste.setIcon(ImagePackage.imagePaste);
+        jBtnSearch.setIcon(ImagePackage.imageSearch);
+        jBtnPrev.setIcon(ImagePackage.imagePrev);
+        jBtnNext.setIcon(ImagePackage.imageNext);
+        jBtnMarkAsTransAndGoToNextUnTrans.setIcon(ImagePackage.imageMTAGNU);
+        jBtnMarkAsApprovedAndGoToNextTrans.setIcon(ImagePackage.imageMVAGNT);
+        jBtnUpdateMiniTM.setIcon(ImagePackage.imageUpdate);
+        jBtnTagVerify.setIcon(ImagePackage.imageTagVerify);
+        jBtnSpellCheck.setIcon(ImagePackage.imageSpellCheck);
+        jBtnMarkAsApprovedAndGoToNextTrans.setIcon(ImagePackage.imageApproveSegment);
+        jBtnMarkAsRejectedAndGoToNextTrans.setIcon(ImagePackage.imageRejectSegment);
 
         if (boolOnline) {
             if (boolReview) {
-                jbtnApproveFile.setIcon(ip.imageApproveFile);
-                jbtnRejectFile.setIcon(ip.imageRejectFile);
+                jbtnApproveFile.setIcon(ImagePackage.imageApproveFile);
+                jbtnRejectFile.setIcon(ImagePackage.imageRejectFile);
             } else {
-                jBtnReturnToPortal.setIcon(ip.imageUpload);
+                jBtnReturnToPortal.setIcon(ImagePackage.imageUpload);
             }
         }
 
-        jBtnHelp.setIcon(ip.imageHelp);
+        jBtnHelp.setIcon(ImagePackage.imageHelp);
 
         jBtnOpen.setPreferredSize(new Dimension(25, 23));
         jBtnOpen.setToolTipText(bundle.getString("Open_File"));
@@ -2730,7 +2730,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         f.setFileSelectionMode(JFileChooser.FILES_ONLY);
         f.addChoosableFileFilter(OpenFileFilters.XLF_FILTER);
         f.addChoosableFileFilter(OpenFileFilters.XLZ_FILTER);
-        f.setSelectedFile(new File("*.xlz"));
+        f.setFileFilter(OpenFileFilters.XLF_FILTER);
 
         File curFile = backend.getCurrentFile();
 
