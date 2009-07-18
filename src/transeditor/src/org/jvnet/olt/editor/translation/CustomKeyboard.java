@@ -57,8 +57,6 @@ public class CustomKeyboard extends JDialog implements ListSelectionListener {
         shortCutmap.put("Tag Protection", "520 80");
     }
 
-    BorderLayout borderLayout1 = new BorderLayout();
-    BorderLayout borderLayout2 = new BorderLayout();
     Border border1;
     TitledBorder titledBorder1;
     JLabel desLabel = new JLabel();
@@ -66,14 +64,12 @@ public class CustomKeyboard extends JDialog implements ListSelectionListener {
     JLabel commandLabel = new JLabel();
     JLabel newShortCutLabel = new JLabel();
     JLabel curShortCutLabel = new JLabel();
-    JPanel leftPanel = new JPanel() {
-        public Insets getInsets() {
-            return new Insets(10, 10, 10, 5);
-        }
-    };
 
     JPanel rightPanel = new JPanel();
     JPanel centerPanel = new JPanel();
+    JPanel innerLeftPanel = new JPanel();
+    JPanel outerLeftPanel = new JPanel();
+
     JButton closeButton = new JButton();
     JButton setButton = new JButton();
     JButton resetButton = new JButton();
@@ -102,7 +98,7 @@ public class CustomKeyboard extends JDialog implements ListSelectionListener {
             e.printStackTrace();
         }
 
-        this.setSize(460, 360);
+        this.setSize(this.getPreferredSize());
         this.category = builder.getCategories();
         this.commands = builder.getCommands();
         this.menus = builder.getMenus();
@@ -320,39 +316,45 @@ OUT:
      *
      */
     private void jbInit() throws Exception {
-        border1 = BorderFactory.createEtchedBorder(Color.white, new Color(142, 142, 142));
-        titledBorder1 = new TitledBorder(border1, "Description");
-        desLabel.setBorder(titledBorder1);
-        desLabel.setBounds(new Rectangle(6, 259, 308, 45));
 
-        categoryLabel.setBounds(new Rectangle(6, 15, 144, 24));
+        // outer left dialog panel
         categoryLabel.setText("Menus:");
+        categoryLabel.setAlignmentX(LEFT_ALIGNMENT);
         categoryLabel.setToolTipText("");
         categoryLabel.setForeground(Color.black);
 
-        commandLabel.setBounds(new Rectangle(164, 15, 144, 24));
-        commandLabel.setText("Menu Options:");
-        commandLabel.setToolTipText("");
-        commandLabel.setForeground(Color.black);
-
         JScrollPane scr1 = new JScrollPane(catList);
-        scr1.setBounds(new Rectangle(6, 43, 144, 153));
 
-        JScrollPane scr2 = new JScrollPane(comList);
-        scr2.setBounds(new Rectangle(164, 43, 144, 153));
-
-        newShortCutLabel.setBounds(new Rectangle(6, 199, 144, 25));
-        newShortCutLabel.setText("New shortcut:");
-        newShortCutLabel.setToolTipText("");
-        newShortCutLabel.setForeground(Color.black);
-
-        curShortCutLabel.setBounds(new Rectangle(164, 199, 144, 25));
         curShortCutLabel.setText("Current shortcut:");
+        curShortCutLabel.setAlignmentX(LEFT_ALIGNMENT);
         curShortCutLabel.setToolTipText("");
         curShortCutLabel.setForeground(Color.black);
 
+        curShortcutTextField.setEditable(false);
+        curShortcutTextField.setMaximumSize( new Dimension (Short.MAX_VALUE, 22));
+
+        outerLeftPanel.setLayout(new BoxLayout(outerLeftPanel, BoxLayout.Y_AXIS ));
+        outerLeftPanel.add(categoryLabel);
+        outerLeftPanel.add(scr1);
+        outerLeftPanel.add(curShortCutLabel);
+        outerLeftPanel.add(curShortcutTextField);
+
+        // inner left dialog panel
+        commandLabel.setText("Menu Options:");
+        commandLabel.setAlignmentX(LEFT_ALIGNMENT);
+        commandLabel.setToolTipText("");
+        commandLabel.setForeground(Color.black);
+
+        JScrollPane scr2 = new JScrollPane(comList);
+
+        newShortCutLabel.setText("New shortcut:");
+        newShortCutLabel.setAlignmentX(LEFT_ALIGNMENT);
+        newShortCutLabel.setMaximumSize( new Dimension (Short.MAX_VALUE, 22));
+        newShortCutLabel.setToolTipText("");
+        newShortCutLabel.setForeground(Color.black);
+
         newShortcutTextField.setEditable(false);
-        newShortcutTextField.setBounds(new Rectangle(6, 226, 144, 22));
+        newShortcutTextField.setMaximumSize( new Dimension (Short.MAX_VALUE, 22));
         newShortcutTextField.addKeyListener(new java.awt.event.KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     newShortcutTextField_keyReleased(e);
@@ -367,13 +369,14 @@ OUT:
                 }
             });
 
-        curShortcutTextField.setBounds(new Rectangle(164, 226, 144, 22));
-        curShortcutTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                public void keyTyped(KeyEvent e) {
-                    e.consume();
-                }
-            });
+        innerLeftPanel.setLayout(new BoxLayout(innerLeftPanel, BoxLayout.Y_AXIS ));
+        innerLeftPanel.setAlignmentX(LEFT_ALIGNMENT);
+        innerLeftPanel.add(commandLabel);
+        innerLeftPanel.add(scr2);
+        innerLeftPanel.add(newShortCutLabel);
+        innerLeftPanel.add(newShortcutTextField);
 
+        // right dialog panel (buttons)
         closeButton.setText("Close");
         closeButton.setBounds(new Rectangle(11, 223, 97, 27));
         closeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -419,27 +422,23 @@ OUT:
         rightPanel.setMinimumSize(new Dimension(50, 300));
         rightPanel.setPreferredSize(new Dimension(120, 300));
         rightPanel.add(setButton, null);
-        rightPanel.add(closeButton, null);
         rightPanel.add(resetAllButton, null);
         rightPanel.add(resetButton, null);
         rightPanel.add(noShortCutButton, null);
+        rightPanel.add(closeButton, BorderLayout.SOUTH);
 
-        centerPanel.setLayout(null);
-        centerPanel.add(desLabel, null);
-        centerPanel.add(scr1, null);
-        centerPanel.add(scr2, null);
-        centerPanel.add(curShortCutLabel, null);
-        centerPanel.add(commandLabel, null);
-        centerPanel.add(newShortcutTextField, null);
-        centerPanel.add(newShortCutLabel, null);
-        centerPanel.add(curShortcutTextField, null);
-        centerPanel.add(categoryLabel, null);
+        // center panel - contains the "both left" panels and the descritption label
+        border1 = BorderFactory.createEtchedBorder(Color.white, new Color(142, 142, 142));
+        titledBorder1 = new TitledBorder(border1, "Description");
+        desLabel.setBorder(titledBorder1);
 
-        leftPanel.setLayout(borderLayout2);
-        leftPanel.add(centerPanel, BorderLayout.CENTER);
+        centerPanel.setLayout(new BorderLayout(10,5));
+        centerPanel.add(outerLeftPanel, BorderLayout.WEST);
+        centerPanel.add(innerLeftPanel, BorderLayout.CENTER);
+        centerPanel.add(desLabel, BorderLayout.SOUTH);
 
-        this.getContentPane().setLayout(borderLayout1);
-        this.getContentPane().add(leftPanel, BorderLayout.CENTER);
+        this.getContentPane().setLayout(new BorderLayout());
+        this.getContentPane().add(centerPanel, BorderLayout.CENTER);
         this.getContentPane().add(rightPanel, BorderLayout.EAST);
     }
 
