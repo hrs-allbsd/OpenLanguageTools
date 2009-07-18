@@ -104,8 +104,18 @@ public class ParserX extends DefaultHandler {
         Element parent = (Element)elementStack.peek();
         String path = parent.getPath() + ((prefix == null) ? "" : (prefix + ":")) + localName + "/";
 
+        AttributesImpl attrsImpl = new AttributesImpl(attrs);
+        // cycle through the attributes and map namespaces
+        for (int i = 0; i < attrsImpl.getLength(); i++) {
+            String attrURI=attrsImpl.getURI(i);
+            if (  ! attrURI.isEmpty() ) {
+                    String attrPrefix=translateURI2Prefix(attrsImpl.getURI(i));
+                    attrsImpl.setQName(i, attrPrefix + ":" + attrsImpl.getLocalName(i));
+                }
+            }
+
         //logger.finer("Path:"+path);
-        Element elem = new Element(prefix, localName, qName, new AttributesImpl(attrs), path);
+        Element elem = new Element(prefix, localName, qName, attrsImpl, path);
         elementStack.push(elem);
 
         Handler h = null;

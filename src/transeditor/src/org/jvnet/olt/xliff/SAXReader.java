@@ -103,7 +103,8 @@ public class SAXReader {
 
         Map uriMapping = new HashMap();
         uriMapping.put("urn:oasis:names:tc:xliff:document:1.1", "");
-        uriMapping.put("xml", "xml");
+        uriMapping.put("http://www.w3.org/XML/1998/namespace", "xml");
+        //uriMapping.put("xml", "xml");
 
         xp.setPrefixMap(uriMapping);
 
@@ -125,6 +126,8 @@ public class SAXReader {
 
         if (version.isXLIFF11()) {
             saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
+            saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                                    "xliff-core-1.1.xsd");
         }
 
         return saxParser.getXMLReader();
