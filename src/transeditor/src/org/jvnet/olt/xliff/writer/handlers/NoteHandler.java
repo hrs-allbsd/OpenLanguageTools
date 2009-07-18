@@ -52,7 +52,12 @@ public class NoteHandler extends BaseHandler {
             
             ignoreChars = note != null;
         } else {
-            note = null;
+            // if note content has not been written yet - write it and set to null
+            if ( note != null) {
+                char[] ch = note.toCharArray();
+                writeChars(ch, 0, ch.length);
+                note = null;
+            }
 
             TrackingComments tc = ctx.getTrackingComments();
             tc.setCommentModified(header ? "header" : ctx.getCurrentTransId(), false);
