@@ -70,7 +70,7 @@ public class SimpleSentenceHelperTest extends TestCase{
 	String s =        "On the login screen, click on the <guilabel>Language</guilabel>icon.";
 	s =        "On the login screen, <a href='xyz.html'>click</a> on the <guilabel>Language</guilabel>icon.";
 	String matchSrc = "On the login screen, click on the <guilabel>Session</guilabel> icon.";
-	String matchT =   "Pulse en el icono <guilabel>Sesión</guilabel> en la pantalla de acceso.";
+	String matchT =   "Pulse en el icono <guilabel>Sesion</guilabel> en la pantalla de acceso.";
 	
 	String ss = SimpleSentenceHelper.formatTranslation2(s,matchSrc,matchT,true);
 	
@@ -84,7 +84,7 @@ public class SimpleSentenceHelperTest extends TestCase{
     public void testWithFormatting() throws Exception{
 	String s =        "On the login screen, click on the <guilabel>Language</guilabel>icon.";
 	String matchSrc = "On the login screen, click on the <guilabel>Session</guilabel> icon.";
-	String matchT =   "Pulse en el icono <guilabel>Sesión</guilabel> en la pantalla de acceso.";
+	String matchT =   "Pulse en el icono <guilabel>Sesion</guilabel> en la pantalla de acceso.";
 	
 	String ss = SimpleSentenceHelper.formatTranslation(s,matchSrc,matchT,true);
 	
