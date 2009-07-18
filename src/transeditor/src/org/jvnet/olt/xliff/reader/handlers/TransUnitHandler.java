@@ -33,6 +33,7 @@ public class TransUnitHandler extends BaseHandler {
             TransUnitId tuId = ctx.createTransUnitKey(id);
 
             unit = new TransUnit(tuId);
+            unit.setApproved (element.getAttrs().getValue("approved"));
 
             ctx.addTransUnit(unit);
         } else {

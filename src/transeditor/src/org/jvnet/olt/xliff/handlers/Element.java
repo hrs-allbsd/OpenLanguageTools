@@ -19,7 +19,7 @@ public class Element {
     private final String prefix;
     private final String localName;
     private final String originalQName;
-    private final Attributes attrs;
+    private AttributesImpl attrs;
     private final String path;
     private String qName;
     private String toString;
@@ -81,7 +81,7 @@ public class Element {
         path = "/";
     }
 
-    public Element(String prefix, String localName, String originalQName, Attributes attrs, String path) {
+    public Element(String prefix, String localName, String originalQName, AttributesImpl attrs, String path) {
         if (originalQName == null) {
             throw new NullPointerException("originalQName may not be null");
         }
@@ -139,7 +139,7 @@ public class Element {
         return qName;
     }
 
-    public Attributes getAttrs() {
+    public AttributesImpl getAttrs() {
         return attrs;
     }
 

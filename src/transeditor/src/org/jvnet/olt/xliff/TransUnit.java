@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class TransUnit {
     TransUnitId id;
+    String approved = "no";
     XLIFFSentence source;
     XLIFFSentence target;
     List altTrans = new ArrayList();
@@ -28,6 +29,18 @@ public class TransUnit {
     /** Creates a new instance of TransUnit */
     public TransUnit(TransUnitId id) {
         this.id = id;
+    }
+
+    public String getApproved() {
+        return approved;
+    }
+
+    public void setApproved(String approved) {
+        this.approved = approved;
+    }
+
+    public boolean isApproved() {
+        return ( this.approved != null && this.approved.equals("yes"));
     }
 
     public XLIFFSentence getSource() {

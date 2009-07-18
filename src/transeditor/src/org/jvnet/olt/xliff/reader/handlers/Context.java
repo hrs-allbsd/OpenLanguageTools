@@ -230,6 +230,12 @@ public class Context implements XLIFFModel {
     }
 
     public void commitTransUnit() {
+        // add trans-unit ID to the sourceContextMap if this is still empty
+        if (sourceContextMap.isEmpty() ) {
+            HashMap values = new HashMap();
+            values.put("trans-unit id", currentTransUnit.getId().getStrId());
+            this.addSourceContext("trans-unit-id", values );
+        }
         sourceContextTrack.addContext(currentTransUnit.getId().getStrId(), new HashMap(sourceContextMap));
         sourceContextMap.clear();
 
@@ -273,6 +279,15 @@ public class Context implements XLIFFModel {
             currentAltTransUnit.setTarget(tgtSntnc);
         } else {
             String theKey = currentTransUnit.getId().getStrId();
+            //ugly hack - force state to "???:approved" if TransUnit is approved
+            if ( currentTransUnit.isApproved() ) {
+                try {
+                    String [] listState = state.split(":");
+                    state = listState [0] + ":approved";
+                } catch (Exception ex) {
+                    state = "fuzzy:approved";
+                }
+            }
             XLIFFSentence m_temp = new XLIFFSentence(contents, xmlLang, theKey, state);
             groupZeroTarget.put(theKey, m_temp);
 
