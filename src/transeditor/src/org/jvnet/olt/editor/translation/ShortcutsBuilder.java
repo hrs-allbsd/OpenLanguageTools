@@ -40,6 +40,7 @@ public class ShortcutsBuilder {
     private Vector[] menus = null;
     private Vector[] strokes = null;
     private Map menuMap;
+    private Map defaultMap;
     private JMenuBar menuBar;
 
     static class KeyStrokeRecord {
@@ -77,59 +78,67 @@ public class ShortcutsBuilder {
 
             instance = this;
         }
-        if (menuMap.isEmpty())
-            setDefaults(menuMap);
+        this.defaultMap = new HashMap();
+        this.defaultMap.put("Approve_and_go_to_Next_Translated", "130 10");
+        this.defaultMap.put("Close", "130 87");
+        this.defaultMap.put("Comment_on_Segment" + "->" + "Add_Comment", "650 78");
+        this.defaultMap.put("Comment_on_Segment" + "->" + "Delete_Comment", "650 77");
+        this.defaultMap.put("Comment_on_Segment" + "->" + "Edit_Comment", "650 66");
+        this.defaultMap.put("Confirm_and_Translate_Next", "520 10");
+        this.defaultMap.put("Copy", "130 67");
+        this.defaultMap.put("Copy_Source", "520 155");
+        this.defaultMap.put("Copy_Source_Tags", "585 155");
+        this.defaultMap.put("Cut", "130 88");
+        this.defaultMap.put("Exit", "130 81");
+        this.defaultMap.put("Go_To_Bottom", "130 35");
+        this.defaultMap.put("Go_To_Segment...", "130 71");
+        this.defaultMap.put("Go_To_Top", "130 36");
+        this.defaultMap.put("Maintain_Mini-TM", "130 77");
+        this.defaultMap.put("Mark_Segment_As" + "->" + "Approved", "520 50");
+        this.defaultMap.put("Mark_Segment_As" + "->" + "Rejected", "520 52");
+        this.defaultMap.put("Mark_Segment_As" + "->" + "Translated", "520 49");
+        this.defaultMap.put("Mark_Segment_As" + "->" + "Untranslated", "520 51");
+        this.defaultMap.put("Merge_Mini-TMs", "195 77");
+        this.defaultMap.put("New_Project...", "130 78");
+        this.defaultMap.put("Next_Segment", "130 40");
+        this.defaultMap.put("Open", "130 79");
+        this.defaultMap.put("Page_Down", "0 34");
+        this.defaultMap.put("Page_Up", "0 33");
+        this.defaultMap.put("Paste", "130 86");
+        this.defaultMap.put("Previous_Segment", "130 38");
+        this.defaultMap.put("Print_Options...", "195 80");
+        this.defaultMap.put("Print...", "130 80");
+        this.defaultMap.put("Redo", "130 89");
+        this.defaultMap.put("Reject_and_go_to_Next_Translated", "130 45");
+        this.defaultMap.put("Save", "130 83");
+        this.defaultMap.put("Save_As...", "195 83");
+        this.defaultMap.put("Save_Mini-TM", "585 83");
+        this.defaultMap.put("Search_Mini-TM", "520 81");
+        this.defaultMap.put("Search/Replace", "0 114");
+        this.defaultMap.put("Source_Context", "520 83");
+        this.defaultMap.put("Spell_Checking", "0 118");
+        this.defaultMap.put("Tag_Protection", "520 80");
+        this.defaultMap.put("Tag_Verification", "130 84");
+        this.defaultMap.put("Transfer", "130 70");
+        this.defaultMap.put("Undo", "130 90");
+        this.defaultMap.put("Untransfer", "195 70");
+        this.defaultMap.put("Update_Mini-TM", "130 85");
+
         this.menuMap = menuMap;
+        if (this.menuMap.isEmpty())
+            setDefaults();
         this.menuBar = menuBar;
     }
 
     /** Gets a map of default shortcuts */
-    public void setDefaults(Map defaultMap) {
-  
-        defaultMap.put("Approve_and_go_to_Next_Translated", "130 10");
-        defaultMap.put("Close", "130 87");
-        defaultMap.put("Comment_on_Segment" + "->" + "Add_Comment", "650 78");
-        defaultMap.put("Comment_on_Segment" + "->" + "Delete_Comment", "650 77");
-        defaultMap.put("Comment_on_Segment" + "->" + "Edit_Comment", "650 66");
-        defaultMap.put("Confirm_and_Translate_Next", "520 10");
-        defaultMap.put("Copy", "130 67");
-        defaultMap.put("Copy_Source", "520 155");
-        defaultMap.put("Copy_Source_Tags", "585 155");
-        defaultMap.put("Cut", "130 88");
-        defaultMap.put("Exit", "130 81");
-        defaultMap.put("Go_To_Bottom", "130 35");
-        defaultMap.put("Go_To_Segment...", "130 71");
-        defaultMap.put("Go_To_Top", "130 36");
-        defaultMap.put("Maintain_Mini-TM", "130 77");
-        defaultMap.put("Mark_Segment_As" + "->" + "Approved", "520 50");
-        defaultMap.put("Mark_Segment_As" + "->" + "Rejected", "520 52");
-        defaultMap.put("Mark_Segment_As" + "->" + "Translated", "520 49");
-        defaultMap.put("Mark_Segment_As" + "->" + "Untranslated", "520 51");
-        defaultMap.put("Merge_Mini-TMs", "195 77");
-        defaultMap.put("New_Project...", "130 78");
-        defaultMap.put("Next_Segment", "130 40");
-        defaultMap.put("Open", "130 79");
-        defaultMap.put("Page_Down", "0 34");
-        defaultMap.put("Page_Up", "0 33");
-        defaultMap.put("Paste", "130 86");
-        defaultMap.put("Previous_Segment", "130 38");
-        defaultMap.put("Print_Options...", "195 80");
-        defaultMap.put("Print...", "130 80");
-        defaultMap.put("Redo", "130 89");
-        defaultMap.put("Reject_and_go_to_Next_Translated", "130 45");
-        defaultMap.put("Save", "130 83");
-        defaultMap.put("Save_As...", "195 83");
-        defaultMap.put("Save_Mini-TM", "585 83");
-        defaultMap.put("Search_Mini-TM", "520 81");
-        defaultMap.put("Search/Replace", "0 114");
-        defaultMap.put("Source_Context", "520 83");
-        defaultMap.put("Spell_Checking", "0 118");
-        defaultMap.put("Tag_Protection", "520 80");
-        defaultMap.put("Tag_Verification", "130 84");
-        defaultMap.put("Transfer", "130 70");
-        defaultMap.put("Undo", "130 90");
-        defaultMap.put("Untransfer", "195 70");
-        defaultMap.put("Update_Mini-TM", "130 85");
+    public void setDefaults() {
+
+        this.menuMap.putAll(this.defaultMap);
+  }
+
+    public Map getDefaultMap() {
+
+        return this.defaultMap;
   }
 
     private void insertCommands(JMenu menu, Vector v, Vector mV, Vector stroke, String parentName, String parentText ) {

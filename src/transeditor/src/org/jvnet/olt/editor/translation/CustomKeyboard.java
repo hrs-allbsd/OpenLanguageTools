@@ -8,7 +8,6 @@ package org.jvnet.olt.editor.translation;
 import java.awt.*;
 import java.awt.event.*;
 
-import java.util.HashMap;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -20,7 +19,6 @@ import javax.swing.event.*;
 public class CustomKeyboard extends JDialog implements ListSelectionListener {
     //extends DefaultCustomKeyboard {
     private static final Logger logger = Logger.getLogger(CustomKeyboard.class.getName());
-    private HashMap shortCutmap;
 
     Border border1;
     TitledBorder titledBorder1;
@@ -51,6 +49,7 @@ public class CustomKeyboard extends JDialog implements ListSelectionListener {
     protected Vector[] commands = null;
     protected Vector[] menus = null;
     protected Vector[] strokes = null;
+    protected ShortcutsBuilder builder;
 
     public CustomKeyboard(JFrame parent, ShortcutsBuilder builder) {
         super(parent);
@@ -68,8 +67,7 @@ public class CustomKeyboard extends JDialog implements ListSelectionListener {
         this.commands = builder.getCommands();
         this.menus = builder.getMenus();
         this.strokes = builder.getStrokes();
-        this.shortCutmap = new HashMap();
-        builder.setDefaults(shortCutmap);
+        this.builder=builder;
 
         initGUI();
     }
@@ -144,11 +142,14 @@ OUT:
         int ret = JOptionPane.showConfirmDialog(this, "This action will replace all customized shortcuts with the default settings.\nAre you sure you want to proceed?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
         if (ret == JOptionPane.YES_OPTION) {
+            this.builder.setDefaults();
+            this.builder.parseMenu();
+            /*
             for (int i = 0; i < strokes.length; i++) {
                 for (int j = 0; j < strokes[i].size(); j++) {
                     ((JMenuItem)menus[i].elementAt(j)).setAccelerator(null);
 
-                    String strShortCut = (String)this.shortCutmap.get(((JMenuItem)menus[i].elementAt(j)).getText());
+                    String strShortCut = (String)this.shortCutmap.get(((JMenuItem)menus[i].elementAt(j)).getName());
 
                     if (strShortCut != null) {
                         int iMode = Integer.parseInt(strShortCut.substring(0, strShortCut.indexOf(" ")));
@@ -160,6 +161,7 @@ OUT:
                     ((ShortcutsBuilder.KeyStrokeRecord)strokes[i].get(j)).reset();
                 }
             }
+            */
 
             /**
              * refresh GUI
@@ -215,7 +217,10 @@ OUT:
         try {
             ((JMenuItem)menus[index1].elementAt(index2)).setAccelerator(null);
 
-            String strShortCut = (String)this.shortCutmap.get(((JMenuItem)menus[index1].elementAt(index2)).getText());
+            // this does not really work for sub menu entries, as we don't identify the parent here
+            // TODO: get the partent->item here
+
+            String strShortCut = (String)this.builder.getDefaultMap().get(((JMenuItem)menus[index1].elementAt(index2)).getName());
 
             if (strShortCut != null) {
                 int iMode = Integer.parseInt(strShortCut.substring(0, strShortCut.indexOf(" ")));
