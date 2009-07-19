@@ -20,42 +20,7 @@ import javax.swing.event.*;
 public class CustomKeyboard extends JDialog implements ListSelectionListener {
     //extends DefaultCustomKeyboard {
     private static final Logger logger = Logger.getLogger(CustomKeyboard.class.getName());
-    static HashMap shortCutmap = new HashMap();
-
-    static {
-        shortCutmap.put("Open", "130 79");
-        shortCutmap.put("Save", "130 83");
-        shortCutmap.put("Close", "520 67");
-        shortCutmap.put("Print...", "130 80");
-        shortCutmap.put("Exit", "520 88");
-        shortCutmap.put("Undo", "130 90");
-        shortCutmap.put("Redo", "130 89");
-        shortCutmap.put("Cut", "130 88");
-        shortCutmap.put("Copy", "130 67");
-        shortCutmap.put("Paste", "130 86");
-        shortCutmap.put("Transfer", "130 70");
-        shortCutmap.put("Copy Source", "520 92");
-        shortCutmap.put("Copy Source Tags", "520 52");
-        shortCutmap.put("Clear Target", "520 127");
-        shortCutmap.put("Mark Segment As->Translated", "520 49");
-        shortCutmap.put("Mark Segment As->Verified", "0 116");
-        shortCutmap.put("Mark Segment As->Untranslated", "0 120");
-        shortCutmap.put("Confirm and Translate Next", "520 61");
-        shortCutmap.put("Confirm and Verify Next", "520 116");
-        shortCutmap.put("Search/Replace", "0 115");
-        shortCutmap.put("Next Segment", "130 40");
-        shortCutmap.put("Previous Segment", "130 38");
-        shortCutmap.put("Go To Top", "130 36");
-        shortCutmap.put("Go To Bottom", "130 35");
-        shortCutmap.put("Page Up", "0 33");
-        shortCutmap.put("Page Down", "0 34");
-        shortCutmap.put("Go To Segment...", "130 71");
-        shortCutmap.put("Tag Verification", "130 84");
-        shortCutmap.put("Spell Checking", "0 118");
-        shortCutmap.put("Update Mini-TM", "130 85");
-        shortCutmap.put("Maintain Mini-TM", "130 77");
-        shortCutmap.put("Tag Protection", "520 80");
-    }
+    private HashMap shortCutmap;
 
     Border border1;
     TitledBorder titledBorder1;
@@ -103,6 +68,8 @@ public class CustomKeyboard extends JDialog implements ListSelectionListener {
         this.commands = builder.getCommands();
         this.menus = builder.getMenus();
         this.strokes = builder.getStrokes();
+        this.shortCutmap = new HashMap();
+        builder.setDefaults(shortCutmap);
 
         initGUI();
     }

@@ -1293,10 +1293,12 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         /**
          * File Menu
          */
+        menuFile.setName("File");
         menuFile.setText(bundle.getString("File"));
         menuFile.setMnemonic('F');
 
-        jMenuNewProject.setText(bundle.getString("New_Project..."));
+        jMenuNewProject.setName("New_Project...");
+        jMenuNewProject.setText(bundle.getString(jMenuNewProject.getName()));
         jMenuNewProject.setMnemonic('N');
         jMenuNewProject.setToolTipText(bundle.getString("Create_a_new_project"));
         jMenuNewProject.addActionListener(new ActionListener() {
@@ -1307,6 +1309,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         
             
 
+        jMenuOpenProject.setName("Open_Project...");
         jMenuOpenProject.setText(bundle.getString("Open_Project..."));
         jMenuOpenProject.setMnemonic('J');
         jMenuOpenProject.setToolTipText(bundle.getString("Open_a_project"));
@@ -1315,33 +1318,37 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     jMenuOpenProject_actionPerformed(e);
                 }
             });
+        jMenuOpen.setName("Open");
+        jMenuOpen.setText(bundle.getString("Open"));
         jMenuOpen.setToolTipText(bundle.getString("Open_a_.xlz_or_.xlf_file..."));
         jMenuOpen.setMnemonic('O');
-        jMenuOpen.setText(bundle.getString("Open"));
         jMenuOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
         jMenuOpen.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuOpen_actionPerformed(e);
                 }
             });
+        jMenuSave.setName("Save");
+        jMenuSave.setText(bundle.getString("Save"));
         jMenuSave.setToolTipText(bundle.getString("Save_the_current_file..."));
         jMenuSave.setMnemonic('S');
-        jMenuSave.setText(bundle.getString("Save"));
         jMenuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
         jMenuSave.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuSave_actionPerformed(e);
                 }
             });
+        jMenuSaveAs.setName("Save_As...");
+        jMenuSaveAs.setText(bundle.getString("Save_As..."));
         jMenuSaveAs.setToolTipText(bundle.getString("Save_as_another_file..."));
         jMenuSaveAs.setMnemonic('A');
-        jMenuSaveAs.setText(bundle.getString("Save_As..."));
         jMenuSaveAs.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuSaveAs_actionPerformed(e);
                 }
             });
         jMenuSaveMiniTM.setToolTipText(bundle.getString("Save_the_current_MiniTM_file..."));
+        jMenuSaveMiniTM.setName("Save_Mini-TM");
         jMenuSaveMiniTM.setText(bundle.getString("Save_Mini-TM"));
         jMenuSaveMiniTM.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1350,6 +1357,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jMenuClose.setToolTipText(bundle.getString("Close_the_current_file"));
         jMenuClose.setMnemonic('C');
+        jMenuClose.setName("Close");
         jMenuClose.setText(bundle.getString("Close"));
         jMenuClose.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1358,6 +1366,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jMenuPrintOptions.setToolTipText(bundle.getString("Define_format_of_print-out"));
         jMenuPrintOptions.setMnemonic('r');
+        jMenuPrintOptions.setName("Print_Options...");
         jMenuPrintOptions.setText(bundle.getString("Print_Options..."));
         jMenuPrintOptions.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1365,6 +1374,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuPrint.setToolTipText(bundle.getString("Print_the_current_file"));
+        jMenuPrint.setName("Print...");
         jMenuPrint.setText(bundle.getString("Print..."));
         jMenuPrint.setMnemonic('P');
         jMenuPrint.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_MASK));
@@ -1378,6 +1388,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jMenuExit.setToolTipText(bundle.getString("Exit_the_editor"));
         jMenuExit.setMnemonic('X');
+        jMenuExit.setName("Exit");
         jMenuExit.setText(bundle.getString("Exit"));
         jMenuExit.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1389,6 +1400,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
          * Edit Menu
          */
         menuEdit.setMnemonic('E');
+        menuEdit.setName("Edit");
         menuEdit.setText(bundle.getString("Edit"));
 
         jMenuUndo.setName("Undo");
@@ -1402,6 +1414,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuRedo.setMnemonic('R');
+        jMenuRedo.setName("Redo");
         jMenuRedo.setText(bundle.getString("Redo"));
         jMenuRedo.setToolTipText(bundle.getString("Redo_the_last_operation"));
         jMenuRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_MASK));
@@ -1411,6 +1424,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuCut.setMnemonic('T');
+        jMenuCut.setName("Cut");
         jMenuCut.setText(bundle.getString("Cut"));
         jMenuCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_MASK));
         jMenuCut.setToolTipText(bundle.getString("Cut"));
@@ -1420,6 +1434,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuCopy.setMnemonic('C');
+        jMenuCopy.setName("Copy");
         jMenuCopy.setText(bundle.getString("Copy"));
         jMenuCopy.setToolTipText(bundle.getString("Copy"));
         jMenuCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_MASK));
@@ -1429,6 +1444,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuPaste.setMnemonic('P');
+        jMenuPaste.setName("Paste");
         jMenuPaste.setText(bundle.getString("Paste"));
         jMenuPaste.setToolTipText(bundle.getString("Paste"));
         jMenuPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_MASK));
@@ -1438,6 +1454,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuTransfer.setToolTipText(bundle.getString("Transfer_selected_match_to_target_window"));
+        jMenuTransfer.setName("Transfer");
         jMenuTransfer.setText(bundle.getString("Transfer"));
         jMenuTransfer.setMnemonic('F');
         jMenuTransfer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK));
@@ -1447,6 +1464,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuUntransfer.setMnemonic('S');
+        jMenuUntransfer.setName("Untransfer");
         jMenuUntransfer.setText(bundle.getString("Untransfer"));
         jMenuUntransfer.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1455,6 +1473,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuCopySource.setToolTipText(bundle.getString("Copy_source_segment_to_target_segment"));
+        jMenuCopySource.setName("Copy_Source");
         jMenuCopySource.setText(bundle.getString("Copy_Source"));
         jMenuCopySource.setMnemonic('O');
         jMenuCopySource.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, KeyEvent.ALT_MASK));
@@ -1464,6 +1483,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuCopySourceTag.setToolTipText(bundle.getString("Copy_source_tags_to_target_segment"));
+        jMenuCopySourceTag.setName("Copy_Source_Tags");
         jMenuCopySourceTag.setText(bundle.getString("Copy_Source_Tags"));
         jMenuCopySourceTag.setMnemonic('G');
         jMenuCopySourceTag.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, KeyEvent.ALT_MASK));
@@ -1473,6 +1493,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuClearTarget.setToolTipText(bundle.getString("Delete_target_segment_text"));
+        jMenuClearTarget.setName("Clear_Target");
         jMenuClearTarget.setText(bundle.getString("Clear_Target"));
         jMenuClearTarget.setMnemonic('L');
         jMenuClearTarget.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, KeyEvent.ALT_MASK));
@@ -1482,11 +1503,13 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
 
+        jMenuMarkSeg.setName("Mark_Segment_As");
         jMenuMarkSeg.setText(bundle.getString("Mark_Segment_As"));
         jMenuMarkSeg.setMnemonic('M');
 
         jMenuMarkSegTrans.setToolTipText(bundle.getString("Mark_current_segment_as_translated"));
         jMenuMarkSegTrans.setEnabled(false);
+        jMenuMarkSegTrans.setName("Translated");
         jMenuMarkSegTrans.setText(bundle.getString("Translated"));
         jMenuMarkSegTrans.setMnemonic('T');
         jMenuMarkSegTrans.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.ALT_MASK));
@@ -1496,6 +1519,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuMarkSegUnTrans.setToolTipText(bundle.getString("Mark_current_segment_as_untranslated"));
+        jMenuMarkSegUnTrans.setName("Untranslated");
         jMenuMarkSegUnTrans.setText(bundle.getString("Untranslated"));
         jMenuMarkSegUnTrans.setMnemonic('U');
         jMenuMarkSegUnTrans.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0));
@@ -1508,6 +1532,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
         //  Changes for the review process
         jMenuMarkSegReviewed.setToolTipText(bundle.getString("Mark_current_segment_as_approved"));
+        jMenuMarkSegReviewed.setName("Approved");
         jMenuMarkSegReviewed.setText(bundle.getString("Approved"));
         jMenuMarkSegReviewed.setMnemonic('A');
         jMenuMarkSegReviewed.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
@@ -1515,16 +1540,19 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuMarkSegReviewed.addActionListener(new ApproveSegmentCommand(this));
 
         jMenuMarkSegRejected.setToolTipText(bundle.getString("Mark_current_segment_as_rejected"));
+        jMenuMarkSegRejected.setName("Rejected");
         jMenuMarkSegRejected.setText(bundle.getString("Rejected"));
         jMenuMarkSegRejected.setMnemonic('A');
         jMenuMarkSegRejected.setEnabled(false);
         jMenuMarkSegRejected.addActionListener(new RejectSegmentCommand(this));
 
         //  End review process changes
+        jMenuMarkExactMatch.setName("Mark_All_100%_Matches_As");
         jMenuMarkExactMatch.setText(bundle.getString("Mark_All_100%_Matches_As"));
         jMenuMarkExactMatch.setMnemonic('A');
 
         jMenuMarkExactMatchTrans.setToolTipText(bundle.getString("Mark_all_100%_matches_as_translated"));
+        jMenuMarkExactMatchTrans.setName("Translated");
         jMenuMarkExactMatchTrans.setText(bundle.getString("Translated"));
         jMenuMarkExactMatchTrans.setMnemonic('T');
         jMenuMarkExactMatchTrans.addActionListener(new ActionListener() {
@@ -1535,20 +1563,24 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
         //  Changes for the review process
         jMenuMarkExactMatchReviewed.setToolTipText(bundle.getString("Mark_all_100%_matches_as_approved"));
+        jMenuMarkExactMatchReviewed.setName("Approved");
         jMenuMarkExactMatchReviewed.setText(bundle.getString("Approved"));
         jMenuMarkExactMatchReviewed.setMnemonic('A');
         jMenuMarkExactMatchReviewed.addActionListener(new ApproveAllExactMatchSegmentsCommand(this));
 
         jMenuMarkExactMatchRejected.setToolTipText(bundle.getString("Mark_all_100%_matches_as_rejected"));
+        jMenuMarkExactMatchRejected.setName("Rejected");
         jMenuMarkExactMatchRejected.setText(bundle.getString("Rejected"));
         jMenuMarkExactMatchRejected.setMnemonic('R');
         jMenuMarkExactMatchRejected.addActionListener(new RejectAllExactMatchSegmentsCommand(this));
 
         //  End changes for the review process
+        jMenuMarkAllSeg.setName("Mark_All_Segments_As");
         jMenuMarkAllSeg.setText(bundle.getString("Mark_All_Segments_As"));
         jMenuMarkAllSeg.setMnemonic('K');
 
         jMenuMarkAllSegTrans.setToolTipText(bundle.getString("Mark_all_segments_as_translated"));
+        jMenuMarkAllSegTrans.setName("Translated");
         jMenuMarkAllSegTrans.setText(bundle.getString("Translated"));
         jMenuMarkAllSegTrans.setMnemonic('T');
         jMenuMarkAllSegTrans.addActionListener(new ActionListener() {
@@ -1559,16 +1591,19 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
         //  Changes for the new review process
         jMenuMarkAllSegReviewed.setToolTipText(bundle.getString("Mark_all_segments_as_approved"));
+        jMenuMarkAllSegReviewed.setName("Approved");
         jMenuMarkAllSegReviewed.setText(bundle.getString("Approved"));
         jMenuMarkAllSegReviewed.setMnemonic('A');
         jMenuMarkAllSegReviewed.addActionListener(new ApproveAllTranslatedSegmentsCommand(this));
 
         jMenuMarkAllSegRejected.setToolTipText(bundle.getString("Mark_all_segments_as_rejected"));
+        jMenuMarkAllSegRejected.setName("Rejected");
         jMenuMarkAllSegRejected.setText(bundle.getString("Rejected"));
         jMenuMarkAllSegRejected.setMnemonic('R');
         jMenuMarkAllSegRejected.addActionListener(new RejectAllTranslatedSegmentsCommand(this));
 
         //  End the changes for the new rview process
+        jMenuMarkTranslatedAndNext.setName("Confirm_and_Translate_Next");
         jMenuMarkTranslatedAndNext.setText(bundle.getString("Confirm_and_Translate_Next"));
         jMenuMarkTranslatedAndNext.setMnemonic('N');
         jMenuMarkTranslatedAndNext.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.ALT_MASK));
@@ -1578,18 +1613,22 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     jMenuMarkTranslatedAndNext_actionPerformed(e);
                 }
             });
+        jMenuMarkReviewedAndNext.setName("Approve_and_go_to_Next_Translated");
         jMenuMarkReviewedAndNext.setText(bundle.getString("Approve_and_go_to_Next_Translated"));
         jMenuMarkReviewedAndNext.setToolTipText(bundle.getString("Mark_current_segment_as_approved_and_go_to_next"));
         jMenuMarkReviewedAndNext.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, KeyEvent.CTRL_MASK));
         jMenuMarkReviewedAndNext.addActionListener(commandApproveAndGotoNext);
 
+        jMenuMarkRejectedAndNext.setName("Reject_and_go_to_Next_Translated");
         jMenuMarkRejectedAndNext.setText(bundle.getString("Reject_and_go_to_Next_Translated"));
         jMenuMarkRejectedAndNext.setToolTipText(bundle.getString("Mark_current_segment_as_rejected_and_go_to_next"));
         jMenuMarkRejectedAndNext.addActionListener(commandRejectAndGotoNext);
 
         jMenuSegComment.setToolTipText(bundle.getString("Comment_on_Segment"));
+        jMenuSegComment.setName("Comment_on_Segment");
         jMenuSegComment.setText(bundle.getString("Comment_on_Segment"));
 
+        jMenuFileComment.setName("Comment_on_File");
         jMenuFileComment.setText(bundle.getString("Comment_on_File"));
         jMenuFileComment.setToolTipText(bundle.getString("File_level_comment"));
         jMenuFileComment.setMnemonic('I');
@@ -1600,6 +1639,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jMenuAddComment.setToolTipText(bundle.getString("Add_Comment"));
         jMenuAddComment.setMnemonic('A');
+        jMenuAddComment.setName("Add_Comment");
         jMenuAddComment.setText(bundle.getString("Add_Comment"));
         jMenuAddComment.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1608,6 +1648,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jMenuEditComment.setToolTipText(bundle.getString("Edit_Comment"));
         jMenuEditComment.setMnemonic('E');
+        jMenuEditComment.setName("Edit_Comment");
         jMenuEditComment.setText(bundle.getString("Edit_Comment"));
         jMenuEditComment.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1616,12 +1657,14 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jMenuDeleteComment.setToolTipText(bundle.getString("Delete_Comment"));
         jMenuDeleteComment.setMnemonic('D');
+        jMenuDeleteComment.setName("Delete_Comment");
         jMenuDeleteComment.setText(bundle.getString("Delete_Comment"));
         jMenuDeleteComment.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuDeleteComment_actionPerformed(e);
                 }
             });
+        jMenuSearch.setName("Search/Replace");
         jMenuSearch.setText(bundle.getString("Search/Replace"));
         jMenuSearch.setMnemonic('E');
         jMenuSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
@@ -1633,14 +1676,17 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         /**
-         * Veiw Menu
+         * View Menu
          */
         menuView.setMnemonic('V');
+        menuView.setName("View");
         menuView.setText(bundle.getString("View"));
 
+        jMenuShowOption.setName("Toolbar");
         jMenuShowOption.setText(bundle.getString("Toolbar"));
         jMenuShowOption.setMnemonic('T');
         jCBMenuFile.setToolTipText(bundle.getString("Show/hide_file_functions_in_toolbar"));
+        jCBMenuFile.setName("File");
         jCBMenuFile.setText(bundle.getString("File"));
         jCBMenuFile.setMnemonic('F');
         jCBMenuFile.addActionListener(new ActionListener() {
@@ -1649,6 +1695,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuEditing.setToolTipText(bundle.getString("Show/hide_edit_functions_in_toolbar"));
+        jCBMenuEditing.setName("Edit");
         jCBMenuEditing.setText(bundle.getString("Edit"));
         jCBMenuEditing.setMnemonic('E');
         jCBMenuEditing.addActionListener(new ActionListener() {
@@ -1657,6 +1704,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuSearch.setToolTipText(bundle.getString("Show/hide_navigation_functions_in_toolbar"));
+        jCBMenuSearch.setName("Navigation");
         jCBMenuSearch.setText(bundle.getString("Navigation"));
         jCBMenuSearch.setName("Navigation");
         jCBMenuSearch.setMnemonic('N');
@@ -1666,6 +1714,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuNavi.setToolTipText(bundle.getString("Show/hide_tool_functions_in_toolbar"));
+        jCBMenuNavi.setName("Tools");
         jCBMenuNavi.setText(bundle.getString("Tools"));
         jCBMenuNavi.setMnemonic('T');
         jCBMenuNavi.addActionListener(new ActionListener() {
@@ -1674,6 +1723,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuHelp.setToolTipText(bundle.getString("Show/hide_help_function_in_toolbar"));
+        jCBMenuHelp.setName("Help");
         jCBMenuHelp.setText(bundle.getString("Help"));
         jCBMenuHelp.setMnemonic('P');
         jCBMenuHelp.addActionListener(new ActionListener() {
@@ -1682,6 +1732,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuItemShowAll.setToolTipText(bundle.getString("Show_all_functions_in_toolbar"));
+        jMenuItemShowAll.setName("Show_All");
         jMenuItemShowAll.setText(bundle.getString("Show_All"));
         jMenuItemShowAll.setMnemonic('S');
         jMenuItemShowAll.addActionListener(new ActionListener() {
@@ -1691,6 +1742,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuItemHideAll.setToolTipText(bundle.getString("Hide_all_functions_in_toolbar"));
+        jMenuItemHideAll.setName("Hide_All");
         jMenuItemHideAll.setText(bundle.getString("Hide_All"));
         jMenuItemHideAll.setMnemonic('H');
         jMenuItemHideAll.addActionListener(new ActionListener() {
@@ -1699,6 +1751,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuSearchBar.setToolTipText(bundle.getString("Show/hide_search_bar"));
+        jCBMenuSearchBar.setName("Search_Bar");
         jCBMenuSearchBar.setText(bundle.getString("Search_Bar"));
         jCBMenuSearchBar.setMnemonic('S');
         jCBMenuSearchBar.addActionListener(new ActionListener() {
@@ -1707,6 +1760,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuMatchWindow.setToolTipText(bundle.getString("Show/hide_match_window"));
+        jCBMenuMatchWindow.setName("Match_Window");
         jCBMenuMatchWindow.setText(bundle.getString("Match_Window"));
         jCBMenuMatchWindow.setMnemonic('M');
         jCBMenuMatchWindow.addActionListener(new ActionListener() {
@@ -1715,6 +1769,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuAttributes.setToolTipText(bundle.getString("Show/Hide_TM_attributes_information"));
+        jCBMenuAttributes.setName("Attributes");
         jCBMenuAttributes.setText(bundle.getString("Attributes"));
         jCBMenuAttributes.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1723,6 +1778,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jCBMenuSourceContext.setToolTipText(bundle.getString("Show/Hide_Source_context_information"));
+        jCBMenuSourceContext.setName("Source_Context");
         jCBMenuSourceContext.setText(bundle.getString("Source_Context"));
         jCBMenuSourceContext.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1732,6 +1788,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
         jMenuColor.setToolTipText(bundle.getString("Set_the_colors_used_in_the_editor_windows"));
         jMenuColor.setActionCommand(bundle.getString("Color..."));
+        jMenuColor.setName("Color...");
         jMenuColor.setText(bundle.getString("Color..."));
         jMenuColor.setMnemonic('C');
         jMenuColor.setEnabled(false);
@@ -1742,6 +1799,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jMenuFonts.setToolTipText(bundle.getString("Set_the_font_used_in_the_editor_windows"));
         jMenuFonts.setActionCommand(bundle.getString("SetFonts"));
+        jMenuFonts.setName("Fonts...");
         jMenuFonts.setText(bundle.getString("Fonts..."));
         jMenuFonts.setMnemonic('F');
         jMenuFonts.setEnabled(true);
@@ -1752,11 +1810,14 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jCBMenuSHTag.setEnabled(false);
         jCBMenuSHTag.setToolTipText(bundle.getString("Show/hide_tags_in_editor_windows"));
+        jCBMenuSHTag.setName("Tags");
         jCBMenuSHTag.setText(bundle.getString("Tags"));
         jCBMenuAbbrTagsDisplay.setEnabled(false);
         jCBMenuAbbrTagsDisplay.setToolTipText(bundle.getString("Switch_on/off_abbreviated_tags"));
+        jCBMenuAbbrTagsDisplay.setName("Abbreviated_Tags");
         jCBMenuAbbrTagsDisplay.setText(bundle.getString("Abbreviated_Tags"));
         jCBMenuTagProtection.setToolTipText(bundle.getString("Switch_on/off_tag_protection"));
+        jCBMenuTagProtection.setName("Tag_Protection");
         jCBMenuTagProtection.setText(bundle.getString("Tag_Protection"));
         jCBMenuTagProtection.setMnemonic('T');
         jCBMenuTagProtection.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.ALT_MASK));
@@ -1766,9 +1827,11 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     jCBMenuTagProtection_actionPerformed(e);
                 }
             });
+        jMenuHOrV.setName("Window_Arrangment");
         jMenuHOrV.setText(bundle.getString("Window_Arrangment"));
         jMenuHOrV.setMnemonic('W');
 
+        jMenuHor.setName("Side_by_side");
         jMenuHor.setText(bundle.getString("Side_by_side"));
         jMenuHor.setMnemonic('S');
         jMenuHor.setToolTipText(bundle.getString("Arrange_windows_veritically"));
@@ -1778,6 +1841,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuVer.setToolTipText(bundle.getString("Arrange_windows_horizontally"));
+        jMenuVer.setName("Over/under");
         jMenuVer.setText(bundle.getString("Over/under"));
         jMenuVer.setMnemonic('O');
         jMenuVer.addActionListener(new ActionListener() {
@@ -1790,9 +1854,11 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
          * Navigation Menu
          */
         menuNavigation.setMnemonic('N');
+        menuNavigation.setName("Navigation");
         menuNavigation.setText(bundle.getString("Navigation"));
 
         jMenuNaviNextOption.setToolTipText(bundle.getString("Go_to_next_segment_of_specified_type"));
+        jMenuNaviNextOption.setName("Next_Segment");
         jMenuNaviNextOption.setText(bundle.getString("Next_Segment"));
         jMenuNaviNextOption.setMnemonic('N');
         jMenuNaviNextOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.CTRL_MASK));
@@ -1803,6 +1869,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuNaviPrevOption.setToolTipText(bundle.getString("Go_to_previous_segment_of_specified_type"));
+        jMenuNaviPrevOption.setName("Previous_Segment");
         jMenuNaviPrevOption.setText(bundle.getString("Previous_Segment"));
         jMenuNaviPrevOption.setMnemonic('P');
         jMenuNaviPrevOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.CTRL_MASK));
@@ -1813,6 +1880,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuNaviNextMultiple100MatchOption.setToolTipText(bundle.getString("Navigate_to_the_next_multiple_100%_segment"));
+        jMenuNaviNextMultiple100MatchOption.setName("Next_Multiple_100%_Match");
         jMenuNaviNextMultiple100MatchOption.setText(bundle.getString("Next_Multiple_100%_Match"));
         jMenuNaviNextMultiple100MatchOption.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1821,6 +1889,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuNaviPrevMultiple100MatchOption.setToolTipText(bundle.getString("Navigate_to_the_previous_multiple_100%_segment"));
+        jMenuNaviPrevMultiple100MatchOption.setName("Previous_Multiple_100%_Match");
         jMenuNaviPrevMultiple100MatchOption.setText(bundle.getString("Previous_Multiple_100%_Match"));
         jMenuNaviPrevMultiple100MatchOption.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1829,6 +1898,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuNaviGotoTop.setToolTipText(bundle.getString("Navigate_to_the_top_of_the_current_file"));
+        jMenuNaviGotoTop.setName("Go_To_Top");
         jMenuNaviGotoTop.setText(bundle.getString("Go_To_Top"));
         jMenuNaviGotoTop.setMnemonic('T');
         jMenuNaviGotoTop.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_HOME, KeyEvent.CTRL_MASK));
@@ -1839,6 +1909,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuNaviGotoBottom.setToolTipText(bundle.getString("Navigate_to_the_bottom_of_the_current_file"));
+        jMenuNaviGotoBottom.setName("Go_To_Bottom");
         jMenuNaviGotoBottom.setText(bundle.getString("Go_To_Bottom"));
         jMenuNaviGotoBottom.setMnemonic('B');
         jMenuNaviGotoBottom.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_END, KeyEvent.CTRL_MASK));
@@ -1849,6 +1920,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuNaviPageUp.setToolTipText(bundle.getString("Scroll_to_top_of_page"));
+        jMenuNaviPageUp.setName("Page_Up");
         jMenuNaviPageUp.setText(bundle.getString("Page_Up"));
         jMenuNaviPageUp.setMnemonic('U');
         jMenuNaviPageUp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP, KeyEvent.CTRL_MASK));
@@ -1859,6 +1931,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuNaviPageDown.setToolTipText(bundle.getString("Scroll_to_bottom_of_page"));
+        jMenuNaviPageDown.setName("Page_Down");
         jMenuNaviPageDown.setText(bundle.getString("Page_Down"));
         jMenuNaviPageDown.setMnemonic('D');
         jMenuNaviPageDown.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN, KeyEvent.CTRL_MASK));
@@ -1869,6 +1942,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jMenuNaviGoto.setToolTipText(bundle.getString("Go_to_segment_with_specified_number"));
+        jMenuNaviGoto.setName("Go_To_Segment...");
         jMenuNaviGoto.setText(bundle.getString("Go_To_Segment..."));
         jMenuNaviGoto.setMnemonic('S');
         jMenuNaviGoto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_MASK));
@@ -1882,7 +1956,9 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
          * Tools Menu
          */
         menuTools.setMnemonic('T');
+        menuTools.setName("Tools");
         menuTools.setText(bundle.getString("Tools"));
+        jMenuTagVerify.setName("Tag_Verification");
         jMenuTagVerify.setText(bundle.getString("Tag_Verification"));
         jMenuTagVerify.setMnemonic('V');
         jMenuTagVerify.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_MASK));
@@ -1892,6 +1968,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     jMenuTagVerify_actionPerformed(e);
                 }
             });
+        jMenuSpellCheck.setName("Spell_Checking");
         jMenuSpellCheck.setText(bundle.getString("Spell_Checking"));
         jMenuSpellCheck.setMnemonic('S');
         jMenuSpellCheck.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F7, 0));
@@ -1902,6 +1979,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuUpdateMiniTM.setToolTipText(bundle.getString("Update_mini-TM_with_current_segment"));
+        jMenuUpdateMiniTM.setName("Update_Mini-TM");
         jMenuUpdateMiniTM.setText(bundle.getString("Update_Mini-TM"));
         jMenuUpdateMiniTM.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_MASK));
         jMenuUpdateMiniTM.setMnemonic('U');
@@ -1911,6 +1989,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuMaintainMiniTM.setToolTipText(bundle.getString("Edit_mini-TM"));
+        jMenuMaintainMiniTM.setName("Maintain_Mini-TM");
         jMenuMaintainMiniTM.setText(bundle.getString("Maintain_Mini-TM"));
         jMenuMaintainMiniTM.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_MASK));
         jMenuMaintainMiniTM.setMnemonic('M');
@@ -1921,6 +2000,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
             
         jMenuSearchMiniTM.setToolTipText(bundle.getString("Search_mini-TM"));
+        jMenuSearchMiniTM.setName("Search_Mini-TM");
         jMenuSearchMiniTM.setText(bundle.getString("Search_Mini-TM"));
         jMenuSearchMiniTM.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.ALT_MASK));
         jMenuSearchMiniTM.setMnemonic('S');
@@ -1931,6 +2011,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
             
         jMenuMergeMiniTM.setToolTipText(bundle.getString("Merge_two_or_more_mini-TMs"));
+        jMenuMergeMiniTM.setName("Merge_Mini-TMs");
         jMenuMergeMiniTM.setText(bundle.getString("Merge_Mini-TMs"));
         jMenuMergeMiniTM.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1938,6 +2019,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuConvert.setToolTipText(bundle.getString("Convert_the_current_.xlz_file_to_original_format"));
+        jMenuConvert.setName("Convert_To_Original...");
         jMenuConvert.setText(bundle.getString("Convert_To_Original..."));
         jMenuConvert.setMnemonic('O');
         jMenuConvert.setEnabled(true);
@@ -1950,6 +2032,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         //  New menu items - 29 sept 2003 - file merging and splitting
         jMenuSplitXliff = new JMenuItem();
         jMenuSplitXliff.setToolTipText(bundle.getString("Split_a_.xlz_file_into_smaller_files_to_make_editing_easier."));
+        jMenuSplitXliff.setName("Split_XLIFF_file...");
         jMenuSplitXliff.setText(bundle.getString("Split_XLIFF_file..."));
         jMenuSplitXliff.setEnabled(true);
         jMenuSplitXliff.addActionListener(new ActionListener() {
@@ -1959,6 +2042,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
         jMenuMergeXliff = new JMenuItem();
         jMenuMergeXliff.setToolTipText(bundle.getString("Merge_a_split_.xlz_file_back_to_its_original_format"));
+        jMenuMergeXliff.setName("Merge_a_split_XLIFF_file...");
         jMenuMergeXliff.setText(bundle.getString("Merge_a_split_XLIFF_file..."));
         jMenuMergeXliff.setEnabled(true);
         jMenuMergeXliff.addActionListener(new ActionListener() {
@@ -1971,10 +2055,12 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         /**
          * Option Menu
          */
+        optionMenu.setName("Options");
         optionMenu.setText(bundle.getString("Options"));
         optionMenu.setMnemonic('O');
 
         jCheckBoxMenuUpdateTags.setToolTipText(bundle.getString("Switch_on/off_update_tags"));
+        jCheckBoxMenuUpdateTags.setName("Update_Tags");
         jCheckBoxMenuUpdateTags.setText(bundle.getString("Update_Tags"));
         jCheckBoxMenuUpdateTags.setMnemonic('U');
         jCheckBoxMenuUpdateTags.addActionListener(new ActionListener() {
@@ -1983,6 +2069,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuSynScrolling.setToolTipText(bundle.getString("Switch_on/off_synchronized_scrolling"));
+        jCBMenuSynScrolling.setName("Synchronized_Scrolling");
         jCBMenuSynScrolling.setText(bundle.getString("Synchronized_Scrolling"));
         jCBMenuSynScrolling.setMnemonic('S');
         jCBMenuSynScrolling.addActionListener(new ActionListener() {
@@ -1992,6 +2079,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             });
 
         jCBMenuWriteProtection.setToolTipText(bundle.getString("Switch_on/off_source_write_protection"));
+        jCBMenuWriteProtection.setName("Source_Write_Protection");
         jCBMenuWriteProtection.setText(bundle.getString("Source_Write_Protection"));
         jCBMenuWriteProtection.setMnemonic('W');
         jCBMenuWriteProtection.addActionListener(new ActionListener() {
@@ -2000,6 +2088,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jCBMenuTagVerifyIgnoreOrder.setToolTipText(bundle.getString("Ignores_order_of_tags_during_verification"));
+        jCBMenuTagVerifyIgnoreOrder.setName("Ignore_Tag_Order");
         jCBMenuTagVerifyIgnoreOrder.setText(bundle.getString("Ignore_Tag_Order"));
         jCBMenuTagVerifyIgnoreOrder.setMnemonic('I');
         jCBMenuTagVerifyIgnoreOrder.addActionListener(new ActionListener() {
@@ -2007,6 +2096,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     jCBMenuTagVerifyIgnoreOrder_actionPerformed(e);
                 }
             });
+        jCBMenuAutoPropagate.setName("Autopropagate");
         jCBMenuAutoPropagate.setText(bundle.getString("Autopropagate"));
         jCBMenuAutoPropagate.setMnemonic('P');
         jCBMenuAutoPropagate.setToolTipText(bundle.getString("Translate_repetitions_automatically"));
@@ -2016,6 +2106,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
         jMenuAutoSave.setToolTipText(bundle.getString("Set_the_autosave_properties"));
+        jMenuAutoSave.setName("Autosave...");
         jMenuAutoSave.setText(bundle.getString("Autosave..."));
         jMenuAutoSave.setMnemonic('O');
         jMenuAutoSave.addActionListener(new ActionListener() {
@@ -2023,6 +2114,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     jMenuAutoSave_actionPerformed(e);
                 }
             });
+        jMenuShortcutOption.setName("Customize_Shortcuts...");
         jMenuShortcutOption.setText(bundle.getString("Customize_Shortcuts..."));
         jMenuShortcutOption.setToolTipText(bundle.getString("Customize_shortcuts..."));
         jMenuShortcutOption.addActionListener(new ActionListener() {
@@ -2031,6 +2123,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
 
+        jMenuSpellCheckerOption.setName("Spellchecker_Options...");
         jMenuSpellCheckerOption.setText(bundle.getString("Spellchecker_Options..."));
         jMenuSpellCheckerOption.setToolTipText(bundle.getString("Spellchecker_Options..."));
         jMenuSpellCheckerOption.addActionListener(new ActionListener() {
@@ -2042,12 +2135,15 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         /**
          * Help Menu
          */
+        menuHelp.setName("Help");
         menuHelp.setText(bundle.getString("Help"));
         menuHelp.setMnemonic('H');
 
+        jMenuHelpIndex.setName("Index...");
         jMenuHelpIndex.setText(bundle.getString("Index..."));
         jMenuHelpIndex.setMnemonic('I');
 
+        jMenuHelpLicense.setName("License...");
         jMenuHelpLicense.setText(bundle.getString("License..."));
         jMenuHelpLicense.setMnemonic('L');
         jMenuHelpLicense.setToolTipText(bundle.getString("Display_editor_license"));
@@ -2057,6 +2153,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
 
+        jMenuHelpAbout.setName("About");
         jMenuHelpAbout.setText(bundle.getString("About"));
         jMenuHelpAbout.setMnemonic('A');
         jMenuHelpAbout.setToolTipText(bundle.getString("About_the_editor..."));

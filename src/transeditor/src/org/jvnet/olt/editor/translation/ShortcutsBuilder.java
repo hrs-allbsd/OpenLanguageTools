@@ -18,6 +18,7 @@ import java.awt.Component;
 import java.awt.event.KeyEvent;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -76,12 +77,62 @@ public class ShortcutsBuilder {
 
             instance = this;
         }
-
+        if (menuMap.isEmpty())
+            setDefaults(menuMap);
         this.menuMap = menuMap;
         this.menuBar = menuBar;
     }
 
-    private void insertCommands(JMenu menu, Vector v, Vector mV, Vector stroke, String parent) {
+    /** Gets a map of default shortcuts */
+    public void setDefaults(Map defaultMap) {
+  
+        defaultMap.put("Approve_and_go_to_Next_Translated", "130 10");
+        defaultMap.put("Close", "130 87");
+        defaultMap.put("Comment_on_Segment" + "->" + "Add_Comment", "650 78");
+        defaultMap.put("Comment_on_Segment" + "->" + "Delete_Comment", "650 77");
+        defaultMap.put("Comment_on_Segment" + "->" + "Edit_Comment", "650 66");
+        defaultMap.put("Confirm_and_Translate_Next", "520 10");
+        defaultMap.put("Copy", "130 67");
+        defaultMap.put("Copy_Source", "520 155");
+        defaultMap.put("Copy_Source_Tags", "585 155");
+        defaultMap.put("Cut", "130 88");
+        defaultMap.put("Exit", "130 81");
+        defaultMap.put("Go_To_Bottom", "130 35");
+        defaultMap.put("Go_To_Segment...", "130 71");
+        defaultMap.put("Go_To_Top", "130 36");
+        defaultMap.put("Maintain_Mini-TM", "130 77");
+        defaultMap.put("Mark_Segment_As" + "->" + "Approved", "520 50");
+        defaultMap.put("Mark_Segment_As" + "->" + "Rejected", "520 52");
+        defaultMap.put("Mark_Segment_As" + "->" + "Translated", "520 49");
+        defaultMap.put("Mark_Segment_As" + "->" + "Untranslated", "520 51");
+        defaultMap.put("Merge_Mini-TMs", "195 77");
+        defaultMap.put("New_Project...", "130 78");
+        defaultMap.put("Next_Segment", "130 40");
+        defaultMap.put("Open", "130 79");
+        defaultMap.put("Page_Down", "0 34");
+        defaultMap.put("Page_Up", "0 33");
+        defaultMap.put("Paste", "130 86");
+        defaultMap.put("Previous_Segment", "130 38");
+        defaultMap.put("Print_Options...", "195 80");
+        defaultMap.put("Print...", "130 80");
+        defaultMap.put("Redo", "130 89");
+        defaultMap.put("Reject_and_go_to_Next_Translated", "130 45");
+        defaultMap.put("Save", "130 83");
+        defaultMap.put("Save_As...", "195 83");
+        defaultMap.put("Save_Mini-TM", "585 83");
+        defaultMap.put("Search_Mini-TM", "520 81");
+        defaultMap.put("Search/Replace", "0 114");
+        defaultMap.put("Source_Context", "520 83");
+        defaultMap.put("Spell_Checking", "0 118");
+        defaultMap.put("Tag_Protection", "520 80");
+        defaultMap.put("Tag_Verification", "130 84");
+        defaultMap.put("Transfer", "130 70");
+        defaultMap.put("Undo", "130 90");
+        defaultMap.put("Untransfer", "195 70");
+        defaultMap.put("Update_Mini-TM", "130 85");
+  }
+
+    private void insertCommands(JMenu menu, Vector v, Vector mV, Vector stroke, String parentName, String parentText ) {
         int menuCount = menu.getMenuComponentCount();
 
         for (int j = 0; j < menuCount; j++) {
@@ -89,25 +140,27 @@ public class ShortcutsBuilder {
 
             if (o instanceof JMenu) {
                 JMenu xmenu = (JMenu)o;
-                String text = xmenu.getName();
-                if(text == null)
-                    text = xmenu.getText();
-                insertCommands(xmenu, v, mV, stroke, text);
+                String name = xmenu.getName();
+                String text = xmenu.getText();
+                insertCommands(xmenu, v, mV, stroke, name, text);
             } else if (o instanceof JMenuItem) {
+                String name = ((JMenuItem)o).getName();
                 String text = ((JMenuItem)o).getText();
 
                 if ((text.charAt(0) == '/') || (text.indexOf(":\\") != -1)) {
                     continue;
                 } else {
-                    String temp = text;
-
-                    if (parent != null) {
-                        temp = parent + "->" + temp;
+                    String tempText = text;
+                    if (parentText != null) {
+                        tempText = parentText + "->" + tempText;
                     }
+                    v.addElement(tempText);
 
-                    v.addElement(temp);
-
-                    String shortcut = getShortcut(temp);
+                    String tempName = name;
+                    if (parentName != null) {
+                        tempName = parentName + "->" + tempName;
+                    }
+                    String shortcut = getShortcut(tempName);
 
                     if ((shortcut != null) && (shortcut.length() != 0)) {
                         int iMode = Integer.parseInt(shortcut.substring(0, shortcut.indexOf(" ")));
@@ -139,16 +192,14 @@ public class ShortcutsBuilder {
 
         for (int i = 0; i < count; i++) {
             JMenu menu = menuBar.getMenu(i);
-            String text = menu.getName();
-            if(text == null)
-                text = menu.getText();
+            String text = menu.getText();
             category[i] = text;
 
             commands[i] = new Vector();
             menus[i] = new Vector();
             strokes[i] = new Vector();
 
-            insertCommands(menu, commands[i], menus[i], strokes[i], null);
+            insertCommands(menu, commands[i], menus[i], strokes[i], null, null);
         }
     }
 
@@ -163,14 +214,14 @@ public class ShortcutsBuilder {
         return menuMap;
     }
 
-    private void saveCommands(JMenu menu, Vector v, Vector mV, Vector stroke, String parent) {
+    private void saveCommands(JMenu menu, Vector v, Vector mV, Vector stroke, String parent ) {
         int menuCount = menu.getMenuComponentCount();
 
         for (int j = 0; j < menuCount; j++) {
             Component o = menu.getMenuComponent(j);
 
             if (o instanceof JMenu) {
-                saveCommands((JMenu)o, v, mV, stroke, ((JMenu)o).getText());
+                saveCommands((JMenu)o, v, mV, stroke, ((JMenu)o).getName());
             } else if (o instanceof JMenuItem) {
                 JMenuItem item  = (JMenuItem)o;
                 String text = item.getName();
