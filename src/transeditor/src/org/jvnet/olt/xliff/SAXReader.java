@@ -119,7 +119,7 @@ public class SAXReader {
 
     private XMLReader xmlReader() throws SAXException, ParserConfigurationException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        factory.setValidating(true);
+        factory.setValidating( ! version.isXLIFF10()); //disable Validation for XLIFF 1.0
         factory.setNamespaceAware(true);
 
         SAXParser saxParser = factory.newSAXParser();
