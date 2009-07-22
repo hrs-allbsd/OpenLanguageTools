@@ -19,6 +19,7 @@ package org.jvnet.olt.xliff.reader.handlers;
 public class TargetHandler extends BaseHandler {
     StringBuffer sb;
     String state;
+    String stateQualifier;
     String xmlLang;
 
     /** Creates a new instance of TargetHandler */
@@ -33,9 +34,22 @@ public class TargetHandler extends BaseHandler {
                 sb = new StringBuffer();
                 state = element.getAttrs().getValue("state");
                 xmlLang = element.getAttrs().getValue("xml:lang");
+                stateQualifier = element.getAttrs().getValue("state-qualifier");
 
-                if ((state != null) && state.startsWith("x-")) {
-                    state = state.substring(2);
+                if ( this.ctx.getVersion().isXLIFF10() ) {
+                    // old XLIFF 1.0 combined state
+                    if ((state != null) && state.startsWith("x-")) {
+                        state = state.substring(2);
+                        stateQualifier = null;
+                    }
+                } else if ( (state != null) ) {
+                    if ( state.startsWith("x-")) {
+                        if ( state.substring(2).contains(":") ) {
+                            //try to split the old combined state
+                            stateQualifier=state.substring(2).split(":")[0];
+                            state=state.substring(2).split(":")[1];
+                        }
+                    }
                 }
             } else {
                 postAction();
@@ -44,7 +58,7 @@ public class TargetHandler extends BaseHandler {
     }
 
     protected void postAction() {
-        ctx.addTarget(xmlLang, sb.toString(), state);
+        ctx.addTarget(xmlLang, sb.toString(), state, stateQualifier);
     }
 
     public boolean handleSubElements() {

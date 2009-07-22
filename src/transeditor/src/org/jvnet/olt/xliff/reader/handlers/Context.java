@@ -269,7 +269,7 @@ public class Context implements XLIFFModel {
         }
     }
 
-    public void addTarget(String xmlLang, String contents, String state) {
+    public void addTarget(String xmlLang, String contents, String state, String stateQualifier) {
         if (xmlLang == null) {
             xmlLang = targetLanguageCode;
         }
@@ -279,16 +279,16 @@ public class Context implements XLIFFModel {
             currentAltTransUnit.setTarget(tgtSntnc);
         } else {
             String theKey = currentTransUnit.getId().getStrId();
-            //ugly hack - force state to "???:approved" if TransUnit is approved
+            //ugly hack - force state to "final" if TransUnit is approved
             if ( currentTransUnit.isApproved() ) {
-                try {
+                 try {
                     String [] listState = state.split(":");
-                    state = listState [0] + ":approved";
+                    state = listState [0] + ":final";
                 } catch (Exception ex) {
-                    state = "fuzzy:approved";
+                    state = "final";
                 }
             }
-            XLIFFSentence m_temp = new XLIFFSentence(contents, xmlLang, theKey, state);
+            XLIFFSentence m_temp = new XLIFFSentence(contents, xmlLang, theKey, state, stateQualifier);
             groupZeroTarget.put(theKey, m_temp);
 
             currentTransUnit.setTarget(m_temp);

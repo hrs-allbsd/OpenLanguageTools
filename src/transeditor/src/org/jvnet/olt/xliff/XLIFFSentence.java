@@ -14,6 +14,7 @@ import org.jvnet.olt.editor.util.NestableException;
 public class XLIFFSentence extends XLIFFBasicSentence {
     private String gTransUnitId = null;
     private String gCurrentState = null;
+    private String gCurrentStateQualifier = null;
 
     public XLIFFSentence(String aString, String aXMLLang, String aTransUnitId) {
         super(aString, aXMLLang);
@@ -26,12 +27,25 @@ public class XLIFFSentence extends XLIFFBasicSentence {
         gCurrentState = aCurrentState;
     }
 
+    public XLIFFSentence(String aString, String aXMLLang, String aTransUnitId, String aCurrentState, String aCurrentStateQualifier) {
+        this (aString, aXMLLang, aTransUnitId, aCurrentState);
+        gCurrentStateQualifier = aCurrentStateQualifier;
+    }
+
     public String getTranslationState() {
         return gCurrentState;
     }
 
     public void setTranslationState(String aState) {
         gCurrentState = aState;
+    }
+
+    public String getTranslationStateQualifier() {
+        return gCurrentStateQualifier;
+    }
+
+    public void setTranslationStateQualifier(String aStateQualifier) {
+        gCurrentStateQualifier = aStateQualifier;
     }
 
     public String getTransUnitId() {

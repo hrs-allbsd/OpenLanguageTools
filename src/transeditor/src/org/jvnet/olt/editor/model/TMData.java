@@ -154,8 +154,13 @@ public class TMData extends PivotData {
 
             source = new SimpleSentence(xlfSrcSentence.getVisibleSentence());
             translation = new SimpleSentence(xlfTgtSentence.getVisibleSentence());
-            translationStatus = parseStateString(xlfTgtSentence.getTranslationState())[0];
-            translationType = parseStateString(xlfTgtSentence.getTranslationState())[1];
+            if ( xlfTgtSentence.getTranslationState().contains(":") ) {
+                translationStatus = parseStateString(xlfTgtSentence.getTranslationState())[0];
+                translationType = parseStateString(xlfTgtSentence.getTranslationState())[1];
+            } else {
+                translationStatus = getStatusFromString(xlfTgtSentence.getTranslationState());
+                translationType = getTypeFromString(xlfTgtSentence.getTranslationStateQualifier());
+            }
 
             if (groupTracking.isTransunitIdInGroup(transUnitId) != -1) {
                 groupTracking.addSentence(transUnitId, iSentenceID, source.getValue(), UNTRANSLATED, UNKNOWN_TRANSLATION);
@@ -263,7 +268,6 @@ public class TMData extends PivotData {
 
         ///end of modification
         private int[] parseStateString(String strInput) {
-            //if(strInput != null)
             int[] iRet = { 0, 0 };
 
             if (strInput == null) {
@@ -272,42 +276,18 @@ public class TMData extends PivotData {
 
             int iIndex = strInput.indexOf(":");
 
+            String strStatus = null;
+            String strType = null;
+
             if (iIndex == -1) {
-                return iRet;
-            }
-
-            ArrayList listReturn = new ArrayList(2);
-            String strStatus = strInput.substring(iIndex + 1, strInput.length());
-            String strType = strInput.substring(0, iIndex);
-
-            //  APPROVED and VERIFIED are synonymous.
-            if (strStatus.compareToIgnoreCase("verified") == 0) {
-                iRet[0] = 2;
-            } else if (strStatus.compareToIgnoreCase("approved") == 0) {
-                iRet[0] = 2;
-            } else if (strStatus.compareToIgnoreCase("rejected") == 0) {
-                iRet[0] = 3;
-            } else if (strStatus.compareToIgnoreCase("translated") == 0) {
-                iRet[0] = 1;
-            } else if (strStatus.compareToIgnoreCase("untranslated") == 0) {
-                iRet[0] = 0;
+                strStatus = strInput;
             } else {
-                iRet[0] = 0;
+                strStatus = strInput.substring(iIndex + 1, strInput.length());
+                strType = strInput.substring(0, iIndex);
             }
 
-            if (strType.compareToIgnoreCase("non-translated") == 0) {
-                iRet[1] = 0;
-            } else if (strType.compareToIgnoreCase("100-Match") == 0) {
-                iRet[1] = 1;
-            } else if (strType.compareToIgnoreCase("auto-translated") == 0) {
-                iRet[1] = 2;
-            } else if (strType.compareToIgnoreCase("fuzzy") == 0) {
-                iRet[1] = 3;
-            } else if (strType.compareToIgnoreCase("user") == 0) {
-                iRet[1] = 4;
-            } else {
-                iRet[1] = 0;
-            }
+            iRet[0] = this.getStatusFromString(strStatus);
+            iRet[1] = this.getTypeFromString(strType);
 
             return iRet;
         }
@@ -315,54 +295,9 @@ public class TMData extends PivotData {
         private String combineTranslationState() {
             StringBuffer strRet = new StringBuffer(0);
 
-            switch (translationType) {
-            case 0:
-                strRet.append("non-translated:");
-
-                break;
-
-            case 1:
-                strRet.append("100-Match:");
-
-                break;
-
-            case 2:
-                strRet.append("auto-translated:");
-
-                break;
-
-            case 3:
-                strRet.append("fuzzy:");
-
-                break;
-
-            case 4:
-                strRet.append("user:");
-
-                break;
-            }
-
-            switch (translationStatus) {
-            case 0:
-                strRet.append("untranslated");
-
-                break;
-
-            case 1:
-                strRet.append("translated");
-
-                break;
-
-            case 2:
-                strRet.append("approved");
-
-                break;
-
-            case 3:
-                strRet.append("rejected");
-
-                break;
-            }
+            strRet.append(this.getStringFromType(translationType));
+            strRet.append(":");
+            strRet.append(this.getStringFromStatus(translationStatus));
 
             return strRet.toString();
         }
@@ -387,6 +322,61 @@ public class TMData extends PivotData {
             return translationStatus;
         }
 
+        private String getStringFromStatus(int status) {
+            String strRet = "x-unknown";
+
+            switch (status) {
+            case 0:
+                strRet = ("new");
+                break;
+            case 1:
+                strRet = ("translated");
+                break;
+            case 2:
+                strRet = ("final");
+                break;
+            case 3:
+                strRet = ("needs-review-l10n");
+                break;
+            }
+
+            return strRet;
+        }
+
+        private int getStatusFromString(String state) {
+            int intRet = 0;
+
+            if ( state == null)
+                return 0;
+
+            if (    state.equalsIgnoreCase("new") ||
+                    state.equalsIgnoreCase("untranslated") ||
+                    state.equalsIgnoreCase("needs-adaptation") ||
+                    state.equalsIgnoreCase("needs-l10n") ||
+                    state.equalsIgnoreCase("needs-translation")
+               ) {
+                intRet = 0;
+            } else if ( state.equalsIgnoreCase("translated") ) {
+                intRet = 1;
+            } else if ( state.equalsIgnoreCase("final") ||
+                        state.equalsIgnoreCase("approved") ||
+                        state.equalsIgnoreCase("verified") ||
+                        state.equalsIgnoreCase("signed-off")
+                    ) {
+                intRet = 2;
+            } else if ( state.equalsIgnoreCase("needs-review-l10n") ||
+                        state.equalsIgnoreCase("rejected") ||
+                        state.equalsIgnoreCase("needs-review-adaptation") ||
+                        state.equalsIgnoreCase("needs-review-translation")
+                    ) {
+                intRet = 3;
+            } else  {
+                intRet = 0;
+            }
+            return intRet;
+        }
+
+
         /**
          * Updating the translation type will cause to set the bTMFlag with true
          */
@@ -399,6 +389,75 @@ public class TMData extends PivotData {
 
         public int getTranslationType() {
             return translationType;
+        }
+
+        private String getStringFromType(int type) {
+            String strRet = "";
+
+            switch (type) {
+            case 0:
+                strRet = ("");
+                break;
+            case 1:
+                strRet = ("exact-match");
+                break;
+            case 2:
+                strRet = ("leveraged-tm");
+                break;
+            case 3:
+                strRet = ("fuzzy-match");
+                break;
+            case 4:
+                strRet = ("x-user");
+                break;
+            }
+
+            return strRet;
+        }
+
+        private int getTypeFromString(String stateQualifier) {
+            int intRet = 0;
+
+            if ( stateQualifier== null)
+                return intRet;
+
+            if (    stateQualifier.equalsIgnoreCase("x-non-translated") ||
+                    stateQualifier.equalsIgnoreCase("non-translated") ||
+                    stateQualifier.equalsIgnoreCase("rejected-grammar") ||
+                    stateQualifier.equalsIgnoreCase("rejected-inaccurate") ||
+                    stateQualifier.equalsIgnoreCase("rejected-spelling") ||
+                    stateQualifier.equalsIgnoreCase("rejected-length")
+               ) {
+                intRet = 0;
+            } else if ( stateQualifier.equalsIgnoreCase("exact-match") ||
+                        stateQualifier.equalsIgnoreCase("100-match") ||
+                        stateQualifier.equalsIgnoreCase("verified") ||
+                        stateQualifier.equalsIgnoreCase("signed-off")
+                    ) {
+                intRet = 1;
+            } else if ( stateQualifier.equalsIgnoreCase("leveraged-tm") ||
+                        stateQualifier.equalsIgnoreCase("auto-translated") ||
+                        stateQualifier.equalsIgnoreCase("id-match") ||
+                        stateQualifier.equalsIgnoreCase("leveraged-glossary") ||
+                        stateQualifier.equalsIgnoreCase("leveraged-inherited") ||
+                        stateQualifier.equalsIgnoreCase("leveraged-mt") ||
+                        stateQualifier.equalsIgnoreCase("leveraged-repository")
+                    ) {
+                intRet = 2;
+            } else if ( stateQualifier.equalsIgnoreCase("fuzzy-match") ||
+                        stateQualifier.equalsIgnoreCase("fuzzy") ||
+                        stateQualifier.equalsIgnoreCase("mt-suggestion") ||
+                        stateQualifier.equalsIgnoreCase("tm-suggestion")
+                    ) {
+                intRet = 3;
+            } else if ( stateQualifier.equalsIgnoreCase("x-user") ||
+                        stateQualifier.equalsIgnoreCase("user") 
+                    ) {
+                intRet = 4;
+            } else  {
+                intRet = 0;
+            }
+            return intRet;
         }
 
         public boolean isAutoTranslated() {
@@ -798,7 +857,8 @@ public class TMData extends PivotData {
                 }
 
                 xliffparser.m_xlfTgtSentences[iSentenceID].setSentence(wrappedTarget);
-                xliffparser.m_xlfTgtSentences[iSentenceID].setTranslationState(combineTranslationState());
+                xliffparser.m_xlfTgtSentences[iSentenceID].setTranslationState(getStringFromStatus(translationStatus));
+                xliffparser.m_xlfTgtSentences[iSentenceID].setTranslationStateQualifier(getStringFromType(translationType));
                 xliffparser.saveTargetSegment(xliffparser.m_xlfTgtSentences[iSentenceID]);
             
             } catch (Throwable ex) {

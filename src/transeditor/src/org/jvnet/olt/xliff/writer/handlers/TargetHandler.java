@@ -56,7 +56,7 @@ public class TargetHandler extends BaseHandler {
 
             //If the sntns has been changed write it out and forbid overwriting
             XLIFFSentence currentSntnc = (XLIFFSentence)tgtChangeSet.get(transUnitId);
-            Element newElement = updateElementState(element,currentSntnc.getTranslationState());
+            Element newElement = updateElementState(element,currentSntnc.getTranslationState(), currentSntnc.getTranslationStateQualifier());
             
             writeElement(newElement, true);
             char[] ch = currentSntnc.getSentence().toCharArray();
@@ -75,23 +75,22 @@ public class TargetHandler extends BaseHandler {
     /** Create new element which reflects new sentence state
      *
      */
-    private org.jvnet.olt.xliff.handlers.Element updateElementState(org.jvnet.olt.xliff.handlers.Element element,String state) {
+    private org.jvnet.olt.xliff.handlers.Element updateElementState(org.jvnet.olt.xliff.handlers.Element element,String state, String stateQualifier) {
         
-        
-        if (ctx.getVersion().isXLIFF11()) {
-            state = "x-" + state;
-        }
-        
+                
         AttributesImpl attrs = new AttributesImpl(element.getAttrs());
-        setAttributeValue(attrs, "state", state);
-        if(ctx.getVersion().isXLIFF10())
+        if(ctx.getVersion().isXLIFF10()) {
+            setAttributeValue(attrs, "state", stateQualifier + ":" + state);
             setAttributeValue(attrs, "xml:lang", ctx.getTargetLang());
+        } else {
+            setAttributeValue(attrs, "state", state);
+            if ( stateQualifier != null && stateQualifier.length()>0 ) {
+                setAttributeValue(attrs, "state-qualifier", stateQualifier);
+            }
+        }
         
         element = new Element(element.getPrefix(), element.getLocalName(), element.getOriginalQName(), attrs, element.getPath());
         
-        if (ctx.getVersion().isXLIFF11()) {
-            element.addNamespaceDeclaration(null, Constants.XLIFF_1_1_URI);
-        }
         return element;
     }
     

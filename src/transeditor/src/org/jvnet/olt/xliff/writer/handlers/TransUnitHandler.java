@@ -56,20 +56,16 @@ public class TransUnitHandler extends BaseHandler {
 
                 tgtChangeSet = ctx.getTgtChangeSet();
 
-                // set approved attribute fpor the trans-unit
+                // set approved attribute for the trans-unit
                 XLIFFSentence sentence = (XLIFFSentence) tgtChangeSet.get(transUnitId);
                 if (sentence != null) {
                     String unitApproved = "no";
-                    if ( sentence.getTranslationState() != null && sentence.getTranslationState().contains(":approved") )
+                    if ( sentence.getTranslationState() != null && 
+                            (sentence.getTranslationState().contains("approved") || sentence.getTranslationState().contains("final") )
+                       )
                         unitApproved = "yes";
 
-                    AttributesImpl attrs = element.getAttrs();
-                    int i = attrs.getIndex("approved");
-                    if ( i >= 0) {
-                        attrs.setValue(i, unitApproved);
-                    } else {
-                        attrs.addAttribute("", "approved", "approved", "CDATA", "yes");
-                    }
+                    setAttributeValue(element.getAttrs(), "approved", unitApproved);
                 }
             } else {
                 if (targetNeedsSave()) {
