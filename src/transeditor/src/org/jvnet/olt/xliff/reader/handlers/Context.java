@@ -281,10 +281,10 @@ public class Context implements XLIFFModel {
             String theKey = currentTransUnit.getId().getStrId();
             //ugly hack - force state to "final" if TransUnit is approved
             if ( currentTransUnit.isApproved() ) {
-                 try {
+                 if (state.contains(":")) {
                     String [] listState = state.split(":");
                     state = listState [0] + ":final";
-                } catch (Exception ex) {
+                } else {
                     state = "final";
                 }
             }
