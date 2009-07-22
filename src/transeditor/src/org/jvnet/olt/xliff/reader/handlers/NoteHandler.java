@@ -38,7 +38,7 @@ public class NoteHandler extends TextHandler {
 
     protected void postAction() {
         //do not create empty notes
-        if (! text.toString().isEmpty() ) {
+        if ( text.toString().length() > 0) {
             Note n = new Note(text.toString());
 
             switch (type) {

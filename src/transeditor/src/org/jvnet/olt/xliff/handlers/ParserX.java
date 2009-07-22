@@ -108,7 +108,7 @@ public class ParserX extends DefaultHandler {
         // cycle through the attributes and map namespaces
         for (int i = 0; i < attrsImpl.getLength(); i++) {
             String attrURI=attrsImpl.getURI(i);
-            if (  ! attrURI.isEmpty() ) {
+            if (  attrURI.length() > 0 ) {
                     String attrPrefix=translateURI2Prefix(attrsImpl.getURI(i));
                     attrsImpl.setQName(i, attrPrefix + ":" + attrsImpl.getLocalName(i));
                 }
