@@ -29,12 +29,6 @@ public class XLIFFHandler extends BaseHandler {
     }
 
     public void dispatch(org.jvnet.olt.xliff.handlers.Element element, boolean start) throws ReaderException {
-        Element e1 = element;
-
-        if (start && "xliff".equals(element.getQName()) && ctx.getVersion().isXLIFF11()) {
-            e1.addNamespaceDeclaration(null, Constants.XLIFF_1_1_URI);
-            e1.addNamespaceDeclaration("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        }
 
         writeElement(element, start);
     }

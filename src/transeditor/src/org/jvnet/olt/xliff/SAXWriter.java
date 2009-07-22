@@ -107,9 +107,12 @@ public class SAXWriter {
         px.addHandler("/xliff/file/body/group/trans-unit/note", new NoteHandler(ctx, false));
 
         Map uriMapping = new HashMap();
-        uriMapping.put("urn:oasis:names:tc:xliff:document:1.1", "");
+        if (version.isXLIFF11()) {
+            uriMapping.put("urn:oasis:names:tc:xliff:document:1.1", "");
+        } else if (version.isXLIFF12()) {
+            uriMapping.put("urn:oasis:names:tc:xliff:document:1.2", "");
+        }
         uriMapping.put("http://www.w3.org/XML/1998/namespace", "xml");
-        //uriMapping.put("xml", "xml");
 
         px.setPrefixMap(uriMapping);
 
@@ -123,7 +126,15 @@ public class SAXWriter {
             if (version.isXLIFF11()) {
                 saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
                 saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                                        "xliff-core-1.1.xsd");
+                                        "/resources/xliff-core-1.1.xsd");
+            } else if (version.isXLIFF12_strict()) {
+                saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
+                saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                                        "/resources/xliff-core-1.2-strict.xsd");
+            } else if (version.isXLIFF12_transitional()) {
+                saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
+                saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                                        "/resources/xliff-core-1.2-transitional.xsd");
             }
 
             XMLReader sr = saxParser.getXMLReader();

@@ -95,7 +95,7 @@ public class TransUnitHandler extends BaseHandler {
 
         String state = sntnc.getTranslationState();
 
-        if (ctx.getVersion().isXLIFF11()) {
+        if ( ! ctx.getVersion().isXLIFF10()) {
             state = "x-" + state;
         }
 

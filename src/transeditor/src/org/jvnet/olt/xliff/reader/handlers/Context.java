@@ -117,7 +117,7 @@ public class Context implements XLIFFModel {
 
     public void addXLIFF(Version version) throws UnknownXLIFFVersionException {
         //compare against the expected version
-        if (!this.version.equals(version)) {
+        if (!this.version.isEqual(version)) {
             throw new UnknownXLIFFVersionException();
         }
     }
@@ -281,7 +281,7 @@ public class Context implements XLIFFModel {
             String theKey = currentTransUnit.getId().getStrId();
             //ugly hack - force state to "final" if TransUnit is approved
             if ( currentTransUnit.isApproved() ) {
-                 if (state.contains(":")) {
+                 if (state != null && state.contains(":")) {
                     String [] listState = state.split(":");
                     state = listState [0] + ":final";
                 } else {

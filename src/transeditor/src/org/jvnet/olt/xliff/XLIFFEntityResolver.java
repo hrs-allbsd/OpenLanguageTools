@@ -26,9 +26,21 @@ public class XLIFFEntityResolver implements EntityResolver {
     static {
         schemas.put(new SchemaLocator("-//XLIFF//DTD XLIFF//EN", "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd"), "/resources/xliff.dtd");
         schemas.put(new SchemaLocator("-//XLIFF//DTD XLIFF//EN", null ), "/resources/xliff.dtd");
+
         schemas.put(new SchemaLocator(null, "xliff-core-1.1.xsd"), "/resources/xliff-core-1.1.xsd");
+        schemas.put(new SchemaLocator("urn:oasis:names:tc:xliff:document:1.1", null), "/resources/xliff-core-1.1.xsd");
         schemas.put(new SchemaLocator(null, "http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"), "/resources/xliff-core-1.1.xsd");
+
+        schemas.put(new SchemaLocator(null, "xliff-core-1.2-strict.xsd"), "/resources/xliff-core-1.2-strict.xsd");
+        schemas.put(new SchemaLocator(null, "http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.2-strict.xsd"), "/resources/xliff-core-1.2-strict.xsd");
+
+        schemas.put(new SchemaLocator("urn:oasis:names:tc:xliff:document:1.2", null), "/resources/xliff-core-1.2-transitional.xsd");
+        schemas.put(new SchemaLocator("urn:oasis:names:tc:xliff:document:1.2", "xliff-core-1.2-transitional.xsd"), "/resources/xliff-core-1.2-transitional.xsd");
+        schemas.put(new SchemaLocator(null, "xliff-core-1.2-transitional.xsd"), "/resources/xliff-core-1.2-transitional.xsd");
+        schemas.put(new SchemaLocator(null, "http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.2-transitional.xsd"), "/resources/xliff-core-1.2-transitional.xsd");
+
         schemas.put(new SchemaLocator(null, "http://www.w3.org/2001/xml.xsd"), "/resources/xml.xsd");
+
         schemas.put(new SchemaLocator("-//W3C//DTD XMLSCHEMA 200102//EN", "XMLSchema.dtd"), "/resources/XMLSchema.dtd");
         schemas.put(new SchemaLocator("datatypes", "datatypes.dtd"), "/resources/datatypes.dtd");
         schemas.put(new SchemaLocator(null , "datatypes.dtd"), "/resources/datatypes.dtd");
@@ -38,7 +50,7 @@ public class XLIFFEntityResolver implements EntityResolver {
         schemas.put(new SchemaLocator(null, "tmx13.dtd"),"/resources/tmx13.dtd");
         schemas.put(new SchemaLocator(null, "tmx14.dtd"),"/resources/tmx14.dtd");
 		
-		schemas.put(new SchemaLocator("-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN", "tmx13.dtd"),"/resources/tmx13.dtd");
+        schemas.put(new SchemaLocator("-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN", "tmx13.dtd"),"/resources/tmx13.dtd");
     }
 
     static private XLIFFEntityResolver instance = new XLIFFEntityResolver();
@@ -84,6 +96,18 @@ public class XLIFFEntityResolver implements EntityResolver {
             systemId = "xliff-core-1.1.xsd";
         }
 
+        if (systemId.endsWith("/xliff-core-1.2-strict.xsd")) {
+            systemId = "xliff-core-1.2-strict.xsd";
+        }
+
+        if (systemId.endsWith("/xliff-core-1.2-strict.xsd")) {
+            systemId = "xliff-core-1.2-strict.xsd";
+        }
+
+        if (systemId.endsWith("/xliff-core-1.2-transitional.xsd")) {
+            systemId = "xliff-core-1.2-transitional.xsd";
+        }
+
         SchemaLocator sl = new SchemaLocator(publicId, systemId);
 
         if (schemas.containsKey(sl)) {
@@ -99,6 +123,14 @@ public class XLIFFEntityResolver implements EntityResolver {
                 return new InputSource(is);
             }
         } else {
+            logger.warning("schema not registered. Trying direct file access");
+            String res =  "/resources/" + systemId.split("/")[systemId.split("/").length -1];
+            InputStream is = this.getClass().getResourceAsStream(res);
+            if (is == null) {
+                logger.warning("File " + res + " could not be found");
+            } else {
+                return new InputSource(is);
+            }
             logger.warning("schema not registered. Returning null");
         }
 

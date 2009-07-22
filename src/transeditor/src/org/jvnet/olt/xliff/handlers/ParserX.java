@@ -73,7 +73,11 @@ public class ParserX extends DefaultHandler {
     }
 
     public void startPrefixMapping(String prefix, String uri) throws org.xml.sax.SAXException {
-        String newPrefix = (String)customUriPrefixMap.get(uri);
+        String newPrefix = prefix;
+
+        if (newPrefix == null) {
+            newPrefix = (String)customUriPrefixMap.get(uri);
+        }
 
         if (newPrefix == null) {
             newPrefix = "x" + ++unmappedIdx;
@@ -109,13 +113,21 @@ public class ParserX extends DefaultHandler {
         for (int i = 0; i < attrsImpl.getLength(); i++) {
             String attrURI=attrsImpl.getURI(i);
             if (  attrURI.length() > 0 ) {
-                    String attrPrefix=translateURI2Prefix(attrsImpl.getURI(i));
-                    attrsImpl.setQName(i, attrPrefix + ":" + attrsImpl.getLocalName(i));
-                }
+                String attrPrefix=translateURI2Prefix(attrsImpl.getURI(i));
+                attrsImpl.setQName(i, attrPrefix + ":" + attrsImpl.getLocalName(i));
             }
+        }
 
         //logger.finer("Path:"+path);
         Element elem = new Element(prefix, localName, qName, attrsImpl, path);
+        if ( qName.equals("xliff")) {
+            // att namespace declarations to the xliff element
+            // TODO: find a better place to do this
+            Set keySet = uriPrefixMap.keySet(); 
+            for (Object key : uriPrefixMap.keySet()) {
+                elem.addNamespaceDeclaration( uriPrefixMap.get(key).toString(),  key.toString() );
+            }
+        }
         elementStack.push(elem);
 
         Handler h = null;
@@ -143,7 +155,13 @@ public class ParserX extends DefaultHandler {
             try {
                 h.dispatch(elem, true);
             } catch (ReaderException re) {
+                logger.info(" last elem to dispatch: " + elem.getPath());
+                logger.info("            attributes: " + elem.getAttrs().toString());
                 throw new SAXException(re);
+            } catch (Exception ex) {
+                logger.info(" last elem to dispatched: " + elem.getPath());
+                logger.info("              attributes: " + elem.getAttrs().toString());
+                throw new SAXException(ex);
             }
 
             handledElements.add(elem);
@@ -163,7 +181,13 @@ public class ParserX extends DefaultHandler {
             try {
                 h.dispatch(elem, false);
             } catch (ReaderException re) {
+                logger.info(" last elem to dispatched: " + elem.getPath());
+                logger.info("              attributes: " + elem.getAttrs().toString());
                 throw new SAXException(re);
+            } catch (Exception ex) {
+                logger.info(" last elem to dispatched: " + elem.getPath());
+                logger.info("              attributes: " + elem.getAttrs().toString());
+                throw new SAXException(ex);
             }
         }
 

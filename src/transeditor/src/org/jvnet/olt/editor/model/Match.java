@@ -38,7 +38,11 @@ public abstract class Match {
     }
 
     public Match(XLIFFBasicSentence xlfSrcInput, XLIFFBasicSentence xlfTgtInput, String aMatchQualityInput, String aFormatDiffInput) {
-        iMatchQuality = Integer.parseInt(aMatchQualityInput);
+        try {
+            iMatchQuality = Integer.parseInt(aMatchQualityInput);
+        } catch (NumberFormatException ex) {
+            iMatchQuality = 0;
+        }
         iFormatDiff = Integer.parseInt(aFormatDiffInput);
         iTMType = SYSTEM_TM;
 

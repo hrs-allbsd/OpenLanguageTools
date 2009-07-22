@@ -43,7 +43,7 @@ public class Element {
         }
 
         public String toString() {
-            return "xmlns" + ((prefix == null) ? "" : (":" + prefix)) + "=\"" + uri + "\"";
+            return "xmlns" + ((prefix == null || prefix.length() == 0 ) ? "" : (":" + prefix)) + "=\"" + uri + "\"";
         }
 
         public int compareTo(Object o) {

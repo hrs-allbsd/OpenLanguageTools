@@ -56,6 +56,7 @@ public class XLIFFFastFailParser extends DefaultHandler implements EntityResolve
     private String srcLang;
     private String tgtLang;
     private Version version;
+    private String schemaLocation;
     private int elemTrashhold = Integer.MAX_VALUE;
     private int elemCount;
     private int searchType = SEARCH_TYPE_VERSION;
@@ -108,6 +109,16 @@ public class XLIFFFastFailParser extends DefaultHandler implements EntityResolve
             if (strVer == null) {
                 status = STATUS_FAILED_ON_XLIFF;
                 throw new FailureException(status);
+            }
+
+            schemaLocation = attributes.getValue("xsi:schemaLocation");
+            // add the 1.2 flavor
+            if (strVer.equals("1.2")) {
+                if ( schemaLocation != null && schemaLocation.contains("strict") ) {
+                    strVer = strVer + "_strict";
+                } else {
+                    strVer = strVer + "_transitional";
+                }
             }
 
             this.version = Version.fromString(strVer);
@@ -165,6 +176,10 @@ public class XLIFFFastFailParser extends DefaultHandler implements EntityResolve
 
     public String getTargetLanguage() {
         return tgtLang;
+    }
+
+    public String getSchemaLocation() {
+        return schemaLocation;
     }
 
     public void warning(org.xml.sax.SAXParseException e) throws SAXException {

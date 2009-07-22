@@ -47,6 +47,7 @@ import org.xml.sax.XMLReader;
  */
 public class SAXReader {
     private Version version;
+    private String schemaLocation;
 
     /** Creates a new instance of SAXReader */
     public SAXReader(Version ver) {
@@ -55,6 +56,10 @@ public class SAXReader {
         }
 
         this.version = ver;
+    }
+    public SAXReader(Version ver, String schemaLocation) {
+        this (ver);
+        this.schemaLocation = schemaLocation;
     }
 
     public Context parse(java.io.Reader r) throws IOException, SAXException, ParserConfigurationException {
@@ -102,9 +107,12 @@ public class SAXReader {
         xp.addHandler("/xliff/file/body/group/trans-unit/alt-trans/context-group", altCtxHandler);
 
         Map uriMapping = new HashMap();
-        uriMapping.put("urn:oasis:names:tc:xliff:document:1.1", "");
+        if (version.isXLIFF11()) {
+            uriMapping.put("urn:oasis:names:tc:xliff:document:1.1", "");
+        } else if (version.isXLIFF12()) {
+            uriMapping.put("urn:oasis:names:tc:xliff:document:1.2", "");
+        }
         uriMapping.put("http://www.w3.org/XML/1998/namespace", "xml");
-        //uriMapping.put("xml", "xml");
 
         xp.setPrefixMap(uriMapping);
 
@@ -127,7 +135,15 @@ public class SAXReader {
         if (version.isXLIFF11()) {
             saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
             saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                                    "xliff-core-1.1.xsd");
+                                    "/resources/xliff-core-1.1.xsd");
+        } else if (version.isXLIFF12_strict()) {
+            saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
+            saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                                    "/resources/xliff-core-1.2-strict.xsd");
+        } else if (version.isXLIFF12_transitional()) {
+            saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
+            saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                                    "/resources/xliff-core-1.2-transitional.xsd");
         }
 
         return saxParser.getXMLReader();

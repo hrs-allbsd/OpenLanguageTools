@@ -154,7 +154,7 @@ public class TMData extends PivotData {
 
             source = new SimpleSentence(xlfSrcSentence.getVisibleSentence());
             translation = new SimpleSentence(xlfTgtSentence.getVisibleSentence());
-            if ( xlfTgtSentence.getTranslationState().contains(":") ) {
+            if ( xlfTgtSentence.getTranslationState() != null && xlfTgtSentence.getTranslationState().contains(":") ) {
                 translationStatus = parseStateString(xlfTgtSentence.getTranslationState())[0];
                 translationType = parseStateString(xlfTgtSentence.getTranslationState())[1];
             } else {

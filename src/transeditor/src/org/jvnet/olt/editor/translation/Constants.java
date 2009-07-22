@@ -32,6 +32,7 @@ final public class Constants {
     //empty string in context
     public static final String CONTEXT_EMPTY = "[SunTrans::Empty]";
     public static final String XLIFF_1_1_URI = "urn:oasis:names:tc:xliff:document:1.1";
+    public static final String XLIFF_1_2_URI = "urn:oasis:names:tc:xliff:document:1.2";
 
     public static final String MAILING_LIST="dev@open-language-tools.dev.java.net";
     

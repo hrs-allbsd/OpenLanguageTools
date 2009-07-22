@@ -58,6 +58,7 @@ public class XLIFFParser {
 
     private String sourceLang = null;
     private String targetLang = null;
+    private String schemaLocation = null;
     
     private int m_iSize = 0;
     
@@ -151,7 +152,8 @@ public class XLIFFParser {
             
             long t1 = System.currentTimeMillis();
             
-            SAXReader reader = new SAXReader(version);
+            SAXReader reader = new SAXReader(version, schemaLocation);
+
             model = reader.parse(r);
             
             long t2 = System.currentTimeMillis();
@@ -260,11 +262,12 @@ public class XLIFFParser {
             throw new NestableException("unknown version");
             //handle failure
         } catch (XLIFFFastFailParser.SuccessException se) {
-            logger.info("XLIFF version:" + (ffp.getVersion().isXLIFF10() ? "1.0" : "1.1"));
+            logger.info("XLIFF version:" + ffp.getVersion().toString() );
         } finally {
             version = ffp.getVersion();
             sourceLang = ffp.getSourceLanguage();
             targetLang = ffp.getTargetLanguage();
+            schemaLocation = ffp.getSchemaLocation();
             
             return version;
         }
