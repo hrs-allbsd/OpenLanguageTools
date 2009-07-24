@@ -362,6 +362,10 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
      */
     JPanel statusBar = new JPanel();
 
+	private JPanel pnlTransUnitID = null;
+	private JLabel lblTransUnitID = null;
+	public static JTextField txtTransUnitID = null;
+
     /**
      * the parameters for ini file;
      *
@@ -2391,16 +2395,29 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         primaryPane.setBackground(SystemColor.desktop);
         primaryPane.add(MySplitPane, BorderLayout.CENTER);
 
+		/*
         statusBar.setBorder(null);
         statusBar.setMinimumSize(new Dimension(10, 20));
         statusBar.setPreferredSize(new Dimension(148, 20));
         statusBar.setLayout(new BorderLayout(0, 0));
         statusBar.add(myMatchstatusBar, BorderLayout.CENTER);
+		*/
+
+		JPanel pnlMyStatusBar = new JPanel( new BorderLayout( 4, 4 ) );
+		pnlTransUnitID = new JPanel();
+		pnlTransUnitID.setLayout( new BorderLayout( 4, 4 ) );
+		lblTransUnitID = new JLabel( "ID:" );
+		txtTransUnitID = new JTextField( "{trans-unit ID}" );
+		txtTransUnitID.setEditable( false );
+		pnlTransUnitID.add( lblTransUnitID, BorderLayout.WEST );
+		pnlTransUnitID.add( txtTransUnitID, BorderLayout.CENTER );
+		pnlMyStatusBar.add( pnlTransUnitID, BorderLayout.NORTH );
+		pnlMyStatusBar.add( myMatchstatusBar, BorderLayout.CENTER );
 
         contentPane = (JPanel)this.getRootPane().getContentPane();
         contentPane.setLayout(borderLayout1);
         contentPane.add(toolBar, BorderLayout.NORTH);
-        contentPane.add(statusBar, BorderLayout.SOUTH);
+        contentPane.add(pnlMyStatusBar, BorderLayout.SOUTH);
         contentPane.add(primaryPane, BorderLayout.CENTER);
 
         this.setSize(new Dimension(925, 700));
