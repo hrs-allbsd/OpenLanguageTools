@@ -1,3 +1,25 @@
+This software is ditributed under the terms of the
+ COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
+
+See below for full license text.
+
+
+------------------------------------------------------------------------------
+This software distribution contains 3rd party components. Their details and
+licenses are documented in the THIRDPARTYREADME file.
+
+---
+list of 3rd party components:
+
+IzPack-3.7.0
+        (Apache License : http://www.izforge.com/izpack/ )
+xerces2.jar
+        (Apache License : http://xml.apache.org/xerces2-j/ )
+saxonb9-1-0-7j
+	(Mozilla Public License Version 1.0)
+
+------------------------------------------------------------------------------
+
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
 
 

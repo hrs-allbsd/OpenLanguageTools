@@ -31,7 +31,8 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.sax.SAXTransformerFactory;
+//import javax.xml.transform.sax.SAXTransformerFactory;
+import net.sf.saxon.TransformerFactoryImpl;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.jvnet.olt.editor.util.MultiWriter;
@@ -87,7 +88,8 @@ public class TMXImporter {
 	    if(templeate == null)
 		throw new NullPointerException("unable to find xslt template");
 	    
-	    TransformerFactory tf = SAXTransformerFactory.newInstance();
+	    //TransformerFactory tf = SAXTransformerFactory.newInstance();
+            TransformerFactory tf = TransformerFactoryImpl.newInstance();
 	    Templates tmplts = tf.newTemplates(new StreamSource(templeate));
 	    
 	    Transformer tr = tmplts.newTransformer();

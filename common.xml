@@ -112,6 +112,10 @@
 		<fileset dir="${common.basedir}/utilities/jars" includes="swing-layout-1.0.1.jar"/>
 	</path>
 
+        <!-- jars for Saxon9B -->
+	<path id="deps.saxon">
+		<fileset dir="${common.basedir}/utilities/jars/saxonb9-1-0-7j" includes="saxon9.jar saxon9-dom.jar saxon9-xpath.jar"/>
+	</path>
 
     <!-- jars in lib/junit -->
     <path id="deps.junit">

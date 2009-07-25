@@ -42,6 +42,7 @@
         <pack name="Open Language Tools XLIFF Translation Editor" required="yes">
             <description>This component includes all the needed Translation Editor files</description>
             <file src="LICENSE.txt" targetdir="$INSTALL_PATH"/>
+            <file src="THIRDPARTYREADME" targetdir="$INSTALL_PATH"/>
             <fileset dir="." targetdir="$INSTALL_PATH">
                 <include name="**/*.jar"/>
             </fileset>

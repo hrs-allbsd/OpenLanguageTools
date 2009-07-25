@@ -17,6 +17,7 @@
         <path refid="deps.backconv"/>
         <path refid="deps.xerces"/>
         <path refid="deps.swing-layout"/>
+        <path refid="deps.saxon"/>
     </path>
     <path id="test.classpath">
         <path refid="deps.common.util"/>
@@ -119,7 +120,7 @@
             <fileset dir="${dtd.dir}">
                 <include name="xliff.dtd"/>
                 <include name="tt-xliff-skl.dtd"/>
-                <include name="xliff-core-1.1.xsd"/>
+                <include name="xliff-core-*.xsd"/>
                 <include name="xml.xsd"/>
                 <include name="datatypes.dtd"/>
                 <include name="XMLSchema.dtd"/>
@@ -163,6 +164,9 @@
         <copy file="${lib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/swing-layout-1.0.1.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9-dom.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9-xpath.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="installer/README.i18n.txt" verbose="true" todir="${installer.dir}/i18n/"/>
         
         <copy todir="${installer.dir}" verbose="true">
@@ -179,6 +183,7 @@
         </copy>
 		
         <copy todir="${installer.dir}" verbose="true" file="static/resources/LICENSE.txt"/>
+        <copy todir="${installer.dir}" verbose="true" file="../../utilities/jars/THIRDPARTYREADME"/>
         <copy todir="${installer.dir}/samples" verbose="true">
             <fileset dir="samples"/>
         </copy>
@@ -615,14 +620,14 @@
     <target name="nightly" depends="all">
         <tstamp/>
         <ant target="upload">
-            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_unix.tar.gz"/>
-            <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_unix.tar.gz"/>
+            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_lite_unix.jar"/>
+            <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_lite_unix.jar"/>
             <property name="uploaded.file.dir" value="/Releases/Unstable"/>
             <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} UNIX"/>
         </ant>
         <ant target="upload">
-            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_win.zip"/>
-            <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_win.zip"/>
+            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_lite_win.jar"/>
+            <property name="uploaded.file.name" value="transeditor_nightly-${DSTAMP}_lite_win.jar"/>
             <property name="uploaded.file.dir" value="/Releases/Unstable"/>
             <property name="uploaded.file.description" value="XLIFF Translation Editor nightly build ${DSTAMP} Windows"/>
         </ant>
@@ -630,16 +635,28 @@
 	 
     <target name="rc">
         <ant target="upload">
-            <property name="path.to.file" value="${dest.dir}/xliff_filters_v1_1RC1_unix.tar.gz"/>
-            <property name="uploaded.file.name" value="xliff_filters_v1_1RC1_unix.tar.gz"/>
-            <property name="uploaded.file.dir" value="/Releases/"/>
-            <property name="uploaded.file.description" value="OLT XLIFF Filters 1.1 Release Candidate 1 UNIX"/>
+            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_lite_unix.jar"/>
+            <property name="uploaded.file.name" value="transeditor_v${build.version.flat}_lite_unix.jar"/>
+            <property name="uploaded.file.dir" value="/Releases/preview"/>
+            <property name="uploaded.file.description" value="XLIFF Translation Editor ${build.version.flat} Preview UNIX"/>
         </ant>
         <ant target="upload">
-            <property name="path.to.file" value="${dest.dir}/xliff_filters_v1_1RC1_win.zip"/>
-            <property name="uploaded.file.name" value="xliff_filters_v1_1RC1_win.zip"/>
-            <property name="uploaded.file.dir" value="/Releases/"/>
-            <property name="uploaded.file.description" value="XLIFF Filters 1.1 Release Candidate 1 Windows"/>
+            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_lite_win.jar"/>
+            <property name="uploaded.file.name" value="transeditor_v${build.version.flat}_lite_win.jar"/>
+            <property name="uploaded.file.dir" value="/Releases/preview"/>
+            <property name="uploaded.file.description" value="XLIFF Translation Editor ${build.version.flat} Preview Windows"/>
+        </ant>
+        <ant target="upload">
+            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_unix.tar.gz"/>
+            <property name="uploaded.file.name" value="transeditor_v${build.version.flat}_unix.tar.gz"/>
+            <property name="uploaded.file.dir" value="/Releases/preview"/>
+            <property name="uploaded.file.description" value="XLIFF Translation Editor ${build.version.flat} Preview UNIX"/>
+        </ant>
+        <ant target="upload">
+            <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_win.zip"/>
+            <property name="uploaded.file.name" value="transeditor_v${build.version.flat}_win.zip"/>
+            <property name="uploaded.file.dir" value="/Releases/preview"/>
+            <property name="uploaded.file.description" value="XLIFF Translation Editor ${build.version.flat} Preview Windows"/>
         </ant>
     </target>
 
