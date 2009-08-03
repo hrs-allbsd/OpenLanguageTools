@@ -52,6 +52,7 @@ public class Configuration {
     private boolean bFlagTempFile;
     private boolean[] bSelectFlags = { true, true, true, true, true };
     private boolean bFlagAutoPropagate = true;
+    private boolean bFlagValidateXLIFF = true;
     private boolean tagProtection = true;
     private boolean bSafeExit;
     private boolean didAgreeToLicense = false;
@@ -236,6 +237,14 @@ public class Configuration {
         this.bFlagAutoPropagate = bFlagAutoPropagate;
     }
 
+    public boolean isBFlagValidateXLIFF() {
+        return bFlagValidateXLIFF;
+    }
+
+    public void setBFlagValidateXLIFF(boolean bFlagValidateXLIFF) {
+        this.bFlagValidateXLIFF = bFlagValidateXLIFF;
+    }
+
     public boolean isTagProtection() {
         return tagProtection;
     }
@@ -317,6 +326,7 @@ public class Configuration {
         bFlagWriteProtection = optNode.getBoolean("WriteProtection", true);
         bFlagTagVerifyIgnoreOrder = optNode.getBoolean("TagVerifyIgnoreOrder", true);
         bFlagAutoPropagate = optNode.getBoolean("AutoPropagation", true);
+        bFlagValidateXLIFF = optNode.getBoolean("ValidateXLIFF", true);
         bFlagAutoSave = optNode.getBoolean("AutoSave", true);
         iGlobalInterval = optNode.getInt("AutoSaveInterval", 5);
 
@@ -380,6 +390,7 @@ public class Configuration {
         optNode.putBoolean("WriteProtection", bFlagWriteProtection);
         optNode.putBoolean("TagVerifyIgnoreOrder", bFlagTagVerifyIgnoreOrder);
         optNode.putBoolean("AutoPropagation", bFlagAutoPropagate);
+        optNode.putBoolean("ValidateXLIFF", bFlagValidateXLIFF);
         optNode.putBoolean("AutoSave", bFlagAutoSave);
         optNode.putInt("AutoSaveInterval", iGlobalInterval);
         optNode.putBoolean("TempFile", bFlagTempFile);

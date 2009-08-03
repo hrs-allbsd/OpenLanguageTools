@@ -300,6 +300,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     private JCheckBoxMenuItem jCBMenuWriteProtection = new JCheckBoxMenuItem();
     private JCheckBoxMenuItem jCBMenuTagVerifyIgnoreOrder = new JCheckBoxMenuItem();
     private JCheckBoxMenuItem jCBMenuAutoPropagate = new JCheckBoxMenuItem();
+    private JCheckBoxMenuItem jCBMenuValidateXLIFF = new JCheckBoxMenuItem();
     private JMenuItem jMenuAutoSave = new JMenuItem();
     private JMenuItem jMenuSpellCheckerOption = new JMenuItem();
 
@@ -987,6 +988,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jCBMenuWriteProtection.setSelected(cfg.isBFlagWriteProtection());
         jCBMenuTagVerifyIgnoreOrder.setSelected(cfg.isBFlagTagVerifyIgnoreOrder());
         jCBMenuAutoPropagate.setSelected(cfg.isBFlagAutoPropagate());
+        jCBMenuValidateXLIFF.setSelected(cfg.isBFlagValidateXLIFF());
 
         // refresh the window size
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -2109,6 +2111,17 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     jCBMenuAutoPropagate_actionPerformed(e);
                 }
             });
+
+        jCBMenuValidateXLIFF.setName("Validate_XLIFF");
+        jCBMenuValidateXLIFF.setText(bundle.getString("Validate_XLIFF"));
+        jCBMenuValidateXLIFF.setMnemonic('V');
+        jCBMenuValidateXLIFF.setToolTipText(bundle.getString("Validate_XLIFF_files_on_open_and_save"));
+        jCBMenuValidateXLIFF.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    backend.getConfig().setBFlagValidateXLIFF(jCBMenuValidateXLIFF.isSelected());
+                }
+            });
+
         jMenuAutoSave.setToolTipText(bundle.getString("Set_the_autosave_properties"));
         jMenuAutoSave.setName("Autosave...");
         jMenuAutoSave.setText(bundle.getString("Autosave..."));
@@ -2341,6 +2354,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         optionMenu.add(jCBMenuWriteProtection);
         optionMenu.add(jCBMenuTagVerifyIgnoreOrder);
         optionMenu.add(jCBMenuAutoPropagate);
+        optionMenu.add(jCBMenuValidateXLIFF);
         optionMenu.add(jMenuAutoSave);
         optionMenu.addSeparator();
         optionMenu.add(jMenuSpellCheckerOption);

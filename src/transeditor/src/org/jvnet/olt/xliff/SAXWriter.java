@@ -22,6 +22,7 @@ import javax.xml.parsers.SAXParserFactory;
  * Created on February 28, 2005, 2:33 PM
  */
 import org.jvnet.olt.editor.translation.Constants;
+import org.jvnet.olt.editor.translation.Backend;
 import org.jvnet.olt.xliff.handlers.ParserX;
 import org.jvnet.olt.xliff.handlers.Handler;
 
@@ -117,24 +118,27 @@ public class SAXWriter {
         px.setPrefixMap(uriMapping);
 
         try {
+            Backend backend = Backend.instance();
             SAXParserFactory factory = SAXParserFactory.newInstance();
-            factory.setValidating( ! version.isXLIFF10()); //disable Validation for XLIFF 1.0
+            factory.setValidating( ! version.isXLIFF10() && backend.getConfig().isBFlagValidateXLIFF() ); //disable Validation for XLIFF 1.0
             factory.setNamespaceAware(true);
 
             SAXParser saxParser = factory.newSAXParser();
 
-            if (version.isXLIFF11()) {
-                saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
-                saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                                        "/resources/xliff-core-1.1.xsd");
-            } else if (version.isXLIFF12_strict()) {
-                saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
-                saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                                        "/resources/xliff-core-1.2-strict.xsd");
-            } else if (version.isXLIFF12_transitional()) {
-                saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
-                saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                                        "/resources/xliff-core-1.2-transitional.xsd");
+            if ( factory.isValidating() ) {
+                if (version.isXLIFF11()) {
+                    saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
+                    saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                                            "/resources/xliff-core-1.1.xsd");
+                } else if (version.isXLIFF12_strict()) {
+                    saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
+                    saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                                            "/resources/xliff-core-1.2-strict.xsd");
+                } else if (version.isXLIFF12_transitional()) {
+                    saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
+                    saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                                            "/resources/xliff-core-1.2-transitional.xsd");
+                }
             }
 
             XMLReader sr = saxParser.getXMLReader();
