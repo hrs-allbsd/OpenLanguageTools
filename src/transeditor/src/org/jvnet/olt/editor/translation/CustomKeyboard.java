@@ -350,7 +350,7 @@ OUT:
 
         // right dialog panel (buttons)
         closeButton.setText("Close");
-        closeButton.setBounds(new Rectangle(11, 223, 97, 27));
+        closeButton.setBounds(new Rectangle(11, 223, 102, 27));
         closeButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     closeButton_actionPerformed(e);
@@ -358,7 +358,7 @@ OUT:
             });
 
         setButton.setText("Set");
-        setButton.setBounds(new Rectangle(11, 42, 97, 27));
+        setButton.setBounds(new Rectangle(11, 42, 102, 27));
         setButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     setButton_actionPerformed(e);
@@ -366,7 +366,7 @@ OUT:
             });
 
         resetButton.setText("Reset");
-        resetButton.setBounds(new Rectangle(11, 79, 97, 27));
+        resetButton.setBounds(new Rectangle(11, 79, 102, 27));
         resetButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     resetButton_actionPerformed(e);
@@ -374,7 +374,7 @@ OUT:
             });
 
         resetAllButton.setText("Reset All...");
-        resetAllButton.setBounds(new Rectangle(11, 115, 97, 27));
+        resetAllButton.setBounds(new Rectangle(11, 115, 102, 27));
         resetAllButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     resetAllButton_actionPerformed(e);
@@ -383,7 +383,7 @@ OUT:
 
         noShortCutButton.setMargin(new Insets(2, 10, 2, 10));
         noShortCutButton.setText("No Shortcut");
-        noShortCutButton.setBounds(new Rectangle(11, 151, 97, 27));
+        noShortCutButton.setBounds(new Rectangle(11, 151, 102, 27));
         noShortCutButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     noShortCutButton_actionPerformed(e);
@@ -391,7 +391,7 @@ OUT:
             });
 
         rightPanel.setLayout(null);
-        rightPanel.setMinimumSize(new Dimension(50, 300));
+        rightPanel.setMinimumSize(new Dimension(110, 300));
         rightPanel.setPreferredSize(new Dimension(120, 300));
         rightPanel.add(setButton, null);
         rightPanel.add(resetAllButton, null);
@@ -410,6 +410,7 @@ OUT:
         centerPanel.add(desLabel, BorderLayout.SOUTH);
 
         this.getContentPane().setLayout(new BorderLayout());
+        this.setMinimumSize(new Dimension (400,300));
         this.getContentPane().add(centerPanel, BorderLayout.CENTER);
         this.getContentPane().add(rightPanel, BorderLayout.EAST);
     }
