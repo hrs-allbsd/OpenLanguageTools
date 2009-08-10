@@ -1,5 +1,0 @@
-#!/bin/sh
-
-CLASSPATH=/home/jc73554/Jars/xerces-1.3.0.jar:/home/jc73554/Jars/xalan.jar
-
-java -mx96M -classpath ${CLASSPATH} org.apache.xalan.xslt.Process -in $1 -xsl /home/jc73554/scripts/tree.xsl -out $2
