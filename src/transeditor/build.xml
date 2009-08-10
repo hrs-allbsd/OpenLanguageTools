@@ -284,7 +284,7 @@
         <chmod dir="${installer.dir}/spellchecker" includes="**" perm="ugo+rw" type="both"/>
 
         <!-- documentation -->
-        <copy file="docs/OLT_XLIFF_Translation_Editor_Manual_1_0.pdf" tofile="${installer.dir}/OLT_XLIFF_Translation_Editor_Manual_${build.version.flat}.pdf"/>
+        <copy file="docs/OLT_XLIFF_Translation_Editor_Manual.pdf" tofile="${installer.dir}/OLT_XLIFF_Translation_Editor_Manual_${build.version.flat}.pdf"/>
 
         <!-- set product version number in installer files -->
         <replace dir="${installer.dir}" token="@VERSION@" value="${build.version}">
