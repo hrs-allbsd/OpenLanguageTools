@@ -172,7 +172,8 @@
 		<javac
             destdir="${build.dir}"
             debug="${compiler.debug}"
-            classpathref="common.build.classpath">
+            classpathref="common.build.classpath"
+	    target="${platform.version}">
             <patternset refid="src.pattern"/>
 			<src refid="src.dirs"/>
 		</javac>
