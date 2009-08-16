@@ -1328,7 +1328,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuOpen.setText(bundle.getString("Open"));
         jMenuOpen.setToolTipText(bundle.getString("Open_a_.xlz_or_.xlf_file..."));
         jMenuOpen.setMnemonic('O');
-        jMenuOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
         jMenuOpen.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuOpen_actionPerformed(e);
@@ -1338,7 +1337,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuSave.setText(bundle.getString("Save"));
         jMenuSave.setToolTipText(bundle.getString("Save_the_current_file..."));
         jMenuSave.setMnemonic('S');
-        jMenuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_MASK));
         jMenuSave.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuSave_actionPerformed(e);
@@ -1383,7 +1381,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuPrint.setName("Print...");
         jMenuPrint.setText(bundle.getString("Print..."));
         jMenuPrint.setMnemonic('P');
-        jMenuPrint.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_MASK));
         jMenuPrint.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
@@ -1412,7 +1409,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuUndo.setName("Undo");
         jMenuUndo.setMnemonic('U');
         jMenuUndo.setText(bundle.getString("Undo"));
-        jMenuUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_MASK));
         jMenuUndo.setToolTipText(bundle.getString("Undo_the_last_operation"));
         jMenuUndo.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1423,7 +1419,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuRedo.setName("Redo");
         jMenuRedo.setText(bundle.getString("Redo"));
         jMenuRedo.setToolTipText(bundle.getString("Redo_the_last_operation"));
-        jMenuRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_MASK));
         jMenuRedo.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuRedo_actionPerformed(e);
@@ -1432,7 +1427,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuCut.setMnemonic('T');
         jMenuCut.setName("Cut");
         jMenuCut.setText(bundle.getString("Cut"));
-        jMenuCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_MASK));
         jMenuCut.setToolTipText(bundle.getString("Cut"));
         jMenuCut.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1443,7 +1437,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuCopy.setName("Copy");
         jMenuCopy.setText(bundle.getString("Copy"));
         jMenuCopy.setToolTipText(bundle.getString("Copy"));
-        jMenuCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_MASK));
         jMenuCopy.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuCopy_actionPerformed(e);
@@ -1453,7 +1446,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuPaste.setName("Paste");
         jMenuPaste.setText(bundle.getString("Paste"));
         jMenuPaste.setToolTipText(bundle.getString("Paste"));
-        jMenuPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_MASK));
         jMenuPaste.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuPaste_actionPerformed(e);
@@ -1463,7 +1455,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuTransfer.setName("Transfer");
         jMenuTransfer.setText(bundle.getString("Transfer"));
         jMenuTransfer.setMnemonic('F');
-        jMenuTransfer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK));
         jMenuTransfer.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuTransfer_actionPerformed(e);
@@ -1482,7 +1473,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuCopySource.setName("Copy_Source");
         jMenuCopySource.setText(bundle.getString("Copy_Source"));
         jMenuCopySource.setMnemonic('O');
-        jMenuCopySource.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, KeyEvent.ALT_MASK));
         jMenuCopySource.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuCopySource_actionPerformed(e);
@@ -1492,7 +1482,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuCopySourceTag.setName("Copy_Source_Tags");
         jMenuCopySourceTag.setText(bundle.getString("Copy_Source_Tags"));
         jMenuCopySourceTag.setMnemonic('G');
-        jMenuCopySourceTag.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, KeyEvent.ALT_MASK));
         jMenuCopySourceTag.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuCopySourceTags_actionPerformed(e);
@@ -1502,7 +1491,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuClearTarget.setName("Clear_Target");
         jMenuClearTarget.setText(bundle.getString("Clear_Target"));
         jMenuClearTarget.setMnemonic('L');
-        jMenuClearTarget.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, KeyEvent.ALT_MASK));
         jMenuClearTarget.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuClearTarget_actionPerformed(e);
@@ -1518,7 +1506,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuMarkSegTrans.setName("Translated");
         jMenuMarkSegTrans.setText(bundle.getString("Translated"));
         jMenuMarkSegTrans.setMnemonic('T');
-        jMenuMarkSegTrans.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, KeyEvent.ALT_MASK));
         jMenuMarkSegTrans.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuMarkSegTrans_actionPerformed(e);
@@ -1528,7 +1515,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuMarkSegUnTrans.setName("Untranslated");
         jMenuMarkSegUnTrans.setText(bundle.getString("Untranslated"));
         jMenuMarkSegUnTrans.setMnemonic('U');
-        jMenuMarkSegUnTrans.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0));
         jMenuMarkSegUnTrans.setEnabled(false);
         jMenuMarkSegUnTrans.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1541,7 +1527,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuMarkSegReviewed.setName("Approved");
         jMenuMarkSegReviewed.setText(bundle.getString("Approved"));
         jMenuMarkSegReviewed.setMnemonic('A');
-        jMenuMarkSegReviewed.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
         jMenuMarkSegReviewed.setEnabled(false);
         jMenuMarkSegReviewed.addActionListener(new ApproveSegmentCommand(this));
 
@@ -1612,7 +1597,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuMarkTranslatedAndNext.setName("Confirm_and_Translate_Next");
         jMenuMarkTranslatedAndNext.setText(bundle.getString("Confirm_and_Translate_Next"));
         jMenuMarkTranslatedAndNext.setMnemonic('N');
-        jMenuMarkTranslatedAndNext.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.ALT_MASK));
         jMenuMarkTranslatedAndNext.setToolTipText(bundle.getString("Mark_current_segment_as_translated_and_go_to_next"));
         jMenuMarkTranslatedAndNext.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1622,7 +1606,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuMarkReviewedAndNext.setName("Approve_and_go_to_Next_Translated");
         jMenuMarkReviewedAndNext.setText(bundle.getString("Approve_and_go_to_Next_Translated"));
         jMenuMarkReviewedAndNext.setToolTipText(bundle.getString("Mark_current_segment_as_approved_and_go_to_next"));
-        jMenuMarkReviewedAndNext.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, KeyEvent.CTRL_MASK));
         jMenuMarkReviewedAndNext.addActionListener(commandApproveAndGotoNext);
 
         jMenuMarkRejectedAndNext.setName("Reject_and_go_to_Next_Translated");
@@ -1673,7 +1656,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuSearch.setName("Search/Replace");
         jMenuSearch.setText(bundle.getString("Search/Replace"));
         jMenuSearch.setMnemonic('E');
-        jMenuSearch.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
         jMenuSearch.setToolTipText(bundle.getString("Search_for_and_replace_text"));
         jMenuSearch.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1826,7 +1808,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jCBMenuTagProtection.setName("Tag_Protection");
         jCBMenuTagProtection.setText(bundle.getString("Tag_Protection"));
         jCBMenuTagProtection.setMnemonic('T');
-        jCBMenuTagProtection.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.ALT_MASK));
         jCBMenuTagProtection.setSelected(backend.getConfig().isTagProtection());
         jCBMenuTagProtection.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1867,7 +1848,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuNaviNextOption.setName("Next_Segment");
         jMenuNaviNextOption.setText(bundle.getString("Next_Segment"));
         jMenuNaviNextOption.setMnemonic('N');
-        jMenuNaviNextOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.CTRL_MASK));
         jMenuNaviNextOption.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuNaviNextOption_actionPerformed(e);
@@ -1878,7 +1858,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuNaviPrevOption.setName("Previous_Segment");
         jMenuNaviPrevOption.setText(bundle.getString("Previous_Segment"));
         jMenuNaviPrevOption.setMnemonic('P');
-        jMenuNaviPrevOption.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.CTRL_MASK));
         jMenuNaviPrevOption.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuNaviPrevOption_actionPerformed(e);
@@ -1907,7 +1886,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuNaviGotoTop.setName("Go_To_Top");
         jMenuNaviGotoTop.setText(bundle.getString("Go_To_Top"));
         jMenuNaviGotoTop.setMnemonic('T');
-        jMenuNaviGotoTop.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_HOME, KeyEvent.CTRL_MASK));
         jMenuNaviGotoTop.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuNaviGotoTop_actionPerformed(e);
@@ -1918,7 +1896,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuNaviGotoBottom.setName("Go_To_Bottom");
         jMenuNaviGotoBottom.setText(bundle.getString("Go_To_Bottom"));
         jMenuNaviGotoBottom.setMnemonic('B');
-        jMenuNaviGotoBottom.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_END, KeyEvent.CTRL_MASK));
         jMenuNaviGotoBottom.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuNaviGotoBottom_actionPerformed(e);
@@ -1929,7 +1906,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuNaviPageUp.setName("Page_Up");
         jMenuNaviPageUp.setText(bundle.getString("Page_Up"));
         jMenuNaviPageUp.setMnemonic('U');
-        jMenuNaviPageUp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP, KeyEvent.CTRL_MASK));
         jMenuNaviPageUp.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuNaviPageUp_actionPerformed(e);
@@ -1940,7 +1916,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuNaviPageDown.setName("Page_Down");
         jMenuNaviPageDown.setText(bundle.getString("Page_Down"));
         jMenuNaviPageDown.setMnemonic('D');
-        jMenuNaviPageDown.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN, KeyEvent.CTRL_MASK));
         jMenuNaviPageDown.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuNaviPageDown_actionPerformed(e);
@@ -1951,7 +1926,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuNaviGoto.setName("Go_To_Segment...");
         jMenuNaviGoto.setText(bundle.getString("Go_To_Segment..."));
         jMenuNaviGoto.setMnemonic('S');
-        jMenuNaviGoto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_MASK));
         jMenuNaviGoto.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jMenuNaviGoto_actionPerformed(e);
@@ -1967,7 +1941,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuTagVerify.setName("Tag_Verification");
         jMenuTagVerify.setText(bundle.getString("Tag_Verification"));
         jMenuTagVerify.setMnemonic('V');
-        jMenuTagVerify.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_MASK));
         jMenuTagVerify.setToolTipText(bundle.getString("Verify_tags"));
         jMenuTagVerify.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1977,7 +1950,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuSpellCheck.setName("Spell_Checking");
         jMenuSpellCheck.setText(bundle.getString("Spell_Checking"));
         jMenuSpellCheck.setMnemonic('S');
-        jMenuSpellCheck.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F7, 0));
         jMenuSpellCheck.setToolTipText(bundle.getString("Check_spelling"));
         jMenuSpellCheck.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1987,7 +1959,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuUpdateMiniTM.setToolTipText(bundle.getString("Update_mini-TM_with_current_segment"));
         jMenuUpdateMiniTM.setName("Update_Mini-TM");
         jMenuUpdateMiniTM.setText(bundle.getString("Update_Mini-TM"));
-        jMenuUpdateMiniTM.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_MASK));
         jMenuUpdateMiniTM.setMnemonic('U');
         jMenuUpdateMiniTM.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -1997,7 +1968,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuMaintainMiniTM.setToolTipText(bundle.getString("Edit_mini-TM"));
         jMenuMaintainMiniTM.setName("Maintain_Mini-TM");
         jMenuMaintainMiniTM.setText(bundle.getString("Maintain_Mini-TM"));
-        jMenuMaintainMiniTM.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_MASK));
         jMenuMaintainMiniTM.setMnemonic('M');
         jMenuMaintainMiniTM.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -2008,7 +1978,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuSearchMiniTM.setToolTipText(bundle.getString("Search_mini-TM"));
         jMenuSearchMiniTM.setName("Search_Mini-TM");
         jMenuSearchMiniTM.setText(bundle.getString("Search_Mini-TM"));
-        jMenuSearchMiniTM.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.ALT_MASK));
         jMenuSearchMiniTM.setMnemonic('S');
         jMenuSearchMiniTM.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
