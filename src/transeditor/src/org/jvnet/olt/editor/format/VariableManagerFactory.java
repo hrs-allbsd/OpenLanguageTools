@@ -12,6 +12,7 @@ package org.jvnet.olt.editor.format;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.*;
 
 import org.jvnet.olt.format.GlobalVariableManager;
 import org.jvnet.olt.format.sgml.EntityManager;
@@ -22,6 +23,9 @@ import org.jvnet.olt.format.sgml.EntityManager;
  * @author  jc73554
  */
 public class VariableManagerFactory {
+    private static final Logger logger = Logger.getLogger(VariableManagerFactory.class.getName());
+
+    private static final int UNKNOWN = 0;
     private static final int SGML = 1;
     private static final int HTML = 2;
     private static final int XML = 3;
@@ -38,6 +42,7 @@ public class VariableManagerFactory {
     /** Creates a new instance of VariableManagerFactory */
     public VariableManagerFactory() {
         validFormatsHash = new HashMap();
+        validFormatsHash.put("", new Integer(UNKNOWN));
         validFormatsHash.put("SGML", new Integer(SGML));
         validFormatsHash.put("HTML", new Integer(HTML));
         validFormatsHash.put("XML", new Integer(XML));
@@ -54,11 +59,12 @@ public class VariableManagerFactory {
 
     }
 
-    public GlobalVariableManager createVariableManager(java.lang.String type) throws InvalidFormatTypeException {
+    public GlobalVariableManager createVariableManager(java.lang.String type) {
         Integer iType = (Integer)validFormatsHash.get(type);
 
         if (iType == null) { //  guard clause
-            throw new InvalidFormatTypeException("The format type, '" + type + "', is not a supported format.");
+            iType = UNKNOWN;
+            logger.warning("Unknown type for original file: " + type);
         }
 
         GlobalVariableManager gvm = null;
@@ -69,7 +75,6 @@ public class VariableManagerFactory {
         case XML:
         case JSP:
             gvm = new EntityManager();
-
             return gvm;
 
         case PO:
@@ -80,11 +85,11 @@ public class VariableManagerFactory {
         case DTD:
         case STAROFFICE:
             gvm = new EntityManager();
-
             return gvm;
 
         default:
-            throw new InvalidFormatTypeException("The format type, '" + type + "', is not a supported format.");
+            gvm = new EntityManager();
+            return gvm;
         }
     }
 }

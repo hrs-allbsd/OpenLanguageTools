@@ -10,6 +10,8 @@
  */
 package org.jvnet.olt.editor.format;
 
+import java.util.logging.*;
+
 import org.jvnet.olt.editor.format.sgml.SgmlFormatElementExtractor;
 import org.jvnet.olt.editor.format.swmsg.SwMsgElementExtractor;
 import org.jvnet.olt.format.GlobalVariableManager;
@@ -22,6 +24,9 @@ import org.jvnet.olt.format.soxliff.SOXliffFormatExtractor;
  * @author  jc73554
  */
 public class FormatElementExtractorFactory {
+    private static final Logger logger = Logger.getLogger(VariableManagerFactory.class.getName());
+
+    private static final int UNKNOWN = 0;
     private static final int SGML = 1;
     private static final int HTML = 2;
     private static final int XML = 3;
@@ -39,6 +44,7 @@ public class FormatElementExtractorFactory {
     /** Creates a new instance of FormatExtractorFactory */
     public FormatElementExtractorFactory() {
         validFormatsHash = new java.util.HashMap();
+        validFormatsHash.put("", new Integer(UNKNOWN));
         validFormatsHash.put("SGML", new Integer(SGML));
         validFormatsHash.put("HTML", new Integer(HTML));
         validFormatsHash.put("XML", new Integer(XML));
@@ -56,11 +62,12 @@ public class FormatElementExtractorFactory {
         
     }
 
-    public FormatElementExtractor createFormatExtractor(String type, GlobalVariableManager gvm) throws InvalidFormatTypeException {
+    public FormatElementExtractor createFormatExtractor(String type, GlobalVariableManager gvm) {
         Integer iType = (Integer)validFormatsHash.get(type);
 
         if (iType == null) { //  guard clause
-            throw new InvalidFormatTypeException("The format type, '" + type + "', is not a supported format.");
+            iType = UNKNOWN;
+            logger.warning("Unknown type for original file: " + type);
         }
 
         SegmenterTable table = null;
@@ -110,7 +117,8 @@ public class FormatElementExtractorFactory {
             return extractor;
 
         default:
-            throw new InvalidFormatTypeException("The format type, '" + type + "', is not a supported format.");
+            extractor = new SwMsgElementExtractor(gvm);
+            return extractor;
         }
     }
 }

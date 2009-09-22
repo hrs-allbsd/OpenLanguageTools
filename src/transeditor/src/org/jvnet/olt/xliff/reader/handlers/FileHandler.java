@@ -14,7 +14,6 @@ package org.jvnet.olt.xliff.reader.handlers;
 import org.jvnet.olt.editor.format.DefaultFormatElementExtractor;
 import org.jvnet.olt.editor.format.FormatElementExtractor;
 import org.jvnet.olt.editor.format.FormatElementExtractorFactory;
-import org.jvnet.olt.editor.format.InvalidFormatTypeException;
 import org.jvnet.olt.editor.format.VariableManagerFactory;
 import org.jvnet.olt.editor.util.BaseElements;
 import org.jvnet.olt.format.GlobalVariableManager;
@@ -50,7 +49,7 @@ public class FileHandler extends BaseHandler {
 
                 FormatElementExtractorFactory factory = new FormatElementExtractorFactory();
                 extractor = factory.createFormatExtractor(originalDataType, gvm);
-            } catch (InvalidFormatTypeException ex) {
+            } catch (Exception ex) {
                 //  throw new SAXException(ex.getMessage());
                 //  We need to be a bit less brittle here. Use a default extractor that
                 //  does nothing if we encounter a type we cannot handle.

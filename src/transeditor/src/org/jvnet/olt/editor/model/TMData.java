@@ -28,7 +28,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
-import org.jvnet.olt.editor.format.InvalidFormatTypeException;
 import org.jvnet.olt.editor.format.VariableManagerFactory;
 import org.jvnet.olt.editor.translation.AlignmentMain;
 import org.jvnet.olt.editor.translation.DocumentUndoableEdit;
@@ -1900,9 +1899,9 @@ public class TMData extends PivotData {
             parser.populateVariableManager(gvm);
 
             return gvm;
-        } catch (InvalidFormatTypeException ex) {
+        } catch (Exception ex) {
             logger.throwing(getClass().getName(), "createVariableManager", ex);
-            logger.severe("No variable manager needed for type: " + formatType);
+            logger.severe("No variable manager could be created for type: " + formatType);
 
             //TODO throw an exception
             return null;
