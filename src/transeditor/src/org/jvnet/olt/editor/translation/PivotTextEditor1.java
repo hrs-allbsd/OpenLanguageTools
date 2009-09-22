@@ -214,21 +214,6 @@ public class PivotTextEditor1 extends AbstractCellEditor implements TableCellEdi
         // update the SourceContextFrame with some information about this
         // source string.
         String transUnitID = tmpdata.tmsentences[row].getTransUintID();
-
-		int parid_start = transUnitID.indexOf( "par_id" ) + "par_id".length();
-		int parid_end = transUnitID.indexOf( ".help" );
-
-		String parid = null;
-		if ( parid_start > 0 && parid_end > parid_start ) {
-			parid = transUnitID.substring( parid_start, parid_end );
-		}
-
-		if ( parid != null ) {
-			transUnitID += " -- ParID: " + parid;
-		}
-
-		MainFrame.txtTransUnitID.setText( transUnitID );
-
         Map context = tmpdata.getSourceContextTrack().getContext(transUnitID);
 
         if (context != null) {
@@ -236,6 +221,8 @@ public class PivotTextEditor1 extends AbstractCellEditor implements TableCellEdi
         } else {
             MainFrame.jSourceContextFrame.setContextInformation(new HashMap());
         }
+
+	MainFrame.txtTransUnitID.setText( transUnitID );
 
         return editor;
     }
