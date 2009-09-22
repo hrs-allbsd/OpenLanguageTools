@@ -96,16 +96,16 @@ public class SAXReader {
         xp.addHandler("/xliff/file/body/trans-unit/alt-trans/context-group", altCtxHandler);
 
         xp.addHandler("/xliff/file/body/group", new GroupHandler(ctx));
-        xp.addHandler("/xliff/file/body/group/trans-unit", tuHandler);
-        xp.addHandler("/xliff/file/body/group/trans-unit/source", srcHandler);
-        xp.addHandler("/xliff/file/body/group/trans-unit/target", tgtHandler);
-        xp.addHandler("/xliff/file/body/group/trans-unit/context-group", srcCtxHandler);
-        xp.addHandler("/xliff/file/body/group/trans-unit/note", tuNote);
-        xp.addHandler("/xliff/file/body/group/trans-unit/alt-trans", altTransHandler);
-        xp.addHandler("/xliff/file/body/group/trans-unit/alt-trans/source", srcHandler);
-        xp.addHandler("/xliff/file/body/group/trans-unit/alt-trans/target", tgtHandler);
-        xp.addHandler("/xliff/file/body/group/trans-unit/alt-trans/prop-group", propGrpHandler);
-        xp.addHandler("/xliff/file/body/group/trans-unit/alt-trans/context-group", altCtxHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit", tuHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/source", srcHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/target", tgtHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/context-group", srcCtxHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/note", tuNote);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/alt-trans", altTransHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/alt-trans/source", srcHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/alt-trans/target", tgtHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/alt-trans/prop-group", propGrpHandler);
+        xp.addHandler("/xliff/file/body/group/.*trans-unit/alt-trans/context-group", altCtxHandler);
 
         Map uriMapping = new HashMap();
         if (version.isXLIFF11()) {

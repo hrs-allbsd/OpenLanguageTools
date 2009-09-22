@@ -134,8 +134,15 @@ public class ParserX extends DefaultHandler {
 
         boolean hasHandler = false;
 
-        if (allHandlers.containsKey(path)) {
-            h = (Handler)allHandlers.get(path);
+        Object[] aHandlers = allHandlers.keySet().toArray();
+        for ( int i=0; i<aHandlers.length && h == null ; i++  ) {
+            if ( path.matches(aHandlers[i].toString()) )
+                h = (Handler)allHandlers.get(aHandlers[i].toString());
+        }
+
+        //if (allHandlers.containsKey(path)) {
+        if ( h != null) {
+            //h = (Handler)allHandlers.get(path);
             handlerStack.push(h);
 
             elementHandlerMap.put(elem, h);
@@ -202,7 +209,7 @@ public class ParserX extends DefaultHandler {
             throw new NullPointerException(((path == null) ? "path" : "hndlr") + " is null");
         }
 
-        if (!path.endsWith("/")) {
+        if ( path.startsWith("/") && !path.endsWith("/")) {
             path = path + "/";
         }
 

@@ -98,14 +98,14 @@ public class SAXWriter {
         px.addHandler("/xliff/file/body/trans-unit/target", tgtHandler);
         px.addHandler("/xliff/file/body/trans-unit/note", noteHandler);
 
-        px.addHandler("/xliff/file/body/group/trans-unit/source", srcHandler);
-        px.addHandler("/xliff/file/body/group/trans-unit/target", tgtHandler);
-        px.addHandler("/xliff/file/body/group/trans-unit/note", noteHandler);
+        px.addHandler("/xliff/file/body/group/.*trans-unit/source", srcHandler);
+        px.addHandler("/xliff/file/body/group/.*trans-unit/target", tgtHandler);
+        px.addHandler("/xliff/file/body/group/.*trans-unit/note", noteHandler);
 
-        px.addHandler("/xliff/file/body/group/trans-unit", new TransUnitHandler(ctx));
-        px.addHandler("/xliff/file/body/group/trans-unit/source", new SourceHandler(ctx));
-        px.addHandler("/xliff/file/body/group/trans-unit/target", new TargetHandler(ctx));
-        px.addHandler("/xliff/file/body/group/trans-unit/note", new NoteHandler(ctx, false));
+        px.addHandler("/xliff/file/body/group/.*trans-unit", new TransUnitHandler(ctx));
+        px.addHandler("/xliff/file/body/group/.*trans-unit/source", new SourceHandler(ctx));
+        px.addHandler("/xliff/file/body/group/.*trans-unit/target", new TargetHandler(ctx));
+        px.addHandler("/xliff/file/body/group/.*trans-unit/note", new NoteHandler(ctx, false));
 
         Map uriMapping = new HashMap();
         if (version.isXLIFF11()) {
