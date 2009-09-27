@@ -98,7 +98,7 @@ public class XLIFFParser {
         try{
             fileType = guessFileType(file);
             
-            java.io.Reader isr = getReader();
+            java.io.Reader isr = getReader(file);
             try {
                 guessFileVersion(isr);
                 if(version == null)
@@ -130,11 +130,25 @@ public class XLIFFParser {
         
     }
     
-    private java.io.Reader getReader() throws IOException{
-        if(fileType == FILE_TYPE_XLF)
-            return new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
-        else if(fileType == FILE_TYPE_XLZ){
-            xlzZipFile = new XliffZipFileIO(file);
+    //private java.io.Reader getReader() throws IOException{
+    public java.io.Reader getReader(File f) throws IOException{
+        if(fileType == FILE_TYPE_XLF) {
+            FileInputStream fis = new FileInputStream(f);
+            // try to skip BOM
+            byte[] bbuf = new byte[3];
+            if ( fis.read(bbuf, 0, 3)>=0) {
+                // test for BOM: EF BB BF
+                if ( bbuf[0] == -17 && bbuf[1] == -69 && bbuf[2] == -65 ) {
+                    // we catched a BOM -> skip
+                } else {
+                    // no BOM -> reset
+                    fis.close();
+                    fis = new FileInputStream(f);
+                }
+            }
+            return new BufferedReader(new InputStreamReader(fis,"UTF-8"));
+        } else if(fileType == FILE_TYPE_XLZ){
+            xlzZipFile = new XliffZipFileIO(f);
             return new BufferedReader(xlzZipFile.getXliffReader());
             
         } else
@@ -148,7 +162,7 @@ public class XLIFFParser {
         try {
             //logger.finer(aSourceXLIFFFilePath);
             
-            java.io.Reader r = getReader();
+            java.io.Reader r = getReader(file);
             
             long t1 = System.currentTimeMillis();
             
@@ -449,8 +463,9 @@ public class XLIFFParser {
         try {
             xwriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(destFile), "UTF-8"));
             tempCopyWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempCopy2), "UTF-8"));
-            reader = new InputStreamReader(new FileInputStream(tempCopy), "UTF-8");
-            
+            //reader = new InputStreamReader(new FileInputStream(tempCopy), "UTF-8");
+            reader = getReader(tempCopy);
+
             realWriter = new MultiWriter(new java.io.Writer[] { tempCopyWriter, xwriter });
            
             writer.saveTargetLanguageCode(targetLang);

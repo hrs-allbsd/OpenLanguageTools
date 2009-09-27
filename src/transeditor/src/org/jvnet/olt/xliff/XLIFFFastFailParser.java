@@ -183,15 +183,17 @@ public class XLIFFFastFailParser extends DefaultHandler implements EntityResolve
     }
 
     public void warning(org.xml.sax.SAXParseException e) throws SAXException {
-        logger.finer("warning");
+        logger.warning("Line "+ e.getLineNumber() + ", Column "+ e.getColumnNumber() + " : " +  e.toString());
     }
 
     public void fatalError(org.xml.sax.SAXParseException e) throws SAXException {
-        logger.finer("fatal");
+        logger.severe("Line "+ e.getLineNumber() + ", Column "+ e.getColumnNumber() + " : " +  e.toString());
+        throw new FailureException(STATUS_NONE);
     }
 
     public void error(org.xml.sax.SAXParseException e) throws SAXException {
-        logger.finer("error");
+        logger.severe("Line "+ e.getLineNumber() + ", Column "+ e.getColumnNumber() + " : " +  e.toString());
+        throw new FailureException(STATUS_NONE);
     }
 
     public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) throws SAXException {
