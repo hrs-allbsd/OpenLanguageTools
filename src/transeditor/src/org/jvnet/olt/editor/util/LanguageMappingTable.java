@@ -248,6 +248,14 @@ public class LanguageMappingTable {
             internalCode = (String)mappingTable.get(key);
         }
 
+        if (internalCode == null) {
+            //  if we still did not find a Code, just use the first bit
+            //  in UPPERCASE
+            StringTokenizer tokenizer = new StringTokenizer(key, "-");
+            key = tokenizer.nextToken();
+            internalCode = key.toUpperCase();
+        }
+
         return internalCode;
     }
 
