@@ -352,6 +352,10 @@ public class Context implements XLIFFModel {
             theList = new ArrayList();
         }
 
+        // Alt-Trans does not need to have a source. If no source is given, we
+        // assume it is the trans-unit's source
+        if ( currentAltTransUnit.getSource() == null )
+                currentAltTransUnit.setSource(currentTransUnit.getSource());
         Match match = currentAltTransUnit.makeMatch();
 
         theList.add(match);
