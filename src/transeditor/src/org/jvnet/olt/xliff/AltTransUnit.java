@@ -26,12 +26,18 @@ public class AltTransUnit {
     XLIFFBasicSentence target;
     MatchAttributes attrs;
     String matchType;
-    String matchQuality = "0";
-    String formatDiffInfo = "0";
+    String matchQuality = "";
+    String formatDiffInfo = "";
+    String origin = "";
 
     /** Creates a new instance of AltTransUnit */
-    public AltTransUnit(String macthQuality) {
-        this.matchQuality = macthQuality;
+    public AltTransUnit(String matchQuality) {
+        this.matchQuality = matchQuality;
+    }
+
+    public AltTransUnit(String matchQuality, String origin) {
+        this ( matchQuality);
+        this.origin = origin;
     }
 
     public XLIFFBasicSentence getSource() {
@@ -66,7 +72,7 @@ public class AltTransUnit {
         Match match = null;
 
         if (matchType == null) {
-            match = new org.jvnet.olt.editor.model.SingleSegmentMatch(source, target, formatDiffInfo, matchQuality);
+            match = new org.jvnet.olt.editor.model.SingleSegmentMatch(source, target, formatDiffInfo, matchQuality, origin);
         } else {
             match = new org.jvnet.olt.editor.model.MultiSegmentMatch(source, target, formatDiffInfo, matchQuality, matchType);
         }

@@ -333,8 +333,8 @@ public class Context implements XLIFFModel {
         }
     }
 
-    public void addAltTrans(String matchQuality) {
-        currentAltTransUnit = new AltTransUnit(matchQuality);
+    public void addAltTrans(String matchQuality, String origin) {
+        currentAltTransUnit = new AltTransUnit(matchQuality, origin);
     }
 
     public void commitAltTrans() {

@@ -27,7 +27,7 @@ public class MultiSegmentMatch extends Match {
     protected int targetQuantity;
 
     public MultiSegmentMatch(XLIFFBasicSentence xlfSrcInput, XLIFFBasicSentence xlfTgtInput, String aMatchQualityInput, String aFormatDiffInput, String aMatchType) {
-        super(xlfSrcInput, xlfTgtInput, aFormatDiffInput, aMatchQualityInput);
+        super(xlfSrcInput, xlfTgtInput, aFormatDiffInput, aMatchQualityInput, "");
 
         int colonLoc = aMatchType.indexOf(":");
 

@@ -26,6 +26,7 @@ public abstract class Match {
     protected SimpleSentence lrds; // source in TM
     protected SimpleSentence lrdt; // target in TM
     protected MatchAttributes matchAttr = null;
+    protected String origin = "unknown";
 
     private Bundle rb = Bundle.getBundle(Match.class.getName());
     
@@ -37,19 +38,27 @@ public abstract class Match {
         lrdt = new SimpleSentence(unit.getTranslation().toString());
     }
 
-    public Match(XLIFFBasicSentence xlfSrcInput, XLIFFBasicSentence xlfTgtInput, String aMatchQualityInput, String aFormatDiffInput) {
+    public Match(XLIFFBasicSentence xlfSrcInput, XLIFFBasicSentence xlfTgtInput, String aMatchQualityInput, String aFormatDiffInput, String origin) {
         try {
             iMatchQuality = Integer.parseInt(aMatchQualityInput);
         } catch (NumberFormatException ex) {
             iMatchQuality = 0;
         }
-        iFormatDiff = Integer.parseInt(aFormatDiffInput);
+        try {
+            iFormatDiff = Integer.parseInt(aFormatDiffInput);
+        } catch (NumberFormatException ex) {
+            iFormatDiff = 0;
+        }
         iTMType = SYSTEM_TM;
 
         //xlfSrcInput.setVisibleSentence();
         //xlfTgtInput.setVisibleSentence();
         lrds = new SimpleSentence(xlfSrcInput.getVisibleSentence());
         lrdt = new SimpleSentence(xlfTgtInput.getVisibleSentence());
+
+        if ( origin != null)
+            this.origin = origin;
+
     }
 
     public int getTMType() {
@@ -87,7 +96,7 @@ public abstract class Match {
         
         
         if (iTMType == SYSTEM_TM) {
-            matchAttr = MessageFormat.format(rb.getString("TM_;_Format_Difference:_{0}%;_Quality:_{1}%"),iFormatDiff,iMatchQuality);
+            matchAttr = MessageFormat.format(rb.getString("Origin:_{0};_Format_Difference:_{1}%;_Quality:_{2}%"), origin, iFormatDiff,iMatchQuality);
         } else if (iTMType == MINI_TM) {
             Backend backend = Backend.instance();
             TMData tmpdata = backend.getTMData();

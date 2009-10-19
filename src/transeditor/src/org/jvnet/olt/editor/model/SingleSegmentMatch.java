@@ -29,8 +29,8 @@ public class SingleSegmentMatch extends Match {
         super(unit, iMatchQualityInput, iFormatDiffInput);
     }
 
-    public SingleSegmentMatch(XLIFFBasicSentence xlfSrcInput, XLIFFBasicSentence xlfTgtInput, String aMatchQualityInput, String aFormatDiffInput) {
-        super(xlfSrcInput, xlfTgtInput, aFormatDiffInput, aMatchQualityInput);
+    public SingleSegmentMatch(XLIFFBasicSentence xlfSrcInput, XLIFFBasicSentence xlfTgtInput, String aMatchQualityInput, String aFormatDiffInput, String origin) {
+        super(xlfSrcInput, xlfTgtInput, aFormatDiffInput, aMatchQualityInput, origin);
     }
 
     public String getMatchStyle() {
