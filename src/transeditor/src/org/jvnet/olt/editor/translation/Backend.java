@@ -264,7 +264,10 @@ public class Backend {
         
         this.project = tp;
         this.tmpdata = null;
-        this.xp = null;
+        if ( xp != null) {
+            xp.shutdown();
+            xp = null;
+        }
         
         //trigger event
         fireProjectPropertyChangedListener(new PropertyChangeEvent(this, PROPERTY_PROJECT, oldProject, tp));
@@ -279,7 +282,10 @@ public class Backend {
     
     public void resetBeforeOpen() {
         //reset before trying to open new one
-        xp = null;
+        if ( xp != null) {
+            xp.shutdown();
+            xp = null;
+        }
         currentFile = null;
         tmpdata = null;
     }

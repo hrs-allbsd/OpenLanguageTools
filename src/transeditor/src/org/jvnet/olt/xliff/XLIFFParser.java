@@ -83,7 +83,7 @@ public class XLIFFParser {
         
         this.sourceFile = new File(file.getAbsolutePath());
     }
-    
+
     /** this method examines the file to open.
      *
      * Result of examination is:
@@ -322,7 +322,12 @@ public class XLIFFParser {
     
     public void shutdown() {
         model = null;
-        
+
+        if (tempCopy != null) {
+            tempCopy.delete();
+            tempCopy = null;
+        }
+
         //TODO think of something smart here
         //  System.gc();
     }
