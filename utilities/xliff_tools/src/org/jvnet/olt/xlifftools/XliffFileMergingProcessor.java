@@ -202,6 +202,7 @@ public class XliffFileMergingProcessor implements XliffProcessor {
     }
     
     public void start_bin_unit(Attributes meta) {
+        m_boolInHeader = false;
     }
     
     public void start_body(Attributes meta) {
