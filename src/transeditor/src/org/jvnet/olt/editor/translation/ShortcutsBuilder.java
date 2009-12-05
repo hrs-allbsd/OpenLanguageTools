@@ -125,7 +125,9 @@ public class ShortcutsBuilder {
         this.defaultMap.put("Update_Mini-TM", "130 85");
 
         this.menuMap = menuMap;
-        if (this.menuMap.isEmpty())
+        if (this.menuMap.isEmpty() ||
+            this.menuMap.containsKey("Page Up"))
+            // if we find a "Page Up" key, this is a 1.2.7 config which needs to be replaced
             setDefaults();
         this.menuBar = menuBar;
     }
