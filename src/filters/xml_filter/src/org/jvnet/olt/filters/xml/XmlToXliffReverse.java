@@ -184,6 +184,11 @@ public class XmlToXliffReverse {
         
         xlz.writeZipFile();
         
+        xliffWriter.close();
+        sklWriter.close();
+        xliffreader.close();
+        sklreader.close();
+
         // now delete those temporary files :
         File xliff = new File(filename+".xlf");
         xliff.delete();
@@ -284,7 +289,7 @@ public class XmlToXliffReverse {
             
             XmlConfigManager.init(argv[0], argv[1]);
             
-            String encoding = System.getProperty("file.encoding");
+            //String encoding = System.getProperty("file.encoding");
             //System.out.println ("creating reader in " + encoding +" encoding.");
             //  Open the input file.
             Logger logger = Logger.getLogger("com.sun.tt.filters.testlogger");
@@ -294,8 +299,5 @@ public class XmlToXliffReverse {
             
         }
     }
-    
-    
-    
     
 }
