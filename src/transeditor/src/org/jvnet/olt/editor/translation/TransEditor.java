@@ -37,11 +37,11 @@ public class TransEditor {
 
         try {
             Configuration cfg = new Configuration(home, minitmDir);
-            logger.finer("Lodaing config...");
+            logger.finer("Loading config...");
             cfg.load();
             logger.finer("Loaded");
 
-            logger.finer("Lodaing backend...");
+            logger.finer("Loading backend...");
 
             Backend backend = Backend.instance(cfg);
             logger.finer("Loaded");
