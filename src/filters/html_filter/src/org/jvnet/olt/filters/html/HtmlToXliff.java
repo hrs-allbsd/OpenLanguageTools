@@ -71,7 +71,7 @@ public class HtmlToXliff {
             Writer sklWriter = new OutputStreamWriter(sklOutputStream, "UTF-8");
             org.jvnet.olt.parsers.tagged.TagTable tagTable = new HtmlTagTable();
             SegmenterTable segmenterTable = new HtmlSegmenterTable();
-            boolean treatAsSingleSegment = false;
+            //boolean treatAsSingleSegment = false;
             
             //parser.parseSgmlForXliff("HTML",language, shortname, xliffWriter, sklWriter, htmlTagTable, htmlSegmenterTable, treatAsSingleSegment);
             NonConformantSgmlDocFragmentParser parser = new  NonConformantSgmlDocFragmentParser(reader);
@@ -122,6 +122,11 @@ public class HtmlToXliff {
             
             xlz.writeZipFile();
             
+            xliffWriter.close();
+            sklWriter.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(filename+".xlf");
             xliff.delete();
@@ -168,7 +173,7 @@ public class HtmlToXliff {
                 " [note: all languages have asian character support.]");
                 System.exit(0);
             }
-            String encoding = System.getProperty("file.encoding");
+            //String encoding = System.getProperty("file.encoding");
             //System.out.println ("creating reader in " + encoding +" encoding.");
             //  Open the input file.
             Logger logger = Logger.getLogger("com.sun.tt.filters.testlogger");
