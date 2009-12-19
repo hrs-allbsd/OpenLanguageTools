@@ -283,7 +283,7 @@ public class XliffMergingPrefsDialog extends JDialog {
         
         File inputDir = new File(defaultInputDir);
         File outputDir = new File(defaultOutputDir);
-        boolean formInputOkay = false;
+        //boolean formInputOkay = false;
         
         if(testFormValues(inputDir, outputDir, defaultFileName, defaultSuffix)) {
             mergePreferences = new XliffMergingPrefs();
@@ -321,6 +321,13 @@ public class XliffMergingPrefsDialog extends JDialog {
         //  maintenance note: it may be necessary to put tests in here for the
         //  filename and the suffix.
         
+        if ( !(baseFileName.lastIndexOf('.') != -1) ) {
+            //  Display error message
+            message = "The base file name is not valid. Please enter a valid name.";
+            JOptionPane.showMessageDialog(this, message, "Invalid form values", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         return true;
     }
     
