@@ -103,6 +103,11 @@ public class PlaintextToXliff {
             
             xlz.writeZipFile();
             
+            buf_xliff.close();
+            buf_skl.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(filename+".xlf");
             xliff.delete();
@@ -122,7 +127,7 @@ public class PlaintextToXliff {
                 " [note: all languages have asian character support.]");
                 System.exit(0);
             }
-            String encoding = System.getProperty("file.encoding");
+            //String encoding = System.getProperty("file.encoding");
             //System.out.println ("creating reader in " + encoding +" encoding.");
             //  Open the input file.
             Logger logger = Logger.getLogger("com.sun.tt.filters.testlogger");

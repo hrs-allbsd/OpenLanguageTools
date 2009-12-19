@@ -34,7 +34,7 @@ public class ViewXLIFF
           directory="";
       }
       File file = new File(filename);
-            String shortname = filename.substring(directory.length(),filename.length());
+            //String shortname = filename.substring(directory.length(),filename.length());
             FileInputStream inStream = new FileInputStream(file);
             Reader reader;
             try {
@@ -84,6 +84,11 @@ public class ViewXLIFF
             xliffwriter.close();
             xlz.writeZipFile();
             
+            buf_xliff.close();
+            buf_skl.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(filename+".xlf");
             xliff.delete();

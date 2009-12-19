@@ -88,6 +88,11 @@ public class PlaintextToXliff_Reverse {
             xliffwriter.close();
             xlz.writeZipFile();
             
+            buf_xliff.close();
+            buf_skl.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(filename+".xlf");
             xliff.delete();
