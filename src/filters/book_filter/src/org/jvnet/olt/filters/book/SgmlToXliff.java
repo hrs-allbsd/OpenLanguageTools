@@ -69,7 +69,7 @@ public class SgmlToXliff {
                 parser.parse();
                 
                 FormatWrapper wrapper = new SgmlFormatWrapper(localGvm, tagTable, segmenterTable);
-                XliffSegmenterFormatter formatter = new XliffSegmenterFormatter("SGML", srclang, shortname, xliffWriter, sklWriter, localGvm, wrapper);
+                XliffSegmenterFormatter formatter = new XliffSegmenterFormatter("SGML", srclang, shortname, xliffWriter_b, sklWriter_b, localGvm, wrapper);
                 
                 //System.out.println("setting "+table);
                 //System.out.println("setting "+segmenterTable);
@@ -111,6 +111,11 @@ public class SgmlToXliff {
             }
             xlz.writeZipFile();
             
+            xliffWriter_b.close();
+            sklWriter_b.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(sgmlfile+".xlf");
             xliff.delete();

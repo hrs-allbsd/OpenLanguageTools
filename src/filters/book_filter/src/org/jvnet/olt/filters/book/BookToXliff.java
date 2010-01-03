@@ -71,14 +71,14 @@ public class BookToXliff {
             SegmenterTable segmenterTable = new DocbookSegmenterTable();
             
             //SgmlFilter filter = new SgmlFilter(bookReader,gvm);
-            boolean treatAsSingleSegment = false;
+            //boolean treatAsSingleSegment = false;
             // essentially, a .book file is a valid sgml file, so we use the same header val
             SgmlDocFragmentParser parser = new  SgmlDocFragmentParser(bookReader);
             try {
                 parser.parse();
                 
                 FormatWrapper wrapper = new SgmlFormatWrapper(gvm, tagTable, segmenterTable);
-                XliffSegmenterFormatter formatter = new XliffSegmenterFormatter("SGML", srclang, shortname, xliffWriter, sklWriter, gvm, wrapper);
+                XliffSegmenterFormatter formatter = new XliffSegmenterFormatter("SGML", srclang, shortname, xliffWriter_b, sklWriter_b, gvm, wrapper);
                 
                 //System.out.println("setting "+table);
                 //System.out.println("setting "+segmenterTable);
@@ -120,6 +120,11 @@ public class BookToXliff {
             }
             xlz.writeZipFile();
             
+            xliffWriter_b.close();
+            sklWriter_b.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(bookfile+".xlf");
             xliff.delete();
