@@ -22,9 +22,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class FastFailHanlder extends DefaultHandler {
     private static final Logger logger = Logger.getLogger(FastFailHanlder.class.getName());
-    boolean foundXliff = false;
-    final int treshhold = 100;
-    int count;
+    private boolean foundXliff = false;
+    private static final int threshold = 100;
+    private int count;
     private String srcLang;
     private String tgtLang;
     private FilePreviewPane filePreviewPane;
@@ -53,7 +53,7 @@ public class FastFailHanlder extends DefaultHandler {
         }
 
         //been searching for too long
-        if (count > treshhold) {
+        if (count++ > threshold) {
             filePreviewPane.abort(false);
         }
 
@@ -75,7 +75,7 @@ public class FastFailHanlder extends DefaultHandler {
             } else {
                 logger.finer("DTD InputStream was null!");
 
-                //TDODO throw an Exception ??
+                //TODO throw an Exception ??
                 return null;
             }
         }

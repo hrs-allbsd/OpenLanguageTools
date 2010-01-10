@@ -38,7 +38,7 @@ class OpenFileThread extends Thread {
     public OpenFileThread(File file, Backend backend, PostXLIFFOpenHandler post) {
         this.file = file;
 
-        //TDOD backend is not here
+        //TODO backend is not here
         this.backend = backend;
         this.post = post;
     }
@@ -62,7 +62,7 @@ class OpenFileThread extends Thread {
             TMData tmpdata = new TMData(project, xp);
 
             //TODO make sure document is set as modified so that the forced target lang gets saved
-            boolean forcedLang = false;
+            //boolean forcedLang = false;
 
             while (!tmpdata.build()) {
                 if (tmpdata.getLastError() == TMData.ERROR_TARGET_LANG_MISSING) {
