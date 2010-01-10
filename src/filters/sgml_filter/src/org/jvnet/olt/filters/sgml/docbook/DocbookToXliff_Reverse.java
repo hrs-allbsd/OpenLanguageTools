@@ -22,8 +22,6 @@ import org.jvnet.olt.filters.segmenters.formatters.ReverseXliffSegmenterFormatte
 import org.jvnet.olt.filters.segmenters.formatters.SegmenterFormatterException;
 
 import java.io.*;
-import java.util.*;
-import java.util.zip.*;
 import java.util.logging.*;
 /**
  *
@@ -40,7 +38,7 @@ public class DocbookToXliff_Reverse {
             // ReplaceScriptTag.fix(filename, encoding);
             
             File file = new File(filename);
-            String shortname = filename.substring(directory.length(),filename.length());
+            //String shortname = filename.substring(directory.length(),filename.length());
             FileInputStream inStream = new FileInputStream(file);
             Reader reader;
             try {
@@ -108,6 +106,11 @@ public class DocbookToXliff_Reverse {
             }
             xlz.writeZipFile();
             
+            xliffWriter.close();
+            sklWriter.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(filename+".xlf");
             xliff.delete();
@@ -142,7 +145,7 @@ public class DocbookToXliff_Reverse {
                 " [note: all languages have asian character support.]");
                 System.exit(0);
             }
-            String encoding = System.getProperty("file.encoding");
+            //String encoding = System.getProperty("file.encoding");
             //System.out.println ("creating reader in " + encoding +" encoding.");
             //  Open the input file.
             Logger logger = Logger.getLogger("com.sun.tt.filters.testlogger");

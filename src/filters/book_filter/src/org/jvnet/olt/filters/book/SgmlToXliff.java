@@ -64,7 +64,7 @@ public class SgmlToXliff {
             TagTable tagTable = new DocbookTagTable();            
             SegmenterTable segmenterTable = new DocbookSegmenterTable();
             //filter.parseSgmlForXliff("SGML",srclang,shortname,xliffWriter_b,sklWriter_b, table, segmenterTable, treatFileAsSingleSegment);
-            SgmlDocFragmentParser parser = new  SgmlDocFragmentParser(reader);
+            SgmlDocFragmentParser parser = new SgmlDocFragmentParser(reader_b);
             try {
                 parser.parse();
                 

@@ -72,6 +72,11 @@ public class Reverse_SgmlToXliff {
             }
             xlz.writeZipFile();
             
+            xliffWriter_b.close();
+            sklWriter_b.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(sgmlfile+".xlf");
             xliff.delete();
@@ -154,6 +159,11 @@ public class Reverse_SgmlToXliff {
             }
             xlz.writeZipFile();
             
+            xliffWriter_b.close();
+            sklWriter_b.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(bookfile+".xlf");
             xliff.delete();
@@ -201,6 +211,11 @@ public class Reverse_SgmlToXliff {
             }
             xlz.writeZipFile();
             
+            xliffWriter_b.close();
+            sklWriter_b.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             xliff = new File(sgmlfile+".xlf");
             xliff.delete();

@@ -64,7 +64,7 @@ public class NonConformantSgmlToXliff {
                 parser.parse();
                 
                 FormatWrapper wrapper = new SgmlFormatWrapper(gvm, tagTable, segmenterTable);
-                XliffSegmenterFormatter formatter = new XliffSegmenterFormatter("SGML", srclang, shortname, xliffWriter, sklWriter, gvm, wrapper);
+                XliffSegmenterFormatter formatter = new XliffSegmenterFormatter("SGML", srclang, shortname, xliffWriter_b, sklWriter_b, gvm, wrapper);
                 
                 //System.out.println("setting "+table);
                 //System.out.println("setting "+segmenterTable);
@@ -106,6 +106,11 @@ public class NonConformantSgmlToXliff {
             }
             xlz.writeZipFile();
             
+            xliffWriter_b.close();
+            sklWriter_b.close();
+            xliffreader.close();
+            sklreader.close();
+
             // now delete those temporary files :
             File xliff = new File(sgmlfile+".xlf");
             xliff.delete();
@@ -123,10 +128,10 @@ public class NonConformantSgmlToXliff {
             usage();
             System.exit(1);
         }
-        String filename = args[0];
-        String bookfile = args[1];
-        String srclang = args[2];
-        String targlang = args[3];
+        //String filename = args[0];
+        //String bookfile = args[1];
+        //String srclang = args[2];
+        //String targlang = args[3];
         
         //NonConformantSgmlToXliff converter = new NonConformantSgmlToXliff(filename, bookfile, srclang, targlang);
         
