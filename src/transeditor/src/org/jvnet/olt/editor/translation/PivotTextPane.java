@@ -1135,8 +1135,9 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
 
             boolean boolContained = ((elemStart >= selStart) && (elemEnd < selEnd));
             boolean boolIntersect = (((elemStart >= selStart) && (elemStart < selEnd)) || ((elemEnd >= selStart) && (elemEnd < selEnd)));
+            boolean boolInside = ((selStart >= elemStart) && (selEnd <= elemEnd));
 
-            if (boolContained || boolIntersect) {
+            if (boolContained || boolIntersect || boolInside) {
                 intersectList.add(pbes[i]);
             }
         }
