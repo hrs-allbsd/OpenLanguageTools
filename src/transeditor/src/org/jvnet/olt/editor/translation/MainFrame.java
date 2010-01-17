@@ -312,7 +312,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     private JMenu menuHelp = new JMenu();
     private JMenuItem jMenuHelpAbout = new JMenuItem();
     private JMenuItem jMenuHelpLicense = new JMenuItem();
-    private JMenuItem jMenuHelpIndex = new JMenuItem();
+    //private JMenuItem jMenuHelpIndex = new JMenuItem();
 
     /**
      * toolbar of this frame
@@ -2125,9 +2125,9 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         menuHelp.setText(bundle.getString("Help"));
         menuHelp.setMnemonic('H');
 
-        jMenuHelpIndex.setName("Index...");
-        jMenuHelpIndex.setText(bundle.getString("Index..."));
-        jMenuHelpIndex.setMnemonic('I');
+        //jMenuHelpIndex.setName("Index...");
+        //jMenuHelpIndex.setText(bundle.getString("Index..."));
+        //jMenuHelpIndex.setMnemonic('I');
 
         jMenuHelpLicense.setName("License...");
         jMenuHelpLicense.setText(bundle.getString("License..."));
@@ -2333,8 +2333,8 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         /**
          * Help menu
          */
-        menuHelp.add(jMenuHelpIndex);
-        menuHelp.addSeparator();
+        //menuHelp.add(jMenuHelpIndex);
+        //menuHelp.addSeparator();
         menuHelp.add(jMenuHelpLicense);
         menuHelp.addSeparator();
         menuHelp.add(jMenuHelpAbout);
