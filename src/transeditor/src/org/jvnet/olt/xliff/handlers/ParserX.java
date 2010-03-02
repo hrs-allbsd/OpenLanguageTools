@@ -13,9 +13,12 @@ package org.jvnet.olt.xliff.handlers;
 
 import java.io.InputStream;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -67,6 +70,10 @@ public class ParserX extends DefaultHandler {
     //element mapped to handler which is processing it
     private Map elementHandlerMap = new HashMap();
 
+    // A stack to keeep track of xmlns declarations as they happen.
+    // this allows us to deal with each declaration only once.
+    private Stack xmlnsDeclarationStack = new Stack();
+
     /** Creates a new instance of ParserX */
     public ParserX() {
         elementStack.push(Element.ROOT_ELEMENT);
@@ -84,6 +91,7 @@ public class ParserX extends DefaultHandler {
         }
 
         uriPrefixMap.put(uri, newPrefix);
+        xmlnsDeclarationStack.push(new String[]{uri, newPrefix});
 
         logger.finer("Mapping URI " + uri + " with prefix '" + prefix + "' to prefix '" + newPrefix + "'");
 
@@ -110,11 +118,19 @@ public class ParserX extends DefaultHandler {
 
         AttributesImpl attrsImpl = new AttributesImpl(attrs);
         // cycle through the attributes and map namespaces
+        List namespaces = new ArrayList();
         for (int i = 0; i < attrsImpl.getLength(); i++) {
             // remove namespace "attributes" - will namespace declaration is added to the xliff-element
             String attrName = attrsImpl.getQName(i);
             if ( attrName.startsWith("xmlns:") ) {
+                // NOTE (SJH Feb. 28, 2010
+                // It seems like this section will never get
+                // executed because xmlns attributes don't seem
+                // to be included int eh attrsImpl provided
+                // They seem to be parsed out instead and handled
+                // in the startPrefixMapping method.
                 attrsImpl.removeAttribute(i);
+                
             } else {
                 String attrURI=attrsImpl.getURI(i);
                 if (  attrURI.length() > 0 ) {
@@ -129,14 +145,32 @@ public class ParserX extends DefaultHandler {
 
         //logger.finer("Path:"+path);
         Element elem = new Element(prefix, localName, qName, attrsImpl, path);
-        if ( qName.equals("xliff")) {
+        
+        // MOD ADD START SJH100228 Fixing bug with namespaces not being retained.
+        // Ref: https://open-language-tools.dev.java.net/servlets/ReadMsg?list=dev&msgNo=617
+        while ( !xmlnsDeclarationStack.empty() ){
+            String[] ns = (String[]) xmlnsDeclarationStack.pop();
+            elem.addNamespaceDeclaration(ns[1], ns[0]);
+        }
+        // MOD END SJH100228
+
+        // MOD REMOVE START SJH100228 --->
+        // Since we're handling all namespaces in a generic way now,
+        // we don't need to have this special case for the xliff namespace
+
+        //if ( qName.equals("xliff")) {
             // att namespace declarations to the xliff element
             // TODO: find a better place to do this
-            Set keySet = uriPrefixMap.keySet(); 
-            for (Object key : uriPrefixMap.keySet()) {
-                elem.addNamespaceDeclaration( uriPrefixMap.get(key).toString(),  key.toString() );
-            }
-        }
+            
+            //Set keySet = uriPrefixMap.keySet();
+            //for (Object key : uriPrefixMap.keySet()) {
+            //  if ( parent.
+            //   elem.addNamespaceDeclaration( uriPrefixMap.get(key).toString(),  key.toString() );
+            //}
+        //}
+
+
+        // <--- MOD REMOVE END SJH100228
         elementStack.push(elem);
 
         Handler h = null;
