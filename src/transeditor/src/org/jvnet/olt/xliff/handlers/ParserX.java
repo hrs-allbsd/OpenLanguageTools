@@ -13,12 +13,9 @@ package org.jvnet.olt.xliff.handlers;
 
 import java.io.InputStream;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -118,7 +115,6 @@ public class ParserX extends DefaultHandler {
 
         AttributesImpl attrsImpl = new AttributesImpl(attrs);
         // cycle through the attributes and map namespaces
-        List namespaces = new ArrayList();
         for (int i = 0; i < attrsImpl.getLength(); i++) {
             // remove namespace "attributes" - will namespace declaration is added to the xliff-element
             String attrName = attrsImpl.getQName(i);
@@ -126,9 +122,13 @@ public class ParserX extends DefaultHandler {
                 // NOTE (SJH Feb. 28, 2010
                 // It seems like this section will never get
                 // executed because xmlns attributes don't seem
-                // to be included int eh attrsImpl provided
+                // to be included in the attrsImpl provided
                 // They seem to be parsed out instead and handled
                 // in the startPrefixMapping method.
+
+                // The above comment is not always true.
+                // Behavior depends on the XLIFF file.
+                // With some the following line is executed.
                 attrsImpl.removeAttribute(i);
                 
             } else {
@@ -168,7 +168,6 @@ public class ParserX extends DefaultHandler {
             //   elem.addNamespaceDeclaration( uriPrefixMap.get(key).toString(),  key.toString() );
             //}
         //}
-
 
         // <--- MOD REMOVE END SJH100228
         elementStack.push(elem);
