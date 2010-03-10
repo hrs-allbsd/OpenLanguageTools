@@ -1972,7 +1972,7 @@ Jan-10-2006
 			<xsd:attribute name="maxbytes" type="xsd:NMTOKEN" use="optional"/>
 			<xsd:attribute name="minbytes" type="xsd:NMTOKEN" use="optional"/>
 			<xsd:attribute name="charclass" type="xsd:string" use="optional"/>
-			<xsd:attribute default="yes" name="merged-trans" type="xlf:AttrType_YesNo" use="optional"/>
+			<!-- xsd:attribute default="yes" name="merged-trans" type="xlf:AttrType_YesNo" use="optional"/ -->
 			<xsd:anyAttribute namespace="##any" processContents="skip"/>
 		</xsd:complexType>
 		<xsd:unique name="U_tu_segsrc_mid">
