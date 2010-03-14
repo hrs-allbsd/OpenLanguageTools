@@ -222,7 +222,7 @@ public class JCommentDialog extends JDialog implements DocumentListener, MouseLi
     void jButtonStamp_actionPerformed(ActionEvent e) {
         StringBuffer sb = new StringBuffer(jTextPaneComment.getText());
 
-		sb.append( "\n" + translatorId + ", " +
+		sb.append('\n').append(translatorId).append(", ").append(
 				DateFormat.getDateInstance( DateFormat.LONG, Locale.getDefault() ).format( new Date() )
 				);
         //java.util.Calendar curDate = java.util.Calendar.getInstance();

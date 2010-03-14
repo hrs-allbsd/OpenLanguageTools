@@ -6538,7 +6538,7 @@ OUTER2:
             boolean reviewed = ((array[i].getTranslationStatus() == TMSentence.APPROVED) || (array[i].getTranslationStatus() == TMSentence.REJECTED));
 
             if (!reviewed) {
-                buffer.append((i + 1) + " ");
+                buffer.append(i + 1).append(' ');
                 iUnreviewedCount++;
 
                 if (boolAddHtmlBreaks && ((iUnreviewedCount % 30) == 0)) {
@@ -6692,7 +6692,7 @@ OUTER2:
         String line = null;
 
         while ((line = lnr.readLine()) != null)
-            sb.append(line).append("\n");
+            sb.append(line).append('\n');
 
         lnr.close();
 
@@ -6754,11 +6754,11 @@ OUTER2:
             defaultMsg = new StringBuilder(opLabels[operation]);
 
 
-        defaultMsg.append("\n")
+        defaultMsg.append('\n')
                 .append(bundle.getString("Please_copy_the_text_in_editor_console_and_send_it_to"))
-                .append("\n")
+                .append('\n')
                 .append(Constants.MAILING_LIST)
-                .append("\n")
+                .append('\n')
                 .append(bundle.getString("along_with_a_copy_of_the_source_file."));
                 
 
