@@ -463,6 +463,8 @@ public class XLIFFParser {
         
         File tempCopy2 = File.createTempFile("ste", ".xlf");
         
+        boolean useTemp = false;
+        
         try {
             xwriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(destFile), "UTF-8"));
             tempCopyWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempCopy2), "UTF-8"));
@@ -486,7 +488,7 @@ public class XLIFFParser {
                 }
             }
             
-            if (xwriter != null) {
+            if (writer != null) {
                 try {
                     xwriter.flush();
                     xwriter.close();

@@ -98,7 +98,7 @@ public class SourceContextFrame extends javax.swing.JFrame {
             TrackingSourceContext.SourceContextKey key
                 = (TrackingSourceContext.SourceContextKey )entry.getKey();
 
-            buf.append(key.contextType).append(" = ").append(entry.getValue()).append('\n');
+            buf.append(key.contextType+" = "+entry.getValue()+"\n");
         }
         this.jTextPane1.setText(buf.toString());
     }

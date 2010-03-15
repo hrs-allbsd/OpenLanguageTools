@@ -94,7 +94,7 @@ public class MultiSegmentMatch extends Match {
             theID = tms.getTransUintID();
             theGroup.add(theID);
             tmpdata.groupTracking.addSentence(theID, (iSentenceID + i), tms.getTranslation(), tms.getTranslationStatus(), tms.getTranslationType());
-            theSource.append(tms.getSource()).append(' ');
+            theSource.append(tms.getSource() + " ");
         }
 
         tmpdata.groupTracking.addGroup(firstID, theGroup, true);
