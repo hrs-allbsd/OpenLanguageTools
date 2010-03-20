@@ -6365,6 +6365,7 @@ OUTER2:
 
         bSafeExit = true;
 
+        memento = null; // forget about last backconvert
 
         int oldNum = (MiniTMFrame.jMiniTM.data == null) ? 0 : MiniTMFrame.jMiniTM.data.size();
         MiniTMFrame.jMiniTM.data = new Vector();
