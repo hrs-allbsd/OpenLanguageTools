@@ -35,7 +35,7 @@ public class JBackConverterExecutor {
     private String encoding;
     private File fSrc;
     private File fTarget;
-    private MainFrame mainFrame = MainFrame.getAnInstance();
+    //private MainFrame mainFrame = MainFrame.getAnInstance();
     private BackconversionStatusCallback callback;
     private boolean sourceValid;
     private boolean targetValid;
@@ -65,8 +65,8 @@ public class JBackConverterExecutor {
     /**
      * recursively find all xlz files
      */
-    private Vector listAllFiles(File directory) {
-        File[] fileList = null;
+    private static Vector listAllFiles(File directory) {
+        File[] fileList = new File[0];
         Vector vectList = new Vector();
 
         if (directory.isDirectory()) {
@@ -367,14 +367,14 @@ public class JBackConverterExecutor {
 
     XliffToTmxTransformer createXLIFF2TMXTransformer() throws XliffToTmxTransformerException {
         Reader fr_xlf;
-        Reader fr_xlf2;
-        Reader fr_skl;
+        //Reader fr_xlf2;
+        //Reader fr_skl;
         Reader fr_testxlf;
         Reader fr_xsl;
 
         fr_xlf = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff.dtd"));
-        fr_skl = new InputStreamReader(this.getClass().getResourceAsStream("/resources/tt-xliff-skl.dtd"));
-        fr_xlf2 = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff.dtd"));
+        //fr_skl = new InputStreamReader(this.getClass().getResourceAsStream("/resources/tt-xliff-skl.dtd"));
+        //fr_xlf2 = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff.dtd"));
         fr_xsl = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff-tmx_MN.xsl"));
         fr_testxlf = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff.dtd"));
 
