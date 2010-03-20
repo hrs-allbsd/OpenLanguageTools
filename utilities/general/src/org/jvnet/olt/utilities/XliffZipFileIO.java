@@ -83,6 +83,7 @@ public class XliffZipFileIO {
                     strw.write(c);
                 }
                 strw.flush();
+                isr.close();
                 
                 xliffString = strw.toString();
                 sklString = "";
@@ -108,6 +109,7 @@ public class XliffZipFileIO {
                     strw.write(c);
                 }
                 strw.flush();
+                isr.close();
                 
                 xliffString = strw.toString();
                 
@@ -125,6 +127,7 @@ public class XliffZipFileIO {
                 }
                 strw.flush();
                 strw.flush();
+                isr.close();
                 
                 sklString = strw.toString();
                 
@@ -154,6 +157,7 @@ public class XliffZipFileIO {
                     }
                 }
                 
+                zipFile.close();
             } else {
                 
                 this.xliffString="";
@@ -421,7 +425,6 @@ public class XliffZipFileIO {
     private File extractEntryToTempFile(ZipFile zipFile, ZipEntry entry) throws java.io.IOException{
         
         File tempFile = File.createTempFile("zipcontents.","bin");
-        String filename = entry.getName();
         
         BufferedInputStream in = new BufferedInputStream(
                 zipFile.getInputStream(entry));
