@@ -14,7 +14,7 @@ options{
 
 PARSER_BEGIN(RemoveTagProtection)
 
-package org.jvnet.olt.soxliff_backconv;
+package org.jvnet.olt.soxliff_backconv.util;
 
 import java.io.*;
 

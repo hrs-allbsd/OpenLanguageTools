@@ -71,4 +71,20 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <import file="../../common.xml"/>
+    <target name="-post-init" depends="soxliff.util.-post-init">
+
+    </target>
+
+    <target name="soxliff.util.-post-init" >
+        <!-- this is needed to precompile the soffice util classes from jj files -->
+        <javacc target="../../src/backconverters/backconv/src/org/jvnet/olt/soxliff_backconv/util/RemoveTagProtection.jj"
+                 outputdirectory="../../src/backconverters/backconv/src/org/jvnet/olt/soxliff_backconv/util/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../src/backconverters/backconv/src/org/jvnet/olt/soxliff_backconv/util/AddEscapeChars.jj"
+                 outputdirectory="../../src/backconverters/backconv/src/org/jvnet/olt/soxliff_backconv/util"
+                 javacchome="${javacchome}"/>
+    </target>
+    
+    
 </project>

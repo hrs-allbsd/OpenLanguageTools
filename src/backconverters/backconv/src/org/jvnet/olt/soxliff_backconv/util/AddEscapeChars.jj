@@ -19,7 +19,7 @@ options{
 
 PARSER_BEGIN(AddEscapeChars)
 
-package org.jvnet.olt.soxliff_backconv;
+package org.jvnet.olt.soxliff_backconv.util;
 
 public class AddEscapeChars {
   
