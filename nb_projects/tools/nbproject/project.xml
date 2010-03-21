@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.java.j2seproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
+            <name>tools</name>
+            <source-roots>
+                <root id="src.dir" name="general"/>
+                <root id="src.src13.dir" name="dtd_doc_fragment"/>
+                <root id="src.src11.dir" name="fuzzy_mini_tm"/>
+                <root id="src.src2.dir" name="lax_sgml_parser"/>
+                <root id="src.src3.dir" name="lax_swmsg_parser"/>
+                <root id="src.src4.dir" name="messageformat_parser"/>
+                <root id="src.src12.dir" name="non-conformant_sgml_doc_fragment"/>
+                <root id="src.src5.dir" name="printf_parser"/>
+                <root id="src.src6.dir" name="sgml_doc_fragment"/>
+                <root id="src.src7.dir" name="sgml_tag_parser"/>
+                <root id="src.src10.dir" name="tagged_markup"/>
+                <root id="src.src.dir" name="xliff_tools"/>
+                <root id="src.src8.dir" name="xml_tag_parser"/>
+                <root id="src.src9.dir" name="xml_doc_fragment"/>
+            </source-roots>
+            <test-roots>
+                <root id="test.unit_test2.dir" name="unit_test dtd_doc_fragment"/>
+                <root id="test.unit_test.dir" name="unit_test non-conformant_sgml_doc_fragment"/>
+                <root id="test.src-test2.dir" name="src-test non-conformant_sgml_doc_fragment"/>
+                <root id="test.src-test.dir" name="src-test xliff_tools"/>
+            </test-roots>
+        </data>
+    </configuration>
+</project>
