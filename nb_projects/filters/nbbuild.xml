@@ -72,13 +72,13 @@
 
     -->
     <import file="../../common.xml"/>
-    <target name="-pre-compile" depends="segmenter.-pre-compile, pt-segmenter.-pre-compile, soxliff.util.-pre-compile">
+    <target name="-pre-compile" depends="lang-segmenter.-pre-compile, file-segmenter.-pre-compile, soxliff.util.-pre-compile">
 
     </target>
 
 
-    <target name="segmenter.-pre-compile" depends="common.pre-compile">
-        <!-- this is needed to precompile the naguage specific segmenter classes from jjt files -->
+    <target name="lang-segmenter.-pre-compile">
+        <!-- this is needed to precompile the laguage specific segmenter classes from jjt files -->
         <jjtree target="../../src/filters/segmenters/en_segmenter/org/jvnet/olt/filters/en_segmenter/Segmenter_en.jjt"
                  outputdirectory="../../src/filters/segmenters/en_segmenter/org/jvnet/olt/filters/en_segmenter"
                  javacchome="${javacchome}"/>
@@ -123,17 +123,68 @@
                 javacchome="${javacchome}"/>
     </target>
 
-    <target name="pt-segmenter.-pre-compile" depends="common.pre-compile">
-        <!-- this is needed to precompile the plaintext block-segmenter classes from jjt files -->
+    <target name="file-segmenter.-pre-compile" >
+        <!-- this is needed to precompile the file typespecific segmenter classes from jjt files -->
         <jjtree target="../../src/filters/plaintext/src/org/jvnet/olt/filters/plaintext/BlockSegmenter_en.jjt"
                  outputdirectory="../../src/filters/plaintext/src/org/jvnet/olt/filters/plaintext"
                  javacchome="${javacchome}"/>
         <javacc target="../../src/filters/plaintext/src/org/jvnet/olt/filters/plaintext/BlockSegmenter_en.jj"
                  outputdirectory="../../src/filters/plaintext/src/org/jvnet/olt/filters/plaintext/"
                  javacchome="${javacchome}"/>
+                 
+        <jjtree target="../../src/filters/software_filters/java_props_file/org/jvnet/olt/parsers/PropsFileParser/PropsFileParser.jjt"
+                 outputdirectory="../../src/filters/software_filters/java_props_file/org/jvnet/olt/parsers/PropsFileParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../src/filters/software_filters/java_props_file/org/jvnet/olt/parsers/PropsFileParser/PropsFileParser.jj"
+                 outputdirectory="../../src/filters/software_filters/java_props_file/org/jvnet/olt/parsers/PropsFileParser"
+                 javacchome="${javacchome}"/>
+                 
+        <jjtree target="../../src/filters/software_filters/po_file/org/jvnet/olt/parsers/POFileParser/POFileParser.jjt"
+                 outputdirectory="../../src/filters/software_filters/po_file/org/jvnet/olt/parsers/POFileParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../src/filters/software_filters/po_file/org/jvnet/olt/parsers/POFileParser/POFileParser.jj"
+                 outputdirectory="../../src/filters/software_filters/po_file/org/jvnet/olt/parsers/POFileParser/"
+                 javacchome="${javacchome}"/>
+                 
+        <jjtree target="../../src/filters/software_filters/rep_file/org/jvnet/olt/parsers/RepFileParser/RepFileParser.jjt"
+                 outputdirectory="../../src/filters/software_filters/rep_file/org/jvnet/olt/parsers/RepFileParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../src/filters/software_filters/rep_file/org/jvnet/olt/parsers/RepFileParser/RepFileParser.jj"
+                 outputdirectory="../../src/filters/software_filters/rep_file/org/jvnet/olt/parsers/RepFileParser/"
+                 javacchome="${javacchome}"/>
+                 
+        <jjtree target="../../src/filters/software_filters/msg_file/org/jvnet/olt/parsers/MsgFileParser/MsgFileParser.jjt"
+                 outputdirectory="../../src/filters/software_filters/msg_file/org/jvnet/olt/parsers/MsgFileParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../src/filters/software_filters/msg_file/org/jvnet/olt/parsers/MsgFileParser/MsgFileParser.jj"
+                 outputdirectory="../../src/filters/software_filters/msg_file/org/jvnet/olt/parsers/MsgFileParser/"
+                 javacchome="${javacchome}"/>
+                 
+        <jjtree target="../../src/filters/software_filters/xres_file/org/jvnet/olt/parsers/XResFileParser/XResFileParser.jjt"
+                 outputdirectory="../../src/filters/software_filters/xres_file/org/jvnet/olt/parsers/XResFileParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../src/filters/software_filters/xres_file/org/jvnet/olt/parsers/XResFileParser/XResFileParser.jj"
+                 outputdirectory="../../src/filters/software_filters/xres_file/org/jvnet/olt/parsers/XResFileParser/"
+                 javacchome="${javacchome}"/>
+                 
+        <jjtree target="../../src/filters/software_filters/java_res_file/org/jvnet/olt/parsers/JavaParser/ResBundleParser.jjt"
+                 outputdirectory="../../src/filters/software_filters/java_res_file/org/jvnet/olt/parsers/JavaParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../src/filters/software_filters/java_res_file/org/jvnet/olt/parsers/JavaParser/ResBundleParser.jj"
+                 outputdirectory="../../src/filters/software_filters/java_res_file/org/jvnet/olt/parsers/JavaParser/"
+                 javacchome="${javacchome}"/>
+                 
+        <jjtree target="../../src/filters/non-conformant_sgml_tag_parser/src/org/jvnet/olt/filters/NonConformantSgmlTagParser/NonConformantSgmlTagParser.jjt"
+                 outputdirectory="../../src/filters/non-conformant_sgml_tag_parser/src/org/jvnet/olt/filters/NonConformantSgmlTagParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../src/filters/non-conformant_sgml_tag_parser/src/org/jvnet/olt/filters/NonConformantSgmlTagParser/NonConformantSgmlTagParser.jj"
+                 outputdirectory="../../src/filters/non-conformant_sgml_tag_parser/src/org/jvnet/olt/filters/NonConformantSgmlTagParser/"
+                 javacchome="${javacchome}"/>
+                 
+
     </target>
 
-    <target name="soxliff.util.-pre-compile" depends="common.pre-compile">
+    <target name="soxliff.util.-pre-compile" >
         <!-- this is needed to precompile the soffice util classes from jj files -->
         <javacc target="../../src/filters/soxliff/src/org/jvnet/olt/filters/soxliff/util/RemoveEscapeChars.jj"
                  outputdirectory="../../src/filters/soxliff/src/org/jvnet/olt/filters/soxliff/util"
