@@ -71,4 +71,103 @@
     nbproject/build-impl.xml file. 
 
     -->
+
+    <import file="../../common.xml"/>
+    <target name="-pre-compile" depends="doc_fragmenter.-pre-compile, sgmltokens.-pre-compile">
+
+    </target>
+
+
+
+    <target name="doc_fragmenter.-pre-compile" depends="common.pre-compile">
+        <!-- this is needed to precompile the fragmenter and tokenizer classes from jjt files -->
+        <jjtree target="../../utilities/dtd_doc_fragment/src/org/jvnet/olt/parsers/DTDDocFragmentParser/DTDDocFragmentParser.jjt"
+                 outputdirectory="../../utilities/dtd_doc_fragment/src/org/jvnet/olt/parsers/DTDDocFragmentParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/dtd_doc_fragment/src/org/jvnet/olt/parsers/DTDDocFragmentParser/DTDDocFragmentParser.jj"
+                 outputdirectory="../../utilities/dtd_doc_fragment/src/org/jvnet/olt/parsers/DTDDocFragmentParser/"
+                 javacchome="${javacchome}"/>
+
+
+        <jjtree target="../../utilities/sgml_tag_parser/src/org/jvnet/olt/parsers/SgmlTagParser/SgmlTagParser.jjt"
+                 outputdirectory="../../utilities/sgml_tag_parser/src/org/jvnet/olt/parsers/SgmlTagParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/sgml_tag_parser/src/org/jvnet/olt/parsers/SgmlTagParser/SgmlTagParser.jj"
+                 outputdirectory="../../utilities/sgml_tag_parser/src/org/jvnet/olt/parsers/SgmlTagParser/"
+                 javacchome="${javacchome}"/>
+
+        <jjtree target="../../utilities/non-conformant_sgml_doc_fragment/src/org/jvnet/olt/filters/NonConformantSgmlDocFragmentParser/NonConformantSgmlDocFragmentParser.jjt"
+                 outputdirectory="../../utilities/non-conformant_sgml_doc_fragment/src/org/jvnet/olt/filters/NonConformantSgmlDocFragmentParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/non-conformant_sgml_doc_fragment/src/org/jvnet/olt/filters/NonConformantSgmlDocFragmentParser/NonConformantSgmlDocFragmentParser.jj"
+                 outputdirectory="../../utilities/non-conformant_sgml_doc_fragment/src/org/jvnet/olt/filters/NonConformantSgmlDocFragmentParser/"
+                 javacchome="${javacchome}"/>
+
+        <jjtree target="../../utilities/messageformat_parser/src/org/jvnet/olt/parsers/MessageFormatParser/MessageFormatParser.jjt"
+                 outputdirectory="../../utilities/messageformat_parser/src/org/jvnet/olt/parsers/MessageFormatParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/messageformat_parser/src/org/jvnet/olt/parsers/MessageFormatParser/MessageFormatParser.jj"
+                 outputdirectory="../../utilities/messageformat_parser/src/org/jvnet/olt/parsers/MessageFormatParser/"
+                 javacchome="${javacchome}"/>
+
+        <jjtree target="../../utilities/xml_tag_parser/src/org/jvnet/olt/parsers/XmlTagParser/XmlTagParser.jjt"
+                 outputdirectory="../../utilities/xml_tag_parser/src/org/jvnet/olt/parsers/XmlTagParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/xml_tag_parser/src/org/jvnet/olt/parsers/XmlTagParser/XmlTagParser.jj"
+                 outputdirectory="../../utilities/xml_tag_parser/src/org/jvnet/olt/parsers/XmlTagParser/"
+                 javacchome="${javacchome}"/>
+
+        <jjtree target="../../utilities/lax_swmsg_parser/src/org/jvnet/olt/laxparsers/software/LaxSoftwareMessageParser.jjt"
+                 outputdirectory="../../utilities/lax_swmsg_parser/src/org/jvnet/olt/laxparsers/software/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/lax_swmsg_parser/src/org/jvnet/olt/laxparsers/software/LaxSoftwareMessageParser.jj"
+                 outputdirectory="../../utilities/lax_swmsg_parser/src/org/jvnet/olt/laxparsers/software/"
+                 javacchome="${javacchome}"/>
+
+        <jjtree target="../../utilities/printf_parser/src/org/jvnet/olt/parsers/PrintfParser/PrintfParser.jjt"
+                 outputdirectory="../../utilities/printf_parser/src/org/jvnet/olt/parsers/PrintfParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/printf_parser/src/org/jvnet/olt/parsers/PrintfParser/PrintfParser.jj"
+                 outputdirectory="../../utilities/printf_parser/src/org/jvnet/olt/parsers/PrintfParser/"
+                 javacchome="${javacchome}"/>
+
+        <jjtree target="../../utilities/lax_sgml_parser/src/org/jvnet/olt/laxparsers/sgml/LaxSgmlDocFragmentParser.jjt"
+                 outputdirectory="../../utilities/lax_sgml_parser/src/org/jvnet/olt/laxparsers/sgml"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/lax_sgml_parser/src/org/jvnet/olt/laxparsers/sgml/LaxSgmlDocFragmentParser.jj"
+                 outputdirectory="../../utilities/lax_sgml_parser/src/org/jvnet/olt/laxparsers/sgml"
+                 javacchome="${javacchome}"/>
+
+        <jjtree target="../../utilities/xml_doc_fragment/src/org/jvnet/olt/parsers/XmlDocFragmentParser/XmlDocFragmentParser.jjt"
+                 outputdirectory="../../utilities/xml_doc_fragment/src/org/jvnet/olt/parsers/XmlDocFragmentParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/xml_doc_fragment/src/org/jvnet/olt/parsers/XmlDocFragmentParser/XmlDocFragmentParser.jj"
+                 outputdirectory="../../utilities/xml_doc_fragment/src/org/jvnet/olt/parsers/XmlDocFragmentParser/"
+                 javacchome="${javacchome}"/>
+
+        <jjtree target="../../utilities/sgml_doc_fragment/src/org/jvnet/olt/parsers/SgmlDocFragmentParser/SgmlDocFragmentParser.jjt"
+                 outputdirectory="../../utilities/sgml_doc_fragment/src/org/jvnet/olt/parsers/SgmlDocFragmentParser/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/sgml_doc_fragment/src/org/jvnet/olt/parsers/SgmlDocFragmentParser/SgmlDocFragmentParser.jj"
+                 outputdirectory="../../utilities/sgml_doc_fragment/src/org/jvnet/olt/parsers/SgmlDocFragmentParser/"
+                 javacchome="${javacchome}"/>
+
+
+    </target>
+
+    <target name="sgmltokens.-pre-compile" depends="common.pre-compile">
+        <!-- this is needed to precompile the SGMLTokenizer classes from jjt files -->
+        <jjtree target="../../utilities/fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/SimpleSGMLTokenizer.jjt"
+                 outputdirectory="../../utilities/fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/"
+                 javacchome="${javacchome}"/>
+        <javacc target="../../utilities/fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/SimpleSGMLTokenizer.jj"
+                 outputdirectory="../../utilities/fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/"
+                 javacchome="${javacchome}"/>
+    </target>
+
+
+    
+
+
+
 </project>

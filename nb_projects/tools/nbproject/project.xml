@@ -6,6 +6,7 @@
             <name>tools</name>
             <source-roots>
                 <root id="src.dir" name="general"/>
+                <root id="src.src10.dir" name="tagged_markup"/>
                 <root id="src.src13.dir" name="dtd_doc_fragment"/>
                 <root id="src.src11.dir" name="fuzzy_mini_tm"/>
                 <root id="src.src2.dir" name="lax_sgml_parser"/>
@@ -15,7 +16,6 @@
                 <root id="src.src5.dir" name="printf_parser"/>
                 <root id="src.src6.dir" name="sgml_doc_fragment"/>
                 <root id="src.src7.dir" name="sgml_tag_parser"/>
-                <root id="src.src10.dir" name="tagged_markup"/>
                 <root id="src.src.dir" name="xliff_tools"/>
                 <root id="src.src8.dir" name="xml_tag_parser"/>
                 <root id="src.src9.dir" name="xml_doc_fragment"/>
