@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.java.j2seproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
+            <name>filters</name>
+            <source-roots>
+                <root id="filters12.dir" name="alignment_interface"/>
+                <root id="filters10.dir" name="book"/>
+                <root id="filters5.dir" name="csv"/>
+                <root id="filters14.dir" name="format_handling"/>
+                <root id="filters9.dir" name="gui"/>
+                <root id="filters3.dir" name="html"/>
+                <root id="filters4.dir" name="interface"/>
+                <root id="filters6.dir" name="jsp"/>
+                <root id="filters11.dir" name="mapping_file_parser"/>
+                <root id="mozilla_dtd.dir" name="mozilla_dtd"/>
+                <root id="filters13.dir" name="non-conformant_sgml_tag_parser"/>
+                <root id="filters2.dir" name="plaintext"/>
+                <root id="po_file.dir" name="po"/>
+                <root id="filters8.dir" name="sgm"/>
+                <root id="common.dir" name="software common"/>
+                <root id="java_props_file.dir" name="software java_props"/>
+                <root id="java_res_file.dir" name="software java_res"/>
+                <root id="msg_file.dir" name="software msg"/>
+                <root id="rep_file.dir" name="software rep"/>
+                <root id="software.dir" name="software software"/>
+                <root id="xres_file.dir" name="software xres"/>
+                <root id="filters15.dir" name="soxliff"/>
+                <root id="filters16.dir" name="staroffice"/>
+                <root id="src.src.dir" name="xliffsubsegmenter"/>
+                <root id="filters18.dir" name="xml_filter"/>
+                <root id="filters17.dir" name="xml_config_parser"/>
+                <root id="filters19.dir" name="xml_merging_tool"/>
+                <root id="filters7.dir" name="segmenter_formatters"/>
+                <root id="src.segmenter_facade.dir" name="segmenter_facade"/>
+                <root id="src.de_segmenter.dir" name="de_segmenter"/>
+                <root id="src.en_segmenter.dir" name="en_segmenter"/>
+                <root id="src.es_segmenter.dir" name="es_segmenter"/>
+                <root id="src.fr_segmenter.dir" name="fr_segmenter"/>
+                <root id="src.it_segmenter.dir" name="it_segmenter"/>
+                <root id="src.ja_segmenter.dir" name="ja_segmenter"/>
+                <root id="src.sv_segmenter.dir" name="sv_segmenter"/>
+            </source-roots>
+            <test-roots/>
+        </data>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
+            <reference>
+                <foreign-project>tools</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>nbbuild.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+        </references>
+    </configuration>
+</project>
