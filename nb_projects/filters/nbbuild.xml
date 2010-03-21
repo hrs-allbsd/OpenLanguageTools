@@ -72,12 +72,12 @@
 
     -->
     <import file="../../common.xml"/>
-    <target name="-pre-compile" depends="lang-segmenter.-pre-compile, file-segmenter.-pre-compile, soxliff.util.-pre-compile">
+    <target name="-post-init" depends="lang-segmenter.-post-init, file-segmenter.-post-init, soxliff.util.-post-init">
 
     </target>
 
 
-    <target name="lang-segmenter.-pre-compile">
+    <target name="lang-segmenter.-post-init">
         <!-- this is needed to precompile the laguage specific segmenter classes from jjt files -->
         <jjtree target="../../src/filters/segmenters/en_segmenter/org/jvnet/olt/filters/en_segmenter/Segmenter_en.jjt"
                  outputdirectory="../../src/filters/segmenters/en_segmenter/org/jvnet/olt/filters/en_segmenter"
@@ -123,7 +123,7 @@
                 javacchome="${javacchome}"/>
     </target>
 
-    <target name="file-segmenter.-pre-compile" >
+    <target name="file-segmenter.-post-init" >
         <!-- this is needed to precompile the file typespecific segmenter classes from jjt files -->
         <jjtree target="../../src/filters/plaintext/src/org/jvnet/olt/filters/plaintext/BlockSegmenter_en.jjt"
                  outputdirectory="../../src/filters/plaintext/src/org/jvnet/olt/filters/plaintext"
@@ -184,7 +184,7 @@
 
     </target>
 
-    <target name="soxliff.util.-pre-compile" >
+    <target name="soxliff.util.-post-init" >
         <!-- this is needed to precompile the soffice util classes from jj files -->
         <javacc target="../../src/filters/soxliff/src/org/jvnet/olt/filters/soxliff/util/RemoveEscapeChars.jj"
                  outputdirectory="../../src/filters/soxliff/src/org/jvnet/olt/filters/soxliff/util"

@@ -73,13 +73,13 @@
     -->
 
     <import file="../../common.xml"/>
-    <target name="-pre-compile" depends="doc_fragmenter.-pre-compile, sgmltokens.-pre-compile">
+    <target name="-post-init" depends="doc_fragmenter.-post-init, sgmltokens.-post-init">
 
     </target>
 
 
 
-    <target name="doc_fragmenter.-pre-compile" depends="common.pre-compile">
+    <target name="doc_fragmenter.-post-init">
         <!-- this is needed to precompile the fragmenter and tokenizer classes from jjt files -->
         <jjtree target="../../utilities/dtd_doc_fragment/src/org/jvnet/olt/parsers/DTDDocFragmentParser/DTDDocFragmentParser.jjt"
                  outputdirectory="../../utilities/dtd_doc_fragment/src/org/jvnet/olt/parsers/DTDDocFragmentParser/"
@@ -155,7 +155,7 @@
 
     </target>
 
-    <target name="sgmltokens.-pre-compile" depends="common.pre-compile">
+    <target name="sgmltokens.-post-init">
         <!-- this is needed to precompile the SGMLTokenizer classes from jjt files -->
         <jjtree target="../../utilities/fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/SimpleSGMLTokenizer.jjt"
                  outputdirectory="../../utilities/fuzzy_mini_tm/src/org/jvnet/olt/parsers/sgmltokens/"
