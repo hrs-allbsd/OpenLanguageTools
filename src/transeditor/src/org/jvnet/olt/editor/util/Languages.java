@@ -165,6 +165,7 @@ public class Languages {
         { "MN", bundle.getString("Mongolian"), "UTF8" },
         { "MR", bundle.getString("Marathi"), "UTF8" },
         { "MS", bundle.getString("Malay"), "UTF8" },
+        { "MT", bundle.getString("Maltese"), "UTF8" },
         { "NB", bundle.getString("Norwegian_Bookmal"), "UTF8" },
         { "NE", bundle.getString("Nepali"), "UTF8" },
         
