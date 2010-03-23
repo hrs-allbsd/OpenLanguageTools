@@ -6686,7 +6686,7 @@ OUTER2:
      * @return The license text
      */
     private String loadLicense() throws NullPointerException, IOException {
-        InputStream is = getClass().getResourceAsStream("/resources/LICENSE.txt");
+        InputStream is = getClass().getResourceAsStream("/LICENSE.txt");
         LineNumberReader lnr = new LineNumberReader(new InputStreamReader(is, "UTF-8"));
         StringBuffer sb = new StringBuffer();
 

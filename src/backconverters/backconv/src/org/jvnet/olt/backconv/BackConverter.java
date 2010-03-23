@@ -84,8 +84,8 @@ public class BackConverter {
     }
     
     public BackConverter(BackConverterProperties props){
-        xliffDtd = new LoadableResourceContentSource("resources/xliff.dtd");
-        sklDtd = new LoadableResourceContentSource("resources/tt-xliff-skl.dtd");  
+        xliffDtd = new LoadableResourceContentSource("dtd/xliff.dtd");
+        sklDtd = new LoadableResourceContentSource("dtd/tt-xliff-skl.dtd");
         
         this.props = props;
     }
@@ -327,8 +327,8 @@ public class BackConverter {
             String outputDir  = args[1];
             String encoding = args[2];
             
-            ContentSource xliffDtd = new LoadableResourceContentSource("resources/xliff.dtd");
-            ContentSource sklDtd = new LoadableResourceContentSource("resources/tt-xliff-skl.dtd");
+            ContentSource xliffDtd = new LoadableResourceContentSource("dtd/xliff.dtd");
+            ContentSource sklDtd = new LoadableResourceContentSource("dtd/tt-xliff-skl.dtd");
             
             Logger logger = Logger.getLogger("org.jvnet.olt.backconv");
             

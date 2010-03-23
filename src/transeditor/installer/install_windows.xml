@@ -48,7 +48,11 @@
             <fileset dir="i18n" targetdir="$INSTALL_PATH/i18n">
                 <include name="**/*"/>
             </fileset>
+            <fileset dir="plugins" targetdir="$INSTALL_PATH/plugins">
+                <include name="**/*"/>
+            </fileset>
             <file src="translation.bat" targetdir="$INSTALL_PATH"/>
+            <file src="start_translation.bat" targetdir="$INSTALL_PATH"/>
             <file src="renamer.bat" targetdir="$INSTALL_PATH"/>
             <file src="logging.properties" targetdir="$INSTALL_PATH"/>
 

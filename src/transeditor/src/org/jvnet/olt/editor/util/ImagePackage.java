@@ -52,44 +52,44 @@ public class ImagePackage {
 
     private ImagePackage() {
         //init gifs in gui
-        imageOpen = new ImageIcon(getClass().getResource("/resources/gifs/Open.gif"));
-        imageSave = new ImageIcon(getClass().getResource("/resources/gifs/Save.gif"));
-        imageUpdate = new ImageIcon(getClass().getResource("/resources/gifs/MiniTM.gif"));
-        imageHelp = new ImageIcon(getClass().getResource("/resources/gifs/Help.gif"));
-        imageNext = new ImageIcon(getClass().getResource("/resources/gifs/Next.gif"));
-        imagePrev = new ImageIcon(getClass().getResource("/resources/gifs/Previous.gif"));
+        imageOpen = new ImageIcon(getClass().getResource("/gifs/Open.gif"));
+        imageSave = new ImageIcon(getClass().getResource("/gifs/Save.gif"));
+        imageUpdate = new ImageIcon(getClass().getResource("/gifs/MiniTM.gif"));
+        imageHelp = new ImageIcon(getClass().getResource("/gifs/Help.gif"));
+        imageNext = new ImageIcon(getClass().getResource("/gifs/Next.gif"));
+        imagePrev = new ImageIcon(getClass().getResource("/gifs/Previous.gif"));
 
-        imageUndo = new ImageIcon(getClass().getResource("/resources/gifs/Undo.gif"));
-        imageRedo = new ImageIcon(getClass().getResource("/resources/gifs/Redo.gif"));
-        imageCopy = new ImageIcon(getClass().getResource("/resources/gifs/Copy.gif"));
-        imagePaste = new ImageIcon(getClass().getResource("/resources/gifs/Paste.gif"));
-        imageCut = new ImageIcon(getClass().getResource("/resources/gifs/Cut.gif"));
-        imageSearch = new ImageIcon(getClass().getResource("/resources/gifs/Search.gif"));
-        imageMTAGNU = new ImageIcon(getClass().getResource("/resources/gifs/Translated.gif"));
-        imageMVAGNT = new ImageIcon(getClass().getResource("/resources/gifs/Review.gif"));
-        imageSpellCheck = new ImageIcon(getClass().getResource("/resources/gifs/SpellCheck.gif"));
-        imageTagVerify = new ImageIcon(getClass().getResource("/resources/gifs/TagVerify.gif"));
-        imageFind = new ImageIcon(getClass().getResource("/resources/gifs/Find.gif"));
+        imageUndo = new ImageIcon(getClass().getResource("/gifs/Undo.gif"));
+        imageRedo = new ImageIcon(getClass().getResource("/gifs/Redo.gif"));
+        imageCopy = new ImageIcon(getClass().getResource("/gifs/Copy.gif"));
+        imagePaste = new ImageIcon(getClass().getResource("/gifs/Paste.gif"));
+        imageCut = new ImageIcon(getClass().getResource("/gifs/Cut.gif"));
+        imageSearch = new ImageIcon(getClass().getResource("/gifs/Search.gif"));
+        imageMTAGNU = new ImageIcon(getClass().getResource("/gifs/Translated.gif"));
+        imageMVAGNT = new ImageIcon(getClass().getResource("/gifs/Review.gif"));
+        imageSpellCheck = new ImageIcon(getClass().getResource("/gifs/SpellCheck.gif"));
+        imageTagVerify = new ImageIcon(getClass().getResource("/gifs/TagVerify.gif"));
+        imageFind = new ImageIcon(getClass().getResource("/gifs/Find.gif"));
 
-        imageComment = new ImageIcon(getClass().getResource("/resources/gifs/Comment.gif"));
-        imageUpload = new ImageIcon(getClass().getResource("/resources/gifs/Upload.gif"));
-        imageApproveFile = new ImageIcon(getClass().getResource("/resources/gifs/AcceptFile.gif"));
-        imageRejectFile = new ImageIcon(getClass().getResource("/resources/gifs/RejectFile.gif"));
-        imageApproveSegment = new ImageIcon(getClass().getResource("/resources/gifs/AcceptSegment.gif"));
-        imageRejectSegment = new ImageIcon(getClass().getResource("/resources/gifs/RejectSegment.gif"));
+        imageComment = new ImageIcon(getClass().getResource("/gifs/Comment.gif"));
+        imageUpload = new ImageIcon(getClass().getResource("/gifs/Upload.gif"));
+        imageApproveFile = new ImageIcon(getClass().getResource("/gifs/AcceptFile.gif"));
+        imageRejectFile = new ImageIcon(getClass().getResource("/gifs/RejectFile.gif"));
+        imageApproveSegment = new ImageIcon(getClass().getResource("/gifs/AcceptSegment.gif"));
+        imageRejectSegment = new ImageIcon(getClass().getResource("/gifs/RejectSegment.gif"));
 
         //Init translation type and status gifs;
-        statusIcon[0] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/untrans.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        statusIcon[1] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/trans.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        statusIcon[2] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/verified.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        statusIcon[3] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/rejected.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        statusIcon[0] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/untrans.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        statusIcon[1] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/trans.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        statusIcon[2] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/verified.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        statusIcon[3] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/rejected.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
 
-        typeIcon[0] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/untrans.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        typeIcon[1] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/exact.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        typeIcon[2] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/auto.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        typeIcon[3] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/fuzzy.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        typeIcon[4] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/user.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-        typeIcon[5] = new ImageIcon(new ImageIcon(getClass().getResource("/resources/gifs/user.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        typeIcon[0] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/untrans.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        typeIcon[1] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/exact.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        typeIcon[2] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/auto.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        typeIcon[3] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/fuzzy.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        typeIcon[4] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/user.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        typeIcon[5] = new ImageIcon(new ImageIcon(getClass().getResource("/gifs/user.gif")).getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
     }
 
     public static synchronized ImagePackage instance() {

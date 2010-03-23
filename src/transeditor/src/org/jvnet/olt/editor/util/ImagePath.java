@@ -9,7 +9,7 @@ import java.io.File;
 
 
 public class ImagePath {
-    public final static String PATH = "/resources/";
+    public final static String PATH = "/";
 
     /*
         File.separator + "net" + File.separator + "alc-bj" +

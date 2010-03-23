@@ -226,9 +226,6 @@ public class JBackConverterExecutor {
                         throw new UnsupportedOperationException("FrameMaker backconv not supported");
                     }
 
-                    //TODO remove
-                    //org.jvnet.olt.util.ContentSource xlfDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/xliff.dtd");
-                    //org.jvnet.olt.util.ContentSource sklDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/tt-xliff-skl.dtd");
 
                     xbc = new BackConverter(bcProps);
 
@@ -287,10 +284,6 @@ public class JBackConverterExecutor {
 
                 callback.conversionEnd();
             } else { // select single file
-
-//TODO remove                
-//               org.jvnet.olt.util.ContentSource xlfDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/xliff.dtd");
-//               org.jvnet.olt.util.ContentSource sklDtdSource = new org.jvnet.olt.util.LoadableResourceContentSource("resources/tt-xliff-skl.dtd");
 
                 callback.conversionStart(1);
                 callback.fileStarted(fSrc);
@@ -372,11 +365,9 @@ public class JBackConverterExecutor {
         Reader fr_testxlf;
         Reader fr_xsl;
 
-        fr_xlf = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff.dtd"));
-        //fr_skl = new InputStreamReader(this.getClass().getResourceAsStream("/resources/tt-xliff-skl.dtd"));
-        //fr_xlf2 = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff.dtd"));
-        fr_xsl = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff-tmx_MN.xsl"));
-        fr_testxlf = new InputStreamReader(this.getClass().getResourceAsStream("/resources/xliff.dtd"));
+        fr_xlf = new InputStreamReader(this.getClass().getResourceAsStream("/dtd/xliff.dtd"));
+        fr_xsl = new InputStreamReader(this.getClass().getResourceAsStream("/xsl/xliff-tmx_MN.xsl"));
+        fr_testxlf = new InputStreamReader(this.getClass().getResourceAsStream("/dtd/xliff.dtd"));
 
         return new XliffToTmxTransformer(logger, fr_xsl, fr_xlf, fr_testxlf);
     }

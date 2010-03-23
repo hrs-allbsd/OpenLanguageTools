@@ -150,7 +150,7 @@ public class TMXImporter {
     }
     
     Reader template() throws IOException{
-        InputStream is = getClass().getClassLoader().getResourceAsStream("resources/tmx2mtm.xsl");
+        InputStream is = getClass().getClassLoader().getResourceAsStream("xsl/tmx2mtm.xsl");
 	return new InputStreamReader(is,"UTF-8");
     }
     

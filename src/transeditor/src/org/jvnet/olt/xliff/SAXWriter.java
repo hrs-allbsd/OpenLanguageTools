@@ -129,15 +129,15 @@ public class SAXWriter {
                 if (version.isXLIFF11()) {
                     saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
                     saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                                            "/resources/xliff-core-1.1.xsd");
+                                            "/xsd/xliff-core-1.1.xsd");
                 } else if (version.isXLIFF12_strict()) {
                     saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
                     saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                                            "/resources/xliff-core-1.2-strict.xsd");
+                                            "/xsd/xliff-core-1.2-strict.xsd");
                 } else if (version.isXLIFF12_transitional()) {
                     saxParser.setProperty(Constants.JAXP_SCHEMA_LANGUAGE, Constants.W3C_XML_SCHEMA);
                     saxParser.setProperty( "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                                            "/resources/xliff-core-1.2-transitional.xsd");
+                                            "/xsd/xliff-core-1.2-transitional.xsd");
                 }
             }
 

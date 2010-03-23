@@ -39,8 +39,11 @@
     <!-- TODO: Separate tasks which are actually not dependent on
     the complete build flow but have been made so to simply the build -->
 
+<!--
     <property name="dtd.dir" value="../..//dtd"/>
-	
+-->
+    <property name="ext-res.dir" value="../../external/resources"/>
+    
     <property name="build.staging.dir" value="${build.dir}/staging"/>
     <property name="build.dir.setup" value="${build.dir}/transtech-build/setup"/>
     <property name="tmx-conv.dir" value="../../src/backconverters/xliff_tmx_converter"/>
@@ -117,7 +120,8 @@
         </copy>
         
         <copy todir="${build.dir}/resources">
-            <fileset dir="${dtd.dir}">
+<!--
+        <fileset dir="${dtd.dir}">
                 <include name="xliff.dtd"/>
                 <include name="tt-xliff-skl.dtd"/>
                 <include name="xliff-core-*.xsd"/>
@@ -126,9 +130,16 @@
                 <include name="XMLSchema.dtd"/>
                 <include name="tmx*.dtd"/>
             </fileset>
+-->
+          <fileset dir="${ext-res.dir}">
+                <include name="dtd/*"/>
+                <include name="xsd/*"/>
+                <include name="xsl/*"/>
+            </fileset>
+
             <fileset dir="${tmx-conv.dir}/src/resource/">
-                <include name="xliff-tmx.xsl"/>
-                <include name="xliff-tmx_MN.xsl"/>
+                <include name="xsl/xliff-tmx.xsl"/>
+                <include name="xsl/xliff-tmx_MN.xsl"/>
             </fileset>
         </copy>
     </target>
@@ -157,6 +168,8 @@
         <mkdir dir="${installer.dir}/classes"/>
         <mkdir dir="${installer.dir}/samples"/>
         <mkdir dir="${installer.dir}/i18n"/>
+        <mkdir dir="${installer.dir}/plugins"/>
+        <mkdir dir="${installer.dir}/plugins/resources"/>
 
         <copy file="${dest.dir}/backconv.jar" verbose="true" tofile="${installer.dir}/classes/XliffBackConverter.jar"/>
         <copy file="${dest.dir}/utilities-fuzzytm.jar" verbose="true" tofile="${installer.dir}/classes/fuzzytm.jar"/>
@@ -165,9 +178,8 @@
         <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/swing-layout-1.0.1.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9-dom.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9-xpath.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="installer/README.i18n.txt" verbose="true" todir="${installer.dir}/i18n/"/>
+        <copy file="installer/plugins/README.txt" verbose="true" todir="${installer.dir}/plugins/"/>
         
         <copy todir="${installer.dir}" verbose="true">
             <fileset dir="installer">
@@ -248,12 +260,6 @@
                 <include name="org/jvnet/olt/xlifftools/"/>
                 <include name="org/jvnet/olt/editor/renamer/"/>
 
-                <include name="resources/"/>
-                <include name="resources/flags/"/>
-                <include name="resources/gifs/"/>
-                <include name="resources/LICENSE.txt/"/>
-                <include name="spellchecker.properties"/>
-
                 <!-- include stuff from filters -->
                 <include name="org/jvnet/olt/tmci/"/>
                 <include name="org/jvnet/olt/filters/software/"/>
@@ -262,6 +268,12 @@
             </fileset>
             <fileset dir="${editor.dest.dir}/i18n">
                 <include name="**/*.properties"/>
+            </fileset>
+        </jar>
+
+        <jar jarfile="${installer.dir}/resources.jar">
+            <fileset dir="${build.dir}/resources">
+                <include name="**"/>
             </fileset>
         </jar>
 
@@ -487,6 +499,7 @@
         <jar jarfile="${build.dir}/handoff.jar">
             <fileset dir="${built.lib.dir}">
                 <include name="TransEditor.jar"/>
+                <include name="resources.jar"/>
                 <include name="EditorSetup.jar"/>
                 <include name="xerces2.jar"/>
                 <include name="xmlParserAPIs.jar"/>

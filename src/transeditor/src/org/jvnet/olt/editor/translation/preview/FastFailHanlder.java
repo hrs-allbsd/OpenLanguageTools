@@ -66,7 +66,7 @@ public class FastFailHanlder extends DefaultHandler {
 
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
         if (systemId.endsWith("xliff.dtd")) {
-            InputStream istream = this.getClass().getResourceAsStream("/resources/xliff.dtd");
+            InputStream istream = this.getClass().getResourceAsStream("/dtd/xliff.dtd");
 
             if (istream != null) {
                 InputSource source = new InputSource(istream);

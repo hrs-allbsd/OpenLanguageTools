@@ -59,7 +59,7 @@
 //	File tmxFile = TestSupport.getResourceAsFile("tmximport/2.tmx");
 //	File outFile = TestSupport.makeFile("tmximport","rawOut.xml");
 //
-//	InputStream is = TMXImporter.class.getClassLoader().getResourceAsStream("resources/tmx2mtm.xsl");
+//	InputStream is = TMXImporter.class.getClassLoader().getResourceAsStream("xsl/tmx2mtm.xsl");
 //
 //	/*SAXParserFactory pf = SAXParserFactory.newInstance();
 //	pf.setValidating(true);
