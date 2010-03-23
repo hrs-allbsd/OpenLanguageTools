@@ -30,7 +30,7 @@
 			    org/jvnet/olt/aml_tmx_converter/ 
 				org/jvnet/olt/converterhandler/ 
 				org/jvnet/olt/tmx_aml_converter/"/>
-			<zipfileset prefix="resources" dir="../../dtd/" includes="tmx13.dtd aml10.dtd"/>
+			<zipfileset prefix="resources" dir="../../external/resources/dtd/" includes="tmx13.dtd aml10.dtd"/>
       	</jar>
 	</target>
 </project>
