@@ -178,6 +178,7 @@
         <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/swing-layout-1.0.1.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9-dom.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="installer/README.i18n.txt" verbose="true" todir="${installer.dir}/i18n/"/>
         <copy file="installer/plugins/README.txt" verbose="true" todir="${installer.dir}/plugins/"/>
         
