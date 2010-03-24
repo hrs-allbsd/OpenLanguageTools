@@ -15,8 +15,8 @@
     <target name="about">
         <echo>This is the Open Language Tools build file. Valid targets are :</echo>
         <echo>about, global_utilities, filters, transeditor, backconverters</echo>
-	<echo>More information is available at</echo>
-	<echo>https://open-language-tools.dev.java.net</echo>
+        <echo>More information is available at</echo>
+        <echo>https://open-language-tools.dev.java.net</echo>
     </target>
 
     <target name="clean" depends="init">
@@ -29,32 +29,32 @@
 
 
     <target name="global_utilities" depends="init">
-         <ant dir="utilities">
-             <property name="build.dir" value="${build}"/>
-             <property name="dest.dir" value="${build}"/>
-         </ant>
+        <ant dir="utilities">
+            <property name="build.dir" value="${build}"/>
+            <property name="dest.dir" value="${build}"/>
+        </ant>
     </target>
-    
 
-    <target name="backconverters" depends="init" >
-         <ant dir="src/backconverters" target="all">
+
+    <target name="backconverters" depends="init, global_utilities,filters" >
+        <ant dir="src/backconverters" target="all">
             <property name="classpath" value="${build}/utilities:${build}/filters"/>
-			    <property name="build" value="${build}/backconv"/>
-			    <property name="build.dir" value="${build}/backconv"/>
-         </ant>
+            <property name="build" value="${build}/backconv"/>
+            <property name="build.dir" value="${build}/backconv"/>
+        </ant>
     </target>
 
 
     <target name="filters" depends="init, global_utilities">
-          <ant dir="src/filters" target="all">
-             <property name="build.dir" value="${build}/filters"/>
-          </ant>
+        <ant dir="src/filters" target="all">
+            <property name="build.dir" value="${build}/filters"/>
+        </ant>
     </target>
 
     <target name="transeditor" depends="init">
         <ant dir="src/transeditor" target="all">
-	    	<property name="do.build.editor" value="please"/>
-		</ant>
+            <property name="do.build.editor" value="please"/>
+        </ant>
     </target>
 
 </project>
