@@ -253,7 +253,8 @@ public class Languages {
             String longCode = LanguageMappingTable.getInstance().reverseTranslateLangCode(code);
             
             if(longCode == null)
-                strPath ="Unknown";
+                //if long code is not availabel, use the short code
+                strPath =code.toLowerCase();
             else
                 strPath = longCode.toLowerCase();
             
