@@ -1,5 +1,5 @@
 #!/bin/sh
-CLASSPATH=${TT_WS_ROOT}/build/filters:${TT_WS_ROOT}/build/tt-common.jar:${TT_WS_ROOT}/utilities/jars/xerces2.jar:${TT_WS_ROOT}/utilities/jars/dtdparser121.jar
+CLASSPATH=${TT_WS_ROOT}/build/filters:${TT_WS_ROOT}/build/tt-common.jar:${TT_WS_ROOT}/utilities/jars/dtdparser121.jar
 
 export CLASSPATH
 xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=58000"

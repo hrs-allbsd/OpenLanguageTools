@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-export CLASSPATH="${TT_WS_ROOT}/../transtech-build:${TT_WS_ROOT}/utilities/jars/xerces2.jar"
+export CLASSPATH="${TT_WS_ROOT}/../transtech-build"
 xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=55698"
 xLOGGING="-Djava.util.logging.config.file=/home/timf/logging.properties"
 java ${LOGGING} ${DEBUG} -classpath ${CLASSPATH} com.sun.transtech.xliff_back_converter.XliffParserTest $1 resources/backconverterconfig.properties

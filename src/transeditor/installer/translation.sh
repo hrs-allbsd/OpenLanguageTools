@@ -16,4 +16,4 @@ for j in $HOME/.xliffeditor/plugins/*.jar ; do
 done
 
 
-java -Xmx512M -classpath ${CLASSPATH} -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser org.jvnet.olt.editor.translation.TransEditor
+java -Xmx512M -classpath ${CLASSPATH} org.jvnet.olt.editor.translation.TransEditor

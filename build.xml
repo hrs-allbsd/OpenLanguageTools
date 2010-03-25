@@ -8,7 +8,6 @@
         <property environment="myenv"/>
         <property name="javacc_cpath" value="${JAVACC_LIB}"/>
         <property name="javacc.lib" value="${javacc_cpath}"/>
-        <property name="xerces" value="utilities/jars/xerces.jar"/>
         <mkdir dir="${build}"/>
     </target>
 

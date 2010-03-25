@@ -3,7 +3,7 @@
     <target name="init">
         <tstamp/>
         <property name="build" value="../classes-test"/>
-        <property name="class-path" value="../classes-test:../classes:/home/jc73554/Jars/junit.jar:../../../utilities/jars/xerces2.jar"/>
+        <property name="class-path" value="../classes-test:../classes"/>
     </target>
 
     <target depends="fuzzytm_test" name="all">

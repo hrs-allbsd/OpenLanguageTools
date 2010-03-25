@@ -9,7 +9,7 @@ import java.util.*;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
-// Code written in a hurry to validate TMX - copy of XLIFFParse. Needs xerces2.jar
+// Code written in a hurry to validate TMX - copy of XLIFFParse. 
 public class TMXParse extends DefaultHandler implements EntityResolver{
     
     private int state = 0;

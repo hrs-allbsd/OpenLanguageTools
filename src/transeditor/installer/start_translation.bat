@@ -15,5 +15,5 @@ for %%i in (%UserProfile%\.xliffeditor\plugins\*.jar) do (
   set OTECLASSPATH=!OTECLASSPATH!;%%i
 )
 
-java -Xmx512M -classpath "%OTECLASSPATH%" -Dorg.xml.sax.driver=org.apache.xerces.parsers.SAXParser org.jvnet.olt.editor.translation.TransEditor
+java -Xmx512M -classpath "%OTECLASSPATH%" org.jvnet.olt.editor.translation.TransEditor
 endlocal

@@ -65,7 +65,6 @@
 
         <copy file="${dest.dir}/filters.jar" verbose="true" tofile="${installer.dir}/classes/filters.jar"/>
         <copy file="${dest.dir}/tt-common.jar" verbose="true" tofile="${installer.dir}/classes/tt-common.jar"/>
-        <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/dtdparser121.jar" verbose="true" todir="${installer.dir}/classes/"/>

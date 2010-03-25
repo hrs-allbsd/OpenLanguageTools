@@ -8,7 +8,6 @@
     <path id="build.classpath">
 	<path location="${build.dir}"/>
         <path refid="deps.common.util"/>
-	<path refid="deps.xerces"/>
 	</path>
 
 	<!-- are dependencies built ? -->

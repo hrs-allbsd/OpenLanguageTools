@@ -13,8 +13,6 @@ list of 3rd party components:
 
 IzPack-3.7.0
         (Apache License : http://www.izforge.com/izpack/ )
-xerces2.jar
-        (Apache License : http://xml.apache.org/xerces2-j/ )
 saxonb9-1-0-7j
 	(Mozilla Public License Version 1.0)
 

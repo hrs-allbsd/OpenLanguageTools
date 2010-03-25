@@ -100,10 +100,6 @@
    excludes="fuzzytm.jar,XliffBackConverter.jar"/>
     </path>
 
-    <path id="deps.xerces">
-        <fileset dir="${common.basedir}/utilities/jars" includes="xerces2.jar xmlParserAPIs.jar"/>
-    </path>
-
     <path id="deps.dom4j">
         <fileset dir="${common.basedir}/utilities/jars" includes="dom4j*.jar"/>
     </path>

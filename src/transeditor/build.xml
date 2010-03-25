@@ -15,7 +15,6 @@
         <path refid="deps.filters"/>
         <path refid="deps.editor.libs"/>
         <path refid="deps.backconv"/>
-        <path refid="deps.xerces"/>
         <path refid="deps.swing-layout"/>
         <path refid="deps.saxon"/>
     </path>
@@ -161,9 +160,7 @@
 
         <copy file="${dest.dir}/backconv.jar" verbose="true" tofile="${installer.dir}/classes/XliffBackConverter.jar"/>
         <copy file="${dest.dir}/utilities-fuzzytm.jar" verbose="true" tofile="${installer.dir}/classes/fuzzytm.jar"/>
-        <copy file="${lib.dir}/xerces2.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/xmlParserAPIs.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/swing-layout-1.0.1.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9-dom.jar" verbose="true" todir="${installer.dir}/classes/"/>
@@ -368,7 +365,6 @@
             <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
             <!-- sysproperty key="swing.defaultlaf" value="com.sun.java.swing.plaf.gtk.GTKLookAndFeel"/-->
             <sysproperty key="editor_home" value="${installer.dir}"/>
-            <!-- sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/-->
         </java>
 		
     </target>
@@ -388,8 +384,6 @@
             <jvmarg value="-agentpath:/home/boris/java/install/netbeans-5.0/profiler1/lib/deployed/jdk15/linux/libprofilerinterface.so=/home/boris/java/install/netbeans-5.0/profiler1/lib,5140"/>
             <sysproperty key="java.util.logging.config.file" value="logging.debug.properties"/>
             <sysproperty key="editor_home" value="${installer.dir}"/>
-            <sysproperty key="org.xml.sax.driver" value="org.apache.xerces.parsers.SAXParser"/>
-	
 
         </java>
 		
@@ -490,7 +484,6 @@
                 <include name="TransEditor.jar"/>
                 <include name="resources.jar"/>
                 <include name="EditorSetup.jar"/>
-                <include name="xerces2.jar"/>
                 <include name="xmlParserAPIs.jar"/>
                 <include name="activation.jar"/>
                 <include name="jdom.jar"/>

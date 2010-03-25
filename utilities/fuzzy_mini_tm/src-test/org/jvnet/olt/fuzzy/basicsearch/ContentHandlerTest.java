@@ -64,8 +64,9 @@ extends TestCase
             
             MiniTmContentHandler handler = new MiniTmContentHandler(hash, sequence);
             
-            SAXParserFactory factory = org.apache.xerces.jaxp.SAXParserFactoryImpl.newInstance();
-            
+            //SAXParserFactory factory = org.apache.xerces.jaxp.SAXParserFactoryImpl.newInstance();
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+
             factory.setValidating(true);
             factory.setNamespaceAware(true);
             

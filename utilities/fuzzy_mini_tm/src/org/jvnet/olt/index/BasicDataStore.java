@@ -88,11 +88,13 @@ implements DataStore {
             InputSource inSrc = new InputSource(reader);
             
             //  This class does the actual building of TMUnits.
-            //  The rest of this code kicks off the Xerces parser.
+            //  The rest of this code kicks off the SAX parser.
             MiniTmContentHandler handler = new MiniTmContentHandler(hash, sequence);
-            
-            SAXParserFactory factory = org.apache.xerces.jaxp.SAXParserFactoryImpl.newInstance();
-            
+
+            //
+            //SAXParserFactory factory = org.apache.xerces.jaxp.SAXParserFactoryImpl.newInstance();
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+
             factory.setValidating(false);  //the code was generated according DTD
             factory.setNamespaceAware(true);  //the code was generated according DTD
             
