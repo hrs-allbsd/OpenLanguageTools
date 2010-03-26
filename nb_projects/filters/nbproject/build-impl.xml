@@ -129,7 +129,6 @@ is divided into following sections:
                 <available file="${xres_file.dir}"/>
                 <available file="${filters15.dir}"/>
                 <available file="${filters16.dir}"/>
-                <available file="${src.src.dir}"/>
                 <available file="${filters18.dir}"/>
                 <available file="${filters17.dir}"/>
                 <available file="${filters19.dir}"/>
@@ -218,7 +217,6 @@ is divided into following sections:
         <fail unless="xres_file.dir">Must set xres_file.dir</fail>
         <fail unless="filters15.dir">Must set filters15.dir</fail>
         <fail unless="filters16.dir">Must set filters16.dir</fail>
-        <fail unless="src.src.dir">Must set src.src.dir</fail>
         <fail unless="filters18.dir">Must set filters18.dir</fail>
         <fail unless="filters17.dir">Must set filters17.dir</fail>
         <fail unless="filters19.dir">Must set filters19.dir</fail>
@@ -251,7 +249,7 @@ is divided into following sections:
     </target>
     <target name="-init-macrodef-javac">
         <macrodef name="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${filters12.dir}:${filters10.dir}:${filters5.dir}:${filters14.dir}:${filters9.dir}:${filters3.dir}:${filters4.dir}:${filters6.dir}:${filters11.dir}:${mozilla_dtd.dir}:${filters13.dir}:${filters2.dir}:${po_file.dir}:${filters8.dir}:${common.dir}:${java_props_file.dir}:${java_res_file.dir}:${msg_file.dir}:${rep_file.dir}:${software.dir}:${xres_file.dir}:${filters15.dir}:${filters16.dir}:${src.src.dir}:${filters18.dir}:${filters17.dir}:${filters19.dir}:${filters7.dir}:${src.segmenter_facade.dir}:${src.de_segmenter.dir}:${src.en_segmenter.dir}:${src.es_segmenter.dir}:${src.fr_segmenter.dir}:${src.it_segmenter.dir}:${src.ja_segmenter.dir}:${src.sv_segmenter.dir}" name="srcdir"/>
+            <attribute default="${filters12.dir}:${filters10.dir}:${filters5.dir}:${filters14.dir}:${filters9.dir}:${filters3.dir}:${filters4.dir}:${filters6.dir}:${filters11.dir}:${mozilla_dtd.dir}:${filters13.dir}:${filters2.dir}:${po_file.dir}:${filters8.dir}:${common.dir}:${java_props_file.dir}:${java_res_file.dir}:${msg_file.dir}:${rep_file.dir}:${software.dir}:${xres_file.dir}:${filters15.dir}:${filters16.dir}:${filters18.dir}:${filters17.dir}:${filters19.dir}:${filters7.dir}:${src.segmenter_facade.dir}:${src.de_segmenter.dir}:${src.en_segmenter.dir}:${src.es_segmenter.dir}:${src.fr_segmenter.dir}:${src.it_segmenter.dir}:${src.ja_segmenter.dir}:${src.sv_segmenter.dir}" name="srcdir"/>
             <attribute default="${build.classes.dir}" name="destdir"/>
             <attribute default="${javac.classpath}" name="classpath"/>
             <attribute default="${includes}" name="includes"/>
@@ -279,7 +277,7 @@ is divided into following sections:
             </sequential>
         </macrodef>
         <macrodef name="depend" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${filters12.dir}:${filters10.dir}:${filters5.dir}:${filters14.dir}:${filters9.dir}:${filters3.dir}:${filters4.dir}:${filters6.dir}:${filters11.dir}:${mozilla_dtd.dir}:${filters13.dir}:${filters2.dir}:${po_file.dir}:${filters8.dir}:${common.dir}:${java_props_file.dir}:${java_res_file.dir}:${msg_file.dir}:${rep_file.dir}:${software.dir}:${xres_file.dir}:${filters15.dir}:${filters16.dir}:${src.src.dir}:${filters18.dir}:${filters17.dir}:${filters19.dir}:${filters7.dir}:${src.segmenter_facade.dir}:${src.de_segmenter.dir}:${src.en_segmenter.dir}:${src.es_segmenter.dir}:${src.fr_segmenter.dir}:${src.it_segmenter.dir}:${src.ja_segmenter.dir}:${src.sv_segmenter.dir}" name="srcdir"/>
+            <attribute default="${filters12.dir}:${filters10.dir}:${filters5.dir}:${filters14.dir}:${filters9.dir}:${filters3.dir}:${filters4.dir}:${filters6.dir}:${filters11.dir}:${mozilla_dtd.dir}:${filters13.dir}:${filters2.dir}:${po_file.dir}:${filters8.dir}:${common.dir}:${java_props_file.dir}:${java_res_file.dir}:${msg_file.dir}:${rep_file.dir}:${software.dir}:${xres_file.dir}:${filters15.dir}:${filters16.dir}:${filters18.dir}:${filters17.dir}:${filters19.dir}:${filters7.dir}:${src.segmenter_facade.dir}:${src.de_segmenter.dir}:${src.en_segmenter.dir}:${src.es_segmenter.dir}:${src.fr_segmenter.dir}:${src.it_segmenter.dir}:${src.ja_segmenter.dir}:${src.sv_segmenter.dir}" name="srcdir"/>
             <attribute default="${build.classes.dir}" name="destdir"/>
             <attribute default="${javac.classpath}" name="classpath"/>
             <sequential>
@@ -477,7 +475,7 @@ is divided into following sections:
                 <include name="*"/>
             </dirset>
         </pathconvert>
-        <j2seproject3:depend srcdir="${filters12.dir}:${filters10.dir}:${filters5.dir}:${filters14.dir}:${filters9.dir}:${filters3.dir}:${filters4.dir}:${filters6.dir}:${filters11.dir}:${mozilla_dtd.dir}:${filters13.dir}:${filters2.dir}:${po_file.dir}:${filters8.dir}:${common.dir}:${java_props_file.dir}:${java_res_file.dir}:${msg_file.dir}:${rep_file.dir}:${software.dir}:${xres_file.dir}:${filters15.dir}:${filters16.dir}:${src.src.dir}:${filters18.dir}:${filters17.dir}:${filters19.dir}:${filters7.dir}:${src.segmenter_facade.dir}:${src.de_segmenter.dir}:${src.en_segmenter.dir}:${src.es_segmenter.dir}:${src.fr_segmenter.dir}:${src.it_segmenter.dir}:${src.ja_segmenter.dir}:${src.sv_segmenter.dir}:${build.generated.subdirs}"/>
+        <j2seproject3:depend srcdir="${filters12.dir}:${filters10.dir}:${filters5.dir}:${filters14.dir}:${filters9.dir}:${filters3.dir}:${filters4.dir}:${filters6.dir}:${filters11.dir}:${mozilla_dtd.dir}:${filters13.dir}:${filters2.dir}:${po_file.dir}:${filters8.dir}:${common.dir}:${java_props_file.dir}:${java_res_file.dir}:${msg_file.dir}:${rep_file.dir}:${software.dir}:${xres_file.dir}:${filters15.dir}:${filters16.dir}:${filters18.dir}:${filters17.dir}:${filters19.dir}:${filters7.dir}:${src.segmenter_facade.dir}:${src.de_segmenter.dir}:${src.en_segmenter.dir}:${src.es_segmenter.dir}:${src.fr_segmenter.dir}:${src.it_segmenter.dir}:${src.ja_segmenter.dir}:${src.sv_segmenter.dir}:${build.generated.subdirs}"/>
     </target>
     <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-compile-depend" if="have.sources" name="-do-compile">
         <j2seproject3:javac gensrcdir="${build.generated.sources.dir}"/>
@@ -505,7 +503,6 @@ is divided into following sections:
             <fileset dir="${xres_file.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${filters15.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${filters16.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
-            <fileset dir="${src.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${filters18.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${filters17.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${filters19.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
@@ -532,7 +529,7 @@ is divided into following sections:
     <target depends="init,deps-jar,-pre-pre-compile" name="-do-compile-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
         <j2seproject3:force-recompile/>
-        <j2seproject3:javac excludes="" gensrcdir="${build.generated.sources.dir}" includes="${javac.includes}" sourcepath="${filters12.dir}:${filters10.dir}:${filters5.dir}:${filters14.dir}:${filters9.dir}:${filters3.dir}:${filters4.dir}:${filters6.dir}:${filters11.dir}:${mozilla_dtd.dir}:${filters13.dir}:${filters2.dir}:${po_file.dir}:${filters8.dir}:${common.dir}:${java_props_file.dir}:${java_res_file.dir}:${msg_file.dir}:${rep_file.dir}:${software.dir}:${xres_file.dir}:${filters15.dir}:${filters16.dir}:${src.src.dir}:${filters18.dir}:${filters17.dir}:${filters19.dir}:${filters7.dir}:${src.segmenter_facade.dir}:${src.de_segmenter.dir}:${src.en_segmenter.dir}:${src.es_segmenter.dir}:${src.fr_segmenter.dir}:${src.it_segmenter.dir}:${src.ja_segmenter.dir}:${src.sv_segmenter.dir}"/>
+        <j2seproject3:javac excludes="" gensrcdir="${build.generated.sources.dir}" includes="${javac.includes}" sourcepath="${filters12.dir}:${filters10.dir}:${filters5.dir}:${filters14.dir}:${filters9.dir}:${filters3.dir}:${filters4.dir}:${filters6.dir}:${filters11.dir}:${mozilla_dtd.dir}:${filters13.dir}:${filters2.dir}:${po_file.dir}:${filters8.dir}:${common.dir}:${java_props_file.dir}:${java_res_file.dir}:${msg_file.dir}:${rep_file.dir}:${software.dir}:${xres_file.dir}:${filters15.dir}:${filters16.dir}:${filters18.dir}:${filters17.dir}:${filters19.dir}:${filters7.dir}:${src.segmenter_facade.dir}:${src.de_segmenter.dir}:${src.en_segmenter.dir}:${src.es_segmenter.dir}:${src.fr_segmenter.dir}:${src.it_segmenter.dir}:${src.ja_segmenter.dir}:${src.sv_segmenter.dir}"/>
     </target>
     <target name="-post-compile-single">
         <!-- Empty placeholder for easier customization. -->
@@ -787,9 +784,6 @@ is divided into following sections:
                 <filename name="**/*.java"/>
             </fileset>
             <fileset dir="${filters16.dir}" excludes="${excludes}" includes="${includes}">
-                <filename name="**/*.java"/>
-            </fileset>
-            <fileset dir="${src.src.dir}" excludes="${excludes}" includes="${includes}">
                 <filename name="**/*.java"/>
             </fileset>
             <fileset dir="${filters18.dir}" excludes="${excludes}" includes="${includes}">

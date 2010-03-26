@@ -28,7 +28,6 @@
                 <root id="xres_file.dir" name="software xres"/>
                 <root id="filters15.dir" name="soxliff"/>
                 <root id="filters16.dir" name="staroffice"/>
-                <root id="src.src.dir" name="xliffsubsegmenter"/>
                 <root id="filters18.dir" name="xml_filter"/>
                 <root id="filters17.dir" name="xml_config_parser"/>
                 <root id="filters19.dir" name="xml_merging_tool"/>

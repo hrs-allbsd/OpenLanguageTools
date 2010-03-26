@@ -160,10 +160,9 @@
 
         <copy file="${dest.dir}/backconv.jar" verbose="true" tofile="${installer.dir}/classes/XliffBackConverter.jar"/>
         <copy file="${dest.dir}/utilities-fuzzytm.jar" verbose="true" tofile="${installer.dir}/classes/fuzzytm.jar"/>
-        <copy file="${lib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/swing-layout-1.0.1.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9.jar" verbose="true" todir="${installer.dir}/classes/"/>
-        <copy file="${lib.dir}/saxonb9-1-0-7j/saxon9-dom.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${extlib.dir}/dom4j-161.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${extlib.dir}/swing-layout/swing-layout-1.0.4.jar" verbose="true" todir="${installer.dir}/classes/"/>
+        <copy file="${extlib.dir}/saxon/saxon9he.jar" verbose="true" todir="${installer.dir}/classes/"/>
         <copy file="installer/README.i18n.txt" verbose="true" todir="${installer.dir}/i18n/"/>
         <copy file="installer/plugins/README.txt" verbose="true" todir="${installer.dir}/plugins/"/>
         
@@ -181,7 +180,7 @@
         </copy>
 		
         <copy todir="${installer.dir}" verbose="true" file="static/resources/LICENSE.txt"/>
-        <copy todir="${installer.dir}" verbose="true" file="../../utilities/jars/THIRDPARTYREADME"/>
+        <copy todir="${installer.dir}" verbose="true" file="../../external/THIRDPARTYREADME"/>
         <copy todir="${installer.dir}/samples" verbose="true">
             <fileset dir="samples"/>
         </copy>

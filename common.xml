@@ -60,12 +60,7 @@
 
     <!-- jars in lib/lib2 -->
     <path id="deps.dtdparser">
-    <path location="${common.basedir}/utilities/jars/dtdparser121.jar"/>
-    </path>
-
-    <path id="deps.jaxb">
-        <fileset dir="${common.basedir}/utilities/jars/jwsdp-1.5/jaxb/lib" includes="*.jar"/>
-        <fileset dir="${common.basedir}/utilities/jars/jwsdp-1.5/jwsdp-shared/lib" includes="*.jar"/>
+        <fileset dir="${extlib.dir}" includes="dtdparser121.jar"/>
     </path>
 
     <!-- TODO download the rest of the api jar (JWSDP) get rid of S1AS deps -->
@@ -100,17 +95,13 @@
    excludes="fuzzytm.jar,XliffBackConverter.jar"/>
     </path>
 
-    <path id="deps.dom4j">
-        <fileset dir="${common.basedir}/utilities/jars" includes="dom4j*.jar"/>
-    </path>
-
     <path id="deps.swing-layout">
-        <fileset dir="${common.basedir}/utilities/jars" includes="swing-layout-1.0.1.jar"/>
+        <fileset dir="${extlib.dir}/swing-layout" includes="swing-layout-*.jar"/>
     </path>
 
-    <!-- jars for Saxon9B -->
+    <!-- jars for Saxon9HE -->
     <path id="deps.saxon">
-        <fileset dir="${common.basedir}/utilities/jars/saxonb9-1-0-7j" includes="saxon9.jar saxon9-dom.jar saxon9-xpath.jar"/>
+        <fileset dir="${extlib.dir}/saxon" includes="saxon9he.jar"/>
     </path>
 
     <!-- jars in lib/junit -->
@@ -122,7 +113,7 @@
 
     <!-- dom4j dependecies -->
     <path id="deps.dom4j">
-        <fileset dir="${common.basedir}/utilities/jars" includes="dom4j-161.jar"/>
+        <fileset dir="${extlib.dir}" includes="dom4j-161.jar"/>
     </path>
 
     <!-- common classpath; include build.dir -->

@@ -110,9 +110,6 @@
        <ant dir="filter_interface">
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
 		</ant>
-       <ant dir="xliffsubsegmenter">
-			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
-		</ant>
        <ant dir="staroffice_filter">
 			<property name="build.dir" value="${build.dir}/${module.filters.name}"/>
 		</ant>
