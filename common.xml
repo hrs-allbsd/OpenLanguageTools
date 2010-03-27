@@ -266,7 +266,7 @@
                       description == description of file
     -->
     <path id="upload.file.class.path">
-        <fileset dir="${common.basedir}/utilities/jars/javanettasks" includes="**/*.jar"/>
+        <fileset dir="${common.basedir}/external/build/javanettasks" includes="**/*.jar"/>
     </path>
 
 
