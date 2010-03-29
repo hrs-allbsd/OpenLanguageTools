@@ -44,4 +44,9 @@ public class TransFile {
     public int hashCode() {
         return (int)(uniqueId * 37);
     }
+
+    public long getUniqueId () {
+        return uniqueId;
+    }
+
 }

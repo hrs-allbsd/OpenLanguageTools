@@ -44,6 +44,6 @@ public class TransUnitId {
     }
 
     public String getStrId() {
-        return id;
+        return id + "(" + file.getUniqueId() + ")" ;
     }
 }

@@ -18,6 +18,7 @@ import java.util.Set;
 import org.jvnet.olt.editor.translation.Constants;
 import org.jvnet.olt.xliff.ReaderException;
 import org.jvnet.olt.xliff.TrackingComments;
+import org.jvnet.olt.xliff.TransUnitId;
 import org.jvnet.olt.xliff.XLIFFSentence;
 import org.jvnet.olt.xliff.handlers.Element;
 
@@ -31,7 +32,7 @@ import org.xml.sax.helpers.AttributesImpl;
 public class TransUnitHandler extends BaseHandler {
     private boolean needTgt;
     private Map tgtChangeSet;
-    private String transUnitId;
+    private TransUnitId transUnitId;
     Set stopElements = new HashSet();
 
     {
@@ -50,14 +51,13 @@ public class TransUnitHandler extends BaseHandler {
     public void dispatch(org.jvnet.olt.xliff.handlers.Element element, boolean start) throws org.jvnet.olt.xliff.ReaderException {
         if ("trans-unit".equals(element.getQName())) {
             if (start) {
-                transUnitId = element.getAttrs().getValue("id");
-
+                transUnitId =  ctx.createTransUnitKey(element.getAttrs().getValue("id"));
                 ctx.setCurrentTransId(transUnitId);
 
                 tgtChangeSet = ctx.getTgtChangeSet();
 
                 // set approved attribute for the trans-unit
-                XLIFFSentence sentence = (XLIFFSentence) tgtChangeSet.get(transUnitId);
+                XLIFFSentence sentence = (XLIFFSentence) tgtChangeSet.get(transUnitId.getStrId());
                 if (sentence != null) {
                     String unitApproved = "no";
                     if ( sentence.getTranslationState() != null && 
@@ -90,7 +90,7 @@ public class TransUnitHandler extends BaseHandler {
     }
 
     private void saveTarget() throws ReaderException {
-        XLIFFSentence sntnc = (XLIFFSentence)tgtChangeSet.get(transUnitId);
+        XLIFFSentence sntnc = (XLIFFSentence)tgtChangeSet.get(transUnitId.getStrId());
         String text = sntnc.getSentence();
 
         String state = sntnc.getTranslationState();
@@ -108,12 +108,12 @@ public class TransUnitHandler extends BaseHandler {
         writeChars(text.toCharArray(), 0, text.length(), false);
         writeElement(e, false);
 
-        tgtChangeSet.remove(transUnitId);
+        tgtChangeSet.remove(transUnitId.getStrId());
     }
 
     private void saveComment() throws ReaderException {
         TrackingComments tc = ctx.getTrackingComments();
-        String note = tc.getComment(transUnitId);
+        String note = tc.getComment(transUnitId.getStrId());
 
         //EVIL HACK:note can be null when removing
         if(note != null){
@@ -123,16 +123,16 @@ public class TransUnitHandler extends BaseHandler {
             writeChars(note.toCharArray(), 0, note.length());
             writeElement(e, false);
 
-            tc.setCommentModified(transUnitId, false);
+            tc.setCommentModified(transUnitId.getStrId(), false);
         }
     }
 
     private boolean targetNeedsSave() {
-        return tgtChangeSet.containsKey(transUnitId);
+        return tgtChangeSet.containsKey(transUnitId.getStrId());
     }
 
     private boolean commentNeedsSave() {       
-        return ctx.getTrackingComments().isCommentModified(ctx.getCurrentTransId());
+        return ctx.getTrackingComments().isCommentModified(ctx.getCurrentTransId().getStrId());
     }
 
     public void dispatchIgnorableChars(Element element, char[] chars, int start, int length) throws ReaderException {

@@ -37,8 +37,9 @@ public class FileHandler extends BaseHandler {
     public void dispatch(org.jvnet.olt.xliff.handlers.Element element, boolean start) throws ReaderException {
         Element e1 = element;
 
-        if (start) {
+        if (start && "file".equals(element.getLocalName())) {
             Attributes attrs = element.getAttrs();
+            ctx.addFile(attrs.getValue("original"));
 
             targetLanguage = ctx.getTargetLang();
             logger.finer("Target language="+targetLanguage);

@@ -46,7 +46,7 @@ public class TargetHandler extends BaseHandler {
                 return;
             }
             
-            String transUnitId = ctx.getCurrentTransId();
+            String transUnitId = ctx.getCurrentTransId().getStrId();
 
             //has sentence changed ? -- no
             if (!tgtChangeSet.containsKey(transUnitId)){
@@ -62,7 +62,7 @@ public class TargetHandler extends BaseHandler {
             char[] ch = currentSntnc.getSentence().toCharArray();
             writeChars(ch, 0, ch.length, false);
             
-            tgtChangeSet.remove(ctx.getCurrentTransId());
+            tgtChangeSet.remove(transUnitId);
             ignoreChars = true;
         } else {
             

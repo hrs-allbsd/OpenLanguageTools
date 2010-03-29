@@ -39,7 +39,7 @@ public class NoteHandler extends BaseHandler {
             
             TrackingComments tc = ctx.getTrackingComments();
 
-            String key = ctx.getCurrentTransId();
+            String key = ctx.getCurrentTransId().getStrId();
 
             if (header) {
                 key = "header";
@@ -60,7 +60,7 @@ public class NoteHandler extends BaseHandler {
             }
 
             TrackingComments tc = ctx.getTrackingComments();
-            tc.setCommentModified(header ? "header" : ctx.getCurrentTransId(), false);
+            tc.setCommentModified(header ? "header" : ctx.getCurrentTransId().getStrId(), false);
         }
 
         if(!remove)

@@ -42,7 +42,7 @@ public class SourceHandler extends BaseHandler {
                 return;
             }
 
-            String transUnitId = ctx.getCurrentTransId();
+            String transUnitId = ctx.getCurrentTransId().getStrId();
 
             //has sentence changed ? -- no
             if (!srcChangeSet.containsKey(transUnitId)){

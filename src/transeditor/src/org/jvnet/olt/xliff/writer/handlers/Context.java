@@ -16,6 +16,8 @@ import java.util.Map;
 import org.jvnet.olt.xliff.TrackingComments;
 import org.jvnet.olt.xliff.Version;
 import org.jvnet.olt.xliff.XMLDumper;
+import org.jvnet.olt.xliff.TransFile;
+import org.jvnet.olt.xliff.TransUnitId;
 
 
 /**
@@ -25,9 +27,11 @@ import org.jvnet.olt.xliff.XMLDumper;
 public class Context {
     private Map srcChangeSet;
     private Map tgtChangeSet;
-    private String currentTransId;
+    private TransUnitId currentTransId;
     private String targetLang;
+    private TransFile currentTransFile;
     private TrackingComments comments;
+    private int numFiles;
     final private XMLDumper dumper;
     final private Version version;
 
@@ -53,11 +57,20 @@ public class Context {
         this.tgtChangeSet = tgtChangeSet;
     }
 
-    public String getCurrentTransId() {
+    public void addFile(String fileName) {
+        TransFile file = new TransFile(fileName, numFiles++);
+        currentTransFile = file;
+    }
+
+    public TransUnitId createTransUnitKey(String id) {
+        return new TransUnitId(id, currentTransFile);
+    }
+
+    public TransUnitId getCurrentTransId() {
         return currentTransId;
     }
 
-    public void setCurrentTransId(String currentTransId) {
+    public void setCurrentTransId(TransUnitId currentTransId) {
         this.currentTransId = currentTransId;
     }
 
