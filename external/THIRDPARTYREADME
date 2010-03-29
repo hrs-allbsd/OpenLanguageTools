@@ -3,6 +3,9 @@ This directory contains jar files from 3rd parties. Their details and licenses
 are listed below and the full license text for each license is included in
 this file.
 
+build/izpack
+        (Apache License : http://www.izforge.com/izpack/ )
+
 build/javanettasks/
 	(BSD-Style source & binary license agreement
 	 build/javanettasks/LICENSE.txt )
@@ -51,8 +54,6 @@ resources/flags/
   
   
   
-IzPack-3.7.0
-        (Apache License : http://www.izforge.com/izpack/ )
 javacc-3.2
         (BSD License : https://javacc.dev.java.net/ )
 junit.jar
@@ -106,8 +107,17 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 ------------------------------------------------------------------------------
---- IzPack-3.7.0.jar ---
+--- IzPack ---
 ------------------------------------------------------------------------------
+    
+    IzPack is Copyright (c) 2001-2008 Julien Ponge.
+    http://izpack.org/
+    julien.ponge@gmail.com
+
+    IzPack is a powerfull Java installer builder released under the terms of
+    the Apache License Version 2.0.
+
+
 		             Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/

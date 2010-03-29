@@ -12,6 +12,11 @@
     <dirname property="common.basedir" file="${ant.file.common}"/>
     <property file="${common.basedir}/common.properties"/>
 
+    <!-- IzPack setup -->
+    <taskdef name="izpack"
+            classpath="${izpack.home}/lib/standalone-compiler.jar"
+            classname="com.izforge.izpack.ant.IzPackTask"/>
+
 
     <!-- default source files location -->
     <path id="src.dirs">
