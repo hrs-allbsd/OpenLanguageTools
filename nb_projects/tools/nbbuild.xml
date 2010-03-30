@@ -72,7 +72,8 @@
 
     -->
 
-    <import file="../../common.xml"/>
+    <!-- import file="../../common.xml"/ -->
+    <property file="../../common.properties"/>
     <target name="-post-init" depends="doc_fragmenter.-post-init, sgmltokens.-post-init">
 
     </target>

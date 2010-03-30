@@ -71,7 +71,9 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <import file="../../common.xml"/>
+    <!-- import file="../../common.xml"/ -->
+    <property file="../../common.properties"/>
+
     <target name="-post-init" depends="lang-segmenter.-post-init, file-segmenter.-post-init, soxliff.util.-post-init">
 
     </target>
