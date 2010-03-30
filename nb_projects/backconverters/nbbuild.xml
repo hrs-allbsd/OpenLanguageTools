@@ -71,8 +71,9 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <!-- import file="../../common.xml"/ -->
-    <property file="../../common.properties"/>
+    <dirname property="common.basedir" file="${ant.file.common}/../.."/>
+    <property file="${common.basedir}/common.properties"/>
+
     <target name="-post-init" depends="soxliff.util.-post-init">
 
     </target>
