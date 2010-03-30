@@ -111,7 +111,7 @@
 
     <!-- jars in lib/junit -->
     <path id="deps.junit">
-        <fileset dir="${common.basedir}/utilities/jars">
+        <fileset dir="${junit.home}">
             <include name="**/*.jar"/>
         </fileset>
     </path>
@@ -121,10 +121,16 @@
         <fileset dir="${extlib.dir}" includes="dom4j-161.jar"/>
     </path>
 
+    <!-- javacc dependecies -->
+    <path id="deps.javacc">
+        <fileset dir="${javacchome}" includes="*.jar"/>
+    </path>
+
     <!-- common classpath; include build.dir -->
     <path id="common.build.classpath">
-    <path refid="build.classpath"/>
-        <pathelement location="${build.dir}"/>
+      <path refid="deps.javacc"/>
+      <path refid="build.classpath"/>
+      <pathelement location="${build.dir}"/>
     </path>
 
     <!-- TASKS DEFINITIONS -->
@@ -203,7 +209,8 @@
     </target>
 
     <path id="common.test.classpath">
-    <path refid="test.classpath"/>
+        <path refid="deps.junit"/>
+        <path refid="test.classpath"/>
         <pathelement location="${build.dir}"/>
     </path>
 
@@ -228,7 +235,7 @@
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=${test.debug.suspend},address=${test.debug.port}"/>
             <!-- support for transparent directories; see TestSupport class -->
-            <sysproperty key="junit.output.dir" value="${build.dir}/test-results"/>
+            <sysproperty key="junit.output.dir" value="${test-sys-prop.junit.output.dir}"/>
 
             <formatter type="xml"/>
 
