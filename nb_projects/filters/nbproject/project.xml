@@ -30,7 +30,6 @@
                 <root id="filters16.dir" name="staroffice"/>
                 <root id="filters18.dir" name="xml_filter"/>
                 <root id="filters17.dir" name="xml_config_parser"/>
-                <root id="filters19.dir" name="xml_merging_tool"/>
                 <root id="filters7.dir" name="segmenter_formatters"/>
                 <root id="src.segmenter_facade.dir" name="segmenter_facade"/>
                 <root id="src.de_segmenter.dir" name="de_segmenter"/>
