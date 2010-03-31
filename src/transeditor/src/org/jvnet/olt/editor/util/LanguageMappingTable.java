@@ -7,6 +7,7 @@ package org.jvnet.olt.editor.util;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /*
@@ -27,11 +28,11 @@ import java.util.StringTokenizer;
  */
 public class LanguageMappingTable {
     private static LanguageMappingTable instance = null;
-    private java.util.HashMap mappingTable;
+    private java.util. HashMap<String, String> mappingTable;
 
     LanguageMappingTable() {
         //  Create and initialize the table
-        mappingTable = new java.util.HashMap();
+        mappingTable = new java.util.HashMap<String,String>();
         mappingTable.put("en-gb", "EN");
         mappingTable.put("en-us", "US");
         mappingTable.put("en", "US");
@@ -112,7 +113,8 @@ public class LanguageMappingTable {
 
         mappingTable.put("en-au", "AU"); //Australian English
         mappingTable.put("en-ca", "CD"); //Canadian English
-        mappingTable.put("en-gb", "GB"); //British English
+        // we cannot have two times "en-gb" as key. there is no internal "GB" language
+        //mappingTable.put("en-gb", "GB"); //British English
         mappingTable.put("eo-eo", "EO"); //Esperanto
 
         mappingTable.put("et-et", "ET"); //Estonian
@@ -238,14 +240,14 @@ public class LanguageMappingTable {
      */
     public String translateLangCode(String langCode) {
         String key = langCode.toLowerCase();
-        String internalCode = (String)mappingTable.get(key);
+        String internalCode = mappingTable.get(key);
 
         if (internalCode == null) {
             //  No direct match found: see if we can find a match based on
             //  the first bit.
             StringTokenizer tokenizer = new StringTokenizer(key, "-");
             key = tokenizer.nextToken();
-            internalCode = (String)mappingTable.get(key);
+            internalCode = mappingTable.get(key);
         }
 
         if (internalCode == null) {
@@ -286,16 +288,16 @@ public class LanguageMappingTable {
      * @return equivalent encoding
      */
     public String reverseTranslateLangCode(String shortEvilLangCode) {
-        Set s = mappingTable.entrySet();
+        Set<Entry<String, String>> s = mappingTable.entrySet();
 
         //Iterate thru the map entries and find the longest long code you can
         String theCode = null;
 
-        for (Iterator i = s.iterator(); i.hasNext();) {
-            Map.Entry entry = (Map.Entry)i.next();
+        for (Iterator<Entry<String, String>> i = s.iterator(); i.hasNext();) {
+            Map.Entry<String,String> entry = i.next();
 
-            String shortie = (String)entry.getValue();
-            String longCode = (String)entry.getKey();
+            String shortie = entry.getValue();
+            String longCode = entry.getKey();
 
             if (shortEvilLangCode.equals(shortie) && ((theCode == null) || (longCode.length() > theCode.length()))) {
                 theCode = longCode;
