@@ -11,7 +11,9 @@ package org.jvnet.olt.xliff;
  */
 import java.util.*;
 
-
+/* TODO: we would need to refactor the class, so that TransUnitIDs
+ *      are of Class TransUnitID and not simple strings
+ */
 public class TrackingGroup {
     private HashMap idGroupAttrsMap;
     private HashMap idGroupMap;
