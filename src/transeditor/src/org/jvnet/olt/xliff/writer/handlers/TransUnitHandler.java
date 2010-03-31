@@ -131,8 +131,14 @@ public class TransUnitHandler extends BaseHandler {
         return tgtChangeSet.containsKey(transUnitId.getStrId());
     }
 
-    private boolean commentNeedsSave() {       
-        return ctx.getTrackingComments().isCommentModified(ctx.getCurrentTransId().getStrId());
+    private boolean commentNeedsSave() {
+        // TrackingComments in ctx might be null
+        boolean needSave = false;
+        TrackingComments tc = ctx.getTrackingComments();
+        if ( tc != null ) {
+            needSave = tc.isCommentModified(ctx.getCurrentTransId().getStrId());
+        }
+        return needSave;
     }
 
     public void dispatchIgnorableChars(Element element, char[] chars, int start, int length) throws ReaderException {
