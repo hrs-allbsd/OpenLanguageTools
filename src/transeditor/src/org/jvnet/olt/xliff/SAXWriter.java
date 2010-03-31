@@ -65,7 +65,7 @@ public class SAXWriter {
         writer.write("<?xml version=\"1.0\" ?>\n");
 
         if (version.isXLIFF10()) {
-            writer.write(Constants.DOCTYPE_XLIFF_1_0);
+            writer.write(Constants.DOCTYPE_XLIFF_1_0 + "\n");
         }
 
         XMLDumper dumper = new XMLDumper(writer);
