@@ -39,31 +39,31 @@ public class MatchAttributes {
         StringBuilder sb = new StringBuilder(128);
 
         if (sFileIdentifier != null) {
-            sb.append(bundle.getString("File_Identifier:_")).append(' ').append(sFileIdentifier).append("; ");
+            sb.append(bundle.getString("File_Identifier:")).append(' ').append(sFileIdentifier).append("; ");
         }
 
         if (sProjectId != null) {
-            sb.append(bundle.getString("Project_ID:_")).append(' ').append(sProjectId).append("; ");
+            sb.append(bundle.getString("Project_ID:")).append(' ').append(sProjectId).append("; ");
         }
 
         if (sWorkspaceBuild != null) {
-            sb.append(bundle.getString("Workspace_Build:_")).append(' ').append(sWorkspaceBuild).append("; ");
+            sb.append(bundle.getString("Workspace_Build:")).append(' ').append(sWorkspaceBuild).append("; ");
         }
 
         if (sModule != null) {
-            sb.append(bundle.getString("Module:_")).append(' ').append(sModule).append("; ");
+            sb.append(bundle.getString("Module:")).append(' ').append(sModule).append("; ");
         }
 
         if (sShortBookName != null) {
-            sb.append(bundle.getString("Short_Book_Name:_")).append(sShortBookName).append("; ");
+            sb.append(bundle.getString("Short_Book_Name:")).append(' ').append(sShortBookName).append("; ");
         }
 
         if (sSubject != null) {
-            sb.append(bundle.getString("Subject:_")).append(sSubject).append("; ");
+            sb.append(bundle.getString("Subject:")).append(' ').append(sSubject).append("; ");
         }
 
         if (sPartNo != null) {
-            sb.append(bundle.getString("Part_No.:_")).append(sPartNo);
+            sb.append(bundle.getString("Part_No.:")).append(' ').append(sPartNo);
         }
 
         return sb.toString();
