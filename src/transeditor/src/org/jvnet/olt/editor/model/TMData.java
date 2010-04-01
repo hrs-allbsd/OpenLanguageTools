@@ -650,7 +650,11 @@ public class TMData extends PivotData {
         }
          */
         public int updateMiniTM(String transID, int indexInTM) {
-            if ((translationStatus == TRANSLATED) && (translationType == USER_TRANSLATION)) {
+            //if ((translationStatus == TRANSLATED) && (translationType == USER_TRANSLATION)) {
+            // also store translations that have been results of a fuzzy match
+            // issue 103
+            if ((translationStatus == TRANSLATED) ) {
+
                 String src = source.getValue();
                 String trans = translation.getValue();
 
