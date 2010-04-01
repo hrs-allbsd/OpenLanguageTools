@@ -486,7 +486,7 @@ TOKEN : { <Mr: "Mr." >}
 TOKEN : { <Mrs: "Mrs." >}
 TOKEN : { <Ms: "Ms." >}
 TOKEN : { <Mt: "Mt." >}
-TOKEN : { <Nsmallo: "N°." >}
+TOKEN : { <Nsmallo: "Nï¿½." >}
 TOKEN : { <NO: "NO." >}
 TOKEN : { <Neg: "Neg." >}
 TOKEN : { <No: "No." >}
@@ -751,7 +751,7 @@ TOKEN : { <betr: "betr." >}
 TOKEN : { <bgbl: "bgbl." >}
 TOKEN : { <biol: "biol." >}
 TOKEN : { <biolog: "biolog." >}
-TOKEN : { <b\u00fcrgerl: "b\u00fcrgerl." >}
+TOKEN : { <buergerl: "bÃ¼rgerl." >}
 TOKEN : { <bzgl: "bzgl." >}
 TOKEN : { <bzw: "bzw." >}
 TOKEN : { <dh: "d.h." >}
@@ -1543,7 +1543,7 @@ String abbrev():
 (t=<bgbl> {s=t.image;}) |
 (t=<biol> {s=t.image;}) |
 (t=<biolog> {s=t.image;}) |
-(t=<b\u00fcrgerl> {s=t.image;}) |
+(t=<buergerl> {s=t.image;}) |
 (t=<bzgl> {s=t.image;}) |
 (t=<bzw> {s=t.image;}) |
 (t=<h> {s=t.image;}) |
