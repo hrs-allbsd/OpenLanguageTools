@@ -13,7 +13,6 @@
     <path id="build.classpath">
         <path refid="deps.common.util"/>
         <path refid="deps.filters"/>
-        <path refid="deps.editor.libs"/>
         <path refid="deps.backconv"/>
         <path refid="deps.swing-layout"/>
         <path refid="deps.saxon"/>
@@ -21,7 +20,6 @@
     <path id="test.classpath">
         <path refid="deps.common.util"/>
         <path refid="deps.filters"/>
-        <path refid="deps.editor.libs"/>
         <path refid="deps.backconv"/>
         <path location="${build.dir}" />
         <path location="."/>

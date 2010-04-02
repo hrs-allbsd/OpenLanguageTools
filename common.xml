@@ -94,12 +94,6 @@
         <fileset dir="${dest.dir}/" includes="backconv.jar"/>
     </path>
 
-    <path id="deps.editor.libs">
-        <fileset dir="${common.basedir}/utilities/jars/"
-   includes="**/*.jar"
-   excludes="fuzzytm.jar,XliffBackConverter.jar"/>
-    </path>
-
     <path id="deps.swing-layout">
         <fileset dir="${extlib.dir}/swing-layout" includes="swing-layout-*.jar"/>
     </path>
