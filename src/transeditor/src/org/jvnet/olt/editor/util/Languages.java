@@ -147,7 +147,8 @@ public class Languages {
 
         { "AU", bundle.getString("Australian_English"), "UTF8" },
         { "CD", bundle.getString("Canadian_English"), "UTF8" },
-        { "GB", bundle.getString("British_English"), "UTF8" },
+        // removed, as this is already defined as "English (United Kingdom)"
+        //{ "GB", bundle.getString("British_English"), "UTF8" },
         { "EO", bundle.getString("Esperanto"), "UTF8" },
         
 
