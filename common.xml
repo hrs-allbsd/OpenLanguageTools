@@ -165,6 +165,7 @@
             target="${platform.version}"
             destdir="${build.dir}"
             classpathref="common.build.classpath"
+            fork="${compiler.fork}"
             debug="${compiler.debug}"
             verbose="${compiler.verbose}">
             <patternset refid="src.pattern"/>
