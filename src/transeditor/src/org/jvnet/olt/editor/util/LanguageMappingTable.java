@@ -45,6 +45,10 @@ import java.util.StringTokenizer;
  * It uses the Singleton and Factory Method patterns to ensure that there is
  * only one instance of this class in existence.
  * @author  jc73554
+ * @deprecated  this class is only used to process old MiniTMs
+ *              created before Editor version 1.4
+ *              It will be removed, as soon as we we have all MiniTMs
+ *              migrated to ISO language-codes or directly support TMX
  */
 public class LanguageMappingTable {
     private static LanguageMappingTable instance = null;
@@ -257,6 +261,7 @@ public class LanguageMappingTable {
      *  Editor internal codes. It returns null if no mapping exists between the
      *  provided code and any of the internal Editor ones.
      *  like this
+     *  @deprecated
      */
     public String translateLangCode(String langCode) {
         String key = langCode.toLowerCase();
@@ -281,6 +286,10 @@ public class LanguageMappingTable {
         return internalCode;
     }
 
+    /**
+     *
+     * @deprecated
+     */
     public static synchronized LanguageMappingTable getInstance() {
         if (instance == null) {
             instance = new LanguageMappingTable();
@@ -306,6 +315,7 @@ public class LanguageMappingTable {
      * </p>
      * @param shortEvilLangCode
      * @return equivalent encoding
+     * @deprecated
      */
     public String reverseTranslateLangCode(String shortEvilLangCode) {
         Set<Entry<String, String>> s = mappingTable.entrySet();
