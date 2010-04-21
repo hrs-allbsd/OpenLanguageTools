@@ -786,7 +786,10 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 String[] parts = project.split("_");
 
                 if ((parts != null) && (parts.length == 3)) {
-                    TransProject tp = new TransProject(parts[0], parts[1], parts[2], backend.getConfig().getMiniTMDir().getAbsolutePath(), "");
+                    // get correct Info for last opened project
+                    ProjectInfo pi = new ProjectInfo (parts[0], parts[1], parts[2]);
+                    TransProject tp = new TransProject( pi.getName(), pi.getSourceLang(), pi.getTargetLang(),
+                                                        backend.getConfig().getMiniTMDir().getAbsolutePath(), "");
                     backend.openProject(tp);
                 }
             }
