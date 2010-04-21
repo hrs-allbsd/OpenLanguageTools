@@ -34,11 +34,13 @@ import java.util.Iterator;
 import java.util.List;
 import org.jvnet.olt.editor.util.Bundle;
 import java.util.Vector;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javax.swing.*;
 
 import org.jvnet.olt.editor.util.Languages;
+import org.jvnet.olt.editor.util.Language;
 
 
 //TODO remove absoulte layout and replace with something more flexible
@@ -53,7 +55,7 @@ public class NewMiniTMPanel extends JDialog {
     JLabel targetIconLabel = new JLabel();
     JLabel sourceLabel = new JLabel();
     JLabel targetLabel = new JLabel();
-    Vector languages = new Vector();
+    Vector<Language> languages = new Vector<Language>();
     JButton okButton = new JButton();
     JButton cancelButton = new JButton();
     JTextField jProjName = new JTextField();
@@ -109,13 +111,13 @@ public class NewMiniTMPanel extends JDialog {
         targetLabel.setText(bundle.getString("Target_Language:"));        
         targetLabel.setBounds(new Rectangle(16, 185, 144, 31));
         
-        Languages.Language lngUS = Languages.findByCode("US");
+        Language lngUS = new Language (Locale.US);
         
         ItemListener itemLstnr =   new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == ItemEvent.SELECTED){
-                    Languages.Language lng = (Languages.Language)e.getItem();
-                    String path = Languages.getFlagPath(lng.getShortCode());
+                    Language lng = (Language) e.getItem();
+                    String path = Languages.getFlagPath(lng.getCode());
                     URL res = getClass().getResource(path);    
                     ImageIcon icon = new ImageIcon(res);            
 
@@ -130,18 +132,14 @@ public class NewMiniTMPanel extends JDialog {
             }
         };
 
-        
         sourceComboBox = new JComboBox(languages);
-
         sourceComboBox.addItemListener(itemLstnr);
-        
-        
-        
         sourceComboBox.setSelectedItem(lngUS);
+
         targetComboBox = new JComboBox(languages);
         targetComboBox.addItemListener(itemLstnr);
-        
         targetComboBox.setSelectedItem(lngUS);
+
         targetComboBox.setBounds(new Rectangle(73, 216, 328, 48));
 //        targetComboBox.addActionListener(new java.awt.event.ActionListener() {
 //                public void actionPerformed(ActionEvent e) {
@@ -225,8 +223,8 @@ public class NewMiniTMPanel extends JDialog {
     }
 
     void okButton_actionPerformed(ActionEvent e) {
-        String sourceLan = ((Languages.Language)sourceComboBox.getSelectedItem()).getShortCode();
-        String targetLan = ((Languages.Language)targetComboBox.getSelectedItem()).getShortCode();
+        String sourceLan = ((Language)sourceComboBox.getSelectedItem()).getCode();
+        String targetLan = ((Language)targetComboBox.getSelectedItem()).getCode();
 
         String projectName = jProjName.getText().trim();
 

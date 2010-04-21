@@ -33,10 +33,12 @@ import java.util.List;
 import org.jvnet.olt.editor.util.Bundle;
 import java.util.Vector;
 import java.util.logging.Logger;
+import java.util.Locale;
 
 import javax.swing.*;
 
 import org.jvnet.olt.editor.util.Languages;
+import org.jvnet.olt.editor.util.Language;
 
 
 public class OpenMiniTMPanel extends JDialog {
@@ -51,7 +53,7 @@ public class OpenMiniTMPanel extends JDialog {
     JLabel sourceLabel = new JLabel();
     JLabel targetLabel = new JLabel();
     boolean keyTyped = false;
-    Vector languages = new Vector();
+    Vector<Language> languages = new Vector<Language>();
     JButton okButton = new JButton();
     JButton cancelButton = new JButton();
     JLabel TranslatorLabel = new JLabel();
@@ -110,7 +112,7 @@ public class OpenMiniTMPanel extends JDialog {
         targetLabel.setText(bundle.getString("Target_Language:"));
         targetLabel.setBounds(new Rectangle(24, 188, 144, 31));
         
-        Languages.Language lngUS = Languages.findByCode("US");        
+        Language lngUS = new Language ( Locale.US);
         
         sourceComboBox = new JComboBox(languages);
         sourceComboBox.setEnabled(false);
@@ -181,8 +183,8 @@ public class OpenMiniTMPanel extends JDialog {
     }
 
     private void setFlags(String srcLang, String tgtLang) {
-        Languages.Language sourceLan = Languages.findByCode(srcLang);
-        Languages.Language targetLan = Languages.findByCode(tgtLang);
+        Language sourceLan = new Language (srcLang);
+        Language targetLan = new Language (tgtLang);
 
         
         sourceComboBox.setSelectedItem(sourceLan);

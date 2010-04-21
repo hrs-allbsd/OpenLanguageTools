@@ -29,6 +29,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.util.logging.Logger;
+import java.util.Locale;
 
 import javax.swing.*;
 import javax.swing.JPanel;
@@ -90,7 +91,7 @@ public class ContrastFrame extends JPanel {
 
     public void setDefaultLeftFlag() {
         try {
-            tmLeftPanel.setNationFlag(org.jvnet.olt.editor.util.Languages.getFlagPath("US"));
+            tmLeftPanel.setNationFlag(org.jvnet.olt.editor.util.Languages.getFlagPath( Languages.getDefault().getCode() ));
         } catch (Exception e) {
             logger.throwing(getClass().getName(), "setDefaultLeftFlag", e);
 
@@ -100,7 +101,7 @@ public class ContrastFrame extends JPanel {
 
     public void setDefaultRightFlag() {
         try {
-            tmRightPanel.setNationFlag(org.jvnet.olt.editor.util.Languages.getFlagPath("US"));
+            tmRightPanel.setNationFlag(org.jvnet.olt.editor.util.Languages.getFlagPath(Languages.getDefault().getCode()));
         } catch (Exception e) {
             logger.throwing(getClass().getName(), "setDefaultRightFlag", e);
 

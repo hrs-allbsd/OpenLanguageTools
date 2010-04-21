@@ -45,7 +45,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.jvnet.olt.util.FileUtils;
-import org.jvnet.olt.editor.util.LanguageMappingTable;
+//import org.jvnet.olt.editor.util.LanguageMappingTable;
 import org.jvnet.olt.editor.util.MultiWriter;
 import org.jvnet.olt.editor.util.NestableException;
 import org.jvnet.olt.format.*;
@@ -609,23 +609,20 @@ public class XLIFFParser {
     }
     
     public String getSourceLanguage() {
-        if (sourceLang == null) {
-            return null;
-        }
         
-        LanguageMappingTable name2id = LanguageMappingTable.getInstance();
-        
-        return (String)name2id.translateLangCode(sourceLang);
+        return sourceLang;
+        // remove deprecated language mapping - we directly use the ISO codes
+        //name2id = LanguageMappingTable.getInstance();
+        //return (String)name2id.translateLangCode(sourceLang);
+
     }
     
     public String getTargetLanguage() {
-        if (targetLang == null) {
-            return null;
-        }
-        
-        LanguageMappingTable name2id = LanguageMappingTable.getInstance();
-        
-        return (String)name2id.translateLangCode(targetLang);
+
+        return targetLang;
+        // remove deprecated language mapping - we directly use the ISO codes
+        //LanguageMappingTable name2id = LanguageMappingTable.getInstance();
+        //return (String)name2id.translateLangCode(targetLang);
     }
     
     public XLIFFSentence[] getSourceXLIFFSentences() {

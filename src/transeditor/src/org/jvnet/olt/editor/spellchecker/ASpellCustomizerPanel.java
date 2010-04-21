@@ -222,7 +222,6 @@ public class ASpellCustomizerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_removeButtonActionPerformed
     
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        languageTableModel.addRow(Languages.NO_LANGUAGE," -- ");
         languageMappingTable.clearSelection();
         languageMappingTable.editCellAt(languageTableModel.getRowCount()-1,0);
     }//GEN-LAST:event_addButtonActionPerformed

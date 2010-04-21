@@ -3260,7 +3260,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     private void addHtmlHead(PrintWriter out) throws IOException {
         write(out, "<html>\r\n");
         write(out, "<head>\r\n");
-        write(out, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=" + Languages.getLanguageENC(backend.getProject().getTgtLang()) + "\">");
+        write(out, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=\"UTF-8\">");
         write(out, ("<title>" + backend.getCurrentFile().getName() + "</title>\r\n"));
         write(out, "</head>\r\n");
         write(out, "\r\n");
@@ -3642,7 +3642,8 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         //TODO create a temporary file !!! Security issue
         File temp = new File(backend.getConfig().getHome(), "print.html");
         FileOutputStream stream = new FileOutputStream(temp);
-        String enc = Languages.getLanguageENC(backend.getProject().getTgtLang());
+        //String enc = Languages.getLanguageENC(backend.getProject().getTgtLang());
+        String enc = "UTF-8";
         PrintWriter out = new PrintWriter(new OutputStreamWriter(stream, enc), true);
 
         return out;
@@ -5805,10 +5806,13 @@ OUTER2:
                     TransProject proj = backend.getProject();
                     Configuration conf = backend.getConfig();
                     
-                    LanguageMappingTable lmpt = LanguageMappingTable.getInstance();
-                    String srcLng = lmpt.reverseTranslateLangCode(proj.getSrcLang());
-                    String tgtLng = lmpt.reverseTranslateLangCode(proj.getTgtLang());
+                    //LanguageMappingTable lmpt = LanguageMappingTable.getInstance();
+                    //String srcLng = lmpt.reverseTranslateLangCode(proj.getSrcLang());
+                    //String tgtLng = lmpt.reverseTranslateLangCode(proj.getTgtLang());
                     
+                    String srcLng = proj.getSrcLang();
+                    String tgtLng = proj.getTgtLang();
+
                     logger.info("Project langs:"+proj.getSrcLang()+" -> "+proj.getTgtLang());
                     logger.info("Translated langs:"+srcLng+" -> "+tgtLng);
                     

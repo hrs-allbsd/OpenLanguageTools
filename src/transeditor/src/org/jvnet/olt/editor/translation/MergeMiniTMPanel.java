@@ -40,6 +40,7 @@ import javax.swing.*;
 
 import org.jvnet.olt.editor.model.TransProject;
 import org.jvnet.olt.editor.util.Languages;
+import org.jvnet.olt.editor.util.Language;
 import org.jvnet.olt.minitm.MiniTMException;
 
 
@@ -62,7 +63,7 @@ public class MergeMiniTMPanel extends JDialog {
     Vector oldSourceLans = new Vector();
     Vector oldTargetLans = new Vector();
     boolean keyTyped = false;
-    Vector languages = new Vector();
+    Vector<Language> languages = new Vector<Language>();
     JButton nextButton = new JButton();
     JButton cancelButton = new JButton();
     String sourceLan = "";
@@ -200,7 +201,6 @@ public class MergeMiniTMPanel extends JDialog {
         }
 
         languages = Languages.getLanguages();
-        languages.insertElementAt(Languages.NO_LANGUAGE, 0);
     }
 
     private void jbInit() throws Exception {
@@ -265,14 +265,14 @@ public class MergeMiniTMPanel extends JDialog {
                     sourceComboBox_itemStateChanged(e);
                 }
             });
-        sourceComboBox.setSelectedItem(Languages.getLanguageName("US"));
+        sourceComboBox.setSelectedItem(Languages.getLanguageName("en"));
         targetComboBox = new JComboBox(languages);
         targetComboBox.addItemListener(new java.awt.event.ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     targetComboBox_itemStateChanged(e);
                 }
             });
-        targetComboBox.setSelectedItem(Languages.getLanguageName("US"));
+        targetComboBox.setSelectedItem(Languages.getLanguageName("en"));
         targetComboBox.setBounds(new Rectangle(73, 216, 328, 38));
         sourceComboBox.setBounds(new Rectangle(73, 128, 328, 38));
         nextButton.setMnemonic('N');
@@ -340,16 +340,16 @@ public class MergeMiniTMPanel extends JDialog {
 
                 targetLan = (String)oldTargetLans.elementAt(index);
 
-                sourceComboBox.setSelectedItem(Languages.findByCode(sourceLan));
-                targetComboBox.setSelectedItem(Languages.findByCode(targetLan));
+                sourceComboBox.setSelectedItem( Languages.getLanguageName(sourceLan));
+                targetComboBox.setSelectedItem(Languages.getLanguageName(targetLan));
 
                 JComboBox source = projectNameComboBox;
                 JTextField field = (JTextField)source.getEditor().getEditorComponent();
                 field.setText((String)projectNameComboBox.getSelectedItem());
             } else {
                 //transltorTextField.setText("");
-                sourceComboBox.setSelectedItem(Languages.findByCode("US"));
-                targetComboBox.setSelectedItem(Languages.findByCode("US"));
+                sourceComboBox.setSelectedItem(Languages.getLanguageName("en"));
+                targetComboBox.setSelectedItem(Languages.getLanguageName("en"));
             }
         } else {
             if (projectNameComboBox.hasContent()) {
@@ -360,11 +360,11 @@ public class MergeMiniTMPanel extends JDialog {
 
     void sourceComboBox_itemStateChanged(ItemEvent e) {
         if (sourceComboBox.getSelectedItem() != null) {
-            Languages.Language lng = (Languages.Language)sourceComboBox.getSelectedItem();
-            sourceLan = lng.getShortCode();
+            Language lng = (Language)sourceComboBox.getSelectedItem();
+            sourceLan = lng.getCode();
 
             if (sourceLan.trim().equals("")) {
-                sourceComboBox.setSelectedItem(Languages.findByCode("US"));
+                sourceComboBox.setSelectedItem(Languages.getLanguageName("en"));
             } else {
                 String imagePath = Languages.getFlagPath(sourceLan);
                 sourceIconLabel.setIcon(new ImageIcon(getClass().getResource(imagePath)));
@@ -374,11 +374,11 @@ public class MergeMiniTMPanel extends JDialog {
 
     void targetComboBox_itemStateChanged(ItemEvent e) {
         if (targetComboBox.getSelectedItem() != null) {
-            Languages.Language lng = (Languages.Language)targetComboBox.getSelectedItem();            
-            targetLan = lng.getShortCode();
+            Language lng = (Language)targetComboBox.getSelectedItem();            
+            targetLan = lng.getCode();
 
             if (targetLan.trim().equals("")) {
-                targetComboBox.setSelectedItem(Languages.findByCode("US"));
+                targetComboBox.setSelectedItem(Languages.getLanguageName("en"));
             } else {
                 String imagePath = Languages.getFlagPath(targetLan);
                 targetIconLabel.setIcon(new ImageIcon(getClass().getResource(imagePath)));

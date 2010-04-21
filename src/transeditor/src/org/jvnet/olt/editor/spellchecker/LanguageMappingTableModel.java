@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 import org.jvnet.olt.editor.util.Languages;
+import org.jvnet.olt.editor.util.Language;
 
 /**
  *
@@ -45,10 +46,10 @@ public class LanguageMappingTableModel extends AbstractTableModel{
     private static final String[] columns = new String[]{"Project language","Spellchecker language"};
     
     class Mapping {
-        Languages.Language lang;
+        Language lang;
         String spellLang;
         
-        Mapping(Languages.Language lang,String spellLang){
+        Mapping(Language lang,String spellLang){
             this.lang = lang;
             this.spellLang = spellLang;
         }
@@ -65,7 +66,7 @@ public class LanguageMappingTableModel extends AbstractTableModel{
         for(Map.Entry<String,String> e: map.entrySet()){
             String key = e.getKey();
             
-            Languages.Language lang = Languages.findByCode(key);
+            Language lang = new Language (key);
             if(lang !=null){                
                 mappings.add(new Mapping(lang,e.getValue()));
             }
@@ -101,12 +102,10 @@ public class LanguageMappingTableModel extends AbstractTableModel{
         Mapping m = null;
         if(rowIndex < mappings.size()){
             m = mappings.get(rowIndex);
-        }else{
-            m = new Mapping(Languages.NO_LANGUAGE,"");
         }
             
         if(columnIndex == 0){
-            m.lang = (Languages.Language)aValue;
+            m.lang = (Language)aValue;
             fireTableRowsUpdated(rowIndex,rowIndex);
         }
         else if(columnIndex == 1){
@@ -122,7 +121,7 @@ public class LanguageMappingTableModel extends AbstractTableModel{
 
     public Class<?> getColumnClass(int columnIndex) {
         if(columnIndex == 0)
-            return Languages.Language.class;
+            return Language.class;
         return String.class;
     }
 
@@ -158,7 +157,7 @@ public class LanguageMappingTableModel extends AbstractTableModel{
         
     }
 
-    void addRow(Languages.Language lng,String spellLang) {
+    void addRow(Language lng,String spellLang) {
         mappings.add(new Mapping(lng,spellLang));
         
         int size = mappings.size()-1;

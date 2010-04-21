@@ -36,6 +36,7 @@ import org.jvnet.olt.fuzzy.basicsearch.BasicSGMLFuzzySearchMiniTM;
 import org.jvnet.olt.minitm.AlignedSegment;
 import org.jvnet.olt.minitm.MiniTM;
 import org.jvnet.olt.minitm.MiniTMException;
+import org.jvnet.olt.editor.util.LanguageMappingTable;
 
 
 /**
@@ -117,9 +118,23 @@ public class TransProject {
         path = tmDir;
 
         fileName = path+ (new StringBuffer(project).append("_").append(srcLan).append("_").append(tgtLan).append(".MTM").toString() );
-        knownTMTypes = new HashMap();
+        // TODO: remove this fallback for old internal language identifiers
+        // if file with correct language identifiers does not exist, try to open
+        //  the minitm with the old internal IDs
+        java.io.File f = new java.io.File(fileName);
+        if ( !f.exists() ) {
+            String oldFileName = path+ (new StringBuffer(project).append("_").
+                                append(LanguageMappingTable.getInstance().translateLangCode(srcLan)).append("_").
+                                append(LanguageMappingTable.getInstance().translateLangCode(tgtLan)).append(".MTM").
+                                toString() );
+            f = new java.io.File(oldFileName);
+            if (f.exists()) {
+                fileName = oldFileName;
+            }
+        }
+        // end of fallback
 
-        
+        knownTMTypes = new HashMap();
         minitm = getNewMiniTM(fileName, true, project, srcLan, tgtLan, dataType);
     }
 

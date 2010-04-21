@@ -41,7 +41,7 @@ import javax.swing.JOptionPane;
 import org.jvnet.olt.editor.model.TMData;
 import org.jvnet.olt.editor.model.TransProject;
 import org.jvnet.olt.editor.util.*;
-import org.jvnet.olt.editor.util.LanguageMappingTable;
+//import org.jvnet.olt.editor.util.LanguageMappingTable;
 import org.jvnet.olt.xliff.XLIFFParser;
 
 
@@ -86,8 +86,8 @@ class OpenFileThread extends Thread {
 
             while (!tmpdata.build()) {
                 if (tmpdata.getLastError() == TMData.ERROR_TARGET_LANG_MISSING) {
-                    String longTargLang = LanguageMappingTable.getInstance().reverseTranslateLangCode(project.getTgtLang());
-
+                    //String longTargLang = LanguageMappingTable.getInstance().reverseTranslateLangCode(project.getTgtLang());
+                    String longTargLang = project.getTgtLang();
                     if (!post.acceptProjectLanguage(longTargLang)) {
                         return;
                     }
@@ -109,7 +109,9 @@ class OpenFileThread extends Thread {
             String srcLan = tmpdata.getSourceLanguageCode();
             String tgtLan = tmpdata.getTargetLanguageCode();
 
-            if ((srcLan.compareToIgnoreCase(project.getSrcLang()) != 0) || (tgtLan.compareToIgnoreCase(project.getTgtLang()) != 0)) {
+            //if ((srcLan.compareToIgnoreCase(project.getSrcLang()) != 0) || (tgtLan.compareToIgnoreCase(project.getTgtLang()) != 0)) {
+            if (( ! Languages.areSimilar(srcLan , project.getSrcLang()) ) ||
+                ( ! Languages.areSimilar(tgtLan , project.getTgtLang()))) {
                 post.languagesMisMatch();
 
                 //Languages do not fit; we're done here

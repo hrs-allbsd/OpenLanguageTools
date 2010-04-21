@@ -43,7 +43,7 @@ import javax.swing.border.BevelBorder;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.jvnet.olt.editor.util.LanguageMappingTable;
+//import org.jvnet.olt.editor.util.LanguageMappingTable;
 import org.jvnet.olt.editor.util.Languages;
 import org.jvnet.olt.utilities.XliffZipFileIO;
 
@@ -202,8 +202,8 @@ public class FilePreviewPane extends JPanel implements PropertyChangeListener {
         if (shortLangCode == null) {
             label.setText(bundle.getString("Not_specified"));
         } else {
-            String code = LanguageMappingTable.getInstance().translateLangCode(shortLangCode);
-            label.setText(Languages.getLanguageName(code));
+            //String code = LanguageMappingTable.getInstance().translateLangCode(shortLangCode);
+            label.setText(Languages.getLanguageName(shortLangCode));
         }
     }
 
@@ -250,8 +250,8 @@ public class FilePreviewPane extends JPanel implements PropertyChangeListener {
             return new ImageIcon(getClass().getResource(path));
         } else {
             try {
-                String lc = LanguageMappingTable.getInstance().translateLangCode(langCode);
-                String path = Languages.getFlagPath(lc);
+                //String lc = LanguageMappingTable.getInstance().translateLangCode(langCode);
+                String path = Languages.getFlagPath(langCode);
 
                 return new ImageIcon(getClass().getResource(path));
             } catch (Exception e) {

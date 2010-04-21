@@ -29,6 +29,7 @@
  * Created on March 25, 2005, 4:15 PM
  */
 package org.jvnet.olt.editor.translation;
+import org.jvnet.olt.editor.util.LanguageMappingTable;
 
 
 /**
@@ -47,8 +48,19 @@ public class ProjectInfo implements Comparable {
         }
 
         this.name = name;
-        this.tgtLang = tgtLang;
-        this.srcLang = srcLang;
+        // TODO: remove this fallback for old internal language identifiers
+        if ( srcLang.length() == 2 && srcLang.equals(srcLang.toUpperCase()) ) {
+            this.srcLang = LanguageMappingTable.getInstance().reverseTranslateLangCode(srcLang);
+        } else {
+            this.srcLang = srcLang;
+        }
+        // TODO: remove this fallback for old internal language identifiers
+        if ( tgtLang.length() == 2 && tgtLang.equals(tgtLang.toUpperCase()) ) {
+            this.tgtLang = LanguageMappingTable.getInstance().reverseTranslateLangCode(tgtLang);
+        } else {
+            this.tgtLang = tgtLang;
+        }
+
     }
 
     public String getName() {
