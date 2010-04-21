@@ -215,7 +215,7 @@ public class LanguageMappingTable {
         mappingTable.put("rw-rw", "RW"); //Kinyarwanda
         mappingTable.put("rw", "RW"); //Kinyarwanda
 
-        mappingTable.put("sl-sl", "SL"); //Slovenian
+        mappingTable.put("sl-si", "SL"); //Slovenian
         mappingTable.put("sl", "SL"); //Slovenian
         mappingTable.put("sq-sq", "SQ"); //Albanian
         mappingTable.put("sq", "SQ"); //Albanian

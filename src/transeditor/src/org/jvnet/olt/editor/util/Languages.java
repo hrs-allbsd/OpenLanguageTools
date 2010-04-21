@@ -93,6 +93,12 @@ public class Languages {
      */
     public static String getLanguageName(String code) {
         Language lng = allLanguagesTable.get(code);
+        if ( lng == null) {
+            //late addition of a requested language if it was not already defined
+            lng = new Language(code);
+                allLanguages.add(lng);
+                allLanguagesTable.put(lng.getCode(), lng);
+        }
         return lng.getName();
     }
 
