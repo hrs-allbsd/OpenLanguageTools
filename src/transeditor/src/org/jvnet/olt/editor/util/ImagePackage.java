@@ -63,9 +63,6 @@ public class ImagePackage {
     public static ImageIcon imageApproveSegment;
     public static ImageIcon imageRejectSegment;
 
-    //nation flags
-    public static ImageIcon[] imageNations = new ImageIcon[Languages.language_code_name.length];
-
     //translation status and type gifs
     public static ImageIcon[] statusIcon = new ImageIcon[4];
     public static ImageIcon[] typeIcon = new ImageIcon[6];
