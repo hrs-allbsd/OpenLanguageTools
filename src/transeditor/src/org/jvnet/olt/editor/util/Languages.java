@@ -32,16 +32,14 @@ import java.util.Hashtable;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
-import java.util.logging.Logger;
 import java.util.Locale;
 
 /**
 * Helper class for very basic language handling
 */
 public class Languages {
-    private static final Logger logger = Logger.getLogger(Languages.class.getName());
 
-    public final static String imagePath = ImagePath.PATH + "flags/";
+    private final static String imagePath = ImagePath.PATH + "flags/";
     
     private static Set<Language> allLanguages;
     private static Hashtable<String,Language> allLanguagesTable;
@@ -88,7 +86,7 @@ public class Languages {
 
     /**
      * Gets the name of a language for a given code
-     * @param code: xml:lang complient language code
+     * @param code xml:lang complient language code
      * @return  the (localized) display name of the language
      */
     public static String getLanguageName(String code) {
@@ -106,7 +104,7 @@ public class Languages {
     /**
      * returns the full path to a flag image for the language code
      * if there is no dedicated flag image, "No-Flag" will be returned
-     * @param code: xml:lang complient language code
+     * @param code xml:lang complient language code
      * @return  full path to a flag image, which can be loaded as resource
      */
     public static String getFlagPath(String code) {
@@ -162,6 +160,7 @@ public class Languages {
 
     /**
      * Returns a Language identified by it's code
+     * @param code Language code
      * @return Language for the given code
      * @deprecated use new Language(code) constructor instead
      */
@@ -179,7 +178,7 @@ public class Languages {
     public static boolean areSimilar(Language l1, Language l2){
         boolean similar = false;
         try {
-            similar = l1.getLocale().getLanguage().equals(l2.getLocale().getLanguage());
+            similar = l1.isSimilar(l2);
         } catch (Exception e) {
         }
         return similar;
