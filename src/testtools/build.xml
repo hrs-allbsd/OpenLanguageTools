@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." default="all" name="testtools">
+    <import file="../../common.xml"/>	
+
+    <path id="build.classpath">
+        <path location="${build.dir}"/>
+        <path refid="deps.common.util"/>
+        <path refid="deps.junit"/>
+        <path location="."/>
+    </path>
+
+    
+    <target  name="all" depends="compile">
+        <echo>Built testtools ${build}</echo>
+    </target>
+
+</project>

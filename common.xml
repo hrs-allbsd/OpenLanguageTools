@@ -31,7 +31,7 @@
                 not in src with different name patter than *Test.java
                 override this fileset in your build.local.properties
         -->
-    <fileset id="test.src" dir="src">
+    <fileset id="test.src" dir="test">
         <patternset refid="test.src.pattern"/>
     </fileset>
 
@@ -207,25 +207,38 @@
         <path refid="deps.junit"/>
         <path refid="test.classpath"/>
         <pathelement location="${build.dir}"/>
+        <pathelement location="${common.basedir}/external/resources"/>
     </path>
 
     <!-- unittests targets -->
     <!-- test.src fileset must be to contain all JAVA! files which are tests
          test.classpath must be set
     -->
-    <target name="pre-test" depends="compile">
+    <target name="pre-test" >
         <mkdir dir="${build.dir}/junit-reports"/>
         <mkdir dir="${build.dir}/test-results"/>
-
     </target>
 
-    <target name="test" depends="pre-test">
-        <mkdir dir="${build.dir}/junit-reports"/>
+    <target name="test.compile" depends="compile">
+        <echo>compile</echo>
+        <ant dir="${common.basedir}/src/testtools" target="compile">
+        </ant>
+        <javac
+            target="${platform.version}"
+            destdir="${build.dir}"
+            classpathref="common.test.classpath"
+            fork="${compiler.fork}"
+            debug="${compiler.debug}"
+            verbose="${compiler.verbose}">
+            <patternset refid="src.pattern"/>
+            <src refid="test.src"/>
+        </javac>
+    </target>
 
-        <junit printsummary="yes" haltonfailure="no">
-            <classpath>
-                <path refid="common.test.classpath"/>
-            </classpath>
+
+    <target name="test" depends="test.compile, pre-test">
+        <junit printsummary="yes" haltonfailure="no" dir=".">
+            <classpath refid="common.test.classpath"/>
 
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=${test.debug.suspend},address=${test.debug.port}"/>
@@ -237,7 +250,7 @@
             <test fork="yes" todir="${build.dir}/junit-reports" name="${test.single.class}" if="do.single.test"/>
 
             <batchtest fork="yes" todir="${build.dir}/junit-reports" unless="do.single.test">
-                <fileset refid="test.src"/>
+                <fileset refid="test.srcfiles"/>
             </batchtest>
         </junit>
 
@@ -247,14 +260,6 @@
             </fileset>
             <report format="frames" todir="${build.dir}/junit-reports/html"/>
         </junitreport>
-    </target>
-
-    <!-- test single unit test -->
-    <target name="test-single">
-        <fail unless="test.single.class">Set property test.single.class to the classname of file to run</fail>
-        <antcall target="test">
-            <param name="do.single.test" value="yes"/>
-        </antcall>
     </target>
 
     <!-- run it all -->
