@@ -69,7 +69,7 @@ public class TMXImporterTest extends TestCase {
 
 	TestSupport.catFile(mtmFile);
 
-        assertTrue(TestSupport.findLine(mtmFile, "<minitm name=\"temp\" srclang=\"US\" tgtlang=\"ZH\">", true));
+        assertTrue(TestSupport.findLine(mtmFile, "<minitm name=\"temp\" srclang=\"en-US\" tgtlang=\"zh-CN\">", true));
         assertTrue(TestSupport.findLine(mtmFile, "<source>ABCDEF</source>", true));
         assertTrue(TestSupport.findLine(mtmFile, "<translation>012345</translation>", true));
         assertTrue(TestSupport.findLine(mtmFile, "<translatorId>abcdef</translatorId>", true));

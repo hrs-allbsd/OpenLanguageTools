@@ -5,12 +5,15 @@
 
     <xsl:param name="srcLang"/>
     <xsl:param name="tgtLang"/>
-    <xsl:param name="srcLangShort"/>
-    <xsl:param name="tgtLangShort"/>
     <xsl:param name="userId"/>
 
+    <!-->
     <xsl:variable name="srcLangRegex" select="concat('(^',$srcLang,'$)|','(^',$srcLangShort,'$)') " />
     <xsl:variable name="tgtLangRegex" select="concat('(^',$tgtLang,'$)|','(^',$tgtLangShort,'$)') " />
+    < -->
+    <!-- we do only use the short Language code to match Source and target languages -->
+    <xsl:variable name="srcLangRegex" select="concat('(^',substring-before($srcLang,'-') ,')') " />
+    <xsl:variable name="tgtLangRegex" select="concat('(^',substring-before($tgtLang,'-') ,')') " />
 	
 <!-- For debugging as standalone sheet
     <xsl:param name="srcLang" select="'en-US'"/>
@@ -23,10 +26,10 @@
         <xsl:element name="minitm">
             <xsl:attribute name="name">temp</xsl:attribute>
             <xsl:attribute name="srclang">
-                <xsl:value-of select="$srcLangShort"/>
+                <xsl:value-of select="$srcLang"/>
             </xsl:attribute>
             <xsl:attribute name="tgtlang">
-                <xsl:value-of select="$tgtLangShort"/>
+                <xsl:value-of select="$tgtLang"/>
             </xsl:attribute>
 <!--
             <DEBUG>
@@ -49,14 +52,10 @@
     </xsl:template>
 
     <xsl:template match="tu">
+<!-- For debugging purposes >
         <DEBUG>
             <x><xsl:value-of select="count(tuv[matches(@xml:lang,$srcLangRegex,'i')]/seg)"/></x>
             <x><xsl:value-of select="count(tuv[matches(@xml:lang,$tgtLangRegex,'i')]/seg)"/></x>
-        </DEBUG>
-<!-- For debugging purposes >
-        <DEBUG>
-            <x><xsl:value-of select="count(tuv[@lang=$srcLang]/seg)"/></x>
-            <x><xsl:value-of select="count(tuv[@lang=$tgtLang]/seg)"/></x>
         </DEBUG>
 < -->
 

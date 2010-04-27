@@ -115,8 +115,10 @@ public class TMXImporter {
 	    Transformer tr = tmplts.newTransformer();
 	    tr.setParameter("srcLang", srcLang);
 	    tr.setParameter("tgtLang", tgtLang);
+        // ToDo: remove deprecated language parameters
 	    tr.setParameter("srcLangShort", srcLangShort);
 	    tr.setParameter("tgtLangShort", tgtLangShort);
+        //
 	    tr.setParameter("userId", translatorId);
 	    
 	    //Source source = constructSource(fis);
@@ -173,11 +175,19 @@ public class TMXImporter {
         InputStream is = getClass().getClassLoader().getResourceAsStream("xsl/tmx2mtm.xsl");
 	return new InputStreamReader(is,"UTF-8");
     }
-    
+
+    /**
+     * @deprecated only used for the old internal language codes
+     * @param srcLangShort
+     */
     public void setSrcLangShort(String srcLangShort) {
 	this.srcLangShort = srcLangShort;
     }
-    
+
+    /**
+     * @deprecated only used for the old internal language codes
+     * @param tgtLangShort
+     */
     public void setTgtLangShort(String tgtLangShort) {
 	this.tgtLangShort = tgtLangShort;
     }
