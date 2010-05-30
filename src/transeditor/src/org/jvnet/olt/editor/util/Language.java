@@ -63,7 +63,7 @@ public class Language implements Comparable<Language>{
 
     /**
      * Creates a new Language identified by an language identifier
-     * @param langCode xml:lang or Loacle-style identifier for the language code
+     * @param langCode xml:lang or Locale-style identifier for the language code
      */
     public Language( String langCode){
         String lang = langCode.replace('_', '-');
@@ -132,15 +132,15 @@ public class Language implements Comparable<Language>{
     }
 
     /**
-     * Gets the Locale accociated with the language
-     * @return the locale accociated with the language (null for empty language)
+     * Gets the Locale associated with the language
+     * @return the Locale associated with the language (null for empty language)
      */
     public Locale getLocale() {
         return _locale ;
     }
 
     /**
-     * Tests, if a given languge is "similar" to the current language<br>
+     * Tests, if a given language is "similar" to the current language<br>
      * Two languages are similar, if their language code (without region) is
      *  the same
      * @param lng Language to check for similarity
@@ -183,6 +183,7 @@ public class Language implements Comparable<Language>{
 
     @Override
     public String toString() {
+        // LSP violation, base class never returns null.
         return (_locale == null) ? null :  getName();
     }
 
