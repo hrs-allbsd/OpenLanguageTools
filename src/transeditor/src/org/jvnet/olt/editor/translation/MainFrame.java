@@ -1967,6 +1967,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuTagVerify.setToolTipText(bundle.getString("Verify_tags"));
         jMenuTagVerify.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    stopEditing();
                     jMenuTagVerify_actionPerformed(e);
                 }
             });
@@ -6461,12 +6462,12 @@ OUTER2:
 
     private void stopEditing() {
         if (AlignmentMain.testMain1.tableView.isEditing()) {
-            TableCellEditor editor = AlignmentMain.testMain1.tableView.getCellEditor(AlignmentMain.testMain1.tableView.getSelectedRow(), AlignmentMain.testMain1.tableView.getSelectedColumn());
+            TableCellEditor editor = AlignmentMain.testMain1.tableView.getCellEditor();
             editor.stopCellEditing();
         }
 
         if (AlignmentMain.testMain2.tableView.isEditing()) {
-            TableCellEditor editor = AlignmentMain.testMain2.tableView.getCellEditor(AlignmentMain.testMain2.tableView.getSelectedRow(), AlignmentMain.testMain2.tableView.getSelectedColumn());
+            TableCellEditor editor = AlignmentMain.testMain2.tableView.getCellEditor();
             editor.stopCellEditing();
         }
     }
