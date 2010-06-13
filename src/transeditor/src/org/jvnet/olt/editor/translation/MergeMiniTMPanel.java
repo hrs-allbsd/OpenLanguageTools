@@ -27,7 +27,6 @@ package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Collections;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -348,8 +347,9 @@ public class MergeMiniTMPanel extends JDialog {
                 field.setText((String)projectNameComboBox.getSelectedItem());
             } else {
                 //transltorTextField.setText("");
-                sourceComboBox.setSelectedItem(Languages.getLanguageName("en"));
-                targetComboBox.setSelectedItem(Languages.getLanguageName("en"));
+                String languageName = Languages.getLanguageName("en");
+                sourceComboBox.setSelectedItem(languageName);
+                targetComboBox.setSelectedItem(languageName);
             }
         } else {
             if (projectNameComboBox.hasContent()) {
@@ -420,8 +420,8 @@ public class MergeMiniTMPanel extends JDialog {
 
         nextButton.setEnabled(true);
 
-        if ((field.getText().trim() != "") && (field.getSelectionStart() == field.getSelectionEnd()) && (field.getSelectionStart() != 0)) {
-            String value = (String)field.getText().substring(0, field.getSelectionStart());
+        if (!field.getText().trim().equals("") && (field.getSelectionStart() == field.getSelectionEnd()) && (field.getSelectionStart() != 0)) {
+            String value = field.getText().substring(0, field.getSelectionStart());
             int index = oldProjects.indexOf(value);
 
             if (index != -1) {
