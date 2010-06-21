@@ -387,7 +387,7 @@
         </ant>
     </target>
 	 
-    <target name="rc">
+    <target name="rc" depends="all">
         <ant target="upload">
             <property name="path.to.file" value="${dest.dir}/transeditor_v${build.version.flat}_lite_unix.jar"/>
             <property name="uploaded.file.name" value="transeditor_v${build.version.flat}_lite_unix.jar"/>
