@@ -6460,7 +6460,7 @@ OUTER2:
         return null;
     }
 
-    private void stopEditing() {
+    public void stopEditing() {
         if (AlignmentMain.testMain1.tableView.isEditing()) {
             TableCellEditor editor = AlignmentMain.testMain1.tableView.getCellEditor();
             editor.stopCellEditing();

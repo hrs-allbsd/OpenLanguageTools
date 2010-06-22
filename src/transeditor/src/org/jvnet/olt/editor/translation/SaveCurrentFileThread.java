@@ -60,6 +60,7 @@ public class SaveCurrentFileThread implements Runnable {
     public void run() {
         //  mainFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         mainFrame.disableGUI();
+        mainFrame.stopEditing();
 
         //  Raise semaphore
         if (!mainFrame.testAndToggleSemaphore(false)) {
@@ -75,8 +76,8 @@ public class SaveCurrentFileThread implements Runnable {
             return;
         }
 
-        AlignmentMain.testMain1.stopEditing();
-        AlignmentMain.testMain2.stopEditing();
+        //AlignmentMain.testMain1.stopEditing();
+        //AlignmentMain.testMain2.stopEditing();
 
         try{
             backend.saveFile();
