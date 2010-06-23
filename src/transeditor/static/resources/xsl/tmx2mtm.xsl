@@ -12,8 +12,8 @@
     <xsl:variable name="tgtLangRegex" select="concat('(^',$tgtLang,'$)|','(^',$tgtLangShort,'$)') " />
     < -->
     <!-- we do only use the short Language code to match Source and target languages -->
-    <xsl:variable name="srcLangRegex" select="concat('(^',substring-before($srcLang,'-') ,')') " />
-    <xsl:variable name="tgtLangRegex" select="concat('(^',substring-before($tgtLang,'-') ,')') " />
+    <xsl:variable name="srcLangRegex" select="concat('(^', translate( $srcLang, concat( '-', substring-after($srcLang,'-')), '') ,')') " />
+    <xsl:variable name="tgtLangRegex" select="concat('(^', translate( $tgtLang, concat( '-', substring-after($tgtLang,'-')), ''), ')') " />
 	
 <!-- For debugging as standalone sheet
     <xsl:param name="srcLang" select="'en-US'"/>
