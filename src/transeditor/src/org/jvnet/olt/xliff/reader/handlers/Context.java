@@ -307,6 +307,12 @@ public class Context implements XLIFFModel {
                 } else {
                     state = "final";
                 }
+            }   // other ugly hack force empty target sentences to status "new", if
+                // are marked for review (translate toolkit behaviour)
+            else if ( (contents == null || contents.length() == 0) &&
+                      ( state != null && state.startsWith("needs-review") ) ) {
+                state="new";
+
             }
             XLIFFSentence m_temp = new XLIFFSentence(contents, xmlLang, theKey, state, stateQualifier);
             groupZeroTarget.put(theKey, m_temp);
