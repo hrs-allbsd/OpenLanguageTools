@@ -8,11 +8,12 @@
     <info>
         <appname>Open Language Tools XLIFF Translation Editor</appname>
         <appversion>@VERSION@</appversion>
-        <appsubpath>Open Language Tools/XLIFF Translation Editor/@VERSION@</appsubpath>
+        <appsubpath>Open_Language_Tools/XLIFF_Translation_Editor/@VERSION@</appsubpath>
         <authors>
             <author name="Open Language Tools" email="dev@open-language-tools.dev.java.net"/>
         </authors>
-		<javaversion>1.5,1.6</javaversion>
+ 		<javaversion>1.5,1.6</javaversion>
+ 		<run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7"/> 
         <url>https://open-language-tools.dev.java.net</url>
     </info>
     
