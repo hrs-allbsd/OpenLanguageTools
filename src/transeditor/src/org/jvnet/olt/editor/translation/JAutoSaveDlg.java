@@ -28,10 +28,8 @@ package org.jvnet.olt.editor.translation;
 import java.awt.*;
 import java.awt.event.*;
 
-import java.lang.*;
 import org.jvnet.olt.editor.util.Bundle;
 
-import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.swing.*;
@@ -171,7 +169,11 @@ class JAutoSaveDlg extends JDialog {
 
         if (bEnable) {
             String str = ((JTextField)jCbInterval.getEditor().getEditorComponent()).getText();
-            interval = Integer.parseInt(str);
+            try {
+                interval = Integer.parseInt(str);
+            } catch (NumberFormatException ex) {
+                // don't update, no valid interval available
+            }
         }
     }
 
