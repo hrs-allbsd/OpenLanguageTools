@@ -204,7 +204,7 @@ public class StandaloneLocaleTable implements LocaleTable {
         
         localeMap.put("rw-RW","UTF-8"); //Kinyarwanda
         
-        localeMap.put("sl-SL","UTF-8"); //Slovenian
+        localeMap.put("sl-SI","UTF-8"); //Slovenian
         localeMap.put("sq-SQ","UTF-8"); //Albanian
         localeMap.put("sr-SR","UTF-8"); //Serbian
         localeMap.put("sr-CS","UTF-8"); //Serbian Jekavian
