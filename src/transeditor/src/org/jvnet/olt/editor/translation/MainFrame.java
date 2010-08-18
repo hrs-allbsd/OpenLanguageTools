@@ -6120,6 +6120,12 @@ OUTER2:
     }
 
     void jMenuShortcutOption_actionPerformed(ActionEvent e) {
+        if (shortcutsBuilder == null) {
+            // clicked item before object was created, shouldn't happen very often
+            JOptionPane.showMessageDialog(MainFrame.this, "Application startup not yet complete.");
+            return;
+        }
+
         if (shortcutOptionDlg == null) {
             shortcutOptionDlg = new CustomKeyboard(this, shortcutsBuilder);
         }
