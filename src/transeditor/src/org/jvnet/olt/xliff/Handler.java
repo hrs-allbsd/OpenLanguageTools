@@ -89,7 +89,7 @@ public interface Handler extends ContentHandler {
 
     /**
      * An empty element event handling method.
-     * @param data value or null
+     * @param meta value or null
      */
     public void handle_external_file(final Attributes meta) throws SAXException;
 
@@ -375,19 +375,19 @@ public interface Handler extends ContentHandler {
 
     /**
      * An empty element event handling method.
-     * @param data value or null
+     * @param meta value or null
      */
     public void handle_x(final Attributes meta) throws SAXException;
 
     /**
      * An empty element event handling method.
-     * @param data value or null
+     * @param meta value or null
      */
     public void handle_bx(final Attributes meta) throws SAXException;
 
     /**
      * An empty element event handling method.
-     * @param data value or null
+     * @param meta value or null
      */
     public void handle_ex(final Attributes meta) throws SAXException;
 

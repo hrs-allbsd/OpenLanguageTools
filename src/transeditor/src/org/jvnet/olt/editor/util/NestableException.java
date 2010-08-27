@@ -45,7 +45,7 @@ public class NestableException extends Exception {
     }
 
     /** Create an exception with a specified internal message
-     * @param aMsg The message for exception
+     * @param aInternalMsg The message for exception.
      */
     public NestableException(String aInternalMsg) {
         super(aInternalMsg);

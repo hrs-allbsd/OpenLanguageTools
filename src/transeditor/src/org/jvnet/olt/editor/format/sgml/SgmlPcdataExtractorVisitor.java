@@ -74,7 +74,7 @@ public class SgmlPcdataExtractorVisitor implements LaxSgmlDocFragmentParserVisit
      * ignred marked section, or not. It does this by checking the node's type
      * and by looking up the GlobalVariableManager to see if the flag in the
      * marked section start, resolves to IGNORE.
-     * @returns Returns true if the node is a start of a marked section whose flag resolves to
+     * @return true if the node is a start of a marked section whose flag resolves to
      * IGNORE.
      * @param node The node to test.
      */

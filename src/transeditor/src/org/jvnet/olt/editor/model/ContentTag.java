@@ -49,7 +49,7 @@ public class ContentTag {
 
     /**
      * This constructor will construct an instance of ContentTag
-     * @param strTagNameInput. <p> it keeps the name of a tag. </p>
+     * @param strTagNameInput <p> it keeps the name of a tag. </p>
      * @param iIndexInput <p> it keeps the order of which appear in a segment. For Example, <A> this is a <IMG href="a.gif"> text </IMG></A>, the iIndexInput of Tag A is 0, which IMG is 1.</p>
      * @param iPosInput <p> it keeps the start postion of a tag appeared in a segment. </p>
      * @param strTextInput <p> the whole text of a Tag. </p>
@@ -70,7 +70,7 @@ public class ContentTag {
 
     /**
      * compare whether two contentTags are the same.
-     * @param ctInput. <p>ContentTag to be compared </p>
+     * @param ctInput <p>ContentTag to be compared </p>
      * @return <p> true--- completely the same, that is, except the case difference, the tags is quite the same.
      * false ---- not the same, include different tag ans different attibute factors. </P>
      *

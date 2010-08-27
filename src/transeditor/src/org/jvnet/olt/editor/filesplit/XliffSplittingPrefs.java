@@ -112,8 +112,8 @@ public class XliffSplittingPrefs {
         return this.xliffDocument;
     }
 
-    /** Setter for property inputFile.
-     * @param inputFile New value of property inputFile.
+    /** Setter for property xliffDocument.
+     * @param xliffDocument New value of property xliffDocument.
      *
      */
     public void setXliffDocument(XliffDocument xliffDocument) {

@@ -177,7 +177,7 @@ public class PivotUndoableEdit extends ViewUndoableEdit {
 
     /**
      * Set alignments size after change.
-     * @param alignments size after change.
+     * @param size size after change.
      */
     public void setNewSize(int size) {
         newSize = size;

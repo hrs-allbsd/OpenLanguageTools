@@ -171,7 +171,7 @@ public class LicenseDialog extends JDialog {
      *
      * When agreementMode = false this value is undefined (may be true or false)
      *
-     * @return
+     * @return state.
      */
     boolean getAgreementMode() {
         return this.agreeMode;
@@ -181,7 +181,7 @@ public class LicenseDialog extends JDialog {
      *
      * undefined when agreementMode != true
      *
-     * @return
+     * @return selection.
      */
     boolean didAgree() {
         return didAgree;

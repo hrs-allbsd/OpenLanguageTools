@@ -120,7 +120,7 @@ public class JBackConverterExecutor {
      * @param strSrcInput
      * @param strTargetInput
      * @param vInput
-     * @return
+     * @return always true.
      */
     private boolean createSubDir(String strSrcInput, String strTargetInput, Vector vInput) {
         for (int i = 0; i < vInput.size(); i++) {

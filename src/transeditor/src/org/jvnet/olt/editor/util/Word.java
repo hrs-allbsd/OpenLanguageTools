@@ -31,7 +31,7 @@ package org.jvnet.olt.editor.util;
     use this package.
 
     @author Tim Foster
-    @see com.sun.tmc.stringdifference.WordOp
+    @see org.jvnet.olt.editor.util.WordOp
 
 */
 public class Word {
