@@ -166,7 +166,7 @@ public class XmlSegmenterTable implements SegmenterTable {
     
     /** This is for tags that contain translatable text in their attributes
      *
-     * @param tag The tag name you're querying
+     * @param tagName The tag name you're querying.
      * @return true if the tag contains translatble attributes.
      */
     public boolean containsTranslatableAttribute(String tagName) {
@@ -177,7 +177,7 @@ public class XmlSegmenterTable implements SegmenterTable {
     
     /** This is for tags that contain translatable text in their attributes
      *
-     * @param tag The tag name you're querying
+     * @param tagName The tag name you're querying.
      * @param namespace The namespace ID.
      * @return true if the tag contains translatble attributes.
      */
@@ -195,7 +195,7 @@ public class XmlSegmenterTable implements SegmenterTable {
     
     /** This is for tags that contain translatable text in their attributes
      *
-     * @param tag The tag name you're querying
+     * @param tagName The tag name you're querying.
      * @param config The XmlConfig object.
      * @return true if the tag contains translatble attributes.
      */
@@ -210,7 +210,7 @@ public class XmlSegmenterTable implements SegmenterTable {
      * usually preserved (and would break sgml and xml documents were they
      * converted to their character values)
      *
-     * @returns the entity character value
+     * @return the entity character value.
      * @param entity the text of the entity
      */
     public Character getEntityCharValue(String entity) {
@@ -222,8 +222,8 @@ public class XmlSegmenterTable implements SegmenterTable {
      * flow of the document. For a description of what a "hardness level" is, see the
      * docs for the alignment program interface.
      *
-     * @returns the "hardness level" of a particular tag
-     * @param tag the tag you're querying
+     * @return the "hardness level" of a particular tag.
+     * @param tagName the tag you're querying.
      */
     public int getBlockLevel(String tagName) {
         XmlConfig config = xmlConfig;
@@ -236,9 +236,9 @@ public class XmlSegmenterTable implements SegmenterTable {
      * flow of the document. For a description of what a "hardness level" is, see the
      * docs for the alignment program interface.
      *
-     * @returns the "hardness level" of a particular tag
+     * @return the "hardness level" of a particular tag.
      * @param namespace The namespace ID.
-     * @param tag the tag you're querying
+     * @param tagName the tag you're querying.
      */
     public int getBlockLevel(String tagName, String namespace) {
         if(namespace.equals("")) {
@@ -257,9 +257,9 @@ public class XmlSegmenterTable implements SegmenterTable {
      * flow of the document. For a description of what a "hardness level" is, see the
      * docs for the alignment program interface.
      *
-     * @returns the "hardness level" of a particular tag
+     * @return the "hardness level" of a particular tag.
      * @param config The XmlConfig object.
-     * @param tag the tag you're querying
+     * @param tagName the tag you're querying.
      */
     public int getBlockLevel(String tagName, XmlConfig config) {
         
@@ -278,8 +278,8 @@ public class XmlSegmenterTable implements SegmenterTable {
      * for the tag passed as a parameter. For example, in html &lt;img&gt; has the
      * attribute <code>alt</code> that can contain translatable text.
      *
-     * @returns a List of Strings containing translatable attributes
-     * @param tag the tag you're querying
+     * @return a List of Strings containing translatable attributes.
+     * @param tagName the tag you're querying.
      */
     public java.util.List getAttrList(String tagName) {
         XmlConfig config = xmlConfig;
@@ -291,9 +291,9 @@ public class XmlSegmenterTable implements SegmenterTable {
      * for the tag passed as a parameter. For example, in html &lt;img&gt; has the
      * attribute <code>alt</code> that can contain translatable text.
      *
-     * @returns a List of Strings containing translatable attributes
+     * @return a List of Strings containing translatable attributes.
      * @param namespace The namespace ID.
-     * @param tag the tag you're querying
+     * @param tagName the tag you're querying.
      */
     public java.util.List getAttrList(String tagName, String namespace) {
         
@@ -316,9 +316,9 @@ public class XmlSegmenterTable implements SegmenterTable {
      * for the tag passed as a parameter. For example, in html &lt;img&gt; has the
      * attribute <code>alt</code> that can contain translatable text.
      *
-     * @returns a List of Strings containing translatable attributes
+     * @return a List of Strings containing translatable attributes.
      * @param config The XmlConfig object.
-     * @param tag the tag you're querying
+     * @param tagName the tag you're querying.
      */
     public java.util.List getAttrList(String tagName, XmlConfig config) {
         

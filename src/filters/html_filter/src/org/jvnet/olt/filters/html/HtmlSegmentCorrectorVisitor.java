@@ -59,7 +59,7 @@ public class HtmlSegmentCorrectorVisitor implements SgmlDocFragmentParserVisitor
      * <a href="foo">This is more text</a>
      *
      * </pre>
-     * @param table The TagTable that this class uses.
+     * @param tagTable The TagTable that this class uses.
      * @param closedOnLastRun The tags that were closed the last time this method was run.
      *
      */

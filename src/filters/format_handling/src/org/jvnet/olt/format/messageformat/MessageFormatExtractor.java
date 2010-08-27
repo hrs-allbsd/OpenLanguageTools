@@ -154,7 +154,7 @@ public class MessageFormatExtractor implements org.jvnet.olt.format.FormatExtrac
         /**
          * @param type
          * @param nodeText
-         * @param node  */
+         */
         protected void handleNodes(int type, String nodeText) {
             switch (type){
                 case JJTCONV:

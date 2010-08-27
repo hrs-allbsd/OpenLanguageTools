@@ -44,7 +44,7 @@ public interface GlobalVariableManager extends java.io.Serializable
   
   /**
    * This returns a string representing the type of GlobalVariableManager this is.
-   * @returns the type of GlobalVariableManager this is
+   * @return the type of GlobalVariableManager this is.
    */
   
   public String getManagerType();

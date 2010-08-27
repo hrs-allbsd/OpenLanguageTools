@@ -96,7 +96,7 @@ public class NullSegmenterFormatter implements SegmenterFormatter {
     
     /** This method write the segment.
      * @param segment the segment to be written
-     * @param the wordcount of the segment to be written
+     * @param wordcount the word count of the segment to be written.
      * @throws SegmenterFormatterException if there was some problem writing this segment.
      *
      */

@@ -45,21 +45,24 @@ public class SgmlEntity implements java.io.Serializable
   }
 
   /**
-   * @return  */  
+   * @return name.
+   */
   public String getName()
   {
     return m_name;
   }
 
   /**
-   * @return  */  
+   * @return value.
+   */
   public String getValue()
   {
     return m_value;
   }
 
   /**
-   * @return  */  
+   * @return type.
+   */
   public String getType()
   {
     return m_type;

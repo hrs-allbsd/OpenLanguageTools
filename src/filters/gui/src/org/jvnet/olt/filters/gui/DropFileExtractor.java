@@ -194,7 +194,7 @@ public class DropFileExtractor {
      * MacOSX specific extraction woodoo
      * @param o
      * @throws java.io.IOException
-     * @return
+     * @return List of Files.
      */
     private List getMacOSXFileList(Object o) throws java.io.IOException {
         List fileList = new ArrayList();

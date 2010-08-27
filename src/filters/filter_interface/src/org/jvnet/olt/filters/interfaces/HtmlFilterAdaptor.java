@@ -51,7 +51,7 @@ public class HtmlFilterAdaptor implements Filter {
     SgmlFilter filter;
     
     /** Creates a new instance of HtmlFilterAdaptor
-     * @param a reader to the html file that should be parsed     *
+     * @param reader a reader to the HTML file that should be parsed.
      */
     public HtmlFilterAdaptor(java.io.Reader reader) {
         GlobalVariableManager gvm = new EntityManager();

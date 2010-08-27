@@ -402,7 +402,7 @@ public class TestSegmenterTable implements SegmenterTable {
     }
     
     /**
-     * @returns The "hardness level" of this block tag.
+     * @return The "hardness level" of this block tag.
      * Warning ! : Coming into this method, I *know* I'm at a block level tag
      * - so if I don't have the tag type specified, I return
      * a soft hard tag.
@@ -415,7 +415,7 @@ public class TestSegmenterTable implements SegmenterTable {
     }
     
     /**
-     * @returns a character that represents this entity value - null if this is not a character entity
+     * @return a character that represents this entity value - null if this is not a character entity.
      */
     public Character getEntityCharValue(String entity) {
         Character character = (Character)entityMap.get(entity);
@@ -454,7 +454,7 @@ public class TestSegmenterTable implements SegmenterTable {
      *
      * @param tag the tag you're querying
      * @param namespaceID The namespace ID
-     * @returns a List of Strings containing translatable attributes
+     * @return a List of Strings containing translatable attributes.
      *
      */
     public java.util.List getAttrList(String tag, String namespaceID) {
@@ -469,7 +469,7 @@ public class TestSegmenterTable implements SegmenterTable {
      * @param tag the tag you're querying
      * @param namespaceID The namespace ID
      *
-     * @returns the "hardness level" of a particular tag
+     * @return the "hardness level" of a particular tag.
      *
      */
     public int getBlockLevel(String tag, String namespaceID) {

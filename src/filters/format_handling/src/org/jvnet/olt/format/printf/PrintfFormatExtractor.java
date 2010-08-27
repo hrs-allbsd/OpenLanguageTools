@@ -151,7 +151,7 @@ public class PrintfFormatExtractor implements org.jvnet.olt.format.FormatExtract
         /**
          * @param type
          * @param nodeText
-         * @param node  */
+         */
         protected void handleNodes(int type, String nodeText) {
             switch (type){
                 

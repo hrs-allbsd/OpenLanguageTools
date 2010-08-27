@@ -79,7 +79,7 @@ public class MessageFormatExtractionVisitor implements MessageFormatParserVisito
     /**
      * @param type
      * @param nodeText
-     * @param node  */
+     */
     protected void handleNodes(int type, String nodeText) {
         switch (type){
             case JJTCONV:                

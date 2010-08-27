@@ -86,7 +86,7 @@ public interface SegmenterInterface {
      * This returns a list of numbers that were found in this segment
      * which can be used by our alignment program
      *
-     * @returns a list of the numbers found in this segment
+     * @return a List of the numbers found in this segment.
      */
     public java.util.List getNumberList();
     

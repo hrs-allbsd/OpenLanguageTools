@@ -50,7 +50,7 @@ public interface SegmenterFormatter {
     
     /** This method write the segment.
      * @param segment the segment to be written
-     * @param the wordcount of the segment to be written
+     * @param wordcount the word count of the segment to be written.
      * @throws SegmenterFormatterException if there was some problem writing this segment.
      */    
     void writeSegment(String segment, int wordcount) throws SegmenterFormatterException ;
@@ -109,7 +109,7 @@ public interface SegmenterFormatter {
      *  files, for example, this could be the source-code comment that precedes the
      *  message value
      *
-     *  @param the text containing the context information
+     *  @param context the text containing the context information.
      *  @throws SegmenterFormatterException if there was some problem writing the context
      */
     void writeContext(String context) throws SegmenterFormatterException;

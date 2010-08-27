@@ -46,7 +46,10 @@ import java.util.logging.*;
  * @author  timf
  */
 public class SortTranslatableFileList  {
-    
+    private HashMap globalVariableManagerMap;
+    private HashMap translatableFileMap;
+    private HashMap singleSegTranslatableFileMap;
+
     /** Creates a new instance of SortTranslatableFileList. It's main task is to populate
      *  two maps. The first map is a hash containing the global variable managers produced
      *  for the files in this job - the key for each entry in the map is the .book file name.
@@ -64,10 +67,6 @@ public class SortTranslatableFileList  {
      *  @param filelist a list of files to find translatable sgml files in
      *  @param sourceEncoding the file encoding to open the sources files in
      */
-    private HashMap globalVariableManagerMap;
-    private HashMap translatableFileMap;
-    private HashMap singleSegTranslatableFileMap;
-       
     public SortTranslatableFileList(List filelist, String sourceEncoding, Logger logger) throws BookException {
         logger.log(Level.CONFIG,"In STF constructor");
         try {

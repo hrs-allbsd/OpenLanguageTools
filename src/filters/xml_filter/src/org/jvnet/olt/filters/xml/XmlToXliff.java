@@ -324,7 +324,7 @@ public class XmlToXliff {
      * use the default behaviour of leaving all pcdata un-protected
      * (for non-translatable inline tags, this is important)
      *
-     * @returns the last xml identifier used by this converter.
+     * @return the last XML identifier used by this converter.
      */
     public XmlIdentifier getXmlIdentifier() {
         return this.xmlIdent;
