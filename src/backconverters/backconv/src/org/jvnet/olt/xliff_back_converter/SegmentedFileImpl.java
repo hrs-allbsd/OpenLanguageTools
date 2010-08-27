@@ -132,7 +132,7 @@ public class SegmentedFileImpl implements SegmentedFile {
      * object.
      *
      * @param transUnitId    The new transUnitId value
-     * @param transUnitText  The new transUnitText value
+     * @param transUnit      The new transUnitText value
      */
     public void setTransUnit(java.lang.String transUnitId, TransUnitData transUnit) {
         segmentMap.put(transUnitId, transUnit);
@@ -166,7 +166,7 @@ public class SegmentedFileImpl implements SegmentedFile {
      * The originalFilename is the name of the file before it was segmented
      * (e.g. index.html, docbbok.xml, etc.).
      *
-     * @param originalFilename  The new originalFilename value
+     * @param theOriginalFilename The new originalFilename value.
      */
     public void setOriginalFilename(String theOriginalFilename) {
         File theFile = new File(theOriginalFilename);
@@ -186,7 +186,7 @@ public class SegmentedFileImpl implements SegmentedFile {
     /**
      * Sets the traget language.
      *
-     * @param targetLanguage  The target language
+     * @param theTargetLanguage The target language.
      */
     public void setTargetLanguage(String theTargetLanguage) {
         this.targetLanguage = theTargetLanguage;

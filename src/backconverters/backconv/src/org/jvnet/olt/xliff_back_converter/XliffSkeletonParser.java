@@ -72,7 +72,7 @@ public class XliffSkeletonParser implements ContentHandler {
      * @param resolver The Entity Resolver
      * @param theLogger The logging object (For logging messages).
      * @param theProps Properties required by the Back Converter.
-     * @param theSkeletonTD   The Xliff Skeleton DTD.
+     * @param theSkeletonDTD The XLIFF Skeleton DTD.
      */
     public XliffSkeletonParser(final XliffSkeletonHandler handler,
                                      final EntityResolver resolver, Logger theLogger,

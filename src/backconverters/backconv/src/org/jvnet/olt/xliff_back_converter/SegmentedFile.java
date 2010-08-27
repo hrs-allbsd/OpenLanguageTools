@@ -133,7 +133,7 @@ public interface SegmentedFile {
     /**
      * Sets the traget language.
      *
-     * @param targetLanguage  The target language
+     * @param theTargetLanguage The target language.
      */
     public void setTargetLanguage(String theTargetLanguage);
 
