@@ -61,8 +61,8 @@ public class AmlEntityResolver implements EntityResolver {
    * method of our InputSourceUtils class.
    * @param publicID
    * @param systemID
-   * @thorws SAXException
-   * @return
+   * @throws SAXException
+   * @return InputSource.
    *
    */
   public InputSource resolveEntity(String publicID, String systemID)  throws SAXException {

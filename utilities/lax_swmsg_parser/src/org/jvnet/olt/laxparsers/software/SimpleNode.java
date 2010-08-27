@@ -127,7 +127,7 @@ public class SimpleNode implements Node, LaxSoftwareMessageParserTreeConstants {
 
   /**
    * Setter for property nodeData
-   * @param tagName New value of property nodeData
+   * @param nodeData New value of property nodeData.
    */
   public void setNodeData(String nodeData)
   {

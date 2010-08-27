@@ -262,7 +262,7 @@ public class TmxToAmlConverter {
    * Get the string of all elements in the JDOM tree
    * @param doc              document to generate a string
    * @param dtdFileName      DTD file name
-   * @return
+   * @return String.
    */
   private String prepareForDoc(Document doc, String dtdFileName) {
     StringBuffer sb = new StringBuffer();
@@ -365,7 +365,7 @@ public class TmxToAmlConverter {
   /**
    * Replace the Entity Character ("<",">","&")
    * @param string
-   * @return
+   * @return String.
    * @throws java.io.IOException
    */
   private static String wrapXMLChars(String string) throws java.io.IOException {

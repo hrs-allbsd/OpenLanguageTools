@@ -47,43 +47,43 @@ public class DefaultTagTable implements TagTable {
     /**
      * is empty ? = false
      * @param tagName
-     * @return
-     */    
+     * @return false.
+     */
     public boolean tagEmpty(String tagName) {
         return false;
     }
     
     /**
-     * false
-     */    
+     * @return false.
+     */
     public boolean tagEmpty(String tagName, String namespaceID) {
         return tagEmpty(tagName);
     }
     
     /**
      * forces verbatim layout ? = false
-     */    
+     */
     public boolean tagForcesVerbatimLayout(String tagName) {
         return false;
     }
     
     /**
-     * false
-     */    
+     * @return false.
+     */
     public boolean tagForcesVerbatimLayout(String tagName, String namespaceID) {
         return tagForcesVerbatimLayout(tagName);
     }
     
     /**
      * may contain pcdata ? = true
-     */    
+     */
     public boolean tagMayContainPcdata(String tagName) {
         return true;
     }
     
     /**
-     * true
-     */    
+     * @return true.
+     */
     public boolean tagMayContainPcdata(String tagName, String namespaceID) {
         return tagMayContainPcdata(tagName);
     }

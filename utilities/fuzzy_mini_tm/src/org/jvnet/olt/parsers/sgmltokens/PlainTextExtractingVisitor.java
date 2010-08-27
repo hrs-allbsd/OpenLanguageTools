@@ -129,7 +129,7 @@ implements SimpleSGMLTokenizerVisitor, SimpleSGMLTokenizerTreeConstants
   /**
    *  This method is used for retrieving the markup that was contained in
    *  the original string.
-   *  @returns An ordered list of MarkupEntry objects that each are a tag in the original string.
+   *  @return An ordered list of MarkupEntry objects that each are a tag in the original string.
    */
   public List getMarkup()
   {

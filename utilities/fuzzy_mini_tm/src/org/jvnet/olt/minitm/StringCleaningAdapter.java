@@ -95,7 +95,7 @@ public class StringCleaningAdapter
 
   /**
    *  This method retrieves the markup list.
-   *  @returns List
+   *  @return List of MarkupEntry.
    */
   public List getMarkup()
   {
@@ -105,7 +105,7 @@ public class StringCleaningAdapter
   /**
    *  This method returns a plaintext representation of the string passed
    *  to the constructor. All markup is simply removed.
-   *  @returns String
+   *  @return String.
    */
   public String getPlainText()
   {

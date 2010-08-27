@@ -55,7 +55,7 @@ public class ConvertPropertiesToTmx {
      * @param sourceLanguage language of source segments
      * @param targetProperty name of property file with translated segments
      * @param targetLanguage language of translated segments
-     * @param name of target tmx file
+     * @param tmxFile name of target tmx file.
      *
      * @throws FileNotFoundException,IOException,UnsupportedEncodingException
      */

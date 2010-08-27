@@ -78,8 +78,8 @@ public class TMMatch
   /**
    *  This method returns the source text of the aligned pair in the 
    *  data store.
-   *  @returns StringBuffer
-   */	 
+   *  @return StringBuffer.
+   */
   public StringBuffer getSource() 
   {
     return new StringBuffer(source); 
@@ -88,8 +88,8 @@ public class TMMatch
   /**
    *  This method returns the translated text of the aligned pair in 
    *  the data store.
-   *  @returns StringBuffer
-   */	 
+   *  @return StringBuffer.
+   */
   public StringBuffer getTranslation() 
   {
     return new StringBuffer(translation);
@@ -98,7 +98,7 @@ public class TMMatch
   /**
    *  This method returns the ID of the translator that created the 
    *  aligned pair, originally.
-   *  @returns StringBuffer 
+   *  @return StringBuffer.
    */
   public StringBuffer getTranslatorID()
   {
@@ -108,7 +108,7 @@ public class TMMatch
   /**
    *  This method returns the primary key of the segment in the data
    *  store.
-   *  @returns A long representing a the data store primary key.
+   *  @return A long representing a the data store primary key.
    */
   public long getDataSourceKey()
   {
