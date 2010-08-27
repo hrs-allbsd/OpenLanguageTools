@@ -43,16 +43,16 @@ public class SafeToExitSemaphore {
         safeToExit = true;
     }
 
-    /** Getter for property safeToSave.
-     * @return Value of property safeToSave.
+    /** Getter for property safeToExit.
+     * @return Value of property safeToExit.
      *
      */
     public synchronized boolean isSafeToExit() {
         return this.safeToExit;
     }
 
-    /** Setter for property safeToSave.
-     * @param safeToSave New value of property safeToSave.
+    /** Setter for property safeToExit.
+     * @param safeToExit New value of property safeToExit.
      *
      */
     public synchronized void setSafeToExit(boolean safeToExit) {

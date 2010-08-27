@@ -45,10 +45,6 @@ public class PivotUndoManager extends UndoManager {
     TMData pivotdata;
     Backend backend;
 
-    /**
-     * Constructor.
-     * @param pdata The PivotData that this PivotUndoManager refers to.
-     */
     List propertyListeners;
 
     class EditStack extends Stack {
@@ -68,11 +64,11 @@ public class PivotUndoManager extends UndoManager {
             return lastElement();
         }
 
-        public Object pop() {
+        public synchronized Object pop() {
             return remove(size() - 1);
         }
 
-        public Object peek() {
+        public synchronized Object peek() {
             return lastElement();
         }
 
@@ -124,7 +120,7 @@ public class PivotUndoManager extends UndoManager {
      * Add an regular undoable edit.
      * @param anEdit The regular undoable edit.
      */
-    public boolean addEdit(UndoableEdit anEdit) {
+    public synchronized boolean addEdit(UndoableEdit anEdit) {
         boolean b = super.addEdit(anEdit);
 
         if (b == false) {
@@ -292,23 +288,15 @@ public class PivotUndoManager extends UndoManager {
     /**
      * returns true if an undo operation would be successful now, false otherwise
      */
-    public boolean canUndo() {
-        if (undoStack.empty() == true) {
-            return false;
-        } else {
-            return true;
-        }
+    public synchronized boolean canUndo() {
+        return !undoStack.empty();
     }
 
     /**
      * returns true if an redo operation would be successful now, false otherwise
      */
-    public boolean canRedo() {
-        if (redoStack.empty() == true) {
-            return false;
-        } else {
-            return true;
-        }
+    public synchronized boolean canRedo() {
+        return !redoStack.empty();
     }
 
     /**

@@ -68,6 +68,9 @@ public class SingleSegmentMatch extends Match {
         AlignmentMain.testMain2.getTableView().setRowSelectionInterval(currentSelectRow, currentSelectRow);
     }
 
+    /**
+     * @param iSentenceID the row number of the table.
+     */
     public void handleAsAppliedMatch(int iSentenceID, int iTransType, int iApplyType) {
         Backend backend = Backend.instance();
         TMData tmpdata = backend.getTMData();
@@ -78,7 +81,6 @@ public class SingleSegmentMatch extends Match {
     }
 
     /**
-     * @param iSentenceID  the row number of the table
      * @param iTransType   the translation type ("EXACT_TRANSLATION","AUTO_TRANSLATION","FUZZY_TRANSLATION")
      * @param iApplyType   the apply type ("EXACTAUTOMATCH","AUTOPROPAGATE","TRANSFER")
      */
