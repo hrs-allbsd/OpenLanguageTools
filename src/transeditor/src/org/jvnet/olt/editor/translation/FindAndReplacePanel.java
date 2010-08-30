@@ -311,8 +311,8 @@ public static Result targetResult = null;*/
         //this calls the repainting the buttons
         if (sourceRadioButton.isSelected()) {
             //logger.finer("bFlagWriteProtection="+!MainFrame.bFlagWriteProtection);
-            replaceButton.setEnabled(isWriteProtect());
-            replaceAllButton.setEnabled(isWriteProtect());
+            replaceButton.setEnabled(!isWriteProtect());
+            replaceAllButton.setEnabled(!isWriteProtect());
         } else if (this.targetRadioButton.isSelected()) {
             replaceButton.setEnabled(true);
             replaceAllButton.setEnabled(true);
@@ -561,8 +561,6 @@ public static Result targetResult = null;*/
         for (int i = 0; i < this.replaceComboBox.getItemCount(); i++) {
             if (this.replaceComboBox.getItemAt(i).toString().equals(str)) {
                 return;
-            } else {
-                continue;
             }
         }
 
@@ -580,8 +578,6 @@ public static Result targetResult = null;*/
         for (int i = 0; i < this.findComboBox.getItemCount(); i++) {
             if (this.findComboBox.getItemAt(i).toString().equals(str)) {
                 return;
-            } else {
-                continue;
             }
         }
 
@@ -627,7 +623,6 @@ public static Result targetResult = null;*/
         if (s == null) {
             Toolkit.getDefaultToolkit().beep();
 
-            Object[] message = new Object[1];
             String informationString = MessageFormat.format(rb.getString("Please_specify_the_text_to_search_in_{0}"), (this.sourceRadioButton.isSelected() ? rb.getString("source") : rb.getString("target")) );
 
             String[] options = { rb.getString("Ok") };
@@ -944,7 +939,7 @@ public static Result targetResult = null;*/
                     ChoiceFormat fmt = new ChoiceFormat(
                             rb.getString("_0#_no_occurencies_have_been_replaced_|#1_{0}_occurency_has_been_replaced_|_{0}_occurencies_have_been_replaced_"));
                     String xmsg = fmt.format(v.size());
-                    MessageFormat.format(xmsg,v.size());
+                    msg = MessageFormat.format(xmsg, v.size());
                 }
                 else {
                     msg = MessageFormat.format(rb.getString("{0}_occurencies_found_but_only_{1}_have_been_replaced,\nas_tag_protection_is_switched_on"),v.size(),replacedItemCount);
