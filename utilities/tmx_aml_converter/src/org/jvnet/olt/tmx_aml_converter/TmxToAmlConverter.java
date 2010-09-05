@@ -176,14 +176,12 @@ public class TmxToAmlConverter {
    * Recursive method to create JDOM tree
    * @param efrom       TMX document element
    * @param eto         AML document element
-   * @param srcLang     source language
    */
   private void createAmlFromTmx(Element efrom, Element eto) {
 
     //get all children Node
     NodeList nodelist = efrom.getChildNodes();
 
-    int srcindex = 0, trgindex = 0;
     for(int i=0;i<nodelist.getLength();i++) {
       Node next = nodelist.item(i);
       if(next instanceof Text) {

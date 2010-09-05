@@ -51,11 +51,11 @@ public class BasicFuzzySearchMiniTM extends AbstractFuzzySearchMiniTM implements
   {
     return new PlainTextFormatRemovingStrategy();
   }
-  
+
   /**  This method is a template method (designed to be overridden) that
    *  creates match objects. In this implementation the match quality
    *  value is passed through from the fuzzy index without being modified.
-   *  @param sourceFormatting An ordered list of source formatting
+   *  @param sourceString source.
    *  @param result A search result returned from the fuzzy index.
    */
   protected TMMatch createMatch(String sourceString, SearchResult result) throws MiniTMException

@@ -21,7 +21,6 @@
 package org.jvnet.olt.filetype;
 
 import java.util.*;
-import java.util.regex.*;
 import java.io.*;
 
 /**
@@ -202,13 +201,12 @@ public class FileTypeDetector {
         }
         return filetypes;
     }
-    
-    
+
     /**
      * Methods that should guess file type from file name
      *
-     * @param file that we need to process
-     * @return file type defined in this class or undefined filetype if there is no definition for given type
+     * @param type that we need to process.
+     * @return FileType defined in this class or undefined FileType if there is no definition for given type.
      *
      */
     public static FileType getDefinition(int type) {
@@ -223,16 +221,15 @@ public class FileTypeDetector {
                 result = ft;
                 break;
             }
-            
         }
         return result;
     }
-    
+
     /**
      * Detect file type for given file name
      *
-     * @param file that we need detect
-     * @return file type defined with integere value
+     * @param file that we need detect.
+     * @return file type defined with Integer value.
      *
      */
     public static Integer detectFileType(File file) throws IOException {

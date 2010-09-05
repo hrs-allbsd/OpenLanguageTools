@@ -93,9 +93,10 @@ public class XliffBackConverter {
                             throws XliffBackConverterException{
         backConvert(file, dir, getSource, charSet, false);                  
     }
-                                
+
     /**
      * This is the method responsible for carrying out the back conversion.
+     * Sets this.backConverterInfo to info about the XliffBackConversion.
      *
      * @param file The xlz file containing a xliff file and its
      * corresponding skeleton file that are to be back converted.
@@ -109,8 +110,6 @@ public class XliffBackConverter {
      * the XLIFF file will be used.
      * @exception XliffBackConverterException Thrown when a XLIIFF Back
      * conversion fails.
-     * @return XliffBackConverterInfo Informatino about the
-     * XliffBackConversion
      */
     public void backConvert(File file, String dir,
         boolean getSource, String charSet, boolean writeTransStatus)
