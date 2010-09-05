@@ -40,6 +40,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import org.jvnet.olt.minitm.*;
 import org.jvnet.olt.fuzzy.*;
+import org.jvnet.olt.index.BasicDataStore;
 
 public class BasicFuzzyIndexTest 
 extends TestCase

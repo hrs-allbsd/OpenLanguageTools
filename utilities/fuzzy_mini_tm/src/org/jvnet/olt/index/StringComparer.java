@@ -26,8 +26,6 @@
  */
 
 package org.jvnet.olt.index;
-import java.util.*;
-import java.util.Arrays;
 
 /**
  * This class contains static methods that calculate the percentage difference between two strings.

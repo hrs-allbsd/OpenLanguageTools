@@ -42,8 +42,7 @@
 package org.jvnet.olt.fuzzy.basicsearch;
 
 import junit.framework.*;
-import java.util.*;
-import java.util.Arrays;
+import org.jvnet.olt.index.StringComparer;
 
 /**
  *

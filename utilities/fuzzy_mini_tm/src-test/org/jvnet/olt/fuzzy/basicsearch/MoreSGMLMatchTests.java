@@ -36,9 +36,7 @@ package org.jvnet.olt.fuzzy.basicsearch;
 
 import junit.framework.*;
 import java.io.*;
-import java.util.Arrays;
 import org.jvnet.olt.minitm.*;
-import org.jvnet.olt.fuzzy.*;
 
 public class MoreSGMLMatchTests 
 extends TestCase

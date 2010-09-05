@@ -35,9 +35,9 @@
 package org.jvnet.olt.fuzzy.basicsearch;
 
 import junit.framework.*;
-import java.util.Arrays;
 import java.io.*;
 import org.jvnet.olt.minitm.*;
+import org.jvnet.olt.index.BasicDataStore;
 
 public class GetTranslatorsTest 
 extends TestCase

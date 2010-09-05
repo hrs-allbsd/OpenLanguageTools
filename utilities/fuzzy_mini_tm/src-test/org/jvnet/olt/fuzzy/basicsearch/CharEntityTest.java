@@ -39,6 +39,8 @@ import java.util.Hashtable;
 import java.io.*;
 import org.xml.sax.*;
 import org.jvnet.olt.minitm.TMUnit;
+import org.jvnet.olt.index.IdSequence;
+import org.jvnet.olt.index.MiniTmContentHandler;
 import javax.xml.parsers.*;
 
 public class CharEntityTest
@@ -119,8 +121,3 @@ extends TestCase
         assertEquals("johnc", unit.getTranslatorID());
     }
 }
-
-
-
-
-

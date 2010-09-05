@@ -43,15 +43,9 @@ package org.jvnet.olt.fuzzy;
 
 import junit.framework.*;
 import org.jvnet.olt.minitm.MiniTMException;
-import org.jvnet.olt.minitm.MiniTMIndexException;
 import org.jvnet.olt.minitm.SGMLFormatRemovingStrategy;
 import org.jvnet.olt.minitm.FormatRemovingStrategy;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import org.jvnet.olt.minitm.StringCleaningAdapter;
-import org.jvnet.olt.parsers.sgmltokens.MarkupEntry;
-import org.jvnet.olt.fuzzy.basicsearch.StringComparer;
+import org.jvnet.olt.index.MatchQualityCalculator;
 
 /**
  *
@@ -154,6 +148,4 @@ public class MatchQualityCalculatorTest extends TestCase
             fail("exception thrown: testing strings '" +query+ "' and '" + ref +"'");
         }
     }
-        
-    
 }
