@@ -64,7 +64,7 @@ public class NewMiniTMPanel extends JDialog {
     private String targetLang;
     private String sourceLang;
     private String projectName;
-    private boolean didCancel;
+    private boolean didCancel = true;
 
     //List of ProjectInfos -- all known projects
     private List allProjects;
@@ -167,7 +167,6 @@ public class NewMiniTMPanel extends JDialog {
                 }
             });
             
-            
 /*        Languages.Language lng = (Languages.Language)sourceComboBox.getSelectedItem();
         String path = Languages.getFlagPathForLan(lng.getShortCode());
         URL res = getClass().getResource(path);    
@@ -218,8 +217,6 @@ public class NewMiniTMPanel extends JDialog {
     
     void cancelButton_actionPerformed(ActionEvent e) {
         setVisible(false);
-
-        didCancel = true;
     }
 
     void okButton_actionPerformed(ActionEvent e) {
@@ -251,7 +248,6 @@ public class NewMiniTMPanel extends JDialog {
 
         if (!checkProjectExists(projectName,sourceLan, targetLan)) {
             Toolkit.getDefaultToolkit().beep();
-
             JOptionPane.showMessageDialog(this, bundle.getString("The_name_you_selected_for_the_new_project_already_exists.\r\n_Please_select_a_different_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             //TODO how about offering to open the project ???
@@ -272,6 +268,8 @@ public class NewMiniTMPanel extends JDialog {
         this.projectName = projectName;
         this.targetLang = targetLan;
         this.sourceLang = sourceLan;
+
+        this.didCancel = false;
 
         setVisible(false);
     }
