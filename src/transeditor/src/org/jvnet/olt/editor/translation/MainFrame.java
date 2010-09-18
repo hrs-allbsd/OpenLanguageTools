@@ -3264,7 +3264,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     private void addHtmlHead(PrintWriter out) throws IOException {
         write(out, "<html>\r\n");
         write(out, "<head>\r\n");
-        write(out, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=\"UTF-8\">");
+        write(out, "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
         write(out, ("<title>" + backend.getCurrentFile().getName() + "</title>\r\n"));
         write(out, "</head>\r\n");
         write(out, "\r\n");
