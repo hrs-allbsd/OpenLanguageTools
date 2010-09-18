@@ -665,7 +665,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             MainFrame.this.jContrastFrame.setRightTooltip(strDestNation);
             MainFrame.this.jContrastFrame.setRightFlag(strDestFlag);
 
-            MainFrame.this.setTitle(Constants.TOOL_NAME + " - " + MainFrame.this.backend.getProject().getProjectName() + "-" + MainFrame.this.backend.getCurrentFile().getAbsolutePath());
+            MainFrame.this.setTitle(Constants.TOOL_NAME + " - " + MainFrame.this.backend.getProject().getProjectName() + " - " + MainFrame.this.backend.getCurrentFile().getAbsolutePath());
 
             MainFrame.this.jMenuNaviGoto.setEnabled(true);
 
@@ -3164,7 +3164,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
     void jMenuClose_actionPerformed(ActionEvent e) {
         if (closeGUI() != 0) {
-            /**
+            /*
              * close mini-TM?
              */
             Toolkit.getDefaultToolkit().beep();
@@ -6141,9 +6141,7 @@ OUTER2:
      *  *******************************************************************************************
      */
     void jBtnOpen_actionPerformed(ActionEvent e) {
-        if (!openFile()) {
-            return;
-        }
+        jMenuOpen_actionPerformed(null);
     }
 
     void jBtnSave_actionPerformed(ActionEvent e) {
@@ -6409,7 +6407,7 @@ OUTER2:
 
         backend.close();
 
-        this.setTitle(Constants.TOOL_NAME + " -" + backend.getProject().getProjectName());
+        this.setTitle(Constants.TOOL_NAME + " - " + backend.getProject().getProjectName());
 
         this.myMatchstatusBar.setInformation("");
         this.myMatchstatusBar.setAliNumber("");
