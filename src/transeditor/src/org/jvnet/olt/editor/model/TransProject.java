@@ -136,6 +136,7 @@ public class TransProject {
 
         knownTMTypes = new HashMap();
         minitm = getNewMiniTM(fileName, true, project, srcLan, tgtLan, dataType);
+        minitm.saveMiniTmToFile();
     }
 
     // reload minitm from file - bug 4727575
@@ -158,12 +159,11 @@ public class TransProject {
     public void closeProject() {
         try {
             minitm.saveMiniTmToFile();
-
-            //TODO dubious. Should not bi in finally block ???
-            minitm = null;
         } catch (org.jvnet.olt.minitm.MiniTMException ex) {
             logger.throwing(getClass().getName(), "closeProject()", ex);
             logger.severe("Exception:" + ex);
+        } finally {
+            minitm = null;
         }
     }
 
@@ -183,6 +183,7 @@ public class TransProject {
 
     /**
      * after maintaining the minitm,save the modifications.
+     * @param modifiedSegs will be modified.
      */
     public void saveMaintainenceSegments(Object[] segs, Vector modifiedSegs) {
         if ((segs == null) || (segs.length == 0) || (modifiedSegs == null) || (modifiedSegs.size() == 0)) {
