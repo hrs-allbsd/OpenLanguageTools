@@ -248,7 +248,7 @@ public class NewMiniTMPanel extends JDialog {
 
         if (!checkProjectExists(projectName,sourceLan, targetLan)) {
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, bundle.getString("The_name_you_selected_for_the_new_project_already_exists.\r\n_Please_select_a_different_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, bundle.getString("The_name_you_selected_for_the_new_project_already_exists._Please_select_a_different_project_name."), bundle.getString("Error"), JOptionPane.WARNING_MESSAGE);
 
             //TODO how about offering to open the project ???
             return;
