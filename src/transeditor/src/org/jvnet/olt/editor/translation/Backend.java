@@ -32,17 +32,14 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 import org.jvnet.olt.editor.model.*;
 import org.jvnet.olt.util.FileUtils;
 import org.jvnet.olt.editor.util.NestableException;
-import org.jvnet.olt.util.FileUtils;
 import org.jvnet.olt.xliff.*;
 
 
@@ -67,8 +64,6 @@ public class Backend {
     private XLIFFParser xp;
     private TransProject project;
     
-    //if the fila has been modified
-    private boolean bHasModified;
     private Configuration config;
     private List projPropLstnrs = new LinkedList();
     
@@ -110,8 +105,6 @@ public class Backend {
     }
     
     public boolean saveFile() throws NestableException {
-        //        if(!bHasModified)
-        //            return false;
         for (int i = 0; i < tmpdata.tmsentences.length; i++) {
             boolean autosave = config.isBFlagAutoSave();
             
@@ -243,7 +236,9 @@ public class Backend {
         
         if (currentTemp != null) {
             if (currentTemp.exists()) {
-                currentTemp.delete();
+                if (!currentTemp.delete()) {
+                    logger.warning("Could not delete current temp file.");
+                }
             }
             
             currentTemp = null;
@@ -293,7 +288,7 @@ public class Backend {
         fireProjectPropertyChangedListener(new PropertyChangeEvent(this, PROPERTY_PROJECT, oldProject, tp));
         
         //Manage history
-        config.addToProjectHsistory(tp);
+        config.addToProjectHistory(tp);
     }
     
     void setXLIFFParser(XLIFFParser xp) {
@@ -441,7 +436,4 @@ public class Backend {
         
         return currentTemp;
     }
-    
-    
-    
 }

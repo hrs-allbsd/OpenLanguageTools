@@ -128,7 +128,7 @@ public class Configuration {
     }
 
     //TODO check correctness of the string
-    public void addToProjectHsistory(TransProject tp) {
+    public void addToProjectHistory(TransProject tp) {
         if (tp == null) {
             return;
         }
