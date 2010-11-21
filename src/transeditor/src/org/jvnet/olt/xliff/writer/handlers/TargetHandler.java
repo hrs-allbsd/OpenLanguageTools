@@ -33,7 +33,6 @@ package org.jvnet.olt.xliff.writer.handlers;
 
 import java.util.Map;
 
-import org.jvnet.olt.editor.translation.Constants;
 import org.jvnet.olt.xliff.ReaderException;
 import org.jvnet.olt.xliff.XLIFFSentence;
 import org.jvnet.olt.xliff.handlers.Element;
@@ -118,7 +117,6 @@ public class TargetHandler extends BaseHandler {
         if (!ignoreChars) {
             writeChars(chars, start, length);
         }
-        
     }
     
     public void dispatchIgnorableChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws ReaderException {
@@ -130,6 +128,4 @@ public class TargetHandler extends BaseHandler {
     public boolean handleSubElements() {
         return true;
     }
-    
-    
 }

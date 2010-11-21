@@ -33,7 +33,6 @@ package org.jvnet.olt.xliff.writer.handlers;
 
 import java.util.Map;
 
-import org.jvnet.olt.editor.translation.Constants;
 import org.jvnet.olt.xliff.ReaderException;
 import org.jvnet.olt.xliff.XLIFFSentence;
 
@@ -77,10 +76,10 @@ public class SourceHandler extends BaseHandler {
             char[] ch = currentSntnc.getSentence().toCharArray();
             writeChars(ch, 0, ch.length, false);
             
-            srcChangeSet.remove(ctx.getCurrentTransId());
+            srcChangeSet.remove(transUnitId);
             ignoreChars = true;
         } else {
-            
+
             //copy all mixed content unless we dumped the sentence already
             if(!ignoreChars)
                 writeElement(element, start);
@@ -89,7 +88,7 @@ public class SourceHandler extends BaseHandler {
 
     public void dispatchChars(org.jvnet.olt.xliff.handlers.Element element, char[] chars, int start, int length) throws org.jvnet.olt.xliff.ReaderException {
         if (!ignoreChars) {
-            writeChars(chars, start, length);            
+            writeChars(chars, start, length);
         }
     }
 
