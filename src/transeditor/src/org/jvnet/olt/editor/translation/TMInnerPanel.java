@@ -155,8 +155,8 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
         }
         
         this.setVisible(true);
-        ((JTextField)jTextField1).addKeyListener(this);
-        ((JTextField)jTextField1).addFocusListener(this);
+        jTextField1.addKeyListener(this);
+        jTextField1.addFocusListener(this);
     }
     
     public Insets getInsets() {
@@ -210,9 +210,9 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
             Toolkit.getDefaultToolkit().beep();
             
             if (iLocation == 0) {
-                informationString = new String(bundle.getString("Find_what_in_source?"));
+                informationString = bundle.getString("Find_what_in_source?");
             } else {
-                informationString = new String(bundle.getString("Find_what_in_target?"));
+                informationString = bundle.getString("Find_what_in_target?");
             }
             
             String message = informationString;
@@ -413,10 +413,8 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
             do {
                 if (oldTargetResult == null) {
                     int startRowIndex = AlignmentMain.testMain2.tableView.getSelectedRow();
-                    ;
                     
                     int startPosition = getCurrentPosition(s, false);
-                    ;
                     
                     int startSentenceIndex = getCurrentSentenceIndex(s, false);
                     
@@ -957,7 +955,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
     }
     
     public void focusGained(FocusEvent e) {
-        MainFrame.activeComponent = ((JTextComponent)jTextField1);
+        MainFrame.activeComponent = jTextField1;
     }
     
     static int getCurrentPosition(Search s, boolean isSrc) {
