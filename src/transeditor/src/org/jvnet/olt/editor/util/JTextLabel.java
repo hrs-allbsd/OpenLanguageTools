@@ -56,7 +56,6 @@ public class JTextLabel extends JLabel {
     private String strInput;
     private Vector vLines;
     private int iLines;
-    private int iCount;
     private boolean isSelect;
 
     public JTextLabel(String strInput, int iWidth, boolean isSelectInput, Color selColorInput, Color defColorInput) {
@@ -109,7 +108,6 @@ public class JTextLabel extends JLabel {
         m_tokenizer = new StringTokenizer(strInput, strToken, true);
 
         int w = 20;
-        int st = 0;
         int l;
         StringBuffer m_strBuffer = new StringBuffer();
 
@@ -120,7 +118,7 @@ public class JTextLabel extends JLabel {
                 l = ascWidth[str.charAt(0)];
                 m_strBuffer.append(str);
             } else if (str.compareTo("\n") == 0) {
-                vLines.addElement(new String(m_strBuffer));
+                vLines.addElement(m_strBuffer.toString());
                 m_strBuffer.delete(0, m_strBuffer.length());
                 w = 20;
 
@@ -130,7 +128,7 @@ public class JTextLabel extends JLabel {
             }
 
             if ((w + l) > iWidth) {
-                vLines.addElement(new String(m_strBuffer));
+                vLines.addElement(m_strBuffer.toString());
                 m_strBuffer.delete(0, m_strBuffer.length());
                 m_strBuffer.append(str);
                 w = 20 + l;
@@ -141,7 +139,7 @@ public class JTextLabel extends JLabel {
         }
 
         if (m_strBuffer.length() != 0) {
-            vLines.addElement(new String(m_strBuffer));
+            vLines.addElement(m_strBuffer.toString());
         }
     }
 
@@ -161,7 +159,6 @@ public class JTextLabel extends JLabel {
         m_tokenizer = new StringTokenizer(strInput, strToken, true);
 
         int w = 2;
-        int st = 0;
         int l;
         StringBuffer m_strBuffer = new StringBuffer();
 
@@ -172,7 +169,7 @@ public class JTextLabel extends JLabel {
                 //l = ascWidth[str.charAt(0)];
                 //w += l;
                 if (w >= iWidth) { // add the space then exceed the width.
-                    vLines.addElement(new String(m_strBuffer));
+                    vLines.addElement(m_strBuffer.toString());
                     m_strBuffer.delete(0, m_strBuffer.length());
 
                     w = 2 + ascWidth[str.charAt(0)];
@@ -185,7 +182,7 @@ public class JTextLabel extends JLabel {
 
                 continue;
             } else if (str.compareTo("\n") == 0) {
-                vLines.addElement(new String(m_strBuffer));
+                vLines.addElement(m_strBuffer.toString());
                 m_strBuffer.delete(0, m_strBuffer.length());
                 w = 2;
 
@@ -201,7 +198,7 @@ public class JTextLabel extends JLabel {
                     }
 
                     if ((w + l) >= iWidth) {
-                        vLines.addElement(new String(m_strBuffer));
+                        vLines.addElement(m_strBuffer.toString());
                         m_strBuffer.delete(0, m_strBuffer.length());
                         m_strBuffer.append(str);
                         w = 2 + l;
@@ -224,7 +221,7 @@ public class JTextLabel extends JLabel {
                         }
 
                         if (w >= iWidth) {
-                            vLines.addElement(new String(m_strBuffer));
+                            vLines.addElement(m_strBuffer.toString());
                             m_strBuffer.delete(0, m_strBuffer.length());
                             m_strBuffer.append(str.charAt(j));
                             w = boolIso1 ? (2 + ascWidth[str.charAt(j)]) : (2 + hzWidth);
@@ -237,7 +234,7 @@ public class JTextLabel extends JLabel {
         }
 
         if (m_strBuffer.length() != 0) {
-            vLines.addElement(new String(m_strBuffer));
+            vLines.addElement(m_strBuffer.toString());
         }
     }
 
