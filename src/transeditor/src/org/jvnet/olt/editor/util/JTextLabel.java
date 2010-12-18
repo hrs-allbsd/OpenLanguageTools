@@ -35,7 +35,6 @@ import javax.swing.*;
 public class JTextLabel extends JLabel {
     //public static final String strToken = "\"|. \n";
     public static final String strToken = " \t\n";
-    public static StringTokenizer m_tokenizer;
 
     //font
     private static Font font = new Font("Dialog", Font.PLAIN, 12);
@@ -50,7 +49,8 @@ public class JTextLabel extends JLabel {
     private static String TEST_STR = "Hello World! How do you think about my table? " + "I think it would be an excellent tool";
 
     /* magic number to adjust with JTextPane line wrapping */
-    private static final int XOFF = 2;
+    //private static final int XOFF = 2;
+
     private int iWidth;
     private int iHeight;
     private String strInput;
@@ -105,19 +105,19 @@ public class JTextLabel extends JLabel {
     private void preparePaint() {
         String str = "";
         vLines = new Vector();
-        m_tokenizer = new StringTokenizer(strInput, strToken, true);
+        StringTokenizer m_tokenizer = new StringTokenizer(strInput, strToken, true);
 
         int w = 20;
         int l;
         StringBuffer m_strBuffer = new StringBuffer();
 
-        for (int i = 0; m_tokenizer.hasMoreElements(); i++) {
-            str = (String)m_tokenizer.nextElement();
+        for (int i = 0; m_tokenizer.hasMoreTokens(); i++) {
+            str = m_tokenizer.nextToken();
 
-            if (str.compareTo(" ") == 0) {
+            if (str.equals(" ")) {
                 l = ascWidth[str.charAt(0)];
                 m_strBuffer.append(str);
-            } else if (str.compareTo("\n") == 0) {
+            } else if (str.equals("\n")) {
                 vLines.addElement(m_strBuffer.toString());
                 m_strBuffer.delete(0, m_strBuffer.length());
                 w = 20;
@@ -156,16 +156,16 @@ public class JTextLabel extends JLabel {
     private void preparePaintLikeLabel() {
         String str = "";
         vLines = new Vector();
-        m_tokenizer = new StringTokenizer(strInput, strToken, true);
+        StringTokenizer m_tokenizer = new StringTokenizer(strInput, strToken, true);
 
         int w = 2;
         int l;
         StringBuffer m_strBuffer = new StringBuffer();
 
-        for (int i = 0; m_tokenizer.hasMoreElements(); i++) {
-            str = (String)m_tokenizer.nextElement();
+        for (int i = 0; m_tokenizer.hasMoreTokens(); i++) {
+            str = m_tokenizer.nextToken();
 
-            if (str.compareTo(" ") == 0) {
+            if (str.equals(" ")) {
                 //l = ascWidth[str.charAt(0)];
                 //w += l;
                 if (w >= iWidth) { // add the space then exceed the width.
@@ -173,15 +173,13 @@ public class JTextLabel extends JLabel {
                     m_strBuffer.delete(0, m_strBuffer.length());
 
                     w = 2 + ascWidth[str.charAt(0)];
-
-                    continue;
                 } else {
                     w += ascWidth[str.charAt(0)];
                     m_strBuffer.append(str);
                 }
 
                 continue;
-            } else if (str.compareTo("\n") == 0) {
+            } else if (str.equals("\n")) {
                 vLines.addElement(m_strBuffer.toString());
                 m_strBuffer.delete(0, m_strBuffer.length());
                 w = 2;
@@ -192,11 +190,11 @@ public class JTextLabel extends JLabel {
 
                 if (bFlag) {
                     l = getStringWidth(str);
-
+/*
                     if (l >= iWidth) {
                         //  Do stuff in here.
                     }
-
+*/
                     if ((w + l) >= iWidth) {
                         vLines.addElement(m_strBuffer.toString());
                         m_strBuffer.delete(0, m_strBuffer.length());
@@ -257,11 +255,8 @@ public class JTextLabel extends JLabel {
 
         g.setColor(java.awt.Color.black);
 
-        int x = 0;
-
         for (int i = 0; i < iLines; i++) {
-            g.drawString((String)vLines.get(i), x, (iChHeight * i) + getYOffset());
-            x = 0;
+            g.drawString((String)vLines.get(i), 0, (iChHeight * i) + getYOffset());
         }
     }
 
