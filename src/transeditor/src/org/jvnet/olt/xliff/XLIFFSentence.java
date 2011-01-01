@@ -25,11 +25,6 @@
  */
 package org.jvnet.olt.xliff;
 
-import java.util.StringTokenizer;
-import java.util.Vector;
-
-import org.jvnet.olt.editor.util.NestableException;
-
 
 public class XLIFFSentence extends XLIFFBasicSentence {
     private String gTransUnitId = null;
@@ -77,6 +72,6 @@ public class XLIFFSentence extends XLIFFBasicSentence {
     }
 
     public Object clone() {
-        return new XLIFFSentence(new String(this.getSentence()), new String(this.getXMLLang()), new String(this.gTransUnitId));
+        return new XLIFFSentence(this.getSentence(), this.getXMLLang(), this.gTransUnitId);
     }
 }
