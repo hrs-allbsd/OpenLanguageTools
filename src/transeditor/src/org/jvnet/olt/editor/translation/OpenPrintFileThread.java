@@ -31,6 +31,7 @@
 package org.jvnet.olt.editor.translation;
 
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -52,10 +53,26 @@ public class OpenPrintFileThread implements Runnable {
 
         try {
             if (File.separator.equals("/")) {
+                String[] possibleBrowsers = new String[] {
+                    "firefox",
+                    "iceweasel",
+                    "netscape",
+                };
                 cmd = new String[2];
                 cmd[0] = "netscape";
                 cmd[1] = fileName;
-                proc = Runtime.getRuntime().exec(cmd);
+                for (int i = 0; i < possibleBrowsers.length; i++) {
+                    try {
+                        cmd[0] = possibleBrowsers[i];
+                        proc = Runtime.getRuntime().exec(cmd);
+                        break;
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                if (proc == null) {
+                    throw new Exception("no supported browser found");
+                }
             } else {
                 // bug: 4715337
                 String strPro = System.getProperty("os.name");
@@ -78,7 +95,5 @@ public class OpenPrintFileThread implements Runnable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        //tmpDlgForPrinting.setVisible(false);
     }
 }
