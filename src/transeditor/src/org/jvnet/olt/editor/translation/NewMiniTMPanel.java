@@ -29,7 +29,6 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.*;
 import java.net.URL;
-import java.util.Iterator;
 
 import java.util.List;
 import org.jvnet.olt.editor.util.Bundle;
@@ -59,8 +58,7 @@ public class NewMiniTMPanel extends JDialog {
     JButton okButton = new JButton();
     JButton cancelButton = new JButton();
     JTextField jProjName = new JTextField();
-    private Backend backend;
-    private java.util.List propertyListeners;
+    //private Backend backend;
     private String targetLang;
     private String sourceLang;
     private String projectName;
@@ -90,8 +88,6 @@ public class NewMiniTMPanel extends JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        this.backend = backend;
     }
 
     private void jbInit() throws Exception {
@@ -126,7 +122,6 @@ public class NewMiniTMPanel extends JDialog {
                     }
                     else{
                         targetIconLabel.setIcon(icon);
-                        
                     }
                 }
             }
@@ -186,7 +181,7 @@ public class NewMiniTMPanel extends JDialog {
         this.getContentPane().add(sourceComboBox, null);
         this.getContentPane().add(informationLabel, null);
         this.getContentPane().add(jProjName, null);
-        this.setSize(435, 380);
+        this.setSize(435, 385);
         this.setResizable(false);
 
         // bug 4737485
@@ -211,10 +206,6 @@ public class NewMiniTMPanel extends JDialog {
          */
     }
 
-    void setFlagIcon(){
-        
-    }
-    
     void cancelButton_actionPerformed(ActionEvent e) {
         setVisible(false);
     }
