@@ -56,6 +56,9 @@ public class FileHandler extends BaseHandler {
 
             if (originalDataType != null) {
                 originalDataType = originalDataType.toUpperCase();
+            } else {
+                // prevent NullPointerException if XLIFF validation is disabled
+                originalDataType = "plaintext";
             }
 
             ctx.setOriginalDataType(originalDataType);
