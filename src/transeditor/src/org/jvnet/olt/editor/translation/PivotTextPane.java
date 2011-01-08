@@ -351,8 +351,6 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         //  Size it correctly
         this.setWidth(iWidth);
 
-        int curHight = this.getPreferredSize().height;
-
         int iHeight = this.getHeight();
 
         if (iHeight != iRowHeight) {
@@ -416,7 +414,6 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
             showPopup(e);
 
             return;
-        } else {
         }
     }
 
@@ -1593,6 +1590,5 @@ class PopupEditListener extends JMenuItem implements ActionListener {
             break;
         }
 
-        ;
     }
 }
