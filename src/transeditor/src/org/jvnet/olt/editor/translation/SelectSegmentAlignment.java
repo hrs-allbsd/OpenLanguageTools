@@ -341,7 +341,7 @@ public class SelectSegmentAlignment extends JPanel {
         }
 
         public int getMaxHeight(JTable table, int row, int column, int curHight) {
-            int otherHight = getOtherTablePrefferedHigth((column == 1) ? false : true, row, column) + hb;
+            int otherHight = getOtherTablePreferredHeight((column == 1) ? false : true, row, column) + hb;
 
             int maxHight = (curHight > otherHight) ? curHight : otherHight;
 
@@ -349,7 +349,7 @@ public class SelectSegmentAlignment extends JPanel {
         }
 
         private void setRowHeight(JTable table, int row, int column, int curHight) {
-            int otherHight = getOtherTablePrefferedHigth((column == 1) ? false : true, row, column) + hb;
+            int otherHight = getOtherTablePreferredHeight((column == 1) ? false : true, row, column) + hb;
 
             int maxHight = (curHight > otherHight) ? curHight : otherHight;
 
@@ -358,7 +358,7 @@ public class SelectSegmentAlignment extends JPanel {
             }
         }
 
-        public int getOtherTablePrefferedHigth(boolean isSource, int row, int column) {
+        public int getOtherTablePreferredHeight(boolean isSource, int row, int column) {
             int high = 0;
 
             if (isSource) {

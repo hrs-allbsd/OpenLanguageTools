@@ -26,19 +26,9 @@
 package org.jvnet.olt.editor.translation;
 
 import java.awt.*;
-import java.awt.event.*;
-
-import java.io.*;
-
-import java.util.*;
 
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
-import javax.swing.text.*;
-import javax.swing.text.html.*;
-import javax.swing.undo.*;
 
 import org.jvnet.olt.editor.model.*;
 import org.jvnet.olt.editor.util.*;
@@ -221,7 +211,7 @@ public class PivotTextRender1 implements TableCellRenderer {
     public int getMaxHeight(JTable table, int row, int column, int curHight) {
         JTable otherTable = AlignmentMain.testMain1.tableView;
 
-        int otherHight = getOtherTablePrefferedHigth((otherTable == table) ? false : true, row, column); //+10;
+        int otherHight = getOtherTablePreferredHeight((otherTable == table) ? false : true, row, column); //+10;
 
         int maxHight = (curHight > otherHight) ? curHight : otherHight;
 
@@ -231,7 +221,7 @@ public class PivotTextRender1 implements TableCellRenderer {
     private void setRowHeight(JTable table, int row, int column, int curHight) {
         JTable otherTable = AlignmentMain.testMain1.tableView;
 
-        int otherHight = getOtherTablePrefferedHigth((otherTable == table) ? false : true, row, column); //+10;
+        int otherHight = getOtherTablePreferredHeight((otherTable == table) ? false : true, row, column); //+10;
 
         int maxHight = (curHight > otherHight) ? curHight : otherHight;
 
@@ -246,7 +236,7 @@ public class PivotTextRender1 implements TableCellRenderer {
         }
     }
 
-    public int getOtherTablePrefferedHigth(boolean isSource, int row, int column) {
+    public int getOtherTablePreferredHeight(boolean isSource, int row, int column) {
         int high = 0;
 
         if (isSource) {

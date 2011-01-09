@@ -28,19 +28,13 @@ package org.jvnet.olt.editor.translation;
 import java.awt.*;
 import java.awt.event.*;
 
-import java.io.*;
-
 import java.util.*;
 import java.util.logging.Logger;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
-import javax.swing.text.*;
-import javax.swing.undo.*;
 
 import org.jvnet.olt.editor.model.*;
-import org.jvnet.olt.editor.util.*;
 
 
 public class PivotTextEditor1 extends AbstractCellEditor implements TableCellEditor {
@@ -112,7 +106,7 @@ public class PivotTextEditor1 extends AbstractCellEditor implements TableCellEdi
 
             table.setValueAt(editor.getText(), parentRow, 1);
 
-            int otherHight = getOtherTablePrefferedHigth(otherIsSrc, parentRow);
+            int otherHight = getOtherTablePreferredHeight(otherIsSrc, parentRow);
             int maxHight = (high > otherHight) ? high : otherHight;
 
             if (maxHight != table.getRowHeight(parentRow)) {
@@ -124,7 +118,7 @@ public class PivotTextEditor1 extends AbstractCellEditor implements TableCellEdi
             editor.setHeight(maxHight);
         }
 
-        public int getOtherTablePrefferedHigth(boolean isSource, int row) {
+        public int getOtherTablePreferredHeight(boolean isSource, int row) {
             int high = 0;
 
             if (isSource) {
