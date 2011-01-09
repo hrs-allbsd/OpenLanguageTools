@@ -62,7 +62,7 @@ public class OpenMiniTMPanel extends JDialog {
     private String projectName;
     private String srcLang;
     private String tgtLang;
-    private boolean didCancel;
+    private boolean didCancel = true;
 
     static private Bundle bundle = Bundle.getBundle(OpenMiniTMPanel.class.getName());
     // bug 4737485
@@ -152,7 +152,7 @@ public class OpenMiniTMPanel extends JDialog {
         this.getContentPane().add(okButton, null);
         this.getContentPane().add(cancelButton, null);
 
-        this.setSize(435, 360);
+        this.setSize(435, 365);
         this.setResizable(false);
 
         // bug 4737485
@@ -198,10 +198,10 @@ public class OpenMiniTMPanel extends JDialog {
 
     void cancelButton_actionPerformed(ActionEvent e) {
         setVisible(false);
-        didCancel = true;
     }
 
     void okButton_actionPerformed(ActionEvent e) {
+        didCancel = false;
         setVisible(false);
     }
 
