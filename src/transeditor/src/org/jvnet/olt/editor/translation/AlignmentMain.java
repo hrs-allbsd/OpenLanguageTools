@@ -1448,7 +1448,7 @@ class TranslationTypeEditor extends AbstractCellEditor implements TableCellEdito
 
 
 class IconPanel extends JPanel {
-    public final MouseAdapter dbclick = new MouseAdapter() {
+    public final static MouseAdapter dbclick = new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             if ((e.getButton() == e.BUTTON1) && (e.getClickCount() == 2)) {
                 MainFrame.getAnInstance().jMenuEditComment_actionPerformed(null);
@@ -1457,7 +1457,7 @@ class IconPanel extends JPanel {
         }
     };
 
-    public final MouseAdapter ml = new MouseAdapter() {
+    public final static MouseAdapter ml = new MouseAdapter() {
         public void mousePressed(MouseEvent e) {
             if (e.isPopupTrigger()) {
                 //logger.finer.println("isPopupTrigger");
