@@ -1406,10 +1406,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         jMenuPrint.setMnemonic('P');
         jMenuPrint.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    try {
                         jMenuPrint_actionPerformed(e);
-                    } catch (Exception ex) {
-                    }
                 }
             });
         jMenuExit.setToolTipText(bundle.getString("Exit_the_editor"));
@@ -3287,7 +3284,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         out.flush();
     }
 
-    void jMenuPrint_actionPerformed(ActionEvent e) throws IOException {
+    void jMenuPrint_actionPerformed(ActionEvent e) {
         if (!backend.hasCurrentFile()) {
             return;
         }
@@ -3771,10 +3768,10 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
             if (p != null) {
                 p.PivotPaste();
-            }
 
-            if (!p.hasFocus()) {
-                activeComponent = null;
+                if (!p.hasFocus()) {
+                    activeComponent = null;
+                }
             }
         } else if (activeComponent instanceof JTextField) {
             activeComponent.paste();
