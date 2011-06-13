@@ -691,7 +691,7 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         setMainFrameClipEnable();
 
         //long startRelease = System.currentTimeMillis();
-        boolean need_update = false; // TCS
+//        boolean need_update = false; // TCS
 
         if ((backwardDeletable == false) && (e.getKeyCode() == KeyEvent.VK_DELETE)) {
             curCharString = "";
@@ -718,7 +718,7 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
         }
 
         /* check num of elements has been changed by entered character */
-        int prev = 0;
+/*      int prev = 0;
         int after = 0;
 
         Backend backend = Backend.instance();
@@ -730,12 +730,12 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
             } else {
                 prev = (tmpdata).tmsentences[table.getSelectedRow()].getTranslationBaseElements().length;
             }
-        }
+        }*/
 
         update();
         setStyle();
 
-        if (need_update == false) {
+/*      if (need_update == false) {
             if (table == AlignmentMain.testMain1.tableView) {
                 after = (tmpdata).tmsentences[table.getSelectedRow()].getSourceBaseElements().length;
             } else {
@@ -745,7 +745,7 @@ public class PivotTextPane extends JTextPane implements DocumentListener, KeyLis
             if (prev != after) {
                 need_update = true;
             }
-        }
+        }*/
     }
 
     public void keyTyped(KeyEvent e) {
