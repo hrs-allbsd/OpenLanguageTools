@@ -89,7 +89,7 @@ public class FilePreviewPane extends JPanel implements PropertyChangeListener {
         fileNameLabel = new JLabel("");
         fileNameLabel.setPreferredSize(new Dimension(150, 30));
 
-        fileNamePanel.add(new JLabel(bundle.getString("File:")), BorderLayout.WEST);
+        fileNamePanel.add(new JLabel(bundle.getString("File:") + ' '), BorderLayout.WEST);
         fileNamePanel.add(fileNameLabel, BorderLayout.CENTER);
 
         add(fileNamePanel);
