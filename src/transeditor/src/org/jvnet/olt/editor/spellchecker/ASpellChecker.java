@@ -303,8 +303,15 @@ public class ASpellChecker extends SpellChecker{
     
     private String createASpellCommand(String fullCommand,String lang){
         String tgtLang = lang;
-        if(mappingTable.containsKey(lang))
+        if(mappingTable.containsKey(lang)){
             tgtLang = mappingTable.get(lang);
+        }else{
+            // provide a maybe similar language
+            String part = lang.split("-")[0];
+            if(mappingTable.containsKey(part)){
+                tgtLang = mappingTable.get(part);
+            }
+        }
         
         StringBuilder sb = new StringBuilder(fullCommand);
 
