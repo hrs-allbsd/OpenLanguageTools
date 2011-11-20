@@ -63,6 +63,8 @@ public class SaveAsFileThread implements Runnable {
     }
 
     public void run() {
+        frame.stopEditing();
+
         //  Raise a semaphore
         if (!frame.testAndToggleSemaphore(false)) {
             JOptionPane.showMessageDialog(frame, bundle.getString("<html>There_is_currently_a_Save_operation_taking_place.<br>_Please_wait_until_the_current_save_has_finished_before_trying_to_save_again."), bundle.getString("Save_In_Progress"), JOptionPane.ERROR_MESSAGE);
@@ -73,8 +75,8 @@ public class SaveAsFileThread implements Runnable {
 
         frame.setBHasModified(false);
 
-        AlignmentMain.testMain1.stopEditing();
-        AlignmentMain.testMain2.stopEditing();
+        //AlignmentMain.testMain1.stopEditing();
+        //AlignmentMain.testMain2.stopEditing();
 
         JFileChooser f = new JFileChooser();
         f.setMultiSelectionEnabled(false);
