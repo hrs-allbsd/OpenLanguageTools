@@ -37,7 +37,6 @@ import org.jvnet.olt.editor.util.Bundle;
 
 import java.util.logging.Logger;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.jvnet.olt.editor.util.NestableException;
 
@@ -47,19 +46,21 @@ import org.jvnet.olt.editor.util.NestableException;
  * @author  jc73554
  */
 
-//TODO break down: file selection and preparation to MainFrame;
+// TODO break down:
 // replace saving with SaveCurrentFileThread
 public class SaveAsFileThread implements Runnable {
     private static final Logger logger = Logger.getLogger(SaveAsFileThread.class.getName());
     private MainFrame frame;
     private Backend backend;
+    private File fSaveAsFile;
     private Bundle bundle = Bundle.getBundle(SaveAsFileThread.class.getName());
 
 
     /** Creates a new instance of SaveAsFileThread */
-    public SaveAsFileThread(MainFrame mainFrame, Backend backend) {
+    public SaveAsFileThread(MainFrame mainFrame, Backend backend, File file) {
         this.frame = mainFrame;
         this.backend = backend;
+        this.fSaveAsFile = file;
     }
 
     public void run() {
@@ -78,63 +79,12 @@ public class SaveAsFileThread implements Runnable {
         //AlignmentMain.testMain1.stopEditing();
         //AlignmentMain.testMain2.stopEditing();
 
-        JFileChooser f = new JFileChooser();
-        f.setMultiSelectionEnabled(false);
-        f.setAcceptAllFileFilterUsed(false);
-        f.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        int iType = 0; //0 for xlz, 1for xlf
 
         File curFile = backend.getCurrentFile();
 
         
         
-        if(OpenFileFilters.isFileNameXLZ(curFile)){
-        //if (curFile.getName().endsWith(".xlz") == true) {
-            iType = 0;
-            f.addChoosableFileFilter(OpenFileFilters.XLZ_FILTER);
-            f.setFileFilter(OpenFileFilters.XLZ_FILTER);
-        } else if (OpenFileFilters.isFileNameXLF(curFile)) {
-            iType = 1;
-            f.addChoosableFileFilter(OpenFileFilters.XLF_FILTER);
-            f.setFileFilter(OpenFileFilters.XLF_FILTER);
-        }
-
-        String fname = backend.getConfig().getStrLastFile();
-        f.setCurrentDirectory(new File(fname).getParentFile());
-        f.setSelectedFile(curFile);
-
-        File fSaveAsFile = null;
-        int result = f.showDialog(frame, bundle.getString("Save_As"));
-
-        switch (result) {
-        case JFileChooser.APPROVE_OPTION: // ok
             frame.disableGUI();
-            fSaveAsFile = f.getSelectedFile();
-
-            if (fSaveAsFile.getName().indexOf(".") != -1) {
-                if ((fSaveAsFile.getName().endsWith(".xlz") == false) && (fSaveAsFile.getName().endsWith(".xlf") == false)) {
-                    if (iType == 0) {
-                        String strTemp = fSaveAsFile.getAbsolutePath();
-                        strTemp += ".xlz";
-                        fSaveAsFile = new File(strTemp);
-                    } else {
-                        String strTemp = fSaveAsFile.getAbsolutePath();
-                        strTemp += ".xlf";
-                        fSaveAsFile = new File(strTemp);
-                    }
-                }
-            } else {
-                if (iType == 0) {
-                    String strTemp = fSaveAsFile.getAbsolutePath();
-                    strTemp += ".xlz";
-                    fSaveAsFile = new File(strTemp);
-                } else {
-                    String strTemp = fSaveAsFile.getAbsolutePath();
-                    strTemp += ".xlf";
-                    fSaveAsFile = new File(strTemp);
-                }
-            }
 
             //logger.finer(fSaveAsFile.getAbsolutePath());
             File xFile = new File(fSaveAsFile.getAbsolutePath());
@@ -142,8 +92,9 @@ public class SaveAsFileThread implements Runnable {
             if (!frame.copyFile(curFile, fSaveAsFile)) {
                 JOptionPane.showMessageDialog(frame, bundle.getString("Failed_to_Save_the_target_File"), bundle.getString("Failed_to_Save"), JOptionPane.OK_OPTION);
 
-                break;
             }
+            else {
+
 
             try{
                 backend.saveFileTo(xFile);
@@ -152,18 +103,9 @@ public class SaveAsFileThread implements Runnable {
             catch (NestableException ne){
                 JOptionPane.showMessageDialog(frame, bundle.getString("Failed_to_Save_As_the_Current_File"), bundle.getString("Failed_to_Save"), JOptionPane.OK_OPTION);
             }
-            break;
-        case JFileChooser.CANCEL_OPTION: // cancel
 
-            //  Lower a semaphore
-            if (!frame.testAndToggleSemaphore(true)) {
-                logger.severe("Error: attempt made to lower an already lowered semaphore flag.");
-
-                //TODO throw Exception???
             }
 
-            return;
-        }
 
         if ((curFile != null) && (fSaveAsFile != null) && !curFile.getName().equals(fSaveAsFile.getName())) {
             curFile = fSaveAsFile;

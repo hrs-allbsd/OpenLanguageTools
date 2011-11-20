@@ -3005,8 +3005,66 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
     void jMenuSaveAs_actionPerformed(ActionEvent e) {
         logger.info("Saving file as...");
 
+        JFileChooser f = new JFileChooser();
+        f.setMultiSelectionEnabled(false);
+        f.setAcceptAllFileFilterUsed(false);
+        f.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int iType = 0; //0 for xlz, 1for xlf
+
+        File curFile = backend.getCurrentFile();
+
+        if(OpenFileFilters.isFileNameXLZ(curFile)){
+        //if (curFile.getName().endsWith(".xlz") == true) {
+            iType = 0;
+            f.addChoosableFileFilter(OpenFileFilters.XLZ_FILTER);
+            f.setFileFilter(OpenFileFilters.XLZ_FILTER);
+        } else if (OpenFileFilters.isFileNameXLF(curFile)) {
+            iType = 1;
+            f.addChoosableFileFilter(OpenFileFilters.XLF_FILTER);
+            f.setFileFilter(OpenFileFilters.XLF_FILTER);
+        }
+
+        String fname = backend.getConfig().getStrLastFile();
+        f.setCurrentDirectory(new File(fname).getParentFile());
+        f.setSelectedFile(curFile);
+
+        File fSaveAsFile = null;
+        int result = f.showDialog(this, bundle.getString("Save_As"));
+
+        if (JFileChooser.APPROVE_OPTION != result) {
+            logger.info("Saving file as... -> Cancel");
+            return;
+        }
+
+        fSaveAsFile = f.getSelectedFile();
+
+        if (fSaveAsFile.getName().indexOf(".") != -1) {
+            if ((fSaveAsFile.getName().endsWith(".xlz") == false) && (fSaveAsFile.getName().endsWith(".xlf") == false)) {
+                if (iType == 0) {
+                    String strTemp = fSaveAsFile.getAbsolutePath();
+                    strTemp += ".xlz";
+                    fSaveAsFile = new File(strTemp);
+                } else {
+                    String strTemp = fSaveAsFile.getAbsolutePath();
+                    strTemp += ".xlf";
+                    fSaveAsFile = new File(strTemp);
+                }
+            }
+        } else {
+            if (iType == 0) {
+                String strTemp = fSaveAsFile.getAbsolutePath();
+                strTemp += ".xlz";
+                fSaveAsFile = new File(strTemp);
+            } else {
+                String strTemp = fSaveAsFile.getAbsolutePath();
+                strTemp += ".xlf";
+                fSaveAsFile = new File(strTemp);
+            }
+        }
+
         try {
-            Runnable saveAsRunnable = new SaveAsFileThread(this, backend);
+            Runnable saveAsRunnable = new SaveAsFileThread(this, backend, fSaveAsFile);
             Thread saveAsThread = new Thread(saveAsRunnable);
             saveAsThread.start();
         } catch (Exception ex) {
