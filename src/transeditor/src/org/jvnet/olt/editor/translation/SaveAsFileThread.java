@@ -76,9 +76,6 @@ public class SaveAsFileThread implements Runnable {
         AlignmentMain.testMain1.stopEditing();
         AlignmentMain.testMain2.stopEditing();
 
-        Object[] message = new Object[2];
-        message[0] = bundle.getString("Please_select_a_.xlz_or_.xlf_file_to_open:");
-
         JFileChooser f = new JFileChooser();
         f.setMultiSelectionEnabled(false);
         f.setAcceptAllFileFilterUsed(false);
@@ -104,9 +101,6 @@ public class SaveAsFileThread implements Runnable {
         String fname = backend.getConfig().getStrLastFile();
         f.setCurrentDirectory(new File(fname).getParentFile());
         f.setSelectedFile(curFile);
-        
-        message[1] = f;
-        String[] options = { bundle.getString("OK"), bundle.getString("Cancel") };
 
         File fSaveAsFile = null;
         int result = f.showDialog(frame, bundle.getString("Save_As"));
