@@ -6557,7 +6557,7 @@ OUTER2:
     }
 
     protected String getUnreviewedSegList(boolean boolAddHtmlBreaks) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         //  Loop over each segment and test if the reviewer has passed it
         TMData tmpdata = backend.getTMData();
@@ -6716,8 +6716,8 @@ OUTER2:
      */
     private String loadLicense() throws NullPointerException, IOException {
         InputStream is = getClass().getResourceAsStream("/LICENSE.txt");
-        LineNumberReader lnr = new LineNumberReader(new InputStreamReader(is, "UTF-8"));
-        StringBuffer sb = new StringBuffer();
+        BufferedReader lnr = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+        StringBuilder sb = new StringBuilder();
 
         String line = null;
 
