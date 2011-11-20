@@ -2836,9 +2836,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
             return false;
         }
 
-        Object[] message = new Object[2];
-        message[0] = bundle.getString("Please_select_a_.xlf_or_.xlz_file_to_open:");
-
         JFileChooser f = new JFileChooser();
 
         f.setAccessory(new FilePreviewPane(f));
@@ -2858,10 +2855,6 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         } else {
             f.setCurrentDirectory(new File(backend.getConfig().getStrLastFile()).getParentFile());
         }
-
-        message[1] = f;
-
-        String[] options = { bundle.getString("Open"), bundle.getString("Cancel") };
 
         int result = f.showOpenDialog(this);
 
