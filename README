@@ -20,6 +20,7 @@ Documentation file types
     * JSP
     * XML (generic - needs a configuration file for each XML type)
     * OpenOffice.org : sxw, sxc, sxi
+    * Open Document Format : odt, ods, odp, odg
     * Plain text
 
 Software file types
