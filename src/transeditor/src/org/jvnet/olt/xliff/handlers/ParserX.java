@@ -168,6 +168,7 @@ public class ParserX extends DefaultHandler {
         
         // MOD ADD START SJH100228 Fixing bug with namespaces not being retained.
         // Ref: https://open-language-tools.dev.java.net/servlets/ReadMsg?list=dev&msgNo=617
+        // New: http://java.net/projects/open-language-tools/lists/dev/archive/2010-02/
         while ( !xmlnsDeclarationStack.empty() ){
             String[] ns = (String[]) xmlnsDeclarationStack.pop();
             elem.addNamespaceDeclaration(ns[1], ns[0]);
