@@ -36,7 +36,7 @@ if [ -d "$JAVA_HOME" ] ; then
 fi
 
 if [ -z "$JAVA" ] ; then 
-	echo "Java does not seem to be on your system path. Please set JAVA_HOME to point to instllation of java"
+	echo "Java does not seem to be on your system path. Please set JAVA_HOME to point to installation of java"
 	exit 0
 fi
 

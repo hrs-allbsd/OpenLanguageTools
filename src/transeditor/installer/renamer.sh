@@ -35,14 +35,14 @@ if [ -d "$JAVA_HOME" ] ; then
 fi
 
 if [ -z "$JAVA" ] ; then 
-	echo "java does not seem to be on your system path. Please set JAVA_HOME to point to instllation of java"
+	echo "java does not seem to be on your system path. Please set JAVA_HOME to point to installation of java"
 	exit 0
 fi
 
 LOGGING=-Djava.util.logging.config.file=logging.properties
 
 echo "Using java: $JAVA"
-echo "Installation direcotry: $INSTALL_PATH"
+echo "Installation directory: $INSTALL_PATH"
 echo "Classpath: $CLASSPATH"
 
 		

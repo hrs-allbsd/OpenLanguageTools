@@ -1,11 +1,11 @@
-Open Language XLIFF Translation Editor Instalation 
-==================================================
+Open Language XLIFF Translation Editor Installation 
+===================================================
 
 Requirements
 ------------
 
 Before installation of the editor, please make sure Java
-enviroment is installed on your system and works.
+environment is installed on your system and works.
 
 You can download the Java JRE (or JDK) from sun's pages
 (http://java.sun.com)
@@ -51,7 +51,7 @@ Windows:
 	Java HotSpot(TM) Client VM (build 1.5.0_04-b05, mixed mode, sharing)
 
 	Please check the version of java you use is at least 1.4.2_03. If it's not
-	download and install appropriate versio of Java JRE on your system.
+	download and install appropriate version of Java JRE on your system.
 
 	2. If you are sure correct version of java is installed on your system,
 	try to click on the transeditor_v<VERSION>_win.jar file (the <VERSION>

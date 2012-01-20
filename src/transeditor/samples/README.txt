@@ -2,7 +2,7 @@ This directory contains sample .xlz files for some of the supported
 formats.
 
 All files except those listed below do not contain translation, nor their
-target language is set, so you can ope them in any project.
+target language is set, so you can open them in any project.
 
 Instructions on how to set the editor to test the samples:
 - for files which do *not* have target language set create a project
@@ -22,5 +22,5 @@ a project with the same language pair
 
 src lang       tgt lang       file
 en-US          cs-CZ          po/gedit.gnome-2-12.cs.po.xlz
-en-US		   fr-FR		  properties/XliffFilterGUIMessages.properties.xlz
+en-US          fr-FR          properties/XliffFilterGUIMessages.properties.xlz
 
