@@ -1,4 +1,4 @@
 #!/bin/sh
 CLASSPATH=/space/timf/transtech/build/filters.jar
 export CLASSPATH
-java com.sun.tt.filters.software.SoftwareMessageLayout
+java org.jvnet.olt.filters.software.SoftwareMessageLayout

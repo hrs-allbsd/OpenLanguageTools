@@ -1,4 +1,4 @@
 #!/bin/sh
 CLASSPATH=/space/timf/transtech-build
 export CLASSPATH
-java com.sun.tmc.parsers.SgmlDocFragmentParser.ViewStrings $@
+java org.jvnet.olt.parsers.SgmlDocFragmentParser.ViewStrings $@

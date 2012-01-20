@@ -3,4 +3,4 @@
 CLASSPATH=../classes
 export CLASSPATH
 
-java -Xmx128M -classpath ${CLASSPATH} com.sun.tlis.filters.en_segmenter.ViewCollections $*
+java -Xmx128M -classpath ${CLASSPATH} org.jvnet.olt.filters.en_segmenter.ViewCollections $*

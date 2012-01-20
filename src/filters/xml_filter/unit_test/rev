@@ -4,4 +4,4 @@ CLASSPATH=${TT_WS_ROOT}/build/filters:${TT_WS_ROOT}/build/tt-common.jar:${TT_WS_
 export CLASSPATH
 xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=58000"
 
-java -Xmx512m ${DEBUG} com.sun.transtech.filters.xml.XmlToXliffReverse /space/timf/suntrans2-dtds/xml-config.dtd /space/timf/suntrans2-dtds/xml-filter-config $1 en-US $2 /space/timf/suntrans2-dtds/empty.dtd
+java -Xmx512m ${DEBUG} org.jvnet.olt.filters.xml.XmlToXliffReverse /space/timf/suntrans2-dtds/xml-config.dtd /space/timf/suntrans2-dtds/xml-filter-config $1 en-US $2 /space/timf/suntrans2-dtds/empty.dtd

@@ -2,4 +2,4 @@
 export CLASSPATH=../classes
 xLOGGING="-Djava.util.logging.config.file=/export/home/backup/XliffBackConverter/logging.properties"
 
-java ${LOGGING}  -classpath ${CLASSPATH} com.sun.transtech.parsers.mapping.SuntransMappingFile $@
+java ${LOGGING}  -classpath ${CLASSPATH} org.jvnet.olt.parsers.mapping.SuntransMappingFile $@

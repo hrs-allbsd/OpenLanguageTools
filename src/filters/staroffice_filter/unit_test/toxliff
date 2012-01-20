@@ -3,4 +3,4 @@ CLASSPATH=${TT_WS_ROOT}/build/tt-common.jar:${TT_WS_ROOT}/build/filters:${TT_WS_
 export CLASSPATH
 xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=58000"
 
-java -Xmx512m ${DEBUG} com.sun.tt.filters.ooo.OOoToXliff $1 /space/timf/suntrans2-dtds/xml-config.dtd /space/timf/suntrans2-dtds/xml-filter-config/
+java -Xmx512m ${DEBUG} org.jvnet.olt.filters.ooo.OOoToXliff $1 /space/timf/suntrans2-dtds/xml-config.dtd /space/timf/suntrans2-dtds/xml-filter-config/

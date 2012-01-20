@@ -3,4 +3,4 @@ CLASSPATH=../po_file/:${TT_WS_ROOT}/src/filters/software_filters/software:${TT_W
 xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=58000"
 
 export CLASSPATH
-java ${DEBUG} -Xmx512m com.sun.tt.filters.software.SoftwareToXliff $@
+java ${DEBUG} -Xmx512m org.jvnet.olt.filters.software.SoftwareToXliff $@

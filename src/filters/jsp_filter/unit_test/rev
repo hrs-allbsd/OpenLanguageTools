@@ -1,4 +1,4 @@
 #!/bin/sh
 CLASSPATH=..:../../sgml_filter:${TT_WS_ROOT}/../transtech-build/:${TOP}/utilities/jars/junit.jar
 export CLASSPATH
-java com.sun.tt.filters.jsp.JspToXliff_Reverse $@
+java org.jvnet.olt.jsp.JspToXliff_Reverse $@

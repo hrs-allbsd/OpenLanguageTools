@@ -2,4 +2,4 @@
 TOP=/space/timf/suntrans2
 CLASSPATH=${TOP}/sgml_doc_fragment/classes:${TOP}/sgml_tag_parser/classes:${TOP}/html_parser/build:${TOP}/filters/build:${TOP}/html_parser:/tmc2/inf/source_code/transtech-build/:/space/timf/suntrans2/alignment_interface
 export CLASSPATH
-java com.sun.tt.filters.html.TestEntities $@
+java org.jvnet.olt.filters.html.TestEntities $@

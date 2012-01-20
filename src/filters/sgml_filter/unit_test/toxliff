@@ -5,4 +5,4 @@ export CLASSPATH
 xDEBUG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=58000"
 
 
-java ${DEBUG} com.sun.tt.filters.sgml.docbook.DocbookToXliff $@
+java ${DEBUG} org.jvnet.olt.filters.sgml.docbook.DocbookToXliff $@

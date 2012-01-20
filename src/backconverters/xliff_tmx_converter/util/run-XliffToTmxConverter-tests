@@ -4,4 +4,4 @@ CLASSPATH=../cvs/utilities/jars/junit.jar:../transtech-build:../transtech-build-
 
 export CLASSPATH
 
-java -classpath ${CLASSPATH} junit.textui.TestRunner com.sun.transtech.xliff_tmx_converter.XliffToTmxConverterTestSuite
+java -classpath ${CLASSPATH} junit.textui.TestRunner org.jvnet.olt.xliff_tmx_converter.XliffToTmxConverterTestSuite

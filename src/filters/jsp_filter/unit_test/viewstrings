@@ -1,3 +1,3 @@
 #!/bin/bash 
 export CLASSPATH=${TT_WS_ROOT}/../transtech-build
-java com.sun.tt.filters.NonConformantSgmlDocFragmentParser.ViewStrings $@
+java org.jvnet.olt.filters.NonConformantSgmlDocFragmentParser.ViewStrings $@
