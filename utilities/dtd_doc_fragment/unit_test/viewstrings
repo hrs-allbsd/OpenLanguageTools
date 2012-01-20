@@ -1,2 +1,2 @@
 #!/bin/sh
-java com.sun.tt.parsers.DTDDocFragmentParser.ViewStrings $1
+java org.jvnet.olt.parsers.DTDDocFragmentParser.ViewStrings $1

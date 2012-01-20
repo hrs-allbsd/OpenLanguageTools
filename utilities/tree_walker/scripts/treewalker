@@ -12,5 +12,5 @@ export TT_WS_ROOT
 CLASSPATH=../classes:${TT_WS_ROOT}/utilities/jars/oracle-jdbc.jar
 export CLASSPATH
 
-java -classpath ${CLASSPATH} com.sun.transtech.gibbon.IndexTreeWalker $1 $2 $3 $4
+java -classpath ${CLASSPATH} org.jvnet.olt.gibbon.IndexTreeWalker $1 $2 $3 $4
 

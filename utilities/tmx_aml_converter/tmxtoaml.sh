@@ -1,1 +1,1 @@
-java -classpath TmxAmlConverter.jar:classes/jdom.jar com.sun.transtech.tmx_aml_converter.TmxToAmlTest "$@"
+java -classpath TmxAmlConverter.jar:classes/jdom.jar org.jvnet.olt.tmx_aml_converter.TmxToAmlTest "$@"
