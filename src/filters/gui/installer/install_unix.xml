@@ -3,9 +3,8 @@
 
 <!-- WARNING: all VERSION tokens surrounded by @ will be replaced by ant
 	directory -->
-	
-
 <installation version="1.0">
+
     <info>
         <appname>Open Language Tools XLIFF Filters</appname>
         <appversion>@VERSION@ </appversion>

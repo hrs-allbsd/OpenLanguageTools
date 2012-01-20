@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
 <!-- WARNING: all VERSION tokens surrounded by @ will be replaced by ant
 	directory -->
-
 <shortcuts>
 
   <programGroup defaultName="Open Language Tools XLIFF Filters @VERSION@" location="applications"/>
@@ -20,7 +20,7 @@
      iconFile="$INSTALL_PATH/icons/filters.ico"
      iconIndex="0"
      encoding="UTF-8"
-     description="Launch the Open Langage Tools XLIFF Filters">
+     description="Launch the Open Language Tools XLIFF Filters">
 
      <createForPack name="Open Language Tools XLIFF Filters"/>
    </shortcut>

@@ -7,7 +7,7 @@
   <programGroup defaultName="Open Language Tools XLIFF Translation Editor @VERSION@" location="applications"/>
 
    <shortcut
-     name="OLT XLIFF Translation Editor"
+     name="Open Language Tools XLIFF Translation Editor"
      programGroup="yes"
      desktop="yes"
      applications="yes"
@@ -23,7 +23,7 @@
      type="Application"
      description="Launch the Open Language Tools XLIFF Translation Editor">
    </shortcut>
-  
+
    <shortcut
      name="User Manual"
      programGroup="yes"
@@ -39,9 +39,9 @@
      description="Open Language Tools XLIFF Translation Editor User Guide">
 
    </shortcut>
-    
+
    <shortcut
-     name="OLT XLIFF Editor Uninstaller"
+     name="Open Language Tools XLIFF Editor Uninstaller"
      programGroup="yes"
      desktop="yes"
      applications="no"

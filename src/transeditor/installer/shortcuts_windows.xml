@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
 <!-- WARNING: all VERSION tokens surrounded by @ will be replaced by ant
 	directory -->
 
@@ -21,9 +22,9 @@
      iconIndex="0"
      encoding="UTF-8"
      type="Application"     
-     description="Launch the Open Langage Tools XLIFF Translation Editor">
-
+     description="Launch the Open Language Tools XLIFF Translation Editor">
    </shortcut>
+
    <shortcut
      name="User Manual"
      programGroup="yes"
@@ -56,4 +57,5 @@
      encoding="UTF-8"
      description="IzPack uninstaller">
    </shortcut>
+
 </shortcuts>

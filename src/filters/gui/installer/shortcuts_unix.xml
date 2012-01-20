@@ -4,10 +4,10 @@
 	directory -->
 <shortcuts>
 
-  <programGroup defaultName="Open Language Tools XLIFF Translation Editor @VERSION@" location="applications"/>
+  <programGroup defaultName="Open Language Tools XLIFF Filters @VERSION@" location="applications"/>
 
    <shortcut
-     name="Open Language Tools XLIFF XLIFF Filters"
+     name="Open Language Tools XLIFF Filters"
      programGroup="yes"
      desktop="no"
      applications="yes"

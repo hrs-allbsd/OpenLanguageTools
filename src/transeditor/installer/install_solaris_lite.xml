@@ -3,9 +3,8 @@
 
 <!-- WARNING: all VERSION tokens surrounded by @ will be replaced by ant
 	directory -->
-	
-
 <installation version="1.0">
+
     <info>
         <appname>Open Language Tools XLIFF Translation Editor</appname>
         <appversion>@VERSION@</appversion>
@@ -40,7 +39,7 @@
     
     <packs>
         <pack name="Open Language Tools XLIFF Translation Editor" required="yes">
-            <description>This component includes all the needed Translation Editor files</description>
+            <description>This component includes all the needed XLIFF Translation Editor files</description>
             <file src="LICENSE.txt" targetdir="$INSTALL_PATH"/>
             <file src="THIRDPARTYREADME" targetdir="$INSTALL_PATH"/>
             <fileset dir="." targetdir="$INSTALL_PATH">
@@ -68,6 +67,7 @@
             <fileset dir="samples/" targetdir="$INSTALL_PATH/samples/"> 
                 <include name="**/*"/>
             </fileset>
-		</pack>
+        </pack>
     </packs>
+
 </installation>
