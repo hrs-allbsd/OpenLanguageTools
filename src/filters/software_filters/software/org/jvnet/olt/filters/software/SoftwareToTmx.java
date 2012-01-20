@@ -496,7 +496,7 @@ public class SoftwareToTmx {
             reader = readerWarn;
         }
 
-        String[] args = new String[1];
+        Object[] args = new Object[1];
         args[0] = file.getAbsolutePath();
         System.err.println(MessageFormat.format("Parsing file ... {0}\n",args));
 
