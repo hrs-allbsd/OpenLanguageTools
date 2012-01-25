@@ -68,7 +68,7 @@ public class ASpellCustomizerPanel extends javax.swing.JPanel {
                 new JComboBox(
                 Languages.getLanguages())));
         
-        languageMappingTable.getColumn(bundle.getString("Spellchecker_language")).setCellEditor(
+        languageMappingTable.getColumn("Spellchecker language").setCellEditor( // see TableModel
                 new DefaultCellEditor(new JTextField()));
         
         languageMappingTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
