@@ -28,7 +28,7 @@
 package src.filters.xliff_validator;
 
 import java.io.*;
-import com.sun.tmc.parsers.SgmlDocFragmentParser.*;
+import org.jvnet.olt.parsers.SgmlDocFragmentParser.*;
 /**
  * This code was written in a hurry to fix the output from the conv2tmx.pl program
  * which takes trados .txt tms and converts them to slightly broken TMX. All that's
@@ -40,7 +40,7 @@ import com.sun.tmc.parsers.SgmlDocFragmentParser.*;
  *
  * @author  timf
  */
-public class FixBrokenTMX implements com.sun.tmc.parsers.SgmlDocFragmentParser.SgmlDocFragmentParserVisitor, com.sun.tmc.parsers.SgmlDocFragmentParser.SgmlDocFragmentParserTreeConstants {
+public class FixBrokenTMX implements org.jvnet.olt.parsers.SgmlDocFragmentParser.SgmlDocFragmentParserVisitor, org.jvnet.olt.parsers.SgmlDocFragmentParser.SgmlDocFragmentParserTreeConstants {
     
     private boolean inItTag = false;
     Writer writer;
@@ -74,7 +74,7 @@ public class FixBrokenTMX implements com.sun.tmc.parsers.SgmlDocFragmentParser.S
         
     }
     
-    public Object visit(com.sun.tmc.parsers.SgmlDocFragmentParser.SimpleNode node, Object data) {
+    public Object visit(org.jvnet.olt.parsers.SgmlDocFragmentParser.SimpleNode node, Object data) {
         try {
             switch (node.getType()){
                 case JJTOPEN_TAG:
