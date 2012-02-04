@@ -55,6 +55,7 @@ import org.jvnet.olt.xliff.TrackingSourceContext;
 import org.jvnet.olt.xliff.TransFile;
 import org.jvnet.olt.xliff.TransUnit;
 import org.jvnet.olt.xliff.TransUnitId;
+import org.jvnet.olt.xliff.ReaderException;
 import org.jvnet.olt.xliff.UnknownXLIFFVersionException;
 import org.jvnet.olt.xliff.Version;
 import org.jvnet.olt.xliff.XLIFFBasicSentence;
@@ -232,12 +233,10 @@ public class Context implements XLIFFModel {
         return new TransUnitId(id, currentFile);
     }
 
-    public void addTransUnit(TransUnit tu) {
+    public void addTransUnit(TransUnit tu) throws ReaderException {
         if (groupZeroSource.containsKey(tu.getId().getStrId())) {
-            //TODO throw an exception !!!
             logger.warning("TransUnit with id:" + tu.getId().getStrId() + " already exists!");
-
-            return;
+            throw new ReaderException("trans-unit with duplicate id " + tu.getId().getStrId());
         }
 
         transUnits.put(tu.getId(), tu);

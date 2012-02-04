@@ -78,6 +78,7 @@ import org.jvnet.olt.fuzzy.basicsearch.BasicFuzzySearchMiniTM;
 import org.jvnet.olt.minitm.AlignedSegment;
 import org.jvnet.olt.minitm.MiniTM;
 import org.jvnet.olt.minitm.MiniTMException;
+import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.jvnet.olt.util.FileUtils;
 
@@ -6870,6 +6871,9 @@ OUTER2:
                 NestableException ne = (NestableException)exce;
                 Throwable th2 = ne.getCause();
 
+                if(th2 instanceof SAXException) {
+                    msg = bundle.getString("An_XLIFF_error_occured:")+th2.getMessage();
+                }
                 if(th2 instanceof SAXParseException){
                     SAXParseException sxe = (SAXParseException)th2;
                     msg = MessageFormat.format(bundle.getString("The_file_is_not_well-formed_XML_document.Error_occured_at_line_{0}_column:_{1}_Error_message:_{2}"),sxe.getLineNumber(),sxe.getColumnNumber(),sxe.getMessage() );

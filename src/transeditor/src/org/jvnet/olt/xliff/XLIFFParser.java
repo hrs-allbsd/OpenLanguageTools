@@ -122,7 +122,7 @@ public class XLIFFParser {
             try {
                 guessFileVersion(isr);
                 if(version == null)
-                    throw new NestableException("Wrong version");
+                    throw new SAXException("wrong version");
                 
             } finally {
                 if(isr != null)
