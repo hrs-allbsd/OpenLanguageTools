@@ -38,7 +38,6 @@ import junit.framework.*;
 import org.jvnet.olt.format.sgml.FormatExtractionTest;
 import org.jvnet.olt.format.sgml.FormatComparisonTest;
 import org.jvnet.olt.format.sgml.SgmlFormatWrapperTest;
-import org.jvnet.olt.format.xml.XmlFormatWrapperTest;
 
 public class FormattingTestSuite
 extends TestCase
