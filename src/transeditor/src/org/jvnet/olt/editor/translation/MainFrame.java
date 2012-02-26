@@ -4919,7 +4919,7 @@ OUTER2:
 
         TMData tmpdata = backend.getTMData();
 
-        int index = ((JComboBox)jComboBoxSearch).getSelectedIndex();
+        int index = jComboBoxSearch.getSelectedIndex();
 
         if (index == 0) { // next segment
             start++;
@@ -4994,6 +4994,7 @@ OUTER2:
 
                         return;
                     }
+                    break;
 
                 case JOptionPane.NO_OPTION:
                     //
@@ -5023,7 +5024,7 @@ OUTER2:
 
         TMData tmpdata = backend.getTMData();
 
-        int index = ((JComboBox)jComboBoxSearch).getSelectedIndex();
+        int index = jComboBoxSearch.getSelectedIndex();
 
         if (index == 0) { // previous segment
             start--;
@@ -5100,6 +5101,7 @@ OUTER2:
 
                         return;
                     }
+                    break;
 
                 case JOptionPane.NO_OPTION:
                     //
