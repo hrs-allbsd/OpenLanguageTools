@@ -331,6 +331,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
      */
     private JMenu menuHelp = new JMenu();
     private JMenuItem jMenuHelpAbout = new JMenuItem();
+    private JMenuItem jMenuHelpManual = new JMenuItem();
     private JMenuItem jMenuHelpLicense = new JMenuItem();
     //private JMenuItem jMenuHelpIndex = new JMenuItem();
 
@@ -2160,6 +2161,34 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                 }
             });
 
+        jMenuHelpManual.setName("Manual");
+        jMenuHelpManual.setText(bundle.getString("Manual"));
+        jMenuHelpManual.setMnemonic('M');
+        jMenuHelpManual.setToolTipText(bundle.getString("Display_manual"));
+        File manualPath = backend.getConfig().getInstallHome();
+        String[] pdfs = manualPath.list(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.startsWith("OLT_XLIFF_Translation_Editor_Manual_")
+                    && name.endsWith(".pdf");
+            }
+        });
+        if ((pdfs != null) && (0 < pdfs.length)) {
+            final File file = new File(manualPath, pdfs[0]);
+            jMenuHelpManual.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        Desktop.getDesktop().open(file); // needs at least Java 1.6 and PDF viewer
+                    } catch (Throwable ex) {
+                        ex.printStackTrace();
+                        String msg = bundle.getString("Please_open_the_following_file_in_an_external_program_to_display_the_manual:") + " \n" + file;
+                        JOptionPane.showMessageDialog(MainFrame.this, msg, bundle.getString("Manual"), JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            });
+        } else {
+            jMenuHelpManual.setEnabled(false);
+        }
+
         jMenuHelpAbout.setName("About");
         jMenuHelpAbout.setText(bundle.getString("About"));
         jMenuHelpAbout.setMnemonic('A');
@@ -2357,6 +2386,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
         //menuHelp.add(jMenuHelpIndex);
         //menuHelp.addSeparator();
         menuHelp.add(jMenuHelpLicense);
+        menuHelp.add(jMenuHelpManual);
         menuHelp.addSeparator();
         menuHelp.add(jMenuHelpAbout);
 
