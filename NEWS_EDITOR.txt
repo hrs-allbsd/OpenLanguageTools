@@ -1,0 +1,48 @@
+
+= Open Language Tools XLIFF Translation Editor =
+
+== Version history ==
+
+== 1.4.0_dev (not released yet) ==
+
+Changes in source code repository which may be included in next release:
+
+ * Added a possibility to display the PDF manual using editor's help menu.
+ * Enabled some more useful error messages (e.g. if loading XLIFF failed).
+ * Fixed crash if loading a XLIFF file containing duplicate trans-unit ids.
+ * Fixed not correctly working "spellchecker configuration" dialog (was problem for translated GUI).
+ * Changed installer configuration to be more consistent (path, names) across different platforms.
+ * Added Russian GUI translation contribution by Dimitry Prihodko.
+ * Fixed possible crash on "Save As" and multiple other possible crashes.
+ * Changed spellchecker to work for more different language codes (was limitation on Windows only).
+ * Fixed bug which opened a project if "open project" dialog was closed using title bar.
+ * Fixed crash if XLIFF validation was disabled and no data type was supplied in file.
+ * Corrected layout of "new project" dialog.
+ * Added support for opening different browsers when using print option (was limitation on *nix).
+ * Fixed possible problem when saving changes from source translation.
+ * Corrected HTML creation for print to be more valid (and therefore more consistently interpreted).
+ * Changed tool bar button for open file operation to behave like the similar entry in menu.
+ * Corrected inconsistent formatting in title bar (a really minor problem).
+ * Corrected problem with new projects not instantly showing up in dialog (had to be restarted).
+ * Fixed crash if "new project" dialog was closed using title bar instead of cancel button.
+ * Corrected problem with disabled replace buttons in "find/replace" dialog.
+ * Fixed possible crash when trying to open dialog immediately after startup.
+ * Fixed crash when clicking on controls with invalid value in box of "auto save" dialog.
+ * Improved installer compatibility with newer versions of Microsoft Windows.
+ * Fixed possible crash when editing translations immediately after startup.
+ * Spelling and other corrections and additions for some of the translations.
+ * Small source code improvements and optimizations, added new log messages.
+ * Updated and improved documentation and website (also more valid XHTML).
+
+=== 1.4.0 (not released yet) ===
+
+ * see EDITOR_RELEASE_NOTES_1.4.txt
+
+=== 1.3.1 (2010-03-15) ===
+
+ * see EDITOR_RELEASE_NOTES_1.3.1.txt
+
+=== 1.3.0 (2009-09-20) ===
+
+ * see EDITOR_RELEASE_NOTES_1.3.0.txt
+
