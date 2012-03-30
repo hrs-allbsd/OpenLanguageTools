@@ -1,0 +1,15 @@
+
+= Open Language Tools XLIFF Filters =
+
+== Version history ==
+
+=== 1.2.8_dev (not released yet) ===
+
+Changes in source code repository which may be included in next release:
+
+ * Changed installer configuration to be more consistent (path, names) across different platforms.
+ * Added German GUI translation contributed by Philipp Wiesemann.
+ * Fixed multiple problems with not closed files (on systems with file locking like Windows only).
+ * Spelling and other corrections and additions for some of the translations.
+ * Small source code improvements and optimizations, corrected log messages.
+ * Updated and improved documentation and website (also more valid XHTML).
