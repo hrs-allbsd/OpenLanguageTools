@@ -163,8 +163,6 @@ public class MergeMiniTMTablePanel extends JPanel {
                 if ((i > 0) && (i < (filename.length() - 1))) {
                     return filename.substring(i + 1);
                 }
-
-                ;
             }
 
             return null;
@@ -383,7 +381,7 @@ public class MergeMiniTMTablePanel extends JPanel {
 
         org.jvnet.olt.minitm.AlignedSegment[] segs = null;
         java.util.Hashtable flags = new java.util.Hashtable(); //1--to be added  ;0 --- unknown   -1--- to be deleted
-        java.util.Vector unmergedSegments = new java.util.Vector();
+        //java.util.Vector unmergedSegments = new java.util.Vector();
 
         org.jvnet.olt.minitm.MiniTM tempSrc = null;
 
@@ -759,7 +757,7 @@ public class MergeMiniTMTablePanel extends JPanel {
             destMiniTM.saveMiniTmToFile();
 
             org.jvnet.olt.editor.model.TransProject project = ((MergeMiniTMPanel)dlg).project;
-            String temp1 = project.getProjectName() + "_" + project.getSrcLang() + "_" + project.getTgtLang();
+            //String temp1 = project.getProjectName() + "_" + project.getSrcLang() + "_" + project.getTgtLang();
 
             //TODO get rod of this !!!
             //projectHistory.add(projectHistory.isEmpty() ? 0 : 1, temp1);
@@ -779,7 +777,7 @@ public class MergeMiniTMTablePanel extends JPanel {
             srcMiniTMs = null;
             segs = null;
             flags = null;
-            unmergedSegments = null;
+            //unmergedSegments = null;
         }
     }
 
