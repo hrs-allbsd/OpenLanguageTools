@@ -98,7 +98,7 @@ public class PivotText {
 
     public boolean isAllText() {
         for (int i = 0; i < elements.length; i++) {
-            PivotBaseElement e = (PivotBaseElement)elements[i];
+            PivotBaseElement e = elements[i];
 
             if (e.getFlag()) {
                 return false;
@@ -116,7 +116,7 @@ public class PivotText {
         StringBuffer temp = new StringBuffer("");
 
         for (int i = 0; i < elements.length; i++) {
-            PivotBaseElement e = (PivotBaseElement)elements[i];
+            PivotBaseElement e = elements[i];
 
             if (e.getFlag()) {
                 temp.append(e.getContent());
@@ -136,7 +136,7 @@ public class PivotText {
         StringBuffer temp = new StringBuffer("");
 
         for (int i = 0; i < elements.length; i++) {
-            PivotBaseElement e = (PivotBaseElement)elements[i];
+            PivotBaseElement e = elements[i];
 
             if (!e.getFlag()) {
                 temp.append(e.getContent());
@@ -158,7 +158,7 @@ public class PivotText {
         int indexOfTagA = -1;
 
         for (int i = 0; i < elements.length; i++) {
-            PivotBaseElement e = (PivotBaseElement)elements()[i];
+            PivotBaseElement e = elements()[i];
 
             if (!e.getFlag()) {
                 sb.append(e.getContent());
@@ -170,7 +170,7 @@ public class PivotText {
                     indexOfTagA = getIndexOfTagA(p, indexOfTagA + 1);
 
                     if (indexOfTagA != -1) {
-                        PivotBaseElement srce = (PivotBaseElement)p.elements()[indexOfTagA];
+                        PivotBaseElement srce = p.elements()[indexOfTagA];
                         sb.append(srce.getContent());
                     }
                 } else {
@@ -184,7 +184,7 @@ public class PivotText {
 
     public int getIndexOfTagA(PivotText p, int index) {
         for (int i = index; i < p.elements.length; i++) {
-            PivotBaseElement e = (PivotBaseElement)p.elements[i];
+            PivotBaseElement e = p.elements[i];
 
             if (e.getFlag()) {
                 String tag = e.getTagName();
@@ -260,7 +260,7 @@ public class PivotText {
         }
 
         for (int i = 0; i < p.elements().length; i++) {
-            PivotBaseElement e = (PivotBaseElement)p.elements()[i];
+            PivotBaseElement e = p.elements()[i];
 
             if (e.getFlag()) {
                 if (e.getTagName().toLowerCase().equals(tagName.toLowerCase())) {
@@ -316,7 +316,7 @@ public class PivotText {
 
     private int getFirstTagPosition(PivotText p) {
         for (int i = 0; i < p.elements.length; i++) {
-            PivotBaseElement e = (PivotBaseElement)p.elements[i];
+            PivotBaseElement e = p.elements[i];
 
             if (e.getFlag()) {
                 if (e.getContent().startsWith("&")) {
@@ -332,7 +332,7 @@ public class PivotText {
 
     private int getTagIndexFrom(PivotText p, int index) {
         for (int i = index; i < p.elements.length; i++) {
-            PivotBaseElement e = (PivotBaseElement)p.elements[i];
+            PivotBaseElement e = p.elements[i];
 
             if (e.getFlag()) {
                 if (e.getContent().startsWith("&")) {
@@ -448,7 +448,7 @@ public class PivotText {
         if (selectIdStart != selectIdEnd) {
             if (tagProtection) { //parent.tagProtection) {
 
-                PivotBaseElement pbe = (PivotBaseElement)elements[selectIdStart];
+                PivotBaseElement pbe = elements[selectIdStart];
 
                 if (pbe.getFlag()) {
                     return false;
@@ -456,7 +456,7 @@ public class PivotText {
                     if (selectIdEnd > (selectIdStart + 1)) {
                         return false;
                     } else {
-                        PivotBaseElement pbe1 = (PivotBaseElement)elements[selectIdEnd];
+                        PivotBaseElement pbe1 = elements[selectIdEnd];
 
                         if (dot == pbe1.getPositionSite()) {
                             return true;
@@ -471,7 +471,7 @@ public class PivotText {
         } else {
             if (tagProtection) { //parent.tagProtection) {
 
-                PivotBaseElement pbe = (PivotBaseElement)elements[selectIdStart];
+                PivotBaseElement pbe = elements[selectIdStart];
 
                 if (pbe.getFlag()) {
                     return false;
@@ -500,7 +500,7 @@ public class PivotText {
         StringBuffer temp = new StringBuffer(0);
 
         for (int i = 0; i <= indexOfElements; i++) {
-            PivotBaseElement e = (PivotBaseElement)elements[i];
+            PivotBaseElement e = elements[i];
 
             if (!e.getFlag()) {
                 String t = e.getContent();
@@ -525,7 +525,7 @@ public class PivotText {
 
             if (tt.equals(temp)) {
                 if (i != (elements.length - 1)) {
-                    PivotBaseElement e = (PivotBaseElement)elements[i + 1];
+                    PivotBaseElement e = elements[i + 1];
 
                     if (e.getFlag()) {
                         if (!(e.isVisible())) {
@@ -561,14 +561,14 @@ public class PivotText {
         }
 
         if (index == (elements.length - 1)) {
-            PivotBaseElement e = (PivotBaseElement)elements[index];
+            PivotBaseElement e = elements[index];
 
             while (e.getFlag()) {
                 if (!(e.isVisible())) {
                     index = index - 1;
 
                     if (index != -1) {
-                        e = (PivotBaseElement)elements[index];
+                        e = elements[index];
                     } else {
                         break;
                     }

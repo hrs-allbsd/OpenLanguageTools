@@ -1086,7 +1086,7 @@ public class AlignmentMain extends JPanel implements AdjustmentListener {
         PivotTextEditor1 editor = (PivotTextEditor1)testMain1.tableView.getCellEditor(row, 1);
 
         if (editor != null) {
-            return (PivotTextPane)editor.getEditor();
+            return editor.getEditor();
         }
 
         return null;
@@ -1097,7 +1097,7 @@ public class AlignmentMain extends JPanel implements AdjustmentListener {
         PivotTextEditor1 editor = (PivotTextEditor1)testMain2.tableView.getCellEditor(row, 1);
 
         if (editor != null) {
-            return (PivotTextPane)editor.getEditor();
+            return editor.getEditor();
         }
 
         return null;

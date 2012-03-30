@@ -547,7 +547,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                             startPosition = 0;
                         }
                         
-                        TMData.TMSentence ali = (TMData.TMSentence)alignments[i];
+                        TMData.TMSentence ali = alignments[i];
                         
                         if (ali != null) {
                             String p = (isSrc) ? ali.getSource() : ali.getTranslation();
@@ -631,7 +631,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                             startSentence = 0;
                             startPosition = 0;
                             
-                            TMData.TMSentence ali = (TMData.TMSentence)alignments[i];
+                            TMData.TMSentence ali = alignments[i];
                             
                             if (ali != null) {
                                 String p = (isSrc) ? ali.getSource() : ali.getTranslation();
@@ -679,7 +679,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                             startPosition = 0;
                         }
                         
-                        TMData.TMSentence ali = (TMData.TMSentence)alignments[i];
+                        TMData.TMSentence ali = alignments[i];
                         
                         if (ali != null) {
                             String p = (isSrc) ? ali.getSource() : ali.getTranslation();
@@ -730,7 +730,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                 //System.out.println("search.startRow = "+ startRow);
                 if (initSearchRow >= startRow) {
                     for (int i = startRow; i > -1; i--) {
-                        TMData.TMSentence ali = (TMData.TMSentence)alignments[i];
+                        TMData.TMSentence ali = alignments[i];
                         
                         if (ali != null) {
                             if (i != startRow) {
@@ -823,7 +823,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                     
                     if (resume) {
                         for (int i = alignments.length - 1; i > initSearchRow; i--) {
-                            TMData.TMSentence ali = (TMData.TMSentence)alignments[i];
+                            TMData.TMSentence ali = alignments[i];
                             startSentence = 0;
                             startPosition = ((isSrc) ? ali.getSource() : ali.getTranslation()).length();
                             
@@ -882,7 +882,7 @@ public class TMInnerPanel extends JPanel implements KeyListener, FocusListener {
                     }
                 } else {
                     for (int i = startRow; i > initSearchRow; i--) {
-                        TMData.TMSentence ali = (TMData.TMSentence)alignments[i];
+                        TMData.TMSentence ali = alignments[i];
                         
                         if (i != startRow) {
                             startSentence = 0;

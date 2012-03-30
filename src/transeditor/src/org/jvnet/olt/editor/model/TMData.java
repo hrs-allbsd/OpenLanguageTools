@@ -197,7 +197,7 @@ public class TMData extends PivotData {
         public boolean build() {
             tempMatches.removeAllElements();
 
-            List listThisMatches = (List)xliffparser.getAltTransMatchInfo(transUnitId);
+            List listThisMatches = xliffparser.getAltTransMatchInfo(transUnitId);
             
             for (int i = 0; i < listThisMatches.size(); i++) {
                 Match m = (Match)listThisMatches.get(i);

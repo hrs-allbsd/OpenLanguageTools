@@ -245,7 +245,7 @@ implements SgmlDocFragmentParserVisitor, SgmlDocFragmentParserTreeConstants
       String strPoppedTag;
       while( !(boolTagFound || m_tagStack.empty()) )
       {
-	strPoppedTag = (String) popTagWithTest();
+	strPoppedTag = popTagWithTest();
 	boolTagFound = strPoppedTag.equals(tagName);
       }
 

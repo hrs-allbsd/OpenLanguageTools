@@ -512,8 +512,8 @@ public class SgmlCharacter {
         maptable2 = new Hashtable(mapping.length);
 
         for (int i = 0; i < mapping.length; i++) {
-            maptable1.put((Object)mapping[i][0], (Object)mapping[i][1]);
-            maptable2.put((Object)mapping[i][1], (Object)mapping[i][0]);
+            maptable1.put(mapping[i][0], mapping[i][1]);
+            maptable2.put(mapping[i][1], mapping[i][0]);
         }
     }
 
