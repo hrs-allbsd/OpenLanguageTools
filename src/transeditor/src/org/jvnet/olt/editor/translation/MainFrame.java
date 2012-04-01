@@ -1817,14 +1817,33 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
                     selectNewComponentFontSize();
                 }
             });
+        ActionListener tagsActionListener = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // tag hiding and abbreviation and protection are connected
+                boolean show = jCBMenuSHTag.isSelected();
+                boolean abbr = jCBMenuAbbrTagsDisplay.isSelected();
+                int type = AlignmentMain.SHOW_ALL_TAGS; // default
+                if (!show) {
+                    type = AlignmentMain.SHOW_PURE_TEXT;
+                } else if (abbr) {
+                    type = AlignmentMain.SHOW_ABBREVIATE_TAGS;
+                }
+                jCBMenuAbbrTagsDisplay.setEnabled(show);
+                AlignmentMain.testMain1.typeChanged(type);
+                AlignmentMain.testMain2.typeChanged(type);
+            }
+        };
+        jCBMenuSHTag.setSelected(true); // default
         jCBMenuSHTag.setEnabled(false);
         jCBMenuSHTag.setToolTipText(bundle.getString("Show/hide_tags_in_editor_windows"));
         jCBMenuSHTag.setName("Tags");
         jCBMenuSHTag.setText(bundle.getString("Tags"));
+        jCBMenuSHTag.addActionListener(tagsActionListener);
         jCBMenuAbbrTagsDisplay.setEnabled(false);
         jCBMenuAbbrTagsDisplay.setToolTipText(bundle.getString("Switch_on/off_abbreviated_tags"));
         jCBMenuAbbrTagsDisplay.setName("Abbreviated_Tags");
         jCBMenuAbbrTagsDisplay.setText(bundle.getString("Abbreviated_Tags"));
+        jCBMenuAbbrTagsDisplay.addActionListener(tagsActionListener);
         jCBMenuTagProtection.setToolTipText(bundle.getString("Switch_on/off_tag_protection"));
         jCBMenuTagProtection.setName("Tag_Protection");
         jCBMenuTagProtection.setText(bundle.getString("Tag_Protection"));
