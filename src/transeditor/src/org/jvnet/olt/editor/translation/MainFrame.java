@@ -3409,6 +3409,13 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
                         TMData tmpdata = backend.getTMData();
 
+                        HashMap<Integer, String> translationTypes = new HashMap<Integer, String>();
+                        translationTypes.put(Integer.valueOf(TMSentence.EXACT_TRANSLATION), bundle.getString("&lt;100&gt;"));
+                        translationTypes.put(Integer.valueOf(TMSentence.UNKNOWN_TRANSLATION), bundle.getString("&lt;UNT&gt;")); 
+                        translationTypes.put(Integer.valueOf(TMSentence.USER_TRANSLATION), bundle.getString("&lt;USE&gt;"));
+                        translationTypes.put(Integer.valueOf(TMSentence.AUTO_TRANSLATION), bundle.getString("&lt;AUT&gt;"));
+                        translationTypes.put(Integer.valueOf(TMSentence.FUZZY_TRANSLATION), bundle.getString("&lt;FUZ&gt;"));
+
                         for (int i = 0; i < ((tmpdata).tmsentences).length; i++) {
                             switch (contentType) {
                             case 1:
@@ -3429,32 +3436,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
                                     int type = (tmpdata).tmsentences[i].getTranslationType();
 
-                                    switch (type) {
-                                    case TMSentence.EXACT_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;100&gt;");
-
-                                        break;
-
-                                    case TMSentence.UNKNOWN_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;UNT&gt;");
-
-                                        break;
-
-                                    case TMSentence.USER_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;USE&gt;");
-
-                                        break;
-
-                                    case TMSentence.AUTO_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;AUT&gt;");
-
-                                        break;
-
-                                    case TMSentence.FUZZY_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;FUZ&gt;");
-
-                                        break;
-                                    }
+                                    typeStr = translationTypes.get(Integer.valueOf(type));
 
                                     write(out, typeStr);
                                     write(out, "</td>\r\n");
@@ -3498,32 +3480,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
                                     int type = (tmpdata).tmsentences[i].getTranslationType();
 
-                                    switch (type) {
-                                    case TMSentence.EXACT_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;100&gt;");
-
-                                        break;
-
-                                    case TMSentence.UNKNOWN_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;UNT&gt;");
-
-                                        break;
-
-                                    case TMSentence.USER_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;USE&gt;");
-
-                                        break;
-
-                                    case TMSentence.AUTO_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;AUT&gt;");
-
-                                        break;
-
-                                    case TMSentence.FUZZY_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;FUZ&gt;");
-
-                                        break;
-                                    }
+                                    typeStr = translationTypes.get(Integer.valueOf(type));
 
                                     write(out, typeStr);
                                     write(out, "</td>\r\n");
@@ -3580,32 +3537,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
                                     int type = (tmpdata).tmsentences[i].getTranslationType();
 
-                                    switch (type) {
-                                    case TMSentence.EXACT_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;100&gt;");
-
-                                        break;
-
-                                    case TMSentence.UNKNOWN_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;UNT&gt;");
-
-                                        break;
-
-                                    case TMSentence.USER_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;USE&gt;");
-
-                                        break;
-
-                                    case TMSentence.AUTO_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;AUT&gt;");
-
-                                        break;
-
-                                    case TMSentence.FUZZY_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;FUZ&gt;");
-
-                                        break;
-                                    }
+                                    typeStr = translationTypes.get(Integer.valueOf(type));
 
                                     write(out, typeStr);
                                     write(out, "</td>\r\n");
@@ -3662,32 +3594,7 @@ public class MainFrame extends JFrame implements PropertyChangeListener, ItemLis
 
                                     int type = (tmpdata).tmsentences[i].getTranslationType();
 
-                                    switch (type) {
-                                    case TMSentence.EXACT_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;100&gt;");
-
-                                        break;
-
-                                    case TMSentence.UNKNOWN_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;UNT&gt;");
-
-                                        break;
-
-                                    case TMSentence.USER_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;USE&gt;");
-
-                                        break;
-
-                                    case TMSentence.AUTO_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;AUT&gt;");
-
-                                        break;
-
-                                    case TMSentence.FUZZY_TRANSLATION:
-                                        typeStr = bundle.getString("&lt;FUZ&gt;");
-
-                                        break;
-                                    }
+                                    typeStr = translationTypes.get(Integer.valueOf(type));
 
                                     write(out, typeStr);
                                     write(out, "</td>\r\n");
