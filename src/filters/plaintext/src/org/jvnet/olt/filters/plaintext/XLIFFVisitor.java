@@ -96,7 +96,7 @@ public class XLIFFVisitor implements BlockSegmenter_enVisitor {
                     String s = (String)it.next();
                     formatter.writeSegment(s, wordCount(s,0));
                     if (formatting.containsKey(new Integer(counter))){
-                        formatter.writeFormatting(((String)formatting.get(new Integer(counter))));;
+                        formatter.writeFormatting(((String)formatting.get(new Integer(counter))));
                         // remove that object from the formatting map
                         formatting.remove(new Integer(counter));
                     }

@@ -81,7 +81,7 @@ public class JBackConverter extends JDialog {
     private Bundle bundle = Bundle.getBundle(JBackConverter.class.getName());
 //private String strCurrentPath = null;
     private File preselectedFile;
-    private javax.swing.JCheckBox jcbTransState; // = new JCheckBox();;
+    private javax.swing.JCheckBox jcbTransState; // = new JCheckBox();
 
     public JBackConverter(JFrame m_fmInput) {
         super(m_fmInput, true);

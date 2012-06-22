@@ -48,7 +48,7 @@ import org.xml.sax.*;
 public class SuntransMappingFileParser implements ContentHandler {
 
     private java.lang.StringBuffer buffer = new StringBuffer(128);
-    private java.util.Stack context = new java.util.Stack();;
+    private java.util.Stack context = new java.util.Stack();
 
     private SuntransMappingFileHandler handler;
 

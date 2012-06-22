@@ -81,7 +81,7 @@ public class XliffWriterFacade {
     
     private String lastId = "";
     private StringBuffer source = new StringBuffer("");
-    private StringBuffer target = new StringBuffer("");;
+    private StringBuffer target = new StringBuffer("");
     
     /**
      * Do not allow to use constructor

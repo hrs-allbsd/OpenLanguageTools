@@ -82,7 +82,7 @@ public class ASpellChecker extends SpellChecker{
         BufferedReader r;
         Process p;
         
-        boolean firstRun = true;;
+        boolean firstRun = true;
         
         ASpellSession(Process p) throws IOException {
             this.p = p;
