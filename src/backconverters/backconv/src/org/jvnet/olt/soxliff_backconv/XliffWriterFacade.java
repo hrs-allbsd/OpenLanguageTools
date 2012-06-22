@@ -94,7 +94,7 @@ public class XliffWriterFacade {
         document = DocumentHelper.createDocument();
         document.setDocType(new DOMDocumentType(ELEMENT_NAME,PUBLIC_ID,SYSTEM_ID));
         
-        // create header of the tmx file
+        // create header of the xliff file
         Element xliff = document.addElement(XLIFF_TAG);
         xliff.addAttribute(XLIFF_TAG_VERSION_ATT, XLIFF_TAG_VERSION_VAL);
         
@@ -227,6 +227,5 @@ public class XliffWriterFacade {
         return writer.toString();
         
     }
-
     
 }
