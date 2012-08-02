@@ -10,7 +10,7 @@
         <appversion>@VERSION@</appversion>
         <appsubpath>Open_Language_Tools/XLIFF_Translation_Editor/@VERSION@</appsubpath>
         <authors>
-            <author name="Open Language Tools project" email="dev@open-language-tools.dev.java.net"/>
+            <author name="Open Language Tools project" email="dev@open-language-tools.java.net"/>
         </authors>
 		<javaversion>1.5,1.6</javaversion>
         <url>https://open-language-tools.java.net</url>

@@ -81,7 +81,7 @@ Solaris/Linux/UNIX:
 	
 If your problems persist, please contact us at this e-mail address:
 
-users@open-language-tools.dev.java.net
+users@open-language-tools.java.net
 
 The OLT XLIFF Translation Editor Team.
 

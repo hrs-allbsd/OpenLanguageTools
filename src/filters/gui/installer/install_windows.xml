@@ -10,7 +10,7 @@
         <appversion>@VERSION@ </appversion>
 		<appsubpath>Open_Language_Tools/XLIFF_Filters/@VERSION@</appsubpath>
         <authors>
-            <author name="Open Language Tools" email="dev@open-language-tools.dev.java.net"/>
+            <author name="Open Language Tools" email="dev@open-language-tools.java.net"/>
         </authors>
         <url>https://open-language-tools.java.net</url>
     </info>

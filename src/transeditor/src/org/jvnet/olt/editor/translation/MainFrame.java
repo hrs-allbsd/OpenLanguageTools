@@ -6740,11 +6740,11 @@ OUTER2:
 
     /*
     void saveFileFailed(Throwable t) {
-        JOptionPane.showMessageDialog(this, "Unknown error occured while saving the file.\n" + "Please copy the text in editor console and send it to\n" + "dev@open-language-tools.dev.java.net along with a copy of\n" + "the file.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Unknown error occured while saving the file.\n" + "Please copy the text in editor console and send it to\n" + "dev@open-language-tools.java.net along with a copy of\n" + "the file.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     void saveFileFailed() {
-        JOptionPane.showMessageDialog(this, "Unknown error occured while saving the file.\n" + "Please copy the text in editor console and send it to\n" + "dev@open-language-tools.dev.java.net along with a copy of\n" + "the file.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Unknown error occured while saving the file.\n" + "Please copy the text in editor console and send it to\n" + "dev@open-language-tools.java.net along with a copy of\n" + "the file.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 */
     /** Aks user to save file if modified.
