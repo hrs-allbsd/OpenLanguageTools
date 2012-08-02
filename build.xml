@@ -15,7 +15,7 @@
         <echo>This is the Open Language Tools build file. Valid targets are :</echo>
         <echo>about, global_utilities, filters, transeditor, backconverters</echo>
         <echo>More information is available at</echo>
-        <echo>https://open-language-tools.dev.java.net</echo>
+        <echo>https://open-language-tools.java.net</echo>
     </target>
 
     <target name="clean" depends="init">
