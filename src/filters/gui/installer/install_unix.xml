@@ -12,7 +12,7 @@
         <authors>
             <author name="Open Language Tools project" email="dev@open-language-tools.dev.java.net"/>
         </authors>
-        <url>https://open-language-tools.dev.java.net</url>
+        <url>https://open-language-tools.java.net</url>
     </info>
     
     <guiprefs width="640" height="480" resizable="no"/>
