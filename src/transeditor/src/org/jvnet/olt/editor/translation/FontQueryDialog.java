@@ -86,7 +86,7 @@ public class FontQueryDialog extends JDialog {
 
         samplePanel.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Sample")), new javax.swing.border.EmptyBorder(new java.awt.Insets(5, 5, 5, 5))));
         sampleLabel.setBackground(new java.awt.Color(255, 255, 255));
-        sampleLabel.setFont(new java.awt.Font("Dialog", 1, 24));
+        sampleLabel.setFont(new java.awt.Font("Dialog", Font.BOLD, 24));
         sampleLabel.setText(org.jvnet.olt.editor.util.Bundle.getBundle("org/jvnet/olt/editor/translation/FontQueryDialog").getString("Sample_text"));
         sampleLabel.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(0, 20, 0, 0)));
         sampleLabel.setDoubleBuffered(true);
@@ -262,15 +262,15 @@ public class FontQueryDialog extends JDialog {
         switch(selection) {
             case SMALLFONT:
                 buttonModel = radioSmallText.getModel();
-                sampleLabel.setFont(new Font("Dialog",1,12));
+                sampleLabel.setFont(new Font("Dialog",Font.BOLD,12));
                 break;
             case MEDIUMFONT:
                 buttonModel = radioMediumText.getModel();
-                sampleLabel.setFont(new Font("Dialog",1,18));
+                sampleLabel.setFont(new Font("Dialog",Font.BOLD,18));
                 break;
             case LARGEFONT:
                 buttonModel = radioLargeText.getModel();
-                sampleLabel.setFont(new Font("Dialog",1,24));
+                sampleLabel.setFont(new Font("Dialog",Font.BOLD,24));
                 break;
         }
         
