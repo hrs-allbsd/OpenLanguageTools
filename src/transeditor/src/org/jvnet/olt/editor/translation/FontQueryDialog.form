@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
-<Form version="1.0" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.2" maxVersion="1.2" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup">
     </Component>
   </NonVisualComponents>
   <Properties>
-    <Property name="title" type="java.lang.String" value="Select Font Size Option"/>
+    <Property name="title" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="org.jvnet.olt.editor.util.Bundle.getBundle(&quot;org/jvnet/olt/editor/translation/FontQueryDialog&quot;).getString(&quot;Select_Font_Size_Option&quot;)" type="code"/>
+    </Property>
     <Property name="modal" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
@@ -20,7 +22,11 @@
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="closeDialog"/>
   </Events>
   <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
@@ -48,14 +54,14 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                <CompundBorder>
+                <CompoundBorder>
                   <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder title="Sample"/>
                   </Border>
                   <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                     <EmptyBorder bottom="5" left="5" right="5" top="5"/>
                   </Border>
-                </CompundBorder>
+                </CompoundBorder>
               </Border>
             </Property>
           </Properties>
@@ -72,12 +78,12 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-                  <FontInfo relative="false">
-                    <Font name="Dialog" size="24" style="1"/>
-                  </FontInfo>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="24" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sample text"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="org.jvnet.olt.editor.util.Bundle.getBundle(&quot;org/jvnet/olt/editor/translation/FontQueryDialog&quot;).getString(&quot;Sample_text&quot;)" type="code"/>
+                </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                     <EmptyBorder bottom="0" left="20" right="0" top="0"/>
@@ -115,7 +121,9 @@
                   <ComponentRef name="buttonGroup"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="83"/>
-                <Property name="text" type="java.lang.String" value="Small text (12 pts)"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="org.jvnet.olt.editor.util.Bundle.getBundle(&quot;org/jvnet/olt/editor/translation/FontQueryDialog&quot;).getString(&quot;Small_text_(12_pts)&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioSmallTextActionPerformed"/>
@@ -127,7 +135,9 @@
                   <ComponentRef name="buttonGroup"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="77"/>
-                <Property name="text" type="java.lang.String" value="Medium text (18 pts)"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="org.jvnet.olt.editor.util.Bundle.getBundle(&quot;org/jvnet/olt/editor/translation/FontQueryDialog&quot;).getString(&quot;Medium_text_(18_pts)&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioMediumTextActionPerformed"/>
@@ -139,7 +149,9 @@
                   <ComponentRef name="buttonGroup"/>
                 </Property>
                 <Property name="mnemonic" type="int" value="76"/>
-                <Property name="text" type="java.lang.String" value="Large text (24 pts)"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="org.jvnet.olt.editor.util.Bundle.getBundle(&quot;org/jvnet/olt/editor/translation/FontQueryDialog&quot;).getString(&quot;Large_text_(24_pts)&quot;)" type="code"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioLargeTextActionPerformed"/>
@@ -172,7 +184,9 @@
         <Component class="javax.swing.JButton" name="okButton">
           <Properties>
             <Property name="mnemonic" type="int" value="79"/>
-            <Property name="text" type="java.lang.String" value="OK"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="org.jvnet.olt.editor.util.Bundle.getBundle(&quot;org/jvnet/olt/editor/translation/FontQueryDialog&quot;).getString(&quot;OK&quot;)" type="code"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okButtonActionPerformed"/>
@@ -181,7 +195,9 @@
         <Component class="javax.swing.JButton" name="cancelButton">
           <Properties>
             <Property name="mnemonic" type="int" value="67"/>
-            <Property name="text" type="java.lang.String" value="Cancel"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="org.jvnet.olt.editor.util.Bundle.getBundle(&quot;org/jvnet/olt/editor/translation/FontQueryDialog&quot;).getString(&quot;Cancel&quot;)" type="code"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>

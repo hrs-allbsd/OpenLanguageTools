@@ -107,7 +107,6 @@ public class FontQueryDialog extends JDialog {
                 radioSmallTextActionPerformed(evt);
             }
         });
-
         optionsPanel.add(radioSmallText);
 
         radioMediumText.setMnemonic('M');
@@ -118,7 +117,6 @@ public class FontQueryDialog extends JDialog {
                 radioMediumTextActionPerformed(evt);
             }
         });
-
         optionsPanel.add(radioMediumText);
 
         radioLargeText.setMnemonic('L');
@@ -129,7 +127,6 @@ public class FontQueryDialog extends JDialog {
                 radioLargeTextActionPerformed(evt);
             }
         });
-
         optionsPanel.add(radioLargeText);
 
         mainPanel.add(optionsPanel, java.awt.BorderLayout.CENTER);
@@ -146,7 +143,6 @@ public class FontQueryDialog extends JDialog {
                 okButtonActionPerformed(evt);
             }
         });
-
         buttonPanel.add(okButton);
 
         cancelButton.setMnemonic('C');
@@ -156,7 +152,6 @@ public class FontQueryDialog extends JDialog {
                 cancelButtonActionPerformed(evt);
             }
         });
-
         buttonPanel.add(cancelButton);
 
         getContentPane().add(buttonPanel, java.awt.BorderLayout.SOUTH);
