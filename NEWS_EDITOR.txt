@@ -7,6 +7,8 @@
 
 Changes in source code repository which may be included in next release:
 
+ * Added an option to select a font family to font dialog (from view menu).
+ * Adapted web and mail addresses in from dev.java.net to new java.net only.
  * Added a possibility to display the PDF manual using editor's help menu.
  * Enabled some more useful error messages (e.g. if loading XLIFF failed).
  * Fixed crash if loading a XLIFF file containing duplicate trans-unit ids.
