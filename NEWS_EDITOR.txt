@@ -7,6 +7,7 @@
 
 Changes in source code repository which may be included in next release:
 
+ * Corrected font size changes not instantly showing up after selection and closing font dialog.
  * Added an option to select a font family to font dialog (from view menu).
  * Adapted web and mail addresses in from dev.java.net to new java.net only.
  * Added a possibility to display the PDF manual using editor's help menu.

@@ -6704,6 +6704,30 @@ OUTER2:
                 editTableComponents[i].setNewFont(newFont);
             }
         }
+
+         // update font in editors
+
+        PivotTextPane[] editors = new PivotTextPane[] {
+            PivotTextEditor1.sourceEditor,
+            PivotTextEditor1.targetEditor
+        };
+        for (int i = 0; i < editors.length; ++i) {
+            if (editors[i] != null) {
+                editors[i].setFont(newFont);
+            }
+        }
+
+        // repaint tables to make change show up
+
+        JTable[] tables = new JTable[] {
+            AlignmentMain.testMain1.tableView,
+            AlignmentMain.testMain2.tableView
+        };
+        for (int i = 0; i < tables.length; ++i) {
+            if (tables[i] != null) {
+                tables[i].repaint();
+            }
+        }
     }
 
     public static void setDefaultFont(java.awt.Font font) {
