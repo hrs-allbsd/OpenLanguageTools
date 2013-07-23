@@ -104,5 +104,6 @@
         </pack>
     </packs>
     <native type="izpack" name="ShellLink.dll"/>
+    <native type="izpack" name="ShellLink_x64.dll"/>
 
 </installation>
