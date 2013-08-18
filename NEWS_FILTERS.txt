@@ -7,6 +7,7 @@
 
 Changes in source code repository which may be included in next release:
 
+ * Fixed installer failure when creating shortcuts on x64 versions of Microsoft Windows.
  * Changed installer configuration to be more consistent (path, names) across different platforms.
  * Added German GUI translation contributed by Philipp Wiesemann.
  * Fixed multiple problems with not closed files (on systems with file locking like Windows only).
