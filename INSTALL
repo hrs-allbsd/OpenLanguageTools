@@ -1,5 +1,5 @@
 Full information on how to build and install the Open Language Tools components
-is available at https://open-language-tools.dev.java.net.
+is available at http://open-language-tools.java.net.
 
 If you don't have access to that, then get a copy of ant (1.6.2 or later)
 and the Java 1.4.2 SDK. Then issue the command :
