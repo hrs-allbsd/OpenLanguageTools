@@ -94,7 +94,7 @@
         
         <h4>Parse input file</h4>
         <p>The initial stage of most XLIFF filters, our aim is to be able to create an internal representation
-        of a document. The parsing stage splits up a file into it's constituent parts. For example, when
+        of a document. The parsing stage splits up a file into its constituent parts. For example, when
         parsing a HTML file, we would be interested in being able to recognise HTML elements and attributes, 
         text data, comments and the "DOCTYPE" declaration. Given this internal representation of a document,
         it should be possible to write an exact copy of the original file. It is this parser that helps later
@@ -128,7 +128,7 @@
         
         <h4>Write XLIFF file</h4>
         <p>Now that we've got segments of text identified from our input document, we can now write
-            the XLIFF file, with each segment of text being written to it's own part of the XLIFF file. This
+            the XLIFF file, with each segment of text being written to its own part of the XLIFF file. This
             deals with with the text that ultimately gets shown to the translator. At this point, we may also choose
             to write some other metadata to the XLIFF file, for example, notes to translators found from
             <em>gettext .PO</em> file comments, or <em>JavaScript</em> comments found in the input file.
@@ -144,7 +144,7 @@
             of the non-translatable portions of text or formatting found in the source file format. The
             specification also allows for sections of skeleton text to appear within the XLIFF file, but in order
             to keep the file-size of the XLIFF file as small as possible, we choose to write the skeleton data
-            as a separate file. Given an XLIFF file, and it's corresponding skeleton file, it should be possible
+            as a separate file. Given an XLIFF file, and its corresponding skeleton file, it should be possible
             to reproduce exactly the source file that was presented for translation.
         
             The Open Language Tools XLIFF filters store the skeleton file in a file with the <code>skl</code>

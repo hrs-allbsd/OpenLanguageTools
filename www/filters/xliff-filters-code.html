@@ -57,7 +57,7 @@
         <h3>Introduction</h3>
         <p>This document lists some of the notable sections of the source code in the
             Open Language Tools XLIFF Filters <del>CVS</del><ins>Subversion</ins> repository, explains what they
-            contain and notes some details about them. It's purpose is to act as
+            contain and notes some details about them. Its purpose is to act as
             a guide to developers looking at the source tree for the first time.
             While the code itself is already quite well documented, there's been
             no documentation so far that explains the entire source code at a
@@ -228,14 +228,14 @@
         <h4>html_parser/</h4>
         <p>This is the source for the HTML to XLIFF filter. It implements
             interfaces found in the <code>tagged_markup</code> directory under
-            utilities, and relies on the sgml_filter for much of it's functionality.
+            utilities, and relies on the sgml_filter for much of its functionality.
         </p>
 
         <a name="jsp_filter/"></a>
         <h4>jsp_filter/</h4>
         <p>This is the JSP to XLIFF filter. Similar to the HTML filter, it
             implements interfaces from the <code>tagged_markup</code> package
-            and relies on the sgml_filter for it's functionality.
+            and relies on the sgml_filter for its functionality.
         </p>
         
         <a name="non-conformant_sgml_tag_parser/"></a>
@@ -296,7 +296,7 @@
         <p>The software filters contain JavaCC/JJTree parsers for all of the
             supported software message filetypes. They also contain code that performs
             conversion to XLIFF for these filetypes and a simple TMX producing class,
-            which can take a software message file and it's translated equivalent and output
+            which can take a software message file and its translated equivalent and output
             a TMX file. Finally, it contains a useful pretty-printer for software
             message files, which is used to output a cleanly formatted version of
             any software message file.
@@ -305,7 +305,7 @@
         <a name="staroffice_filter/"></a>
         <h4>staroffice_filter/</h4>
         <p>The StarOffice/OpenOffice.org filter converts sxw, sxc and sxi files
-            to XLIFF. While it uses the XML filter to provide it's main functionality,
+            to XLIFF. While it uses the XML filter to provide its main functionality,
             it contains code to extract the <code>content.xml</code> file from the
             document zip archive, segments it, converts to XLIFF and then bundles
             the rest of the files which make up the document into the xlz archive.
@@ -333,7 +333,7 @@
         
         <a name="xml_filter/"></a>
         <h4>xml_filter/</h4>
-        <p>The XML filter relies on the SGML filter to provide much of it's
+        <p>The XML filter relies on the SGML filter to provide much of its
             functionality and also uses the XML Configuration Manager to select
             the correct filter configuration file (done by searching for either the
             namespace of the input XML document or the DOCTYPE declaration if one
@@ -354,8 +354,8 @@
             containing both content and skeleton files. It's conceivable that we
             could also write additional code here that converts an XLIFF file into other
             file formats, such as PO files, or other software message containers,
-            however in essence, it's function is to convert an XLIFF file
-            back to it's original source format. The generic backconverter also contains
+            however in essence, its function is to convert an XLIFF file
+            back to its original source format. The generic backconverter also contains
             some format-specific classes which further process the backconverter.
         </p>
         <p>
